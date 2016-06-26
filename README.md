@@ -1,3 +1,3 @@
-### react-native-apple-healthkit
+# react-native-apple-healthkit
 
 
