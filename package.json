@@ -1,0 +1,28 @@
+{
+  "name": "react-native-apple-healthkit",
+  "version": "0.0.1",
+  "description": "A React Native bridge module for interacting with Apple HealthKit data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com:GregWilson/RCTAppleHealthKit.git"
+  },
+  "keywords": [
+    "Apple",
+    "HealthKit",
+	"health-kit",
+    "ReactNative",
+	"react-native"
+  ],
+  "author": "Greg Wilson",
+  "license": "MIT",
+  "devDependencies": {
+    "react-native": "^0.28.0"
+  },
+  "peerDependencies": {
+    "react-native": "^0.28.0"
+  }
+}
