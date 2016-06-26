@@ -1,2 +1,3 @@
-### RCTAppleHealthKit
+### react-native-apple-healthkit
+
 
