@@ -224,14 +224,13 @@ AppleHealthKit.getLatestBmi(null, (err: string, bmi: Object) => {
 ___
 
 #### **`getLatestBodyFatPercentage`**
-get the most recent body fat percentage. the value is a percentage between 0 and 100
+get the most recent body fat percentage. the percentage value is a number between 0 and 100
 ```javascript
 AppleHealthKit.getLatestBodyFatPercentage(null, (err: Object, bodyFatPercentage: number) => {
     if(this._handleHealthKitError(err, 'getLatestBodyFatPercentage')){
         return;
     }
-    // bodyFatPercentage now available as number
-    // ...
+    // use bodyFatPercentage ...
 });
 ```
 
