@@ -14,6 +14,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [initHealthKit](#inithealthkit)
       * [getLatestWeight](#getlatestweight)
       * [saveWeight](#saveweight)
+      * [getLatestHeight](#getlatestheight)
 
 ## Getting started
 
@@ -184,6 +185,20 @@ AppleHealthKit.saveWeight(saveOptions, (err, res) => {
         return;
     }
     // weight successfully saved
+});
+```
+
+___
+
+#### **`getLatestHeight`**
+get the most recent height value
+```javascript
+AppleHealthKit.getLatestHeight(null, (err: string, height: number) => {
+    if(err){
+        console.log("error getting latest height: ", err);
+        return;
+    }
+    // do something with the height value...
 });
 ```
 
