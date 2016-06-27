@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com:GregWilson/RCTAppleHealthKit.git"
+    "url": "git+https://github.com/GregWilson/react-native-apple-healthkit.git"
   },
   "keywords": [
     "Apple",
