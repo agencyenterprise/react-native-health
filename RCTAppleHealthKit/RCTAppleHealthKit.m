@@ -44,7 +44,6 @@ RCT_EXPORT_METHOD(getLatestBmi:(NSDictionary *)input callback:(RCTResponseSender
     [self body_getLatestBodyMassIndex:input callback:callback];
 }
 
-
 RCT_EXPORT_METHOD(getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getStepCountForToday:input callback:callback];
@@ -109,83 +108,11 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
     }
 }
 
-//
-//- (void)getHealthKitUserWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-//{
-////    NSMassFormatter *massFormatter = [[NSMassFormatter alloc] init];
-////    massFormatter.unitStyle = NSFormattingUnitStyleLong;
-//
-//    //    NSMassFormatterUnit weightFormatterUnit = NSMassFormatterUnitPound;
-//    //    NSString *weightUnitString = [massFormatter unitStringFromValue:10 unit:weightFormatterUnit];
-//    //    NSString *localizedWeightUnitDescriptionFormat = NSLocalizedString(@"Weight (%@)", nil);
-//
-//    // Query to get the user's latest weight, if it exists.
-//    HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
-//
-//    [self fetchMostRecentQuantitySampleOfType:weightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
-//        if (!mostRecentQuantity) {
-//            NSLog(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.");
-//            callback(@[RCTMakeError(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
-//        }
-//        else {
-//            // Determine the weight in the required unit.
-//            HKUnit *weightUnit = [HKUnit poundUnit];
-//            double usersWeight = [mostRecentQuantity doubleValueForUnit:weightUnit];
-//
-//            callback(@[[NSNull null], @(usersWeight)]);
-//        }
-//    }];
-//}
-
-//
-//- (void)saveHealthKitUserWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-//{
-//    double weight= [[input objectForKey:@"weight"] doubleValue];
-//
-//    HKUnit *poundUnit = [HKUnit poundUnit];
-//    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:poundUnit doubleValue:weight];
-//
-//    HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
-//    NSDate *now = [NSDate date];
-//
-//    HKQuantitySample *weightSample = [HKQuantitySample quantitySampleWithType:weightType quantity:weightQuantity startDate:now endDate:now];
-//
-//    [self.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
-//        if (!success) {
-//            NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", weightSample, error);
-//            callback(@[RCTMakeError(@"An error occured saving the weight sample", nil, nil)]);
-//            return;
-//            // abort();
-//        }
-//        callback(@[[NSNull null], @(weight)]);
-//    }];
-//}
-
-
-//- (void)getHealthKitUserStepCount:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-//{
-//    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-//    HKUnit *stepsUnit = [HKUnit countUnit];
-//
-//    [self fetchSumOfSamplesTodayForType:stepCountType unit:stepsUnit completion:^(double totalSteps, NSError *error) {
-//        if (!totalSteps) {
-//            NSLog(@"Either an error occured fetching the user's step count information or none has been stored yet. In your app, try to handle this gracefully.");
-//            callback(@[RCTMakeError(@"Either an error occured fetching the user's step count information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
-//            return;
-//        }
-//
-//        callback(@[[NSNull null], @(totalSteps)]);
-//    }];
-//}
-
-
 
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     callback(@[[NSNull null], @"ReactNative Apple HealthKit Native Module. Created By Greg Wilson."]);
 }
-
-
 
 
 @end

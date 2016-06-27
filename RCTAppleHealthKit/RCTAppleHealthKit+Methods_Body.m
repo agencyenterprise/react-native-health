@@ -11,6 +11,7 @@
 
 @implementation RCTAppleHealthKit (Methods_Body)
 
+
 - (void)body_getCurrentWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     // Query to get the user's latest weight, if it exists.
@@ -30,8 +31,6 @@
         }
     }];
 }
-
-
 
 
 - (void)body_saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -58,7 +57,6 @@
 }
 
 
-
 - (void)body_getLatestBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     // Query to get the user's latest BMI, if it exists.
@@ -78,7 +76,6 @@
         }
     }];
 }
-
 
 
 @end
