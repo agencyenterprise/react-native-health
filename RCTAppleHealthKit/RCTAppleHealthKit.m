@@ -78,7 +78,6 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
         if(permissions != nil){
             NSArray* readPermsArray = [permissions objectForKey:@"read"];
             NSArray* writePermsArray = [permissions objectForKey:@"write"];
-            
             NSSet* readPerms = [self getReadPermsFromOptions:readPermsArray];
             NSSet* writePerms = [self getWritePermsFromOptions:writePermsArray];
             
@@ -112,7 +111,7 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
             }
         }];
     } else {
-        callback(@[RCTMakeError(@"HealthKit not available....", nil, nil)]);
+        callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
     }
 }
 
