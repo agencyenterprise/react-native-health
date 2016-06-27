@@ -78,5 +78,35 @@ AppleHealthKit.saveWeight({weight:myWeight}, (err, res) => {
 ### Methods
 
 **`isAvailable`** : check if HealthKit is available on the device
+```javascript
+AppleHealthKit.isAvailable((err: string, available: bool) => {
+    if(available){
+        // ...
+    }
+});
+```
+
+
+**`initHealthKit`** : check if HealthKit is available on the device
+
+`initHealthKit` requires an options object with HealthKit permission settings.
+```javascript
+let healthKitOptions = {
+    permissions: {
+        read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
+        write: ["Weight"]
+    }
+};
+
+AppleHealthKit.initHealthKit(healthKitOptions: object, (err: string, res: object) => {
+    if(err) {
+        console.log("error initializing healthkit: ", err);
+        return;
+    }
+    // healthkit is initialized...
+    // now safe to read and write healthkit data...
+});
+```
+
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
