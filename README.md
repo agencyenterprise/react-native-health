@@ -16,6 +16,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [saveWeight](#saveweight)
       * [getLatestHeight](#getlatestheight)
       * [getLatestBmi](#getlatestbmi)
+      * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
 
 ## Getting started
 
@@ -217,6 +218,20 @@ AppleHealthKit.getLatestBmi(null, (err: string, bmi: Object) => {
         let val = bmi.value;
         // ...
     }
+});
+```
+
+___
+
+#### **`getLatestBodyFatPercentage`**
+get the most recent body fat percentage. the value is a percentage between 0 and 100
+```javascript
+AppleHealthKit.getLatestBodyFatPercentage(null, (err: Object, bodyFatPercentage: number) => {
+    if(this._handleHealthKitError(err, 'getLatestBodyFatPercentage')){
+        return;
+    }
+    // bodyFatPercentage now available as number
+    // ...
 });
 ```
 
