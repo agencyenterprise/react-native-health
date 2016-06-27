@@ -39,6 +39,12 @@ RCT_EXPORT_METHOD(saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBl
     [self body_saveWeight:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getLatestBmi:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getLatestBodyMassIndex:input callback:callback];
+}
+
+
 RCT_EXPORT_METHOD(getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getStepCountForToday:input callback:callback];

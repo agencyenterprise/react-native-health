@@ -57,4 +57,28 @@
     }];
 }
 
+
+
+- (void)body_getLatestBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    // Query to get the user's latest BMI, if it exists.
+    HKQuantityType *bmiType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+
+    [self fetchMostRecentQuantitySampleOfType:bmiType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"Either an error occured fetching the user's bmi information or none has been stored yet. In your app, try to handle this gracefully.");
+            callback(@[RCTMakeError(@"Either an error occured fetching the user's bmi information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+        }
+        else {
+            // Determine the bmi in the required unit.
+            HKUnit *countUnit = [HKUnit countUnit];
+            double bmi = [mostRecentQuantity doubleValueForUnit:countUnit];
+
+            callback(@[[NSNull null], @(bmi)]);
+        }
+    }];
+}
+
+
+
 @end

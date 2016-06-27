@@ -13,4 +13,6 @@
 - (void)body_getCurrentWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)body_saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
+- (void)body_getLatestBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+
 @end
