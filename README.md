@@ -2,6 +2,14 @@
 A React Native bridge module for interacting with [Apple HealthKit] data. 
 
 ![Alt text](https://devimages.apple.com.edgekey.net/assets/elements/icons/healthkit/healthkit-64x64.png "Apple HealthKit")
+
+  * [Getting Started](#getting-started)
+    * [Installation](#installation-xcode)
+    * [Usage](#usage)
+  * [Documentation](#documentation)
+    * [Permissions](#permissions)
+    * [Methods](#methods)
+
 ## Getting started
 
 ###  Installation (xcode)
