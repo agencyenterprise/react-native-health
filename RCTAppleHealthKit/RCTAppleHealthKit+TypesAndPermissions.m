@@ -80,7 +80,6 @@
     }
     
     return readPermSet;
-    //    return [self dataTypesToRead];
 }
 
 
@@ -99,7 +98,6 @@
     }
     
     return writePermSet;
-    //    return [self dataTypesToWrite];
 }
 
 @end
