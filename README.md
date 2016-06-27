@@ -12,7 +12,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
     * [Methods](#methods)
       * [isAvailable](#isavailable)
       * [initHealthKit](#inithealthkit)
-      * [getCurrentWeight](#getcurrentweight)
+      * [getLatestWeight](#getlatestweight)
       * [saveWeight](#saveweight)
 
 ## Getting started
@@ -155,12 +155,12 @@ AppleHealthKit.initHealthKit(healthKitOptions: object, (err: string, res: object
 
 ___
 
-#### **`getCurrentWeight`**
+#### **`getLatestWeight`**
 get the most recent weight value
 ```javascript
-AppleHealthKit.getCurrentWeight(null, (err: string, weight: number) => {
+AppleHealthKit.getLatestWeight(null, (err: string, weight: number) => {
     if(err){
-        console.log("error getting current weight: ", err);
+        console.log("error getting latest weight: ", err);
         return;
     }
     weight = _.round(weight,1);
