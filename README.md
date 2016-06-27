@@ -138,5 +138,19 @@ AppleHealthKit.initHealthKit(healthKitOptions: object, (err: string, res: object
 });
 ```
 
+___
+
+**`getCurrentWeight`** : get the most recent weight value
+```javascript
+AppleHealthKit.getCurrentWeight(null, (err, weight) => {
+    if(err){
+        console.log("error getting current weight: ", err);
+        return;
+    }
+    weight = _.round(weight,1);
+    // ...
+});
+```
+
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
