@@ -10,6 +10,9 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
     * [Permissions](#permissions)
     * [Methods](#methods)
       * [isAvailable](#isavailable)
+      * [initHealthKit](#inithealthkit)
+      * [getCurrentWeight](#getcurrentweight)
+      * [saveWeight](#saveweight)
 
 ## Getting started
 
