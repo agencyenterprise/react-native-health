@@ -75,6 +75,34 @@ AppleHealthKit.saveWeight({weight:myWeight}, (err, res) => {
 
 ## Documentation
 
+### Permissions
+
+The available HealthKit permissions to use with `initHealthKit` 
+
+Read Permissions:
+
+    Height               HKQuantityTypeIdentifierHeight
+    Weight               HKQuantityTypeIdentifierBodyMass
+    BodyFatPercentage    HKQuantityTypeIdentifierBodyFatPercentage
+    BodyMassIndex        HKQuantityTypeIdentifierBodyMassIndex
+    LeanBodyMass         HKQuantityTypeIdentifierLeanBodyMass
+    Steps                HKQuantityTypeIdentifierStepCount
+    Sex                  HKCharacteristicTypeIdentifierBiologicalSex
+    DateOfBirth          HKCharacteristicTypeIdentifierDateOfBirth
+    DietaryEnergy        HKQuantityTypeIdentifierDietaryEnergyConsumed
+    ActiveEnergy         HKQuantityTypeIdentifierActiveEnergyBurned
+    
+Write Permissions:
+
+    Height               HKQuantityTypeIdentifierHeight
+    Weight               HKQuantityTypeIdentifierBodyMass
+    BodyFatPercentage    HKQuantityTypeIdentifierBodyFatPercentage
+    BodyMassIndex        HKQuantityTypeIdentifierBodyMassIndex
+    LeanBodyMass         HKQuantityTypeIdentifierLeanBodyMass
+    Steps                HKQuantityTypeIdentifierStepCount
+    DietaryEnergy        HKQuantityTypeIdentifierDietaryEnergyConsumed
+    ActiveEnergy         HKQuantityTypeIdentifierActiveEnergyBurned
+        
 ### Methods
 
 **`isAvailable`** : check if HealthKit is available on the device
