@@ -105,8 +105,8 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
 
 - (void)getHealthKitUserWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    NSMassFormatter *massFormatter = [[NSMassFormatter alloc] init];
-    massFormatter.unitStyle = NSFormattingUnitStyleLong;
+//    NSMassFormatter *massFormatter = [[NSMassFormatter alloc] init];
+//    massFormatter.unitStyle = NSFormattingUnitStyleLong;
     
     //    NSMassFormatterUnit weightFormatterUnit = NSMassFormatterUnitPound;
     //    NSString *weightUnitString = [massFormatter unitStringFromValue:10 unit:weightFormatterUnit];
@@ -126,8 +126,6 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
             double usersWeight = [mostRecentQuantity doubleValueForUnit:weightUnit];
             
             callback(@[[NSNull null], @(usersWeight)]);
-            //      dispatch_async(dispatch_get_main_queue(), ^{
-            //      });
         }
     }];
 }
