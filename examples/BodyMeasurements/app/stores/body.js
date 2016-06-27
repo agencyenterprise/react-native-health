@@ -143,8 +143,8 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitUserWeight() {
         let self = this;
-        AppleHealthKit.getCurrentWeight(null, (err, weight) => {
-            if(this._handleHealthKitError(err, 'getCurrentWeight')){
+        AppleHealthKit.getLatestWeight(null, (err, weight) => {
+            if(this._handleHealthKitError(err, 'getLatestWeight')){
                 return;
             }
             weight = _.round(weight,1);
@@ -161,8 +161,8 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitUserHeight() {
         let self = this;
-        AppleHealthKit.getMostRecentHeight(null, (err, height) => {
-            if(this._handleHealthKitError(err, 'getMostRecentHeight')){
+        AppleHealthKit.getLatestHeight(null, (err, height) => {
+            if(this._handleHealthKitError(err, 'getLatestHeight')){
                 return;
             }
             console.log("HEIGHT: ", height);
@@ -200,8 +200,8 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitBodyFatPercentage() {
         let self = this;
-        AppleHealthKit.getMostRecentBodyFatPercentage({blah:true}, (err, fatPercentage) => {
-            if(this._handleHealthKitError(err, 'getMostRecentBodyFatPercentage')){
+        AppleHealthKit.getLatestBodyFatPercentage({blah:true}, (err, fatPercentage) => {
+            if(this._handleHealthKitError(err, 'getLatestBodyFatPercentage')){
                 return;
             }
             console.log("BODY FAT PERCENTAGE: ", fatPercentage);
@@ -217,8 +217,8 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitLeanBodyMass() {
         let self = this;
-        AppleHealthKit.getMostRecentLeanBodyMass({blah:true}, (err, leanMass) => {
-            if(this._handleHealthKitError(err, 'getMostRecentLeanBodyMass')){
+        AppleHealthKit.getLatestLeanBodyMass({blah:true}, (err, leanMass) => {
+            if(this._handleHealthKitError(err, 'getLatestLeanBodyMass')){
                 return;
             }
             console.log("LEAN BODY MASS: ", leanMass);
