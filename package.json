@@ -14,8 +14,10 @@
     "Apple",
     "HealthKit",
     "health-kit",
+	"healthkit",
     "ReactNative",
-    "react-native"
+    "react-native",
+	"react"
   ],
   "author": "Greg Wilson",
   "license": "MIT",
