@@ -12,8 +12,13 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
     * [Methods](#methods)
       * [isAvailable](#isavailable)
       * [initHealthKit](#inithealthkit)
-      * [getCurrentWeight](#getcurrentweight)
+      * [getStepCountForToday](#getstepcountfortoday)
+      * [getLatestWeight](#getlatestweight)
       * [saveWeight](#saveweight)
+      * [getLatestHeight](#getlatestheight)
+      * [getLatestBmi](#getlatestbmi)
+      * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
+      * [getLatestLeanBodyMass](#getlatestleanbodymass)
 
 ## Getting started
 
@@ -155,12 +160,26 @@ AppleHealthKit.initHealthKit(healthKitOptions: object, (err: string, res: object
 
 ___
 
-#### **`getCurrentWeight`**
+
+#### **`getStepCountForToday`**
+get the the aggregated total steps for the current day starting and ending at midnight
+```javascript
+AppleHealthKit.getStepCountForToday(null, (err: Object, steps: number) => {
+    if(this._handleHealthKitError(err, 'getStepCountForToday')){
+        return;
+    }
+    // use steps...
+});
+```
+
+___
+
+#### **`getLatestWeight`**
 get the most recent weight value
 ```javascript
-AppleHealthKit.getCurrentWeight(null, (err: string, weight: number) => {
+AppleHealthKit.getLatestWeight(null, (err: string, weight: number) => {
     if(err){
-        console.log("error getting current weight: ", err);
+        console.log("error getting latest weight: ", err);
         return;
     }
     weight = _.round(weight,1);
@@ -186,5 +205,63 @@ AppleHealthKit.saveWeight(saveOptions, (err, res) => {
     // weight successfully saved
 });
 ```
+
+___
+
+#### **`getLatestHeight`**
+get the most recent height value
+```javascript
+AppleHealthKit.getLatestHeight(null, (err: string, height: number) => {
+    if(err){
+        console.log("error getting latest height: ", err);
+        return;
+    }
+    // do something with the height value...
+});
+```
+___
+
+#### **`getLatestBmi`**
+get the most recent BMI data. the handler function will be called with a `bmi` object containing *`value: number`*, *`startDate: ISO8601Timestamp`*, and *`endDate: ISO8601Timestamp`*. The BMI value may be very old so the sample dates are provided as well. *should apply this to all other RCT types* 
+```javascript
+AppleHealthKit.getLatestBmi(null, (err: string, bmi: Object) => {
+    if(err){
+        console.log("error getting latest bmi data: ", err);
+        return;
+    }
+    if(bmi && bmi.value){
+        let d = bmi.startDate
+        let val = bmi.value;
+        // ...
+    }
+});
+```
+
+___
+
+#### **`getLatestBodyFatPercentage`**
+get the most recent body fat percentage. the percentage value is a number between 0 and 100
+```javascript
+AppleHealthKit.getLatestBodyFatPercentage(null, (err: Object, bodyFatPercentage: number) => {
+    if(this._handleHealthKitError(err, 'getLatestBodyFatPercentage')){
+        return;
+    }
+    // use bodyFatPercentage ...
+});
+```
+
+___
+
+#### **`getLatestLeanBodyMass`**
+get the most recent lean body mass. the value is a number representing the weight in pounds (lbs)
+```javascript
+ AppleHealthKit.getLatestLeanBodyMass(null, (err: Object, leanBodyMass: number) => {
+    if(this._handleHealthKitError(err, 'getLatestLeanBodyMass')){
+        return;
+    }
+    // use leanBodyMass ...
+});
+```
+
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
