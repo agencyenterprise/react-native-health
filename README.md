@@ -234,6 +234,18 @@ AppleHealthKit.getLatestBodyFatPercentage(null, (err: Object, bodyFatPercentage:
 });
 ```
 
+___
+
+#### **`getLatestLeanBodyMass`**
+get the most recent lean body mass. the value is a number representing the weight in pounds (lbs)
+```javascript
+ AppleHealthKit.getLatestLeanBodyMass(null, (err: Object, leanBodyMass: number) => {
+    if(this._handleHealthKitError(err, 'getLatestLeanBodyMass')){
+        return;
+    }
+    // use leanBodyMass ...
+});
+```
 
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
