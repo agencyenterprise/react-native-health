@@ -93,8 +93,16 @@ ___
 ```javascript
 let healthKitOptions = {
     permissions: {
-        read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
-        write: ["Weight"]
+        read: [
+            "Height", 
+            "Weight", 
+            "Steps", 
+            "DateOfBirth", 
+            "BodyMassIndex"
+        ],
+        write: [
+            "Weight"
+        ]
     }
 };
 ```
