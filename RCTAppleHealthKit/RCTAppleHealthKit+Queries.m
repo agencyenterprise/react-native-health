@@ -7,6 +7,7 @@
 //
 
 #import "RCTAppleHealthKit+Queries.h"
+#import "RCTAppleHealthKit+Utils.h"
 
 @implementation RCTAppleHealthKit (Queries)
 
@@ -35,14 +36,14 @@
                                                               completion(quantity, error);
                                                           }
                                                       }];
-    
+
     [self.healthStore executeQuery:query];
 }
 
 
 
 - (void)fetchSumOfSamplesTodayForType:(HKQuantityType *)quantityType unit:(HKUnit *)unit completion:(void (^)(double, NSError *))completionHandler {
-    NSPredicate *predicate = [self predicateForSamplesToday];
+    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesToday];
     
     HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType quantitySamplePredicate:predicate options:HKStatisticsOptionCumulativeSum completionHandler:^(HKStatisticsQuery *query, HKStatistics *result, NSError *error) {
         HKQuantity *sum = [result sumQuantity];
@@ -56,23 +57,5 @@
     
     [self.healthStore executeQuery:query];
 }
-
-
-
-
-#pragma mark - Convenience
-
-- (NSPredicate *)predicateForSamplesToday {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    NSDate *now = [NSDate date];
-    
-    NSDate *startDate = [calendar startOfDayForDate:now];
-    NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
-    
-    return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
-}
-
-
 
 @end

@@ -9,6 +9,7 @@
 #import "RCTAppleHealthKit.h"
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
+#import "RCTAppleHealthKit+Utils.h"
 
 @implementation RCTAppleHealthKit
 
