@@ -85,7 +85,7 @@ AppleHealthKit.isAvailable((err: string, available: bool) => {
     }
 });
 ```
-
+___
 
 **`initHealthKit`** : check if HealthKit is available on the device
 
@@ -97,7 +97,9 @@ let healthKitOptions = {
         write: ["Weight"]
     }
 };
+```
 
+```javascript
 AppleHealthKit.initHealthKit(healthKitOptions: object, (err: string, res: object) => {
     if(err) {
         console.log("error initializing healthkit: ", err);
