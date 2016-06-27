@@ -39,15 +39,38 @@ RCT_EXPORT_METHOD(saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBl
     [self body_saveWeight:input callback:callback];
 }
 
+
+RCT_EXPORT_METHOD(getMostRecentHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getMostRecentHeight:input callback:callback];
+}
+
+
+
 RCT_EXPORT_METHOD(getLatestBmi:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self body_getLatestBodyMassIndex:input callback:callback];
 }
 
+
+RCT_EXPORT_METHOD(getMostRecentBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getMostRecentBodyFatPercentage:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getMostRecentLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getMostRecentLeanBodyMass:input callback:callback];
+}
+
+
 RCT_EXPORT_METHOD(getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getStepCountForToday:input callback:callback];
 }
+
+
+
 
 RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
@@ -94,7 +117,7 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
 
         // make sure at least 1 read or write permission is provided
         if(!writeDataTypes && !readDataTypes){
-            callback(@[RCTMakeError(@"at least 1 write or read permission must be set in options.permissions", nil, nil)]);
+            callback(@[RCTMakeError(@"at least 1 read or write permission must be set in options.permissions", nil, nil)]);
             return;
         }
 

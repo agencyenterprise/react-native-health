@@ -84,4 +84,65 @@
 }
 
 
+- (void)body_getMostRecentHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+
+    [self fetchMostRecentQuantitySampleOfType:heightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"Either an error occured fetching the user's height information or none has been stored yet. In your app, try to handle this gracefully.");
+            callback(@[RCTMakeError(@"Either an error occured fetching the user's height information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+        }
+        else {
+            // Determine the weight in the required unit.
+            HKUnit *heightUnit = [HKUnit inchUnit];
+            double usersHeight = [mostRecentQuantity doubleValueForUnit:heightUnit];
+
+            callback(@[[NSNull null], @(usersHeight)]);
+        }
+    }];
+}
+
+
+- (void)body_getMostRecentBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *bodyFatPercentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];
+
+    [self fetchMostRecentQuantitySampleOfType:bodyFatPercentType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"Either an error occured fetching the user's BodyFatPercentage information or none has been stored yet. In your app, try to handle this gracefully.");
+            callback(@[RCTMakeError(@"Either an error occured fetching the user's BodyFatPercentage information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+        }
+        else {
+            // Determine the weight in the required unit.
+            HKUnit *percentUnit = [HKUnit percentUnit];
+            double percentage = [mostRecentQuantity doubleValueForUnit:percentUnit];
+
+            percentage = percentage * 100;
+
+            callback(@[[NSNull null], @(percentage)]);
+        }
+    }];
+}
+
+
+- (void)body_getMostRecentLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *leanBodyMassType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
+
+    [self fetchMostRecentQuantitySampleOfType:leanBodyMassType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"Either an error occured fetching the user's LeanBodyMass information or none has been stored yet. In your app, try to handle this gracefully.");
+            callback(@[RCTMakeError(@"Either an error occured fetching the user's LeanBodyMass information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+        }
+        else {
+            HKUnit *weightUnit = [HKUnit poundUnit];
+            double leanBodyMass = [mostRecentQuantity doubleValueForUnit:weightUnit];
+
+            callback(@[[NSNull null], @(leanBodyMass)]);
+        }
+    }];
+}
+
+
 @end

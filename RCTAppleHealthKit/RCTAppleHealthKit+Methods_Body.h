@@ -15,4 +15,9 @@
 
 - (void)body_getLatestBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
+- (void)body_getMostRecentHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)body_getMostRecentBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)body_getMostRecentLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+
+
 @end
