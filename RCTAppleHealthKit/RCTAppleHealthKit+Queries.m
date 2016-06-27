@@ -12,7 +12,7 @@
 @implementation RCTAppleHealthKit (Queries)
 
 
-- (void)fetchMostRecentQuantitySampleOfType:(HKQuantityType *)quantityType predicate:(NSPredicate *)predicate completion:(void (^)(HKQuantity *, NSError *))completion { NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:NO];
+- (void)fetchMostRecentQuantitySampleOfType:(HKQuantityType *)quantityType predicate:(NSPredicate *)predicate completion:(void (^)(HKQuantity *, NSDate *, NSDate *, NSError *))completion { NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:NO];
 
     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType
                                                   predicate:predicate
@@ -21,7 +21,7 @@
                                                   resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
                                                       if (!results) {
                                                           if (completion) {
-                                                              completion(nil, error);
+                                                              completion(nil, nil, nil, error);
                                                           }
                                                           return;
                                                       }
@@ -30,7 +30,9 @@
                                                           // If quantity isn't in the database, return nil in the completion block.
                                                           HKQuantitySample *quantitySample = results.firstObject;
                                                           HKQuantity *quantity = quantitySample.quantity;
-                                                          completion(quantity, error);
+                                                          NSDate *startDate = quantitySample.startDate;
+                                                          NSDate *endDate = quantitySample.endDate;
+                                                          completion(quantity, startDate, endDate, error);
                                                       }
                                                   }];
 

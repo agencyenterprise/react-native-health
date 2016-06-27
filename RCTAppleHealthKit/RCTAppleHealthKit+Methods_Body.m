@@ -8,6 +8,7 @@
 
 #import "RCTAppleHealthKit+Methods_Body.h"
 #import "RCTAppleHealthKit+Queries.h"
+#import "RCTAppleHealthKit+Utils.h"
 
 @implementation RCTAppleHealthKit (Methods_Body)
 
@@ -17,7 +18,7 @@
     // Query to get the user's latest weight, if it exists.
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
 
-    [self fetchMostRecentQuantitySampleOfType:weightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+    [self fetchMostRecentQuantitySampleOfType:weightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
             NSLog(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.");
             callback(@[RCTMakeError(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
@@ -50,7 +51,6 @@
             NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", weightSample, error);
             callback(@[RCTMakeError(@"An error occured saving the weight sample", nil, nil)]);
             return;
-            // abort();
         }
         callback(@[[NSNull null], @(weight)]);
     }];
@@ -62,7 +62,7 @@
     // Query to get the user's latest BMI, if it exists.
     HKQuantityType *bmiType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
 
-    [self fetchMostRecentQuantitySampleOfType:bmiType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+    [self fetchMostRecentQuantitySampleOfType:bmiType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
             NSLog(@"Either an error occured fetching the user's bmi information or none has been stored yet. In your app, try to handle this gracefully.");
             callback(@[RCTMakeError(@"Either an error occured fetching the user's bmi information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
@@ -72,7 +72,13 @@
             HKUnit *countUnit = [HKUnit countUnit];
             double bmi = [mostRecentQuantity doubleValueForUnit:countUnit];
 
-            callback(@[[NSNull null], @(bmi)]);
+            NSDictionary *response = @{
+                    @"value" : @(bmi),
+                    @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                    @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+            };
+
+            callback(@[[NSNull null], response]);
         }
     }];
 }
