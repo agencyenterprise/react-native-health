@@ -72,4 +72,11 @@ AppleHealthKit.saveWeight({weight:myWeight}, (err, res) => {
 ```
 
 
+
+## Documentation
+
+### Methods
+
+**`isAvailable`** : check if HealthKit is available on the device
+
 [Apple HealthKit]: https://developer.apple.com/healthkit/
