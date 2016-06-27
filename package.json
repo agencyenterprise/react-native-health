@@ -1,6 +1,6 @@
 {
   "name": "react-native-apple-healthkit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A React Native bridge module for interacting with Apple HealthKit data",
   "main": "index.js",
   "scripts": {
@@ -14,10 +14,10 @@
     "Apple",
     "HealthKit",
     "health-kit",
-	"healthkit",
+    "healthkit",
     "ReactNative",
     "react-native",
-	"react"
+    "react"
   ],
   "author": "Greg Wilson",
   "license": "MIT",
