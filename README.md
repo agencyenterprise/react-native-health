@@ -154,7 +154,7 @@ AppleHealthKit.getCurrentWeight(null, (err: string, weight: number) => {
 
 ___
 
-**`saveWeight`** : save a numeric weight value to HealthKit
+### **`saveWeight`** : save a numeric weight value to HealthKit
 
 `saveWeight` accepts an object containing a numeric weight value with the key *weight*:
 ```javascript
