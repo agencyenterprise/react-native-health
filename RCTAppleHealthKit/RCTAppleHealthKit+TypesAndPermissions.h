@@ -10,12 +10,6 @@
 
 @interface RCTAppleHealthKit (TypesAndPermissions)
 
-- (NSSet *)dataTypesToWrite;
-- (NSSet *)dataTypesToRead;
-
-- (NSDictionary *)readPermsDict;
-- (NSDictionary *)writePermsDict;
-
 - (NSSet *)getReadPermsFromOptions:(NSArray *)options;
 - (NSSet *)getWritePermsFromOptions:(NSArray *)options;
 

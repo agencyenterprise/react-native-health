@@ -70,10 +70,9 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
     self.healthStore = [[HKHealthStore alloc] init];
     
     if ([HKHealthStore isHealthDataAvailable]) {
-        
-        NSSet *writeDataTypes = [self dataTypesToWrite];
-        NSSet *readDataTypes = [self dataTypesToRead];
-        
+        NSSet *writeDataTypes;
+        NSSet *readDataTypes;
+
         // get permissions from input object provided by JS options argument
         NSDictionary* permissions =[input objectForKey:@"permissions"];
         if(permissions != nil){
@@ -89,13 +88,22 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
             if(writePerms != nil) {
                 writeDataTypes = writePerms;
             }
+        } else {
+            callback(@[RCTMakeError(@"permissions must be provided in the initialization options", nil, nil)]);
+            return;
         }
-        
-        
+
+        // make sure at least 1 read or write permission is provided
+        if(!writeDataTypes && !readDataTypes){
+            callback(@[RCTMakeError(@"at least 1 write or read permission must be set in options.permissions", nil, nil)]);
+            return;
+        }
+
         [self.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
             if (!success) {
-                NSLog(@"You didn't allow HealthKit to access these read/write data types. In your app, try to handle this error gracefully when a user decides not to provide access. The error was: %@. If you're using a simulator, try it on a device.", error);
-                callback(@[RCTMakeError(@"You didn't allow HealthKit to access these read/write data types. In your app, try to handle this error gracefully when a user decides not to provide access. The error was: %@. If you're using a simulator, try it on a device.", nil, nil)]);
+                NSString *errMsg = [NSString stringWithFormat:@"Error with HealthKit authorization: %@", error];
+                NSLog(errMsg);
+                callback(@[RCTMakeError(errMsg, nil, nil)]);
                 return;
             } else {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -111,7 +119,13 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
 
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    callback(@[[NSNull null], @"ReactNative Apple HealthKit Native Module. Created By Greg Wilson."]);
+    NSDictionary *info = @{
+            @"name" : @"react-native-apple-healthkit",
+            @"description" : @"A React Native bridge module for interacting with Apple HealthKit data",
+            @"className" : @"RCTAppleHealthKit",
+            @"author": @"Greg Wilson",
+    };
+    callback(@[[NSNull null], info]);
 }
 
 
