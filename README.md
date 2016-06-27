@@ -105,7 +105,8 @@ Write Permissions:
         
 ### Methods
 
-**`isAvailable`** : check if HealthKit is available on the device
+#### **`isAvailable`** 
+check if HealthKit is available on the device
 ```javascript
 AppleHealthKit.isAvailable((err: string, available: bool) => {
     if(available){
@@ -115,7 +116,8 @@ AppleHealthKit.isAvailable((err: string, available: bool) => {
 ```
 ___
 
-**`initHealthKit`** : check if HealthKit is available on the device
+#### **`initHealthKit`** 
+check if HealthKit is available on the device
 
 `initHealthKit` requires an options object with HealthKit permission settings.
 ```javascript
@@ -140,7 +142,8 @@ AppleHealthKit.initHealthKit(healthKitOptions: object, (err: string, res: object
 
 ___
 
-**`getCurrentWeight`** : get the most recent weight value
+#### **`getCurrentWeight`**
+get the most recent weight value
 ```javascript
 AppleHealthKit.getCurrentWeight(null, (err: string, weight: number) => {
     if(err){
@@ -154,7 +157,8 @@ AppleHealthKit.getCurrentWeight(null, (err: string, weight: number) => {
 
 ___
 
-### **`saveWeight`** : save a numeric weight value to HealthKit
+#### **`saveWeight`**
+save a numeric weight value to HealthKit
 
 `saveWeight` accepts an object containing a numeric weight value with the key *weight*:
 ```javascript
