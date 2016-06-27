@@ -15,6 +15,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getLatestWeight](#getlatestweight)
       * [saveWeight](#saveweight)
       * [getLatestHeight](#getlatestheight)
+      * [getLatestBmi](#getlatestbmi)
 
 ## Getting started
 
@@ -201,5 +202,24 @@ AppleHealthKit.getLatestHeight(null, (err: string, height: number) => {
     // do something with the height value...
 });
 ```
+___
+
+#### **`getLatestBmi`**
+get the most recent BMI data. the handler function will be called with a `bmi` object containing *value: number*, *startDate: ISO8601Timestamp*, and *endDate: ISO8601Timestamp*. The BMI value may be very old so the sample dates are provided as well. *should apply this to all other RCT types* 
+```javascript
+AppleHealthKit.getLatestBmi(null, (err: string, bmi: Object) => {
+    if(err){
+        console.log("error getting latest bmi data: ", err);
+        return;
+    }
+    if(bmi && bmi.value){
+        let d = bmi.startDate
+        let val = bmi.value;
+        // ...
+    }
+});
+```
+
+
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
