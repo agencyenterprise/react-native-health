@@ -142,15 +142,32 @@ ___
 
 **`getCurrentWeight`** : get the most recent weight value
 ```javascript
-AppleHealthKit.getCurrentWeight(null, (err, weight) => {
+AppleHealthKit.getCurrentWeight(null, (err: string, weight: number) => {
     if(err){
         console.log("error getting current weight: ", err);
         return;
     }
     weight = _.round(weight,1);
-    // ...
+    // do something with the weight...
 });
 ```
 
+___
+
+**`saveWeight`** : save a numeric weight value to HealthKit
+
+`saveWeight` accepts an object containing a numeric weight value with the key *weight*:
+```javascript
+let saveOptions = {weight: 200}
+```
+```javascript
+AppleHealthKit.saveWeight(saveOptions, (err, res) => {
+    if(err){
+        console.log("error saving weight to healthkit: ", err);
+        return;
+    }
+    // weight successfully saved
+});
+```
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
