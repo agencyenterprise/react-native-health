@@ -13,6 +13,34 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 5. Click `RCTAppleHealthKit.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). In the `Search Paths` section, look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../../react-native/React` and `$(SRCROOT)/../../../React` - mark both as `recursive`.
 5. Compile and have fun
 
+### Usage
+
+Just `require` the `react-native-apple-healthkit` module and you're ready to go!
+```javascript
+var AppleHealthKit = require('react-native-apple-healthkit');
+
+...
+
+let healthKitOptions = {
+    permissions: {
+        read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
+        write: ["Weight", "Steps"]
+    }
+};
+
+AppleHealthKit.initHealthKit(healthKitOptions, (err, res) => {
+    if(err) {
+        console.log("error initializing healthkit: ", err);
+        return;
+    }
+    console.log("HEALTHKIT INITIALIZED!");
+    // ...
+});
+
+...
+
+```
+
 
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
