@@ -2,6 +2,19 @@
 A React Native bridge module for interacting with [Apple HealthKit] data. 
 
 ![Alt text](https://devimages.apple.com.edgekey.net/assets/elements/icons/healthkit/healthkit-64x64.png "Apple HealthKit")
+
+#### Table of Contents
+  * [Getting Started](#getting-started)
+    * [Installation](#installation-xcode)
+    * [Usage](#usage)
+  * [Documentation](#documentation)
+    * [Permissions](#permissions)
+    * [Methods](#methods)
+      * [isAvailable](#isavailable)
+      * [initHealthKit](#inithealthkit)
+      * [getCurrentWeight](#getcurrentweight)
+      * [saveWeight](#saveweight)
+
 ## Getting started
 
 ###  Installation (xcode)
@@ -117,7 +130,7 @@ AppleHealthKit.isAvailable((err: string, available: bool) => {
 ___
 
 #### **`initHealthKit`** 
-check if HealthKit is available on the device
+initialize HealthKit. this will show the HealthKit permissions prompt for any read/write permissions that have not yet been selected by the user.
 
 `initHealthKit` requires an options object with HealthKit permission settings.
 ```javascript
