@@ -37,7 +37,6 @@ AppleHealthKit.initHealthKit(healthKitOptions, (err, res) => {
     // ...
 });
 
-...
 
 ```
 
