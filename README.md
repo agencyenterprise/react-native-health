@@ -16,4 +16,4 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 
 
 
-[Apple HealthKit]: http://www.reddit.com
+[Apple HealthKit]: https://developer.apple.com/healthkit/
