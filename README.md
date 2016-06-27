@@ -205,7 +205,7 @@ AppleHealthKit.getLatestHeight(null, (err: string, height: number) => {
 ___
 
 #### **`getLatestBmi`**
-get the most recent BMI data. the handler function will be called with a `bmi` object containing *value: number*, *startDate: ISO8601Timestamp*, and *endDate: ISO8601Timestamp*. The BMI value may be very old so the sample dates are provided as well. *should apply this to all other RCT types* 
+get the most recent BMI data. the handler function will be called with a `bmi` object containing `*value: number*`, `*startDate: ISO8601Timestamp*`, and `*endDate: ISO8601Timestamp*`. The BMI value may be very old so the sample dates are provided as well. *should apply this to all other RCT types* 
 ```javascript
 AppleHealthKit.getLatestBmi(null, (err: string, bmi: Object) => {
     if(err){
