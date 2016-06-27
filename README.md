@@ -41,6 +41,36 @@ AppleHealthKit.initHealthKit(healthKitOptions, (err, res) => {
 
 ```
 
+When the module has been successfully initialized you can read and write HealthKit data
+
+```javascript
+var AppleHealthKit = require('react-native-apple-healthkit');
+var _ = require('lodash');
+
+...
+
+AppleHealthKit.getCurrentWeight(null, (err, weight) => {
+    if(err){
+        console.log("error getting current weight: ", err);
+        return;
+    }
+    weight = _.round(weight,1);
+    // do something with the weight...
+});
+
+...
+
+let myWeight = 200;
+AppleHealthKit.saveWeight({weight:myWeight}, (err, res) => {
+    if(err){
+        console.log("error saving weight to healthkit: ", err);
+        return;
+    }
+    // weight successfully saved
+});
+
+
+```
 
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
