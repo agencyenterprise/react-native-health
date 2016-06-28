@@ -19,6 +19,8 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getLatestBmi](#getlatestbmi)
       * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
       * [getLatestLeanBodyMass](#getlatestleanbodymass)
+  * [Examples](#examples)
+  
 
 ## Getting started
 
@@ -262,6 +264,11 @@ get the most recent lean body mass. the value is a number representing the weigh
     // use leanBodyMass ...
 });
 ```
+
+## Examples
+
+
+
 
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
