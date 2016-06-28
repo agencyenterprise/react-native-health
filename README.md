@@ -17,8 +17,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * Weight
         * [getLatestWeight](#getlatestweight)
         * [saveWeight](#saveweight)
-        
-      Height 
+      * Height 
         * [getLatestHeight](#getlatestheight)
         * [saveHeight](#saveheight)
       * BodyMassIndex 
