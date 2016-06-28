@@ -12,12 +12,13 @@
   },
   "keywords": [
     "Apple",
-    "HealthKit",
     "health-kit",
     "healthkit",
     "ReactNative",
     "react-native",
-    "react"
+    "react",
+	"native",
+	"ios"
   ],
   "author": "Greg Wilson",
   "license": "MIT",
