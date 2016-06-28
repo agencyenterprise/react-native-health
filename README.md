@@ -114,7 +114,7 @@ Read Permissions:
     BodyMassIndex        HKQuantityTypeIdentifierBodyMassIndex
     LeanBodyMass         HKQuantityTypeIdentifierLeanBodyMass
     Steps                HKQuantityTypeIdentifierStepCount
-    Sex                  HKCharacteristicTypeIdentifierBiologicalSex
+    BiologicalSex        HKCharacteristicTypeIdentifierBiologicalSex
     DateOfBirth          HKCharacteristicTypeIdentifierDateOfBirth
     DietaryEnergy        HKQuantityTypeIdentifierDietaryEnergyConsumed
     ActiveEnergy         HKQuantityTypeIdentifierActiveEnergyBurned
