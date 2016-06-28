@@ -50,7 +50,7 @@ var AppleHealthKit = require('react-native-apple-healthkit');
 let healthKitOptions = {
     permissions: {
         read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
-        write: ["Weight", "Steps"]
+        write: ["Weight", "Steps", "BodyMassIndex"]
     }
 };
 
@@ -74,7 +74,7 @@ var _ = require('lodash');
 
 ...
 
-AppleHealthKit.getCurrentWeight(null, (err, weight) => {
+AppleHealthKit.getLatestWeight(null, (err, weight) => {
     if(err){
         console.log("error getting current weight: ", err);
         return;
@@ -86,7 +86,7 @@ AppleHealthKit.getCurrentWeight(null, (err, weight) => {
 ...
 
 let myWeight = 200;
-AppleHealthKit.saveWeight({weight:myWeight}, (err, res) => {
+AppleHealthKit.saveWeight({value:myWeight}, (err, res) => {
     if(err){
         console.log("error saving weight to healthkit: ", err);
         return;
@@ -150,7 +150,7 @@ initialize HealthKit. this will show the HealthKit permissions prompt for any re
 let healthKitOptions = {
     permissions: {
         read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
-        write: ["Weight"]
+        write: ["Weight", "Steps", "BodyMassIndex"]
     }
 };
 ```
