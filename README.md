@@ -12,21 +12,15 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
     * [Methods](#methods)
       * [isAvailable](#isavailable)
       * [initHealthKit](#inithealthkit)
-      * Steps
-        * [getStepCountForToday](#getstepcountfortoday)
-      * Weight
-        * [getLatestWeight](#getlatestweight)
-        * [saveWeight](#saveweight)
-      * Height 
-        * [getLatestHeight](#getlatestheight)
-        * [saveHeight](#saveheight)
-      * BodyMassIndex 
-        * [getLatestBmi](#getlatestbmi)
-        * [saveBmi](#savebmi)
-      * BodyFatPercentage 
-        * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
-      * LeanBodyMass
-        * [getLatestLeanBodyMass](#getlatestleanbodymass)
+      * [getStepCountForToday](#getstepcountfortoday)
+      * [getLatestWeight](#getlatestweight)
+      * [saveWeight](#saveweight)
+      * [getLatestHeight](#getlatestheight)
+      * [saveHeight](#saveheight)
+      * [getLatestBmi](#getlatestbmi)
+      * [saveBmi](#savebmi)
+      * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
+      * [getLatestLeanBodyMass](#getlatestleanbodymass)
   * [Examples](#examples)
   
 
