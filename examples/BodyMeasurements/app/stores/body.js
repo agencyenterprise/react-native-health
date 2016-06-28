@@ -166,7 +166,10 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitUserWeight() {
         let self = this;
-        AppleHealthKit.getLatestWeight(null, (err, weight) => {
+        let options = {
+            unit: "pound"
+        };
+        AppleHealthKit.getLatestWeight(options, (err, weight) => {
             if(this._handleHealthKitError(err, 'getLatestWeight')){
                 return;
             }
@@ -184,7 +187,10 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitUserHeight() {
         let self = this;
-        AppleHealthKit.getLatestHeight(null, (err, height) => {
+        let options = {
+            unit: "inch"
+        };
+        AppleHealthKit.getLatestHeight(options, (err, height) => {
             if(this._handleHealthKitError(err, 'getLatestHeight')){
                 return;
             }
