@@ -16,6 +16,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getLatestWeight](#getlatestweight)
       * [saveWeight](#saveweight)
       * [getLatestHeight](#getlatestheight)
+      * [saveHeight](#saveheight)
       * [getLatestBmi](#getlatestbmi)
       * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
       * [getLatestLeanBodyMass](#getlatestleanbodymass)
@@ -190,7 +191,7 @@ AppleHealthKit.getLatestWeight(null, (err: string, weight: number) => {
         return;
     }
     weight = _.round(weight,1);
-    // do something with the weight...
+    // use weight ...
 });
 ```
 
@@ -199,12 +200,12 @@ ___
 #### **`saveWeight`**
 save a numeric weight value to HealthKit
 
-`saveWeight` accepts an object containing a numeric weight value with the key *weight*:
+`saveWeight` accepts an options object containing a numeric weight value:
 ```javascript
-let saveOptions = {weight: 200}
+let options = {value: 200}
 ```
 ```javascript
-AppleHealthKit.saveWeight(saveOptions, (err, res) => {
+AppleHealthKit.saveWeight(options, (err, res) => {
     if(err){
         console.log("error saving weight to healthkit: ", err);
         return;
@@ -223,9 +224,28 @@ AppleHealthKit.getLatestHeight(null, (err: string, height: number) => {
         console.log("error getting latest height: ", err);
         return;
     }
-    // do something with the height value...
+    // use height ...
 });
 ```
+
+___
+
+#### **`saveHeight`**
+save a numeric height value to HealthKit
+
+`saveHeight` accepts an options object containing a numeric height value:
+```javascript
+let options = {value: 200}
+```
+```javascript
+AppleHealthKit.saveHeight(options, (err, res) => {
+    if(this._handleHealthKitError(err, 'saveHeight')){
+        return;
+    }
+    // height successfully saved
+});
+```
+
 ___
 
 #### **`getLatestBmi`**
