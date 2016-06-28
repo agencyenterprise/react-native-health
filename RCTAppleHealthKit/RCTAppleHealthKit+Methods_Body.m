@@ -18,6 +18,11 @@
     // Query to get the user's latest weight, if it exists.
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
 
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
+    if(unit == nil){
+        unit = [HKUnit poundUnit];
+    }
+
     [self fetchMostRecentQuantitySampleOfType:weightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
             NSLog(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.");
@@ -25,8 +30,8 @@
         }
         else {
             // Determine the weight in the required unit.
-            HKUnit *weightUnit = [HKUnit poundUnit];
-            double usersWeight = [mostRecentQuantity doubleValueForUnit:weightUnit];
+//            HKUnit *weightUnit = [HKUnit poundUnit];
+            double usersWeight = [mostRecentQuantity doubleValueForUnit:unit];
 
             callback(@[[NSNull null], @(usersWeight)]);
         }
@@ -88,6 +93,11 @@
 {
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
 
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
+    if(unit == nil){
+        unit = [HKUnit inchUnit];
+    }
+
     [self fetchMostRecentQuantitySampleOfType:heightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
             NSLog(@"Either an error occured fetching the user's height information or none has been stored yet. In your app, try to handle this gracefully.");
@@ -95,8 +105,8 @@
         }
         else {
             // Determine the weight in the required unit.
-            HKUnit *heightUnit = [HKUnit inchUnit];
-            double usersHeight = [mostRecentQuantity doubleValueForUnit:heightUnit];
+//            HKUnit *heightUnit = [HKUnit inchUnit];
+            double usersHeight = [mostRecentQuantity doubleValueForUnit:unit];
 
             callback(@[[NSNull null], @(usersHeight)]);
         }
@@ -111,7 +121,13 @@
     double height = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
 
-    HKUnit *heightUnit = [HKUnit inchUnit];
+//    HKUnit *heightUnit = [HKUnit inchUnit];
+    HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input];
+    if(heightUnit == nil){
+        heightUnit = [HKUnit inchUnit];
+    }
+
+
     HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:heightUnit doubleValue:height];
 
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
