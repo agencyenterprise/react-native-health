@@ -52,6 +52,7 @@ class BodyStore extends airflux.Store {
         this._fetchHealthKitBodyFatPercentage = this._fetchHealthKitBodyFatPercentage.bind(this);
         this._fetchHealthKitLeanBodyMass = this._fetchHealthKitLeanBodyMass.bind(this);
         this._saveHeight = this._saveHeight.bind(this);
+        this._saveBmi = this._saveBmi.bind(this);
 
         this.GetWeightValue = this.GetWeightValue.bind(this);
         this.GetWeightFormatted = this.GetWeightFormatted.bind(this);
@@ -89,7 +90,7 @@ class BodyStore extends airflux.Store {
         let healthKitOptions = {
             permissions: {
                 read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex", "LeanBodyMass", "BodyFatPercentage"],
-                write: ["Weight", "Height"]
+                write: ["Weight", "Height", "BodyMassIndex"]
             }
         };
 
@@ -105,6 +106,12 @@ class BodyStore extends airflux.Store {
             self._fetchHealthKitUserHeight();
             self._fetchHealthKitBodyFatPercentage();
             self._fetchHealthKitLeanBodyMass();
+
+            //setTimeout(() => {self._saveBmi(27)}, 1000);
+            //setTimeout(() => {self._onactn_addWeight({
+            //    weight: 215,
+            //})}, 1000);
+
         });
     }
 
@@ -128,7 +135,7 @@ class BodyStore extends airflux.Store {
         if(options && options.weight){
             let weightVal = parseFloat(options.weight);
             let self = this;
-            AppleHealthKit.saveWeight({weight:weightVal}, (err, res) => {
+            AppleHealthKit.saveWeight({value:weightVal}, (err, res) => {
                 if(this._handleHealthKitError(err, 'saveWeight')){
                     return;
                 }
@@ -223,6 +230,26 @@ class BodyStore extends airflux.Store {
                     data: DATA.bmi
                 });
             }
+        });
+    }
+
+    _saveBmi(bmi_value) {
+        let self = this;
+        let options = {
+            value: bmi_value
+        };
+
+        AppleHealthKit.saveBmi(options, (err, res) => {
+            if(this._handleHealthKitError(err, 'saveBmi')){
+                return;
+            }
+            console.log('BMI Saved Successfully...');
+            DATA.bmi = bmi_value;
+            self.trigger({
+                name: 'change:bmi',
+                target: null,
+                data: DATA.bmi
+            });
         });
     }
 
