@@ -30,9 +30,7 @@
         }
         else {
             // Determine the weight in the required unit.
-//            HKUnit *weightUnit = [HKUnit poundUnit];
             double usersWeight = [mostRecentQuantity doubleValueForUnit:unit];
-
             callback(@[[NSNull null], @(usersWeight)]);
         }
     }];
@@ -43,13 +41,19 @@
 {
     double weight= [[input objectForKey:@"weight"] doubleValue];
 
-    HKUnit *poundUnit = [HKUnit poundUnit];
-    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:poundUnit doubleValue:weight];
+//    HKUnit *poundUnit = [HKUnit poundUnit];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
+    if(unit == nil){
+        unit = [HKUnit poundUnit];
+    }
+
+    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:unit doubleValue:weight];
 
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
-    NSDate *now = [NSDate date];
+//    NSDate *now = [NSDate date];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
 
-    HKQuantitySample *weightSample = [HKQuantitySample quantitySampleWithType:weightType quantity:weightQuantity startDate:now endDate:now];
+    HKQuantitySample *weightSample = [HKQuantitySample quantitySampleWithType:weightType quantity:weightQuantity startDate:sampleDate endDate:sampleDate];
 
     [self.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
@@ -104,10 +108,8 @@
             callback(@[RCTMakeError(@"Either an error occured fetching the user's height information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
         }
         else {
-            // Determine the weight in the required unit.
-//            HKUnit *heightUnit = [HKUnit inchUnit];
+            // Determine the height in the required unit.
             double usersHeight = [mostRecentQuantity doubleValueForUnit:unit];
-
             callback(@[[NSNull null], @(usersHeight)]);
         }
     }];
@@ -116,24 +118,16 @@
 
 - (void)body_saveHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-//    NSNumber *valueFromOptions = [RCTAppleHealthKit numericValueFromOptions:input];
-//    double height = [[input objectForKey:@"value"] doubleValue];
     double height = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
 
-//    HKUnit *heightUnit = [HKUnit inchUnit];
     HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input];
     if(heightUnit == nil){
         heightUnit = [HKUnit inchUnit];
     }
 
-
     HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:heightUnit doubleValue:height];
-
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-//    NSDate *now = [NSDate date];
-
-//    HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:heightType quantity:heightQuantity startDate:now endDate:now];
     HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:heightType quantity:heightQuantity startDate:sampleDate endDate:sampleDate];
 
     [self.healthStore saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
