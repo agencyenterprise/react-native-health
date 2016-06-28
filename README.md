@@ -18,6 +18,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getLatestHeight](#getlatestheight)
       * [saveHeight](#saveheight)
       * [getLatestBmi](#getlatestbmi)
+      * [saveBmi](#savebmi)
       * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
       * [getLatestLeanBodyMass](#getlatestleanbodymass)
   * [Examples](#examples)
@@ -261,6 +262,24 @@ AppleHealthKit.getLatestBmi(null, (err: string, bmi: Object) => {
         let val = bmi.value;
         // ...
     }
+});
+```
+
+___
+
+#### **`saveBmi`**
+save a numeric BMI value to HealthKit
+
+`saveBmi` accepts an options object containing a numeric BMI value:
+```javascript
+let options = {value: 27.2}
+```
+```javascript
+AppleHealthKit.saveBmi(options, (err, res) => {
+    if(this._handleHealthKitError(err, 'saveBmi')){
+        return;
+    }
+    // BMI successfully saved
 });
 ```
 
