@@ -40,19 +40,15 @@
 - (void)body_saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     double weight= [[input objectForKey:@"weight"] doubleValue];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
 
-//    HKUnit *poundUnit = [HKUnit poundUnit];
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
     if(unit == nil){
         unit = [HKUnit poundUnit];
     }
 
     HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:unit doubleValue:weight];
-
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
-//    NSDate *now = [NSDate date];
-    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
-
     HKQuantitySample *weightSample = [HKQuantitySample quantitySampleWithType:weightType quantity:weightQuantity startDate:sampleDate endDate:sampleDate];
 
     [self.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
@@ -91,6 +87,29 @@
         }
     }];
 }
+
+
+
+- (void)body_saveBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    double bmi = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+    HKUnit *unit = [HKUnit countUnit];
+
+    HKQuantity *bmiQuantity = [HKQuantity quantityWithUnit:unit doubleValue:bmi];
+    HKQuantityType *bmiType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    HKQuantitySample *bmiSample = [HKQuantitySample quantitySampleWithType:bmiType quantity:bmiQuantity startDate:sampleDate endDate:sampleDate];
+
+    [self.healthStore saveObject:bmiSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the bmi sample %@. In your app, try to handle this gracefully. The error was: %@.", bmiSample, error);
+            callback(@[RCTMakeError(@"An error occured saving the bmi sample", nil, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(bmi)]);
+    }];
+}
+
 
 
 - (void)body_getMostRecentHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
