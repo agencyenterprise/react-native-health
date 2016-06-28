@@ -39,7 +39,8 @@
 
 - (void)body_saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    double weight= [[input objectForKey:@"weight"] doubleValue];
+//    double weight= [[input objectForKey:@"weight"] doubleValue];
+    double weight = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
 
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
