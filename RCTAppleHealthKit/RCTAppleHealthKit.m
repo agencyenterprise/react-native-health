@@ -45,6 +45,10 @@ RCT_EXPORT_METHOD(getLatestHeight:(NSDictionary *)input callback:(RCTResponseSen
     [self body_getMostRecentHeight:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(saveHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_saveHeight:input callback:callback];
+}
 
 
 RCT_EXPORT_METHOD(getLatestBmi:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
