@@ -17,7 +17,8 @@
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     dateFormatter.locale = posix;
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+//    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
     return [dateFormatter dateFromString:date];
 }
 
@@ -26,7 +27,8 @@
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     dateFormatter.locale = posix;
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+//    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
     return [dateFormatter stringFromDate:date];
 }
 
@@ -46,5 +48,76 @@
     NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
     return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
 }
+
+
+
++ (double)doubleValueFromOptions:(NSDictionary *)options {
+    double value = [[options objectForKey:@"value"] doubleValue];
+    return value;
+}
+
+
++ (NSDate *)dateFromOptionsDefaultNow:(NSDictionary *)options {
+    NSString *dateString = [options objectForKey:@"date"];
+    if(dateString != nil){
+        NSDate *date = [RCTAppleHealthKit parseISO8601DateFromString:dateString];
+        if(date == nil){
+            // probably not a good idea... should return an error or just the null pointer
+            date = [NSDate date];
+        }
+        return date;
+    }
+    NSDate *now = [NSDate date];
+    return now;
+}
+
++ (HKUnit *)hkUnitFromOptions:(NSDictionary *)options {
+    NSString *unitString = [options objectForKey:@"unit"];
+    HKUnit *theUnit;
+
+    if([unitString isEqualToString:@"gram"]){
+        theUnit = [HKUnit gramUnit];
+    }
+    if([unitString isEqualToString:@"pound"]){
+        theUnit = [HKUnit poundUnit];
+    }
+    if([unitString isEqualToString:@"meter"]){
+        theUnit = [HKUnit meterUnit];
+    }
+    if([unitString isEqualToString:@"inch"]){
+        theUnit = [HKUnit inchUnit];
+    }
+    if([unitString isEqualToString:@"foot"]){
+        theUnit = [HKUnit footUnit];
+    }
+    if([unitString isEqualToString:@"second"]){
+        theUnit = [HKUnit secondUnit];
+    }
+    if([unitString isEqualToString:@"minute"]){
+        theUnit = [HKUnit minuteUnit];
+    }
+    if([unitString isEqualToString:@"hour"]){
+        theUnit = [HKUnit hourUnit];
+    }
+    if([unitString isEqualToString:@"day"]){
+        theUnit = [HKUnit dayUnit];
+    }
+    if([unitString isEqualToString:@"joule"]){
+        theUnit = [HKUnit jouleUnit];
+    }
+    if([unitString isEqualToString:@"calorie"]){
+        theUnit = [HKUnit calorieUnit];
+    }
+    if([unitString isEqualToString:@"count"]){
+        theUnit = [HKUnit countUnit];
+    }
+    if([unitString isEqualToString:@"percent"]){
+        theUnit = [HKUnit percentUnit];
+    }
+    return theUnit;
+}
+
+
+
 
 @end

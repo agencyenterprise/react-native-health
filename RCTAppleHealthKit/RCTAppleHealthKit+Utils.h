@@ -15,4 +15,8 @@
 + (NSPredicate *)predicateForSamplesToday;
 + (NSPredicate *)predicateForSamplesOnDay:(NSDate *)date;
 + (NSPredicate *)predicateForSamplesOnDayFromTimestamp:(NSString *)timestamp;
++ (double)doubleValueFromOptions:(NSDictionary *)options;
++ (NSDate *)dateFromOptionsDefaultNow:(NSDictionary *)options;
++ (HKUnit *)hkUnitFromOptions:(NSDictionary *)options;
+
 @end
