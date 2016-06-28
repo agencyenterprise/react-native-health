@@ -51,6 +51,8 @@ class BodyStore extends airflux.Store {
         this._fetchHealthKitStepCountToday = this._fetchHealthKitStepCountToday.bind(this);
         this._fetchHealthKitBodyFatPercentage = this._fetchHealthKitBodyFatPercentage.bind(this);
         this._fetchHealthKitLeanBodyMass = this._fetchHealthKitLeanBodyMass.bind(this);
+        this._saveHeight = this._saveHeight.bind(this);
+
         this.GetWeightValue = this.GetWeightValue.bind(this);
         this.GetWeightFormatted = this.GetWeightFormatted.bind(this);
         this.GetSteps = this.GetSteps.bind(this);
@@ -87,7 +89,7 @@ class BodyStore extends airflux.Store {
         let healthKitOptions = {
             permissions: {
                 read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex", "LeanBodyMass", "BodyFatPercentage"],
-                write: ["Weight"]
+                write: ["Weight", "Height"]
             }
         };
 
@@ -138,6 +140,27 @@ class BodyStore extends airflux.Store {
                 });
             });
         }
+    }
+
+
+    _saveHeight(height_inches) {
+        let self = this;
+        let options = {
+            value: height_inches
+        };
+
+        AppleHealthKit.saveHeight(options, (err, res) => {
+            if(this._handleHealthKitError(err, 'saveHeight')){
+                return;
+            }
+            console.log('Height Saved Successfully...');
+            DATA.height = height_inches;
+            self.trigger({
+                name: 'change:height',
+                target: null,
+                data: DATA.height
+            });
+        });
     }
 
 
