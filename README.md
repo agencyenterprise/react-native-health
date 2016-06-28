@@ -267,7 +267,7 @@ get the most recent lean body mass. the value is a number representing the weigh
 
 ## Examples
 
-
+[[https://github.com/GregWilson/react-native-apple-healthkit/examples/images/IMG_0205.PNG|alt=octocat]]
 
 
 
