@@ -104,6 +104,33 @@
 }
 
 
+- (void)body_saveHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+//    NSNumber *valueFromOptions = [RCTAppleHealthKit numericValueFromOptions:input];
+//    double height = [[input objectForKey:@"value"] doubleValue];
+    double height = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+
+    HKUnit *heightUnit = [HKUnit inchUnit];
+    HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:heightUnit doubleValue:height];
+
+    HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+//    NSDate *now = [NSDate date];
+
+//    HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:heightType quantity:heightQuantity startDate:now endDate:now];
+    HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:heightType quantity:heightQuantity startDate:sampleDate endDate:sampleDate];
+
+    [self.healthStore saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the height sample %@. In your app, try to handle this gracefully. The error was: %@.", heightSample, error);
+            callback(@[RCTMakeError(@"An error occured saving the height sample", nil, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(height)]);
+    }];
+}
+
+
 - (void)body_getMostRecentBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *bodyFatPercentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];
