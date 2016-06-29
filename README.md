@@ -13,6 +13,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [isAvailable](#isavailable)
       * [initHealthKit](#inithealthkit)
       * [getStepCountForToday](#getstepcountfortoday)
+      * [getStepCountForDay](#getstepcountforday)
       * [getLatestWeight](#getlatestweight)
       * [saveWeight](#saveweight)
       * [getLatestHeight](#getlatestheight)
@@ -169,7 +170,6 @@ AppleHealthKit.initHealthKit(healthKitOptions: object, (err: string, res: object
 
 ___
 
-
 #### **`getStepCountForToday`**
 get the the aggregated total steps for the current day starting and ending at midnight
 ```javascript
@@ -178,6 +178,23 @@ AppleHealthKit.getStepCountForToday(null, (err: Object, steps: number) => {
         return;
     }
     // use steps...
+});
+```
+
+___
+
+#### **`getStepCountForDay`**
+get the the aggregated total steps for the day provided as `date` in options object.
+```javascript
+let d = new Date(2016,5,27);
+let options = {
+    date: d.toISOString()
+};
+AppleHealthKit.getStepCountForDay(options, (err, steps) => {
+    if(this._handleHealthKitError(err, 'getStepCountForDay')){
+        return;
+    }
+    // steps is the step count for day 'd'
 });
 ```
 
