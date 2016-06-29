@@ -14,6 +14,7 @@
 		3774C8A11D20A6B90000B3F3 /* RCTAppleHealthKit+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3774C8A01D20A6B90000B3F3 /* RCTAppleHealthKit+Utils.m */; };
 		3774C8D41D20C6390000B3F3 /* RCTAppleHealthKit+Methods_Body.m in Sources */ = {isa = PBXBuildFile; fileRef = 3774C8D31D20C6390000B3F3 /* RCTAppleHealthKit+Methods_Body.m */; };
 		3774C8D71D20C65F0000B3F3 /* RCTAppleHealthKit+Methods_Fitness.m in Sources */ = {isa = PBXBuildFile; fileRef = 3774C8D61D20C65F0000B3F3 /* RCTAppleHealthKit+Methods_Fitness.m */; };
+		377D44F31D247D0A004E35CB /* RCTAppleHealthKit+Methods_Characteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 377D44F21D247D0A004E35CB /* RCTAppleHealthKit+Methods_Characteristic.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,8 @@
 		3774C8D31D20C6390000B3F3 /* RCTAppleHealthKit+Methods_Body.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Body.m"; sourceTree = "<group>"; };
 		3774C8D51D20C65F0000B3F3 /* RCTAppleHealthKit+Methods_Fitness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Fitness.h"; sourceTree = "<group>"; };
 		3774C8D61D20C65F0000B3F3 /* RCTAppleHealthKit+Methods_Fitness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Fitness.m"; sourceTree = "<group>"; };
+		377D44F11D247D0A004E35CB /* RCTAppleHealthKit+Methods_Characteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Characteristic.h"; sourceTree = "<group>"; };
+		377D44F21D247D0A004E35CB /* RCTAppleHealthKit+Methods_Characteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Characteristic.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 				3774C8D31D20C6390000B3F3 /* RCTAppleHealthKit+Methods_Body.m */,
 				3774C8D51D20C65F0000B3F3 /* RCTAppleHealthKit+Methods_Fitness.h */,
 				3774C8D61D20C65F0000B3F3 /* RCTAppleHealthKit+Methods_Fitness.m */,
+				377D44F11D247D0A004E35CB /* RCTAppleHealthKit+Methods_Characteristic.h */,
+				377D44F21D247D0A004E35CB /* RCTAppleHealthKit+Methods_Characteristic.m */,
 			);
 			path = RCTAppleHealthKit;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 				3774C8A11D20A6B90000B3F3 /* RCTAppleHealthKit+Utils.m in Sources */,
 				3774C8D41D20C6390000B3F3 /* RCTAppleHealthKit+Methods_Body.m in Sources */,
 				3774C8931D2092F20000B3F3 /* RCTAppleHealthKit.m in Sources */,
+				377D44F31D247D0A004E35CB /* RCTAppleHealthKit+Methods_Characteristic.m in Sources */,
 				3774C89E1D2095850000B3F3 /* RCTAppleHealthKit+TypesAndPermissions.m in Sources */,
 				3774C8D71D20C65F0000B3F3 /* RCTAppleHealthKit+Methods_Fitness.m in Sources */,
 			);
@@ -286,6 +292,7 @@
 				3774C8981D2092F20000B3F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
