@@ -5,7 +5,6 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 
 #### Notice
 > *This package is undergoing rapid development and should be considered unstable for the time being.*
-
 > *<strong>Use at your own risk</strong>*
 
 #### Table of Contents
