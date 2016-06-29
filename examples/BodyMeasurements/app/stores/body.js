@@ -50,6 +50,7 @@ class BodyStore extends airflux.Store {
         this._fetchHealthKitUserBmi = this._fetchHealthKitUserBmi.bind(this);
         this._fetchHealthKitStepCountToday = this._fetchHealthKitStepCountToday.bind(this);
         this._fetchHealthKitStepCountForDay = this._fetchHealthKitStepCountForDay.bind(this);
+        this._fetchDailyStepCounts = this._fetchDailyStepCounts.bind(this);
         this._fetchHealthKitBodyFatPercentage = this._fetchHealthKitBodyFatPercentage.bind(this);
         this._fetchHealthKitLeanBodyMass = this._fetchHealthKitLeanBodyMass.bind(this);
         this._saveHeight = this._saveHeight.bind(this);
@@ -109,6 +110,7 @@ class BodyStore extends airflux.Store {
             self._fetchHealthKitLeanBodyMass();
 
             self._fetchHealthKitStepCountForDay();
+            self._fetchDailyStepCounts();
 
             //setTimeout(() => {self._saveBmi(27)}, 1000);
             //setTimeout(() => {self._onactn_addWeight({
@@ -332,6 +334,23 @@ class BodyStore extends airflux.Store {
             //});
         });
     }
+
+
+    _fetchDailyStepCounts() {
+        let self = this;
+        let d = new Date(2016,4,1);
+        let options = {
+            startDate: d.toISOString()
+        };
+        AppleHealthKit.getMultiDayStepCounts(options, (err, res) => {
+            if(this._handleHealthKitError(err, 'getMultiDayStepCounts')){
+                return;
+            }
+            console.log("DAILY STEP COUNTS: ", res);
+        });
+    }
+
+
 
 
     GetHeightValue() {
