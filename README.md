@@ -18,6 +18,8 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
     * [Methods](#methods)
       * [isAvailable](#isavailable)
       * [initHealthKit](#inithealthkit)
+      * [getBiologicalSex](#getbiologicalsex)
+      * [getDateOfBirth](#getdateofbirth)
       * [getStepCountForToday](#getstepcountfortoday)
       * [getStepCountForDay](#getstepcountforday)
       * [getMultiDayStepCounts](#getmultidaystepcounts)
@@ -199,6 +201,7 @@ ___
 
 #### **`getBiologicalSex`**
 get the biological sex (gender). if the `BiologicalSex` read permission is missing or the user has denied it then the value will be `unknown`. the possible values are:
+
 | Value   | HKBiologicalSex       |
 |---------|-----------------------|
 | unknown | HKBiologicalSexNotSet |
