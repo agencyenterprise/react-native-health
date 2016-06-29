@@ -184,7 +184,7 @@ AppleHealthKit.getStepCountForToday(null, (err: Object, steps: number) => {
 ___
 
 #### **`getStepCountForDay`**
-get the the aggregated total steps for the day provided as `date` in options object.
+get the the aggregated total steps for the day provided as `date` in options object. the `date` field expects an ISO date string as its value
 ```javascript
 let d = new Date(2016,5,27);
 let options = {
