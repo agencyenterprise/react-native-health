@@ -197,8 +197,42 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, res: Object) => {
 
 ___
 
+#### **`getBiologicalSex`**
+get the biological sex (gender). if the `BiologicalSex` read permission is missing or the user has denied it then the value will be `unknown`. the possible values are:
+| Value   | HKBiologicalSex       |
+|---------|-----------------------|
+| unknown | HKBiologicalSexNotSet |
+| male    | HKBiologicalSexMale   |
+| female  | HKBiologicalSexFemale |
+| other   | HKBiologicalSexOther  |
+
+```javascript
+AppleHealthKit.getBiologicalSex(null, (err: Object, bioSex: string) => {
+    if(this._handleHealthKitError(err, 'getBiologicalSex')){
+        return;
+    }
+    // use bioSex ...
+});
+```
+
+___
+
+#### **`getDateOfBirth`**
+get the date of birth. this will be an ISO timestamp
+
+```javascript
+AppleHealthKit.getDateOfBirth(null, (err: Object, dob: string) => {
+    if(this._handleHealthKitError(err, 'getDateOfBirth')){
+        return;
+    }
+    // use dob ...
+});
+```
+
+___
+
 #### **`getStepCountForToday`**
-get the the aggregated total steps for the current day starting and ending at midnight
+get the aggregated total steps for the current day starting and ending at midnight
 ```javascript
 AppleHealthKit.getStepCountForToday(null, (err: Object, steps: number) => {
     if(this._handleHealthKitError(err, 'getStepCountForToday')){
