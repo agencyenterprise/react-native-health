@@ -228,7 +228,7 @@ AppleHealthKit.getDateOfBirth(null, (err: Object, dob: string) => {
     if(this._handleHealthKitError(err, 'getDateOfBirth')){
         return;
     }
-    // use dob ...
+    // use dob ... (ex: '1986-09-01T12:20:30-04:00')
 });
 ```
 
