@@ -163,9 +163,17 @@ AppleHealthKit.isAvailable((err: string, available: bool) => {
 ___
 
 #### **`initHealthKit`** 
-initialize HealthKit. this will show the HealthKit permissions prompt for any read/write permissions that have not yet been selected by the user.
+initialize HealthKit. this will show the HealthKit permissions prompt for any read/write permissions set in the required `options` object. 
 
-`initHealthKit` requires an options object with HealthKit permission settings.
+due to Apple's privacy model if an app user has previously denied a specific permission then they can not be prompted again for that same permission. the app user would have to go into the Apple Health app and grant the permission to your react-native under *sources* tab.
+
+for any data that is read from HealthKit the status/error is the same for both. this privacy restriction results in having no knowledge of whether the permission was denied (make sure it's added to the permissions options object), or the data for the specific request was nil (ex. no steps recorded today)
+
+for any data written to HealthKit an authorization error can be caught. if an authorization error occurs you can prompt the user to set the specific permission or add the permission to the options object if not present
+
+if new read/write permissions are added to the options object then the app user will see the HealthKit permissions prompt with the new permissions to allow
+
+`initHealthKit` requires an options object with HealthKit permission settings
 ```javascript
 let healthKitOptions = {
     permissions: {
