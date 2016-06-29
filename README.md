@@ -4,7 +4,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 ![Alt text](https://devimages.apple.com.edgekey.net/assets/elements/icons/healthkit/healthkit-64x64.png "Apple HealthKit")
 
 #### Notice
-*This package is undergoing rapid development and should be considered unstable for the time being. 
+> *This package is undergoing rapid development and should be considered unstable for the time being. 
 <strong>Use at your own risk</strong>*
 
 #### Table of Contents
@@ -33,7 +33,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 
 ###  Installation
 
-Install the package from npm:
+Install the [react-native-apple-healthkit] package from npm:
 
 `npm install react-native-apple-healthkit --save`
 
@@ -336,3 +336,4 @@ get the most recent lean body mass. the value is a number representing the weigh
 
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
+[react-native-apple-healthkit]: https://www.npmjs.com/package/react-native-apple-healthkit
