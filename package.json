@@ -1,6 +1,6 @@
 {
   "name": "react-native-apple-healthkit",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A React Native bridge module for interacting with Apple HealthKit data",
   "main": "index.js",
   "scripts": {
