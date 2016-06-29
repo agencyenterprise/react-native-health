@@ -114,8 +114,9 @@ The available HealthKit permissions to use with `initHealthKit`
 
 Read Permissions:
 
-| Height            | HKQuantityTypeIdentifierHeight                |
+| Key               | HealthKit Identifier Type                     |
 |-------------------|-----------------------------------------------|
+| Height            | HKQuantityTypeIdentifierHeight                |
 | Weight            | HKQuantityTypeIdentifierBodyMass              |
 | BodyFatPercentage | HKQuantityTypeIdentifierBodyFatPercentage     |
 | BodyMassIndex     | HKQuantityTypeIdentifierBodyMassIndex         |
