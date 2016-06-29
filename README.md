@@ -13,6 +13,8 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
     * [Usage](#usage)
   * [Documentation](#documentation)
     * [Permissions](#permissions)
+      * [Read](#read-permissions)
+      * [Write](#write-permissions)
     * [Methods](#methods)
       * [isAvailable](#isavailable)
       * [initHealthKit](#inithealthkit)
