@@ -41,6 +41,9 @@
 
 
 
+
+
+
 - (void)fetchSumOfSamplesTodayForType:(HKQuantityType *)quantityType unit:(HKUnit *)unit completion:(void (^)(double, NSError *))completionHandler {
     NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesToday];
     
@@ -105,7 +108,8 @@
                                           unit:(HKUnit *)unit
                                      startDate:(NSDate *)startDate
                                        endDate:(NSDate *)endDate
-                                    completion:(void (^)(NSArray *, NSError *))completionHandler {
+                                    completion:(void (^)(NSArray *, NSError *))completionHandler
+{
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *interval = [[NSDateComponents alloc] init];
@@ -159,8 +163,6 @@
                                        }
 
                                    }];
-
-//        NSArray *arr = @[@"Mercedes-Benz", @"BMW", @"Porsche", @"Opel", @"Volkswagen", @"Audi"];
         NSError *err;
         completionHandler(data, err);
 
