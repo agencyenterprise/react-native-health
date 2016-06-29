@@ -51,4 +51,31 @@
 }
 
 
+
+
+- (void)fitness_getDailyStepCounts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    NSDate *startDate = [RCTAppleHealthKit startDateFromOptions:input];
+    NSDate *endDate = [RCTAppleHealthKit endDateFromOptionsDefaultNow:input];
+
+    if(startDate == nil) {
+        callback(@[RCTMakeError(@"could not parse required startDate from options.startDate", nil, nil)]);
+        return;
+    }
+
+    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    HKUnit *stepsUnit = [HKUnit countUnit];
+
+    [self fetchCumulativeSumStatisticsCollection:stepCountType unit:stepsUnit startDate:startDate endDate:endDate completion:^(NSArray *arr, NSError *err){
+        if (err != nil) {
+            NSLog(@"error with fetchCumulativeSumStatisticsCollection: %@", err);
+            callback(@[RCTMakeError(@"error with fetchCumulativeSumStatisticsCollection", err, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], arr]);
+    }];
+}
+
+
+
 @end
