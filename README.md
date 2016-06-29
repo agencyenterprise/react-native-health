@@ -114,6 +114,12 @@ The available HealthKit permissions to use with `initHealthKit`
 
 Read Permissions:
 
+|   Key                 |   Healthkit identifier type                    |
+--------------------------------------------------------------------------
+| Height                | HKQuantityTypeIdentifierHeight                 |
+| Weight                | HKQuantityTypeIdentifierBodyMass               |
+
+
     Height               HKQuantityTypeIdentifierHeight
     Weight               HKQuantityTypeIdentifierBodyMass
     BodyFatPercentage    HKQuantityTypeIdentifierBodyFatPercentage
@@ -136,6 +142,11 @@ Write Permissions:
     DietaryEnergy        HKQuantityTypeIdentifierDietaryEnergyConsumed
     ActiveEnergy         HKQuantityTypeIdentifierActiveEnergyBurned
         
+
+### Options
+
+
+
 ### Methods
 
 #### **`isAvailable`** 
