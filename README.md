@@ -226,7 +226,7 @@ the function will be called with an array of elements `res` containing date and 
     for(let i=0; i<res.length; ++i){
         let elem = res[i];
         // elem[0] is ISOTimestamp : string
-        // elem[1] is stepCount    : number
+        // elem[1] is step count   : number
     }
 });
 ```
