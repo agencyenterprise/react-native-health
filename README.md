@@ -112,7 +112,7 @@ AppleHealthKit.saveWeight({value:myWeight}, (err, res) => {
 
 The available HealthKit permissions to use with `initHealthKit` 
 
-Read Permissions:
+#### Read Permissions
 
 | Permission        | HealthKit Identifier Type                     |
 |-------------------|-----------------------------------------------|
@@ -127,28 +127,18 @@ Read Permissions:
 | DietaryEnergy     | HKQuantityTypeIdentifierDietaryEnergyConsumed |
 | ActiveEnergy      | HKQuantityTypeIdentifierActiveEnergyBurned    |
 
+#### Write Permissions
 
-    Height               HKQuantityTypeIdentifierHeight
-    Weight               HKQuantityTypeIdentifierBodyMass
-    BodyFatPercentage    HKQuantityTypeIdentifierBodyFatPercentage
-    BodyMassIndex        HKQuantityTypeIdentifierBodyMassIndex
-    LeanBodyMass         HKQuantityTypeIdentifierLeanBodyMass
-    Steps                HKQuantityTypeIdentifierStepCount
-    BiologicalSex        HKCharacteristicTypeIdentifierBiologicalSex
-    DateOfBirth          HKCharacteristicTypeIdentifierDateOfBirth
-    DietaryEnergy        HKQuantityTypeIdentifierDietaryEnergyConsumed
-    ActiveEnergy         HKQuantityTypeIdentifierActiveEnergyBurned
-    
-Write Permissions:
-
-    Height               HKQuantityTypeIdentifierHeight
-    Weight               HKQuantityTypeIdentifierBodyMass
-    BodyFatPercentage    HKQuantityTypeIdentifierBodyFatPercentage
-    BodyMassIndex        HKQuantityTypeIdentifierBodyMassIndex
-    LeanBodyMass         HKQuantityTypeIdentifierLeanBodyMass
-    Steps                HKQuantityTypeIdentifierStepCount
-    DietaryEnergy        HKQuantityTypeIdentifierDietaryEnergyConsumed
-    ActiveEnergy         HKQuantityTypeIdentifierActiveEnergyBurned
+| Permission        | HealthKit Identifier Type                     |
+|-------------------|-----------------------------------------------|
+| Height            | HKQuantityTypeIdentifierHeight                |
+| Weight            | HKQuantityTypeIdentifierBodyMass              |
+| BodyFatPercentage | HKQuantityTypeIdentifierBodyFatPercentage     |
+| BodyMassIndex     | HKQuantityTypeIdentifierBodyMassIndex         |
+| LeanBodyMass      | HKQuantityTypeIdentifierLeanBodyMass          |
+| Steps             | HKQuantityTypeIdentifierStepCount             |
+| DietaryEnergy     | HKQuantityTypeIdentifierDietaryEnergyConsumed |
+| ActiveEnergy      | HKQuantityTypeIdentifierActiveEnergyBurned    |
         
 
 ### Options
