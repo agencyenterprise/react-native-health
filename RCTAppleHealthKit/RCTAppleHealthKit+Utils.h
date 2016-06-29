@@ -14,10 +14,14 @@
 + (NSString *)buildISO8601StringFromDate:(NSDate *)date;
 + (NSPredicate *)predicateForSamplesToday;
 + (NSPredicate *)predicateForSamplesOnDay:(NSDate *)date;
++ (NSPredicate *)predicateForSamplesBetweenDates:(NSDate *)startDate endDate:(NSDate *)endDate;
 + (NSPredicate *)predicateForSamplesOnDayFromTimestamp:(NSString *)timestamp;
 + (double)doubleValueFromOptions:(NSDictionary *)options;
 + (NSDate *)dateFromOptions:(NSDictionary *)options;
 + (NSDate *)dateFromOptionsDefaultNow:(NSDictionary *)options;
++ (NSDate *)startDateFromOptions:(NSDictionary *)options;
++ (NSDate *)endDateFromOptions:(NSDictionary *)options;
++ (NSDate *)endDateFromOptionsDefaultNow:(NSDictionary *)options;
 + (HKUnit *)hkUnitFromOptions:(NSDictionary *)options;
 
 @end

@@ -49,6 +49,15 @@
     return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
 }
 
++ (NSPredicate *)predicateForSamplesBetweenDates:(NSDate *)startDate endDate:(NSDate *)endDate {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *start = [calendar startOfDayForDate:startDate];
+    NSDate *end = endDate;
+//    NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+    return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
+}
+
+
 
 
 + (double)doubleValueFromOptions:(NSDictionary *)options {
@@ -66,7 +75,6 @@
     return date;
 }
 
-
 + (NSDate *)dateFromOptionsDefaultNow:(NSDictionary *)options {
     NSString *dateString = [options objectForKey:@"date"];
     if(dateString != nil){
@@ -80,6 +88,44 @@
     NSDate *now = [NSDate date];
     return now;
 }
+
+
+//TODO: make a generic function that can return NSDate by key... have 'default now' as option
+
+
++ (NSDate *)startDateFromOptions:(NSDictionary *)options {
+    NSString *dateString = [options objectForKey:@"startDate"];
+    NSDate *date;
+    if(dateString != nil){
+        date = [RCTAppleHealthKit parseISO8601DateFromString:dateString];
+        return date;
+    }
+    return date;
+}
+
++ (NSDate *)endDateFromOptions:(NSDictionary *)options {
+    NSString *dateString = [options objectForKey:@"endDate"];
+    NSDate *date;
+    if(dateString != nil){
+        date = [RCTAppleHealthKit parseISO8601DateFromString:dateString];
+    }
+    return date;
+}
+
++ (NSDate *)endDateFromOptionsDefaultNow:(NSDictionary *)options {
+    NSString *dateString = [options objectForKey:@"endDate"];
+    NSDate *date;
+    if(dateString != nil){
+        date = [RCTAppleHealthKit parseISO8601DateFromString:dateString];
+        return date;
+    }
+    if(date == nil){
+        date = [NSDate date];
+    }
+    return date;
+}
+
+
 
 + (HKUnit *)hkUnitFromOptions:(NSDictionary *)options {
     NSString *unitString = [options objectForKey:@"unit"];
