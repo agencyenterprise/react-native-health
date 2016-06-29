@@ -110,7 +110,8 @@ AppleHealthKit.saveWeight({value:myWeight}, (err, res) => {
 
 ## Documentation
 
-### Permissions
+Permissions
+-----------
 
 The available HealthKit permissions to use with `initHealthKit` 
 
