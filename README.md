@@ -112,7 +112,7 @@ AppleHealthKit.saveWeight({value:myWeight}, (err, res) => {
 
 The available HealthKit permissions to use with `initHealthKit` 
 
-#### Read Permissions
+##### Read Permissions
 
 | Permission        | HealthKit Identifier Type                     |
 |-------------------|-----------------------------------------------|
@@ -127,7 +127,7 @@ The available HealthKit permissions to use with `initHealthKit`
 | DietaryEnergy     | HKQuantityTypeIdentifierDietaryEnergyConsumed |
 | ActiveEnergy      | HKQuantityTypeIdentifierActiveEnergyBurned    |
 
-#### Write Permissions
+##### Write Permissions
 
 | Permission        | HealthKit Identifier Type                     |
 |-------------------|-----------------------------------------------|
