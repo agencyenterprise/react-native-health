@@ -7,7 +7,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 > *This package is undergoing rapid development and should be considered unstable for the time being.*
 > *<strong>Use at your own risk</strong>*
 
-#### Table of Contents
+## Table of Contents
   * [Getting Started](#getting-started)
     * [Installation](#installation)
     * [Usage](#usage)
