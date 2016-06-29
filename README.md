@@ -144,11 +144,12 @@ The available HealthKit permissions to use with `initHealthKit`
 | ActiveEnergy      | HKQuantityTypeIdentifierActiveEnergyBurned    |
         
 
-### Options
+Options
+-------
 
 
-
-### Methods
+Methods
+-------
 
 #### **`isAvailable`** 
 check if HealthKit is available on the device
