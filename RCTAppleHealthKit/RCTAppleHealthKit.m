@@ -83,6 +83,11 @@ RCT_EXPORT_METHOD(getStepCountForDay:(NSDictionary *)input callback:(RCTResponse
     [self fitness_getStepCountForDay:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getMultiDayStepCounts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self fitness_getDailyStepCounts:input callback:callback];
+}
+
 
 
 RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
