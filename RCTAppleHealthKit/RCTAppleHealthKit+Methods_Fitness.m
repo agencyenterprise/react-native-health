@@ -8,6 +8,7 @@
 
 #import "RCTAppleHealthKit+Methods_Fitness.h"
 #import "RCTAppleHealthKit+Queries.h"
+#import "RCTAppleHealthKit+Utils.h"
 
 @implementation RCTAppleHealthKit (Methods_Fitness)
 
@@ -26,5 +27,28 @@
         callback(@[[NSNull null], @(totalSteps)]);
     }];
 }
+
+
+- (void)fitness_getStepCountForDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    NSDate *date = [RCTAppleHealthKit dateFromOptions:input];
+    if(date == nil) {
+        callback(@[RCTMakeError(@"could not parse date from options.date", nil, nil)]);
+        return;
+    }
+
+    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    HKUnit *stepsUnit = [HKUnit countUnit];
+
+    [self fetchSumOfSamplesOnDayForType:stepCountType unit:stepsUnit day:date completion:^(double totalSteps, NSError *error) {
+        if (!totalSteps) {
+            NSLog(@"could not fetch step count for day: %@", error);
+            callback(@[RCTMakeError(@"could not fetch step count for day", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(totalSteps)]);
+    }];
+}
+
 
 @end
