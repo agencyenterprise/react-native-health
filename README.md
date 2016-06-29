@@ -16,7 +16,9 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getLatestWeight](#getlatestweight)
       * [saveWeight](#saveweight)
       * [getLatestHeight](#getlatestheight)
+      * [saveHeight](#saveheight)
       * [getLatestBmi](#getlatestbmi)
+      * [saveBmi](#savebmi)
       * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
       * [getLatestLeanBodyMass](#getlatestleanbodymass)
   * [Examples](#examples)
@@ -24,14 +26,19 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 
 ## Getting started
 
-###  Installation (xcode)
+###  Installation
 
-1. `npm install react-native-apple-healthkit@https://github.com/GregWilson/react-native-apple-healthkit.git --save`
-2. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-3. Go to `node_modules` ➜ `react-native-apple-healthkit` and add `RCTAppleHealthKit.xcodeproj`
-4. In XCode, in the project navigator, select your project. Add `libRCTAppleHealthKit.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-5. Click `RCTAppleHealthKit.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). In the `Search Paths` section, look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../../react-native/React` and `$(SRCROOT)/../../../React` - mark both as `recursive`.
-5. Compile and have fun
+Install the package from npm:
+
+`npm install react-native-apple-healthkit --save`
+
+##### Xcode
+  
+1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
+2. Go to `node_modules` ➜ `react-native-apple-healthkit` and add `RCTAppleHealthKit.xcodeproj`
+3. In XCode, in the project navigator, select your project. Add `libRCTAppleHealthKit.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
+4. Click `RCTAppleHealthKit.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). In the `Search Paths` section, look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../../react-native/React` and `$(SRCROOT)/../../../React` - mark both as `recursive`.
+5. Compile and run
 
 ### Usage
 
@@ -44,7 +51,7 @@ var AppleHealthKit = require('react-native-apple-healthkit');
 let healthKitOptions = {
     permissions: {
         read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
-        write: ["Weight", "Steps"]
+        write: ["Weight", "Steps", "BodyMassIndex"]
     }
 };
 
@@ -68,7 +75,7 @@ var _ = require('lodash');
 
 ...
 
-AppleHealthKit.getCurrentWeight(null, (err, weight) => {
+AppleHealthKit.getLatestWeight(null, (err, weight) => {
     if(err){
         console.log("error getting current weight: ", err);
         return;
@@ -80,7 +87,7 @@ AppleHealthKit.getCurrentWeight(null, (err, weight) => {
 ...
 
 let myWeight = 200;
-AppleHealthKit.saveWeight({weight:myWeight}, (err, res) => {
+AppleHealthKit.saveWeight({value:myWeight}, (err, res) => {
     if(err){
         console.log("error saving weight to healthkit: ", err);
         return;
@@ -107,7 +114,7 @@ Read Permissions:
     BodyMassIndex        HKQuantityTypeIdentifierBodyMassIndex
     LeanBodyMass         HKQuantityTypeIdentifierLeanBodyMass
     Steps                HKQuantityTypeIdentifierStepCount
-    Sex                  HKCharacteristicTypeIdentifierBiologicalSex
+    BiologicalSex        HKCharacteristicTypeIdentifierBiologicalSex
     DateOfBirth          HKCharacteristicTypeIdentifierDateOfBirth
     DietaryEnergy        HKQuantityTypeIdentifierDietaryEnergyConsumed
     ActiveEnergy         HKQuantityTypeIdentifierActiveEnergyBurned
@@ -144,7 +151,7 @@ initialize HealthKit. this will show the HealthKit permissions prompt for any re
 let healthKitOptions = {
     permissions: {
         read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
-        write: ["Weight"]
+        write: ["Weight", "Steps", "BodyMassIndex"]
     }
 };
 ```
@@ -185,7 +192,7 @@ AppleHealthKit.getLatestWeight(null, (err: string, weight: number) => {
         return;
     }
     weight = _.round(weight,1);
-    // do something with the weight...
+    // use weight ...
 });
 ```
 
@@ -194,12 +201,12 @@ ___
 #### **`saveWeight`**
 save a numeric weight value to HealthKit
 
-`saveWeight` accepts an object containing a numeric weight value with the key *weight*:
+`saveWeight` accepts an options object containing a numeric weight value:
 ```javascript
-let saveOptions = {weight: 200}
+let options = {value: 200}
 ```
 ```javascript
-AppleHealthKit.saveWeight(saveOptions, (err, res) => {
+AppleHealthKit.saveWeight(options, (err, res) => {
     if(err){
         console.log("error saving weight to healthkit: ", err);
         return;
@@ -218,9 +225,28 @@ AppleHealthKit.getLatestHeight(null, (err: string, height: number) => {
         console.log("error getting latest height: ", err);
         return;
     }
-    // do something with the height value...
+    // use height ...
 });
 ```
+
+___
+
+#### **`saveHeight`**
+save a numeric height value to HealthKit
+
+`saveHeight` accepts an options object containing a numeric height value:
+```javascript
+let options = {value: 200}
+```
+```javascript
+AppleHealthKit.saveHeight(options, (err, res) => {
+    if(this._handleHealthKitError(err, 'saveHeight')){
+        return;
+    }
+    // height successfully saved
+});
+```
+
 ___
 
 #### **`getLatestBmi`**
@@ -236,6 +262,24 @@ AppleHealthKit.getLatestBmi(null, (err: string, bmi: Object) => {
         let val = bmi.value;
         // ...
     }
+});
+```
+
+___
+
+#### **`saveBmi`**
+save a numeric BMI value to HealthKit
+
+`saveBmi` accepts an options object containing a numeric BMI value:
+```javascript
+let options = {value: 27.2}
+```
+```javascript
+AppleHealthKit.saveBmi(options, (err, res) => {
+    if(this._handleHealthKitError(err, 'saveBmi')){
+        return;
+    }
+    // BMI successfully saved
 });
 ```
 
