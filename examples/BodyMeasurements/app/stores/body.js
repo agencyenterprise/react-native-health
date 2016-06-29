@@ -45,8 +45,12 @@ class BodyStore extends airflux.Store {
         //this.listenTo(actions.addWeight, this._onactn_addWeight)
 
         this._initHealthKit = this._initHealthKit.bind(this);
+        this._fetchHealthKitUserBiologicalSex = this._fetchHealthKitUserBiologicalSex.bind(this);
+        this._fetchHealthKitUserDateOfBirth = this._fetchHealthKitUserDateOfBirth.bind(this);
         this._fetchHealthKitUserWeight = this._fetchHealthKitUserWeight.bind(this);
+        this._fetchHealthKitUserWeightSamples = this._fetchHealthKitUserWeightSamples.bind(this);
         this._fetchHealthKitUserHeight = this._fetchHealthKitUserHeight.bind(this);
+        this._fetchHealthKitUserHeightSamples = this._fetchHealthKitUserHeightSamples.bind(this);
         this._fetchHealthKitUserBmi = this._fetchHealthKitUserBmi.bind(this);
         this._fetchHealthKitStepCountToday = this._fetchHealthKitStepCountToday.bind(this);
         this._fetchHealthKitStepCountForDay = this._fetchHealthKitStepCountForDay.bind(this);
@@ -91,7 +95,7 @@ class BodyStore extends airflux.Store {
 
         let healthKitOptions = {
             permissions: {
-                read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex", "LeanBodyMass", "BodyFatPercentage"],
+                read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex", "LeanBodyMass", "BodyFatPercentage", "BiologicalSex"],
                 write: ["Weight", "Height", "BodyMassIndex"]
             }
         };
@@ -111,6 +115,12 @@ class BodyStore extends airflux.Store {
 
             self._fetchHealthKitStepCountForDay();
             self._fetchDailyStepCounts();
+
+            self._fetchHealthKitUserWeightSamples();
+            self._fetchHealthKitUserHeightSamples();
+
+            self._fetchHealthKitUserBiologicalSex();
+            self._fetchHealthKitUserDateOfBirth();
 
             //setTimeout(() => {self._saveBmi(27)}, 1000);
             //setTimeout(() => {self._onactn_addWeight({
@@ -155,6 +165,28 @@ class BodyStore extends airflux.Store {
     }
 
 
+    _fetchHealthKitUserBiologicalSex() {
+        let self = this;
+        AppleHealthKit.getBiologicalSex(null, (err, sex) => {
+            if(this._handleHealthKitError(err, 'getBiologicalSex')){
+                return;
+            }
+            console.log('BiologicalSex: ', sex);
+        });
+    }
+
+    _fetchHealthKitUserDateOfBirth() {
+        let self = this;
+        AppleHealthKit.getDateOfBirth(null, (err, dob) => {
+            if(this._handleHealthKitError(err, 'getDateOfBirth')){
+                return;
+            }
+            console.log('DateOfBirth: ', dob);
+        });
+    }
+
+
+
     _saveHeight(height_inches) {
         let self = this;
         let options = {
@@ -197,6 +229,25 @@ class BodyStore extends airflux.Store {
     }
 
 
+
+    _fetchHealthKitUserWeightSamples() {
+        let self = this;
+        let d = new Date(2016,4,27);
+        let options = {
+            unit: "pound",
+            startDate: d.toISOString(),
+            ascending: false,
+            limit:2,
+        };
+        AppleHealthKit.getWeightSamples(options, (err, samples) => {
+            if(this._handleHealthKitError(err, 'getWeightSamples')){
+                return;
+            }
+            console.log('weight samples: ', samples);
+        });
+    }
+
+
     _fetchHealthKitUserHeight() {
         let self = this;
         let options = {
@@ -218,6 +269,25 @@ class BodyStore extends airflux.Store {
             }
         });
     }
+
+
+    _fetchHealthKitUserHeightSamples() {
+        let self = this;
+        let d = new Date(2016,1,1);
+        let options = {
+            unit: "inch",
+            startDate: d.toISOString(),
+            //ascending: false,
+            //limit:2,
+        };
+        AppleHealthKit.getHeightSamples(options, (err, samples) => {
+            if(this._handleHealthKitError(err, 'getHeightSamples')){
+                return;
+            }
+            console.log('height samples: ', samples);
+        });
+    }
+
 
 
     _fetchHealthKitUserBmi() {
@@ -359,7 +429,7 @@ class BodyStore extends airflux.Store {
 
     GetHeightFormatted() {
         let feet = _.floor((DATA.height / 12));
-        let inches = DATA.height % 12;
+        let inches = _.floor((DATA.height % 12));
         let formatted = '' + feet + '\'' + inches + '"';
         return formatted;
     }

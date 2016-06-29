@@ -13,6 +13,7 @@
 
 #import "RCTAppleHealthKit+Methods_Body.h"
 #import "RCTAppleHealthKit+Methods_Fitness.h"
+#import "RCTAppleHealthKit+Methods_Characteristic.h"
 
 @implementation RCTAppleHealthKit
 
@@ -29,9 +30,24 @@ RCT_EXPORT_METHOD(initHealthKit:(NSDictionary *)input callback:(RCTResponseSende
     [self initializeHealthKit:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getBiologicalSex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self characteristic_getBiologicalSex:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getDateOfBirth:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self characteristic_getDateOfBirth:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getLatestWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self body_getCurrentWeight:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getWeightSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getWeightSamples:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -43,6 +59,11 @@ RCT_EXPORT_METHOD(saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBl
 RCT_EXPORT_METHOD(getLatestHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self body_getMostRecentHeight:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getHeightSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getHeightSamples:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(saveHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
