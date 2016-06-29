@@ -57,6 +57,16 @@
 }
 
 
++ (NSDate *)dateFromOptions:(NSDictionary *)options {
+    NSString *dateString = [options objectForKey:@"date"];
+    NSDate *date;
+    if(dateString != nil){
+        date = [RCTAppleHealthKit parseISO8601DateFromString:dateString];
+    }
+    return date;
+}
+
+
 + (NSDate *)dateFromOptionsDefaultNow:(NSDictionary *)options {
     NSString *dateString = [options objectForKey:@"date"];
     if(dateString != nil){
