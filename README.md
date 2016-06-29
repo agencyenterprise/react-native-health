@@ -222,7 +222,7 @@ the function will be called with an array of elements `res` containing date and 
         return;
     }
     // 'res' is array of [ISOTimestamp: string, stepCount: number] arrays
-    // sorted ascending from startDate through endDate (default now)
+    // sorted ascending from startDate through endDate
     for(let i=0; i<res.length; ++i){
         let elem = res[i];
         // elem[0] is ISOTimestamp : string
