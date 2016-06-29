@@ -50,6 +50,7 @@ Install the [react-native-apple-healthkit] package from npm:
 ![Alt text](/examples/images/Capabilities_HealthKit.png "Xcode Capabilities Section")
 
 6. Compile and run
+
 ### Usage
 
 Just `require` the `react-native-apple-healthkit` module and you're ready to go!
