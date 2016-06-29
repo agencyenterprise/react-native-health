@@ -7,7 +7,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 > *This package is undergoing rapid development and should be considered unstable for the time being.*
 > *<strong>Use at your own risk</strong>*
 
-#### Table of Contents
+## Table of Contents
   * [Getting Started](#getting-started)
     * [Installation](#installation)
     * [Usage](#usage)
@@ -56,20 +56,19 @@ var AppleHealthKit = require('react-native-apple-healthkit');
 
 ...
 
-let healthKitOptions = {
+let options = {
     permissions: {
         read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
         write: ["Weight", "Steps", "BodyMassIndex"]
     }
 };
 
-AppleHealthKit.initHealthKit(healthKitOptions, (err, res) => {
+AppleHealthKit.initHealthKit(options: Object, (err: Object, res: Object) => {
     if(err) {
         console.log("error initializing healthkit: ", err);
         return;
     }
-    console.log("HEALTHKIT INITIALIZED!");
-    // ...
+    // healthkit initialized...
 });
 
 
@@ -83,19 +82,18 @@ var _ = require('lodash');
 
 ...
 
-AppleHealthKit.getLatestWeight(null, (err, weight) => {
+AppleHealthKit.getLatestWeight(null, (err: Object, weight: number) => {
     if(err){
         console.log("error getting current weight: ", err);
         return;
     }
-    weight = _.round(weight,1);
-    // do something with the weight...
+    // use weight ...
 });
 
 ...
 
-let myWeight = 200;
-AppleHealthKit.saveWeight({value:myWeight}, (err, res) => {
+let options = {value: 200};
+AppleHealthKit.saveWeight(options: Object, (err: Object, res: Object) => {
     if(err){
         console.log("error saving weight to healthkit: ", err);
         return;
@@ -110,7 +108,8 @@ AppleHealthKit.saveWeight({value:myWeight}, (err, res) => {
 
 ## Documentation
 
-### Permissions
+Permissions
+-----------
 
 The available HealthKit permissions to use with `initHealthKit` 
 
@@ -143,16 +142,17 @@ The available HealthKit permissions to use with `initHealthKit`
 | ActiveEnergy      | HKQuantityTypeIdentifierActiveEnergyBurned    |
         
 
-### Options
+Options
+-------
 
 
-
-### Methods
+Methods
+-------
 
 #### **`isAvailable`** 
 check if HealthKit is available on the device
 ```javascript
-AppleHealthKit.isAvailable((err: string, available: bool) => {
+AppleHealthKit.isAvailable((err: Object, available: boolean) => {
     if(available){
         // ...
     }
@@ -161,11 +161,19 @@ AppleHealthKit.isAvailable((err: string, available: bool) => {
 ___
 
 #### **`initHealthKit`** 
-initialize HealthKit. this will show the HealthKit permissions prompt for any read/write permissions that have not yet been selected by the user.
+initialize HealthKit. this will show the HealthKit permissions prompt for any read/write permissions set in the required `options` object. 
 
-`initHealthKit` requires an options object with HealthKit permission settings.
+due to Apple's privacy model if an app user has previously denied a specific permission then they can not be prompted again for that same permission. the app user would have to go into the Apple Health app and grant the permission to your react-native app under *sources* tab. 
+
+for any data that is read from HealthKit the status/error is the same for both. this privacy restriction results in having no knowledge of whether the permission was denied (make sure it's added to the permissions options object), or the data for the specific request was nil (ex. no steps recorded today)
+
+for any data written to HealthKit an authorization error can be caught. if an authorization error occurs you can prompt the user to set the specific permission or add the permission to the options object if not present
+
+if new read/write permissions are added to the options object then the app user will see the HealthKit permissions prompt with the new permissions to allow
+
+`initHealthKit` requires an options object with HealthKit permission settings
 ```javascript
-let healthKitOptions = {
+let options = {
     permissions: {
         read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
         write: ["Weight", "Steps", "BodyMassIndex"]
@@ -174,7 +182,7 @@ let healthKitOptions = {
 ```
 
 ```javascript
-AppleHealthKit.initHealthKit(healthKitOptions: object, (err: string, res: object) => {
+AppleHealthKit.initHealthKit(options: Object, (err: string, res: Object) => {
     if(err) {
         console.log("error initializing healthkit: ", err);
         return;
@@ -206,7 +214,7 @@ let d = new Date(2016,5,27);
 let options = {
     date: d.toISOString()
 };
-AppleHealthKit.getStepCountForDay(options, (err, steps) => {
+AppleHealthKit.getStepCountForDay(options: Object, (err: Object, steps: number) => {
     if(this._handleHealthKitError(err, 'getStepCountForDay')){
         return;
     }
@@ -228,7 +236,7 @@ let options = {
 ```
 the function will be called with an array of elements `res` containing date and step count information
 ```javascript
- AppleHealthKit.getMultiDayStepCounts(options, (err: Object, res: Array<Array<string|number>>) => {
+ AppleHealthKit.getMultiDayStepCounts(options: Object, (err: Object, res: Array<Array<string|number>>) => {
     if(this._handleHealthKitError(err, 'getMultiDayStepCounts')){
         return;
     }
@@ -252,7 +260,6 @@ AppleHealthKit.getLatestWeight(null, (err: string, weight: number) => {
         console.log("error getting latest weight: ", err);
         return;
     }
-    weight = _.round(weight,1);
     // use weight ...
 });
 ```
@@ -267,7 +274,7 @@ save a numeric weight value to HealthKit
 let options = {value: 200}
 ```
 ```javascript
-AppleHealthKit.saveWeight(options, (err, res) => {
+AppleHealthKit.saveWeight(options: Object, (err: Object, res: Object) => {
     if(err){
         console.log("error saving weight to healthkit: ", err);
         return;
@@ -300,7 +307,7 @@ save a numeric height value to HealthKit
 let options = {value: 200}
 ```
 ```javascript
-AppleHealthKit.saveHeight(options, (err, res) => {
+AppleHealthKit.saveHeight(options: Object, (err: Object, res: Object) => {
     if(this._handleHealthKitError(err, 'saveHeight')){
         return;
     }
@@ -336,7 +343,7 @@ save a numeric BMI value to HealthKit
 let options = {value: 27.2}
 ```
 ```javascript
-AppleHealthKit.saveBmi(options, (err, res) => {
+AppleHealthKit.saveBmi(options: Object, (err: Object, res: Object) => {
     if(this._handleHealthKitError(err, 'saveBmi')){
         return;
     }
