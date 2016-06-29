@@ -60,6 +60,7 @@
 
 
 
+
 + (double)doubleValueFromOptions:(NSDictionary *)options {
     double value = [[options objectForKey:@"value"] doubleValue];
     return value;
@@ -173,6 +174,107 @@
     return theUnit;
 }
 
+
++ (HKUnit *)hkUnitFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKUnit *)defaultValue {
+    NSString *unitString = [options objectForKey:key];
+    HKUnit *theUnit;
+
+    if([unitString isEqualToString:@"gram"]){
+        theUnit = [HKUnit gramUnit];
+    }
+    if([unitString isEqualToString:@"pound"]){
+        theUnit = [HKUnit poundUnit];
+    }
+    if([unitString isEqualToString:@"meter"]){
+        theUnit = [HKUnit meterUnit];
+    }
+    if([unitString isEqualToString:@"inch"]){
+        theUnit = [HKUnit inchUnit];
+    }
+    if([unitString isEqualToString:@"foot"]){
+        theUnit = [HKUnit footUnit];
+    }
+    if([unitString isEqualToString:@"second"]){
+        theUnit = [HKUnit secondUnit];
+    }
+    if([unitString isEqualToString:@"minute"]){
+        theUnit = [HKUnit minuteUnit];
+    }
+    if([unitString isEqualToString:@"hour"]){
+        theUnit = [HKUnit hourUnit];
+    }
+    if([unitString isEqualToString:@"day"]){
+        theUnit = [HKUnit dayUnit];
+    }
+    if([unitString isEqualToString:@"joule"]){
+        theUnit = [HKUnit jouleUnit];
+    }
+    if([unitString isEqualToString:@"calorie"]){
+        theUnit = [HKUnit calorieUnit];
+    }
+    if([unitString isEqualToString:@"count"]){
+        theUnit = [HKUnit countUnit];
+    }
+    if([unitString isEqualToString:@"percent"]){
+        theUnit = [HKUnit percentUnit];
+    }
+
+    if(theUnit == nil){
+        theUnit = defaultValue;
+    }
+
+    return theUnit;
+}
+
+
++ (NSUInteger)uintFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(NSUInteger)defaultValue {
+    NSUInteger val;
+    NSNumber *num = [options objectForKey:key];
+    if(num != nil){
+        val = [num unsignedIntValue];
+    } else {
+        val = defaultValue;
+    }
+    return val;
+}
+
++ (double)doubleFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(double)defaultValue {
+    double val;
+    NSNumber *num = [options objectForKey:key];
+    if(num != nil){
+        val = [num doubleValue];
+    } else {
+        val = defaultValue;
+    }
+    return val;
+}
+
++ (NSDate *)dateFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(NSDate *)defaultValue {
+    NSString *dateString = [options objectForKey:key];
+    NSDate *date;
+    if(dateString != nil){
+        date = [RCTAppleHealthKit parseISO8601DateFromString:dateString];
+    } else {
+        date = defaultValue;
+    }
+    return date;
+}
+
++ (NSString *)stringFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(NSString *)defaultValue {
+    NSString *str = [options objectForKey:key];
+    if(str == nil){
+        str = defaultValue;
+    }
+    return str;
+}
+
++ (bool)boolFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(bool)defaultValue {
+    NSNumber *num = [options objectForKey:key];
+    if(num == nil){
+        return defaultValue;
+    }
+    return [num boolValue];
+}
 
 
 
