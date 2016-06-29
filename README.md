@@ -219,25 +219,25 @@ ___
 #### **`getMultiDayStepCounts`**
 get the total steps per day over a specified date range. 
 
-`getMultiDayStepCounts` accepts an options object containing *`startDate: ISO8601Timestamp`*, and optional *`endDate: ISO8601Timestamp`* fields. if `endDate` is not provided it will default to the current time
+`getMultiDayStepCounts` accepts an options object containing required *`startDate: ISO8601Timestamp`* and optional *`endDate: ISO8601Timestamp`*. if `endDate` is not provided it will default to the current time
 ```javascript
 let options = {
     startDate: (new Date(2016,5,1)).toISOString()  // required
     endDate:   (new Date()).toISOString()          // optional; default now
 };
 ```
-The function will be called with an array of elements `res` containing date and step count information
+the function will be called with an array of elements `res` containing date and step count information
 ```javascript
  AppleHealthKit.getMultiDayStepCounts(options, (err: Object, res: Array<Array<string|number>>) => {
     if(this._handleHealthKitError(err, 'getMultiDayStepCounts')){
         return;
     }
     // 'res' is array of [ISOTimestamp: string, stepCount: number] arrays
-    // sorted ascending from startDate through endDate (default now)
+    // sorted ascending from startDate through endDate
     for(let i=0; i<res.length; ++i){
         let elem = res[i];
         // elem[0] is ISOTimestamp : string
-        // elem[1] is stepCount    : number
+        // elem[1] is step count   : number
     }
 });
 ```
