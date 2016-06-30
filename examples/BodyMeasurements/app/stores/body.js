@@ -234,10 +234,10 @@ class BodyStore extends airflux.Store {
         let self = this;
         let d = new Date(2016,4,27);
         let options = {
-            unit: "pound",
+            unit: "gram",
             startDate: d.toISOString(),
             ascending: false,
-            limit:2,
+            limit:3,
         };
         AppleHealthKit.getWeightSamples(options, (err, samples) => {
             if(this._handleHealthKitError(err, 'getWeightSamples')){
