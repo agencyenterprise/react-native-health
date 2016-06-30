@@ -278,4 +278,23 @@
 
 
 
+
+
+- (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array {
+    if ([array count] <= 1)
+        return array;
+    NSUInteger i = 0;
+    NSUInteger j = [array count] - 1;
+    while (i < j) {
+        [array exchangeObjectAtIndex:i
+                  withObjectAtIndex:j];
+        i++;
+        j--;
+    }
+    return array;
+}
+
+
+
+
 @end
