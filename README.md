@@ -306,6 +306,29 @@ AppleHealthKit.getLatestWeight(null, (err: string, weight: number) => {
 
 ___
 
+#### **`getWeightSamples`**
+query for weight samples. the options object is used to setup a query to retrieve relevant samples.
+```javascript
+let options = {
+    unit: 'pound',										// optional; default 'pound'
+    startDate: (new Date(2016,4,27)).toISOString(),		// required
+	endDate: (new Date()).toISOString(),				// optional; default now
+    ascending: false,									// optional; default false
+    limit:10,											// optional; default no limit
+};
+```
+
+```javascript
+AppleHealthKit.getWeightSamples(options, (err: Object, samples: Array<Object>) => {
+	if(this._handleHealthKitError(err, 'getWeightSamples')){
+		return;
+	}
+	// use samples ...
+});
+```
+
+___
+
 #### **`saveWeight`**
 save a numeric weight value to HealthKit
 
