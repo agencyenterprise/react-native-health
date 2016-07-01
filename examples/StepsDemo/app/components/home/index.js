@@ -25,7 +25,11 @@ const RPERMS = AppleHealthKit.Constants.Permissions.READ;
 
 const HKOPTIONS = {
     permissions: {
-        read:  [RPERMS.StepCount, RPERMS.DistanceWalkingRunning],
+        read:  [
+            RPERMS.StepCount,
+            RPERMS.DistanceWalkingRunning,
+            RPERMS.FlightsClimbed
+        ],
         write: [WPERMS.StepCount],
     }
 };
@@ -88,6 +92,14 @@ class Home extends Component {
                 return;
             }
             console.log('getDistanceWalkingRunning -res-> ', res);
+        });
+
+
+        AppleHealthKit.getFlightsClimbed(null, (err, res) => {
+            if(this._handleHKError(err, 'getFlightsClimbed')){
+                return;
+            }
+            console.log('getFlightsClimbed -res-> ', res);
         });
 
     }
