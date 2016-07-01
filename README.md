@@ -27,7 +27,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getWeightSamples](#getweightsamples)
       * [saveWeight](#saveweight)
       * [getLatestHeight](#getlatestheight)
-	  * [getHeightSamples](#getheightsamples)
+      * [getHeightSamples](#getheightsamples)
       * [saveHeight](#saveheight)
       * [getLatestBmi](#getlatestbmi)
       * [saveBmi](#savebmi)
@@ -380,12 +380,12 @@ the callback function will be called with a `samples` array containing objects w
 ```javascript
 // samples is array of objects
 [
-	{value: 74.02, startDate: '2016-06-29T17:55:00.000-0400', endDate: '2016-06-29T17:55:00.000-0400' },
-	{value: 74, startDate: '2016-03-12T13:22:00.000-0400', endDate: '2016-03-12T13:22:00.000-0400' },
+	{value: 74.02, startDate:'2016-06-29T17:55:00.000-0400', endDate:'2016-06-29T17:55:00.000-0400'},
+	{value: 74, startDate:'2016-03-12T13:22:00.000-0400', endDate:'2016-03-12T13:22:00.000-0400'},
 	...
 ]
 ```
-
+*example usage*
 ```javascript
 AppleHealthKit.getHeightSamples(options, (err: Object, samples: Array<Object>) => {
 	if(this._handleHealthKitError(err, 'getHeightSamples')){
