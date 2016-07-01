@@ -28,7 +28,8 @@ const HKOPTIONS = {
         read:  [
             RPERMS.StepCount,
             RPERMS.DistanceWalkingRunning,
-            RPERMS.FlightsClimbed
+            RPERMS.FlightsClimbed,
+            RPERMS.Height,
         ],
         write: [WPERMS.StepCount],
     }
@@ -101,6 +102,20 @@ class Home extends Component {
             }
             console.log('getFlightsClimbed -res-> ', res);
         });
+
+
+
+        let sampleOptions = {
+            startDate: (new Date(2016,4,1)).toISOString(),
+        };
+
+        AppleHealthKit.getHeightSamples(sampleOptions, (err, samples) => {
+            if(this._handleHKError(err, 'getHeightSamples')){
+                return;
+            }
+            console.log('getHeightSamples: ', samples);
+        });
+
 
     }
 
