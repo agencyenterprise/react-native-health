@@ -260,8 +260,6 @@
                                            NSDate *endDate = result.endDate;
                                            double value = [quantity doubleValueForUnit:unit];
 
-//                                           NSLog(@"%@: %f", date, value);
-
                                            NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:startDate];
                                            NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:endDate];
 
@@ -271,15 +269,13 @@
                                                    @"endDate" : endDateString,
                                            };
 
-//                                           NSArray *elem = @[dateString, @(value)];
-
                                            [data addObject:elem];
                                        }
 
                                    }];
         // is ascending by default
         if(asc == false) {
-            [self reverseNSMutableArray:data];
+            [RCTAppleHealthKit reverseNSMutableArray:data];
         }
 
         if(lim > 0) {

@@ -280,7 +280,7 @@
 
 
 
-- (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array {
++ (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array {
     if ([array count] <= 1)
         return array;
     NSUInteger i = 0;

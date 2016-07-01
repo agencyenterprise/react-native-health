@@ -31,6 +31,6 @@
 + (NSString *)stringFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(NSString *)defaultValue;
 + (bool)boolFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(bool)defaultValue;
 
-- (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
++ (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
 
 @end

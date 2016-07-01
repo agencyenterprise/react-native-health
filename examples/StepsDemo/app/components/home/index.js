@@ -15,16 +15,18 @@ import TimerMixin from 'react-timer-mixin';
 var reactMixin = require('react-mixin');
 import styles from '../../styles/styles';
 
-var AppleHealthKit = require('react-native-apple-healthkit');
-
+//var AppleHealthKit = require('react-native-apple-healthkit');
+import AppleHealthKit from 'react-native-apple-healthkit';
 
 import History from './history';
 
+const WPERMS = AppleHealthKit.CONSTANTS.PERMISSIONS.WRITE;
+const RPERMS = AppleHealthKit.CONSTANTS.PERMISSIONS.READ;
 
 const HKOPTIONS = {
     permissions: {
-        read:  ['Steps'],
-        write: ['Steps'],
+        read:  [RPERMS.StepCount],
+        write: [WPERMS.StepCount],
     }
 };
 
@@ -40,6 +42,10 @@ class Home extends Component {
     }
 
     componentDidMount() {
+
+        console.log('CONSTANTS: ', AppleHealthKit.CONSTANTS);
+        //console.log('balls: ', ahk);
+
         AppleHealthKit.isAvailable((err,available) => {
             if(available){
                 AppleHealthKit.initHealthKit(HKOPTIONS, (err, res) => {
