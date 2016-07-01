@@ -20,12 +20,12 @@ import AppleHealthKit from 'react-native-apple-healthkit';
 
 import History from './history';
 
-const WPERMS = AppleHealthKit.CONSTANTS.PERMISSIONS.WRITE;
-const RPERMS = AppleHealthKit.CONSTANTS.PERMISSIONS.READ;
+const WPERMS = AppleHealthKit.Constants.Permissions.WRITE;
+const RPERMS = AppleHealthKit.Constants.Permissions.READ;
 
 const HKOPTIONS = {
     permissions: {
-        read:  [RPERMS.StepCount],
+        read:  [RPERMS.StepCount, RPERMS.DistanceWalkingRunning],
         write: [WPERMS.StepCount],
     }
 };
@@ -43,7 +43,7 @@ class Home extends Component {
 
     componentDidMount() {
 
-        console.log('CONSTANTS: ', AppleHealthKit.CONSTANTS);
+        console.log('CONSTANTS: ', AppleHealthKit.Constants);
         //console.log('balls: ', ahk);
 
         AppleHealthKit.isAvailable((err,available) => {
@@ -82,6 +82,14 @@ class Home extends Component {
             }
             this.setState({stepHistory: res});
         });
+
+        AppleHealthKit.getDistanceWalkingRunning(null, (err, res) => {
+            if(this._handleHKError(err, 'getDistanceWalkingRunning')){
+                return;
+            }
+            console.log('getDistanceWalkingRunning -res-> ', res);
+        });
+
     }
 
     _onPressItem(key) {

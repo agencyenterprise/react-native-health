@@ -126,8 +126,9 @@
     return date;
 }
 
-
-
+// ==========
+// DEPRECATED
+// ==========
 + (HKUnit *)hkUnitFromOptions:(NSDictionary *)options {
     NSString *unitString = [options objectForKey:@"unit"];
     HKUnit *theUnit;
@@ -140,6 +141,9 @@
     }
     if([unitString isEqualToString:@"meter"]){
         theUnit = [HKUnit meterUnit];
+    }
+    if([unitString isEqualToString:@"mile"]){
+        theUnit = [HKUnit mileUnit];
     }
     if([unitString isEqualToString:@"inch"]){
         theUnit = [HKUnit inchUnit];
@@ -190,6 +194,9 @@
     }
     if([unitString isEqualToString:@"inch"]){
         theUnit = [HKUnit inchUnit];
+    }
+    if([unitString isEqualToString:@"mile"]){
+        theUnit = [HKUnit mileUnit];
     }
     if([unitString isEqualToString:@"foot"]){
         theUnit = [HKUnit footUnit];
