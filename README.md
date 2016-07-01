@@ -385,7 +385,7 @@ the callback function will be called with a `samples` array containing objects w
 	...
 ]
 ```
-###### example usage
+**example usage**
 ```javascript
 AppleHealthKit.getHeightSamples(options, (err: Object, samples: Array<Object>) => {
 	if(this._handleHealthKitError(err, 'getHeightSamples')){
