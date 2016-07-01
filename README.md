@@ -294,6 +294,71 @@ the function will be called with an array of elements `res` containing date and 
 
 ___
 
+#### **`getDistanceWalkingRunning`**
+get the total distance walking/running on a specific day. 
+
+`getDistanceWalkingRunning` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. if `date` is not provided it will default to the current time. `unit` defaults to `meter`
+```javascript
+let options = {
+	unit: 'mile',									// optional; default 'meter'
+    date: (new Date(2016,5,1)).toISOString(),  		// optional; default now
+};
+```
+
+```javascript
+AppleHealthKit.getDistanceWalkingRunning(null, (err, distance) => {
+    if(this._handleHKError(err, 'getDistanceWalkingRunning')){
+    	return;
+    }
+	// use distance ...
+});
+```
+
+___
+
+#### **`getDistanceCycling`**
+get the total distance cycling on a specific day. 
+
+`getDistanceCycling` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. if `date` is not provided it will default to the current time. `unit` defaults to `meter`
+```javascript
+let options = {
+	unit: 'meter',									// optional; default 'meter'
+    date: (new Date(2016,5,1)).toISOString(),  		// optional; default now
+};
+```
+
+```javascript
+AppleHealthKit.getDistanceCycling(null, (err, distance) => {
+    if(this._handleHKError(err, 'getDistanceCycling')){
+    	return;
+    }
+	// use distance ...
+});
+```
+
+___
+
+#### **`getFlightsClimbed`**
+get the total flights climbed (1 flight is ~10ft of elevation) on a specific day. 
+
+`getFlightsClimbed` accepts an options object containing optional *`date: ISO8601Timestamp`*. if `date` is not provided it will default to the current time.
+```javascript
+let options = {
+    date: (new Date(2016,5,1)).toISOString(),  		// optional; default now
+};
+```
+
+```javascript
+AppleHealthKit.getFlightsClimbed(null, (err, flights) => {
+    if(this._handleHKError(err, 'getFlightsClimbed')){
+    	return;
+    }
+	// use flights ...
+});
+```
+
+___
+
 #### **`getLatestWeight`**
 get the most recent weight value
 ```javascript
