@@ -7,22 +7,17 @@ import {
     Navigator,
     TouchableOpacity,
     ScrollView,
+    Image,
     Text,
     View
 } from 'react-native';
-
-import TimerMixin from 'react-timer-mixin';
-var reactMixin = require('react-mixin');
-import styles from '../../styles/styles';
-
-//var AppleHealthKit = require('react-native-apple-healthkit');
 import AppleHealthKit from 'react-native-apple-healthkit';
-
+import styles from '../../styles/styles';
 import History from './history';
 
+// setup the HealthKit initialization options
 const WPERMS = AppleHealthKit.Constants.Permissions.WRITE;
 const RPERMS = AppleHealthKit.Constants.Permissions.READ;
-
 const HKOPTIONS = {
     permissions: {
         read:  [
@@ -31,11 +26,15 @@ const HKOPTIONS = {
             RPERMS.FlightsClimbed,
             RPERMS.Height,
         ],
-        write: [WPERMS.StepCount],
+        write: [
+            WPERMS.StepCount
+        ],
     }
 };
 
-
+/**
+ * React Component
+ */
 class Home extends Component {
 
     constructor(props) {
@@ -46,11 +45,12 @@ class Home extends Component {
         };
     }
 
+    /**
+     * if HealthKit is available on the device then initialize it
+     * with the permissions set above in HKOPTIONS. on successful
+     * initialization fetch today's steps and the step history
+     */
     componentDidMount() {
-
-        console.log('CONSTANTS: ', AppleHealthKit.Constants);
-        //console.log('balls: ', ahk);
-
         AppleHealthKit.isAvailable((err,available) => {
             if(available){
                 AppleHealthKit.initHealthKit(HKOPTIONS, (err, res) => {
@@ -64,10 +64,11 @@ class Home extends Component {
         });
     }
 
-    componentWillUnmount() {
-
-    }
-
+    /**
+     * get today's step count from HealthKit. on success update
+     * the component state
+     * @private
+     */
     _fetchStepsToday() {
         AppleHealthKit.getStepCountForToday(null, (err, steps) => {
             if(this._handleHKError(err, 'getStepCountForToday')){
@@ -77,6 +78,11 @@ class Home extends Component {
         });
     }
 
+    /**
+     * get the step history from options.startDate through the
+     * current time. on success update the component state
+     * @private
+     */
     _fetchStepsHistory() {
         let options = {
             startDate: (new Date(2016,4,1)).toISOString(),
@@ -87,48 +93,13 @@ class Home extends Component {
             }
             this.setState({stepHistory: res});
         });
-
-        AppleHealthKit.getDistanceWalkingRunning(null, (err, res) => {
-            if(this._handleHKError(err, 'getDistanceWalkingRunning')){
-                return;
-            }
-            console.log('getDistanceWalkingRunning -res-> ', res);
-        });
-
-
-        AppleHealthKit.getFlightsClimbed(null, (err, res) => {
-            if(this._handleHKError(err, 'getFlightsClimbed')){
-                return;
-            }
-            console.log('getFlightsClimbed -res-> ', res);
-        });
-
-
-
-        let sampleOptions = {
-            startDate: (new Date(2016,4,1)).toISOString(),
-        };
-
-        AppleHealthKit.getHeightSamples(sampleOptions, (err, samples) => {
-            if(this._handleHKError(err, 'getHeightSamples')){
-                return;
-            }
-            console.log('getHeightSamples: ', samples);
-        });
-
-
     }
 
-    _onPressItem(key) {
-        console.log('_onPressItem() ==> ', key);
-        let self = this;
-        this.requestAnimationFrame(() => {
-            this.props.navigator.push({
-                name: key
-            });
-        })
-    }
-
+    /**
+     * render the Navigator which will render the navigation
+     * bar and the scene
+     * @returns {XML}
+     */
     render() {
         return (
             <Navigator
@@ -141,17 +112,35 @@ class Home extends Component {
         );
     }
 
+    /**
+     * render the scene
+     * @param route
+     * @param navigator
+     * @returns {XML}
+     */
     renderScene(route, navigator) {
         return (
             <View style={styles.sceneContainerWithNavbar}>
 
                 <View style={styles.stepsContainer}>
-                    <Text>
-                        STEPS: {this.state.stepsToday}
+                    <Image style={styles.stepsIcon}
+                           source={require('../../assets/images/steps.png')}>
+
+                    </Image>
+                    <Text style={styles.stepsLabel}>
+                        Today's Steps
+                    </Text>
+                    <Text style={styles.stepsValue}>
+                        {this.state.stepsToday}
                     </Text>
                 </View>
 
                 <View style={styles.historyContainer}>
+                    <View style={styles.titleRow}>
+                        <Text>
+                            History
+                        </Text>
+                    </View>
                     <History data={this.state.stepHistory} />
                 </View>
 
@@ -159,30 +148,39 @@ class Home extends Component {
         );
     }
 
+    /**
+     * if 'err' is truthy then log the error message and
+     * return true indicating an error has occurred
+     * @param err
+     * @param method
+     * @returns {boolean}
+     * @private
+     */
     _handleHKError(err, method) : boolean {
         if(err){
             let errStr = 'HealthKit_ERROR['+method+'] : ';
-            if(typeof err === 'string'){
-                errStr += err;
-            } else if (typeof err === 'object' && err.message){
-                errStr += err.message;
-            }
+            errStr += (err && err.message) ? err.message : err;
             console.log(errStr);
             return true;
         }
         return false;
     }
-
 }
 
-reactMixin(Home.prototype, TimerMixin);
 
 var NavigationBarRouteMapper = {
     LeftButton(route, navigator, index, nextState) {
         return null;
     },
     RightButton(route, navigator, index, nextState) {
-        return null;
+        return (
+            <TouchableOpacity style={styles.navbarTitleTouchable}
+                              onPress={() => { navigator.parentNavigator.push({name: 'Add'})}}>
+                <Text style={styles.navbarPlusButton}>
+                    +
+                </Text>
+            </TouchableOpacity>
+        );
     },
     Title(route, navigator, index, nextState) {
         return (
@@ -194,7 +192,6 @@ var NavigationBarRouteMapper = {
         );
     }
 };
-
 
 module.exports = Home;
 export default Home;

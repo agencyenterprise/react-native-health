@@ -36,19 +36,65 @@ const styles = StyleSheet.create({
         margin: 10,
         fontSize: 18
     },
-
+    navbarPlusButton: {
+        fontSize:33,
+        marginRight:13,
+        color: '#FD2D55',
+        top: -3
+    },
 
 
     stepsContainer: {
         height:100,
-        backgroundColor: '#FF8000',
+        backgroundColor: '#FAFAFA',
+        //backgroundColor: '#FF8000',
     },
+
+    stepsIcon: {
+        width: 60,
+        height: 60,
+        marginLeft: 20,
+        marginTop: 20,
+        //marginTop: 50,
+        //backgroundColor: 'transparent',
+        alignSelf: 'flex-start',
+    },
+
+    stepsLabel: {
+        fontSize:12,
+        color: '#FD2D55',
+        position:'absolute',
+        left: 105,
+        top:11,
+    },
+
+    stepsValue: {
+        fontSize:50,
+        color: '#47a292',
+        position:'absolute',
+        left: 105,
+        top:25,
+    },
+
 
     historyContainer: {
         flex: 1,
-        backgroundColor: '#0088cc',
+        //backgroundColor: '#0088cc',
     },
 
+
+
+    titleRow: {
+        height:40,
+        alignItems: 'center',
+        //backgroundColor: '#FF00FF'
+        borderTopColor: '#DDDDDD',
+        borderBottomColor: '#DDDDDD',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        paddingTop:10,
+        backgroundColor: '#EFEFEF',
+    },
 
 
     listViewRow: {
@@ -56,7 +102,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
         backgroundColor: '#F6F6F6',
+        borderBottomColor: '#DADADA',
+        borderBottomWidth: 1,
     },
+
+
+
 
 
 
@@ -73,6 +124,22 @@ const styles = StyleSheet.create({
         padding:10,
         //backgroundColor: '#0088cc'
     },
+
+
+    col_1_3: {
+        flex: 0.33,
+        flexDirection:'row',
+        padding:10,
+        //backgroundColor: '#FF8000'
+    },
+
+    col_2_3: {
+        flex: 0.66,
+        flexDirection:'row',
+        padding:10,
+        //backgroundColor: '#0088cc'
+    },
+
 
     borderTopLightGrey: {
         borderTopColor: '#CCCCCC',

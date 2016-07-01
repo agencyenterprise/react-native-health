@@ -14,6 +14,8 @@ import {
     View
 } from 'react-native';
 import _ from 'lodash';
+import moment from 'moment';
+
 //import TimerMixin from 'react-timer-mixin';
 //var reactMixin = require('react-mixin');
 import styles from '../../styles/styles';
@@ -50,6 +52,7 @@ class History extends Component {
         return (
             <ListView
                 dataSource={this.state.dataSource}
+                enableEmptySections={true}
                 renderRow={this._renderRow}
                 renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
             />
@@ -57,6 +60,10 @@ class History extends Component {
     }
 
     _renderRow(rowData: Object, sectionID: number, rowID: number, highlightRow: (sectionID: number, rowID: number) => void) {
+
+        let m = moment(rowData.startDate);
+        let formattedDate = m.format('MMM Do YYYY');
+
         return (
             <TouchableHighlight onPress={() => {
               //this._pressRow(rowID);
@@ -64,9 +71,16 @@ class History extends Component {
             }}>
                 <View>
                     <View style={styles.listViewRow}>
-                        <Text style={{flex:1,}}>
-                            {rowData.value + ' - ' + rowData.startDate}
-                        </Text>
+                        <View style={styles.col_1_3}>
+                            <Text style={{flex:1, fontWeight: '600'}}>
+                                {rowData.value}
+                            </Text>
+                        </View>
+                        <View style={styles.col_2_3}>
+                            <Text style={{flex:1, textAlign: 'right',}}>
+                                {formattedDate}
+                            </Text>
+                        </View>
                     </View>
                 </View>
             </TouchableHighlight>
