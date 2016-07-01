@@ -24,6 +24,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getStepCountForDay](#getstepcountforday)
       * [getMultiDayStepCounts](#getmultidaystepcounts)
       * [getLatestWeight](#getlatestweight)
+      * [getWeightSamples](#getweightsamples)
       * [saveWeight](#saveweight)
       * [getLatestHeight](#getlatestheight)
       * [saveHeight](#saveheight)
