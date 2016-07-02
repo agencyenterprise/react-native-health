@@ -104,6 +104,48 @@
 }
 
 
+
+- (void)fitness_saveSteps:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+
+//    double height = [RCTAppleHealthKit doubleValueFromOptions:input];
+    double value = [RCTAppleHealthKit doubleFromOptions:input key:@"value" withDefault:(double)0];
+
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+
+    HKUnit *unit = [HKUnit countUnit];
+
+//    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+
+//    HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input];
+//    if(heightUnit == nil){
+//        heightUnit = [HKUnit inchUnit];
+//    }
+
+    if(startDate == nil || endDate == nil){
+        callback(@[RCTMakeError(@"startDate and endDate are required in options", nil, nil)]);
+        return;
+    }
+
+    HKQuantity *quantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
+    HKQuantityType *type = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    HKQuantitySample *sample = [HKQuantitySample quantitySampleWithType:type quantity:quantity startDate:startDate endDate:endDate];
+
+    [self.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the step count sample %@. The error was: %@.", sample, error);
+            callback(@[RCTMakeError(@"An error occured saving the step count sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(value)]);
+    }];
+}
+
+
+
+
+
 - (void)fitness_getDistanceWalkingRunningOnDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit meterUnit]];

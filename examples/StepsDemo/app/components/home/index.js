@@ -59,6 +59,23 @@ class Home extends Component {
                     }
                     this._fetchStepsToday();
                     this._fetchStepsHistory();
+
+                    //setTimeout(() => {
+                    //
+                    //    let options = {
+                    //        value: 350,
+                    //        startDate: (new Date(2016,6,2,6,0,0)).toISOString(),
+                    //        endDate: (new Date(2016,6,2,6,30,0)).toISOString()
+                    //    };
+                    //    AppleHealthKit.saveSteps(options, (err, res) => {
+                    //        if(this._handleHKError(err, 'saveSteps')){
+                    //            return;
+                    //        }
+                    //        console.log('steps saved...');
+                    //    });
+                    //
+                    //},1000);
+
                 });
             }
         });
