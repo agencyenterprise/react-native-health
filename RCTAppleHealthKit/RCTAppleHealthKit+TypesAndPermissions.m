@@ -73,7 +73,7 @@
         NSString *optionKey = options[i];
         HKObjectType *val = [readPermDict objectForKey:optionKey];
         if(val != nil) {
-            RCTLogInfo(@"Adding read permissions from options: %@", optionKey);
+//            RCTLogInfo(@"Adding read permissions from options: %@", optionKey);
             [readPermSet addObject:val];
         }
     }
@@ -91,7 +91,7 @@
         NSString *optionKey = options[i];
         HKObjectType *val = [writePermDict objectForKey:optionKey];
         if(val != nil) {
-            RCTLogInfo(@"Adding write permissions from options: %@", optionKey);
+//            RCTLogInfo(@"Adding write permissions from options: %@", optionKey);
             [writePermSet addObject:val];
         }
     }
