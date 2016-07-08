@@ -10,10 +10,11 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
+
 @implementation RCTAppleHealthKit (Methods_Body)
 
 
-- (void)body_getCurrentWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+- (void)body_getLatestWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     // Query to get the user's latest weight, if it exists.
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
@@ -23,15 +24,24 @@
         unit = [HKUnit poundUnit];
     }
 
-    [self fetchMostRecentQuantitySampleOfType:weightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+    [self fetchMostRecentQuantitySampleOfType:weightType
+                                    predicate:nil
+                                   completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.");
-            callback(@[RCTMakeError(@"Either an error occured fetching the user's weight information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+            NSLog(@"error getting latest weight: %@", error);
+            callback(@[RCTMakeError(@"error getting latest weight", error, nil)]);
         }
         else {
             // Determine the weight in the required unit.
             double usersWeight = [mostRecentQuantity doubleValueForUnit:unit];
-            callback(@[[NSNull null], @(usersWeight)]);
+
+            NSDictionary *response = @{
+                    @"value" : @(usersWeight),
+                    @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                    @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+            };
+
+            callback(@[[NSNull null], response]);
         }
     }];
 }
@@ -84,8 +94,8 @@
 
     [self.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
-            NSLog(@"An error occured saving the weight sample %@. In your app, try to handle this gracefully. The error was: %@.", weightSample, error);
-            callback(@[RCTMakeError(@"An error occured saving the weight sample", nil, nil)]);
+            NSLog(@"error saving the weight sample: %@", error);
+            callback(@[RCTMakeError(@"error saving the weight sample", error, nil)]);
             return;
         }
         callback(@[[NSNull null], @(weight)]);
@@ -98,10 +108,12 @@
     // Query to get the user's latest BMI, if it exists.
     HKQuantityType *bmiType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
 
-    [self fetchMostRecentQuantitySampleOfType:bmiType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+    [self fetchMostRecentQuantitySampleOfType:bmiType
+                                    predicate:nil
+                                   completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"Either an error occured fetching the user's bmi information or none has been stored yet. In your app, try to handle this gracefully.");
-            callback(@[RCTMakeError(@"Either an error occured fetching the user's bmi information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+            NSLog(@"error getting latest BMI: %@", error);
+            callback(@[RCTMakeError(@"error getting latest BMI", error, nil)]);
         }
         else {
             // Determine the bmi in the required unit.
@@ -133,8 +145,8 @@
 
     [self.healthStore saveObject:bmiSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
-            NSLog(@"An error occured saving the bmi sample %@. In your app, try to handle this gracefully. The error was: %@.", bmiSample, error);
-            callback(@[RCTMakeError(@"An error occured saving the bmi sample", nil, nil)]);
+            NSLog(@"error saving BMI sample: %@.", error);
+            callback(@[RCTMakeError(@"error saving BMI sample", error, nil)]);
             return;
         }
         callback(@[[NSNull null], @(bmi)]);
@@ -143,7 +155,7 @@
 
 
 
-- (void)body_getMostRecentHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+- (void)body_getLatestHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
 
@@ -152,15 +164,24 @@
         unit = [HKUnit inchUnit];
     }
 
-    [self fetchMostRecentQuantitySampleOfType:heightType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+    [self fetchMostRecentQuantitySampleOfType:heightType
+                                    predicate:nil
+                                   completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"Either an error occured fetching the user's height information or none has been stored yet. In your app, try to handle this gracefully.");
-            callback(@[RCTMakeError(@"Either an error occured fetching the user's height information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+            NSLog(@"error getting latest height: %@", error);
+            callback(@[RCTMakeError(@"error getting latest height", error, nil)]);
         }
         else {
             // Determine the height in the required unit.
-            double usersHeight = [mostRecentQuantity doubleValueForUnit:unit];
-            callback(@[[NSNull null], @(usersHeight)]);
+            double height = [mostRecentQuantity doubleValueForUnit:unit];
+
+            NSDictionary *response = @{
+                    @"value" : @(height),
+                    @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                    @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+            };
+
+            callback(@[[NSNull null], response]);
         }
     }];
 }
@@ -188,15 +209,15 @@
                            ascending:ascending
                                limit:limit
                           completion:^(NSArray *results, NSError *error) {
-                              if(results){
-                                  callback(@[[NSNull null], results]);
-                                  return;
-                              } else {
-                                  NSLog(@"error getting height samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting height samples", nil, nil)]);
-                                  return;
-                              }
-                          }];
+        if(results){
+          callback(@[[NSNull null], results]);
+          return;
+        } else {
+          NSLog(@"error getting height samples: %@", error);
+          callback(@[RCTMakeError(@"error getting height samples", error, nil)]);
+          return;
+        }
+    }];
 }
 
 
@@ -217,8 +238,8 @@
 
     [self.healthStore saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
-            NSLog(@"An error occured saving the height sample %@. In your app, try to handle this gracefully. The error was: %@.", heightSample, error);
-            callback(@[RCTMakeError(@"An error occured saving the height sample", nil, nil)]);
+            NSLog(@"error saving height sample: %@", error);
+            callback(@[RCTMakeError(@"error saving height sample", error, nil)]);
             return;
         }
         callback(@[[NSNull null], @(height)]);
@@ -226,14 +247,17 @@
 }
 
 
-- (void)body_getMostRecentBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+
+- (void)body_getLatestBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *bodyFatPercentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];
 
-    [self fetchMostRecentQuantitySampleOfType:bodyFatPercentType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+    [self fetchMostRecentQuantitySampleOfType:bodyFatPercentType
+                                    predicate:nil
+                                   completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"Either an error occured fetching the user's BodyFatPercentage information or none has been stored yet. In your app, try to handle this gracefully.");
-            callback(@[RCTMakeError(@"Either an error occured fetching the user's BodyFatPercentage information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+            NSLog(@"error getting latest body fat percentage: %@", error);
+            callback(@[RCTMakeError(@"error getting latest body fat percentage", error, nil)]);
         }
         else {
             // Determine the weight in the required unit.
@@ -242,26 +266,40 @@
 
             percentage = percentage * 100;
 
-            callback(@[[NSNull null], @(percentage)]);
+            NSDictionary *response = @{
+                    @"value" : @(percentage),
+                    @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                    @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+            };
+
+            callback(@[[NSNull null], response]);
         }
     }];
 }
 
 
-- (void)body_getMostRecentLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+- (void)body_getLatestLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *leanBodyMassType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
 
-    [self fetchMostRecentQuantitySampleOfType:leanBodyMassType predicate:nil completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+    [self fetchMostRecentQuantitySampleOfType:leanBodyMassType
+                                    predicate:nil
+                                   completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"Either an error occured fetching the user's LeanBodyMass information or none has been stored yet. In your app, try to handle this gracefully.");
-            callback(@[RCTMakeError(@"Either an error occured fetching the user's LeanBodyMass information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+            NSLog(@"error getting latest lean body mass: %@", error);
+            callback(@[RCTMakeError(@"error getting latest lean body mass", error, nil)]);
         }
         else {
             HKUnit *weightUnit = [HKUnit poundUnit];
             double leanBodyMass = [mostRecentQuantity doubleValueForUnit:weightUnit];
 
-            callback(@[[NSNull null], @(leanBodyMass)]);
+            NSDictionary *response = @{
+                    @"value" : @(leanBodyMass),
+                    @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                    @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+            };
+
+            callback(@[[NSNull null], response]);
         }
     }];
 }

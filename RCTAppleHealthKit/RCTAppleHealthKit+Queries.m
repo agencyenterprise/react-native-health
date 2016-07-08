@@ -16,30 +16,35 @@
                                   predicate:(NSPredicate *)predicate
                                  completion:(void (^)(HKQuantity *, NSDate *, NSDate *, NSError *))completion {
 
-    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:NO];
-    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType
-                                                  predicate:predicate
-                                                  limit:1
-                                                  sortDescriptors:@[timeSortDescriptor]
-                                                  resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc]
+            initWithKey:HKSampleSortIdentifierEndDate
+              ascending:NO
+    ];
 
-                                                      if (!results) {
-                                                          if (completion) {
-                                                              completion(nil, nil, nil, error);
-                                                          }
-                                                          return;
-                                                      }
+    HKSampleQuery *query = [[HKSampleQuery alloc]
+            initWithSampleType:quantityType
+                     predicate:predicate
+                         limit:1
+               sortDescriptors:@[timeSortDescriptor]
+                resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
 
-                                                      if (completion) {
-                                                          // If quantity isn't in the database, return nil in the completion block.
-                                                          HKQuantitySample *quantitySample = results.firstObject;
-                                                          HKQuantity *quantity = quantitySample.quantity;
-                                                          NSDate *startDate = quantitySample.startDate;
-                                                          NSDate *endDate = quantitySample.endDate;
-                                                          completion(quantity, startDate, endDate, error);
-                                                      }
+                      if (!results) {
+                          if (completion) {
+                              completion(nil, nil, nil, error);
+                          }
+                          return;
+                      }
 
-                                                  }];
+                      if (completion) {
+                          // If quantity isn't in the database, return nil in the completion block.
+                          HKQuantitySample *quantitySample = results.firstObject;
+                          HKQuantity *quantity = quantitySample.quantity;
+                          NSDate *startDate = quantitySample.startDate;
+                          NSDate *endDate = quantitySample.endDate;
+                          completion(quantity, startDate, endDate, error);
+                      }
+                }
+    ];
     [self.healthStore executeQuery:query];
 }
 
@@ -52,46 +57,53 @@
                              limit:(NSUInteger)lim
                         completion:(void (^)(NSArray *, NSError *))completion {
 
-    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:asc];
+    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
+                                                                       ascending:asc];
+
+    // declare the block
+    void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+    // create and assign the block
+    handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if (!results) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+
+        if (completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                for (HKQuantitySample *sample in results) {
+                    HKQuantity *quantity = sample.quantity;
+                    double value = [quantity doubleValueForUnit:unit];
+
+                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+
+                    NSDictionary *elem = @{
+                            @"value" : @(value),
+                            @"startDate" : startDateString,
+                            @"endDate" : endDateString,
+                    };
+
+                    [data addObject:elem];
+                }
+
+                completion(data, error);
+            });
+        }
+    };
+
+
     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType
                                                            predicate:predicate
                                                                limit:lim
                                                      sortDescriptors:@[timeSortDescriptor]
-                                                      resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+                                                      resultsHandler:handlerBlock];
 
-                                                          if (!results) {
-                                                              if (completion) {
-                                                                  completion(nil, error);
-                                                              }
-                                                              return;
-                                                          }
-
-                                                          if (completion) {
-                                                              NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
-
-                                                              dispatch_async(dispatch_get_main_queue(), ^{
-
-                                                                  for (HKQuantitySample *sample in results) {
-                                                                      HKQuantity *quantity = sample.quantity;
-                                                                      double value = [quantity doubleValueForUnit:unit];
-
-                                                                      NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                                                                      NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
-
-                                                                      NSDictionary *elem = @{
-                                                                              @"value" : @(value),
-                                                                              @"startDate" : startDateString,
-                                                                              @"endDate" : endDateString,
-                                                                      };
-
-                                                                      [data addObject:elem];
-                                                                  }
-
-                                                                  completion(data, error);
-                                                              });
-                                                          }
-
-                                                      }];
     [self.healthStore executeQuery:query];
 }
 
