@@ -63,7 +63,7 @@ class Home extends Component {
                     //setTimeout(() => {
                     //
                     //    let options = {
-                    //        value: 350,
+                    //        value: 100,
                     //        startDate: (new Date(2016,6,2,6,0,0)).toISOString(),
                     //        endDate: (new Date(2016,6,2,6,30,0)).toISOString()
                     //    };
