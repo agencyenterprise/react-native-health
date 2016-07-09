@@ -38,7 +38,11 @@
         return;
     }
 
-    callback(@[[NSNull null], value]);
+    NSDictionary *response = @{
+            @"value" : value,
+    };
+
+    callback(@[[NSNull null], response]);
 }
 
 
@@ -54,7 +58,16 @@
 
     NSString *dobString = [RCTAppleHealthKit buildISO8601StringFromDate:dob];
 
-    callback(@[[NSNull null], dobString]);
+    NSDate *now = [NSDate date];
+    NSDateComponents *ageComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:dob toDate:now options:NSCalendarWrapComponents];
+    NSUInteger ageInYears = ageComponents.year;
+
+    NSDictionary *response = @{
+            @"value" : dobString,
+            @"age" : @(ageInYears),
+    };
+
+    callback(@[[NSNull null], response]);
 }
 
 

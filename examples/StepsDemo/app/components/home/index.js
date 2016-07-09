@@ -24,6 +24,8 @@ const HKOPTIONS = {
             HKPERMS.DistanceWalkingRunning,
             HKPERMS.FlightsClimbed,
             HKPERMS.Height,
+            HKPERMS.DateOfBirth,
+            HKPERMS.BiologicalSex,
         ],
         write: [
             HKPERMS.StepCount

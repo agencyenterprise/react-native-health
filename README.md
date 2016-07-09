@@ -234,25 +234,35 @@ Get the biological sex (gender). If the `BiologicalSex` read permission is missi
 | other   | HKBiologicalSexOther  |
 
 ```javascript
-AppleHealthKit.getBiologicalSex(null, (err: Object, bioSex: string) => {
+AppleHealthKit.getBiologicalSex(null, (err: Object, res: Object) => {
     if(this._handleHealthKitError(err, 'getBiologicalSex')){
         return;
     }
-    // use bioSex ...
+	// res.value will be one of the values from the above table (Value column) ...
+    // use res.value ...
 });
 ```
 
 ___
 
 #### **`getDateOfBirth`**
-Get the date of birth. This will be an ISO timestamp
+Get the date of birth.
+
+On success, the callback function will be provided with a `res` object containing dob `value` (ISO timestamp), and `age` in years:
+```javascript
+{ 
+	value: '1986-09-01T00:00:00.000-0400', 
+	age: 29 
+}
+```
 
 ```javascript
-AppleHealthKit.getDateOfBirth(null, (err: Object, dob: string) => {
+AppleHealthKit.getDateOfBirth(null, (err: Object, res: Object) => {
     if(this._handleHealthKitError(err, 'getDateOfBirth')){
         return;
     }
-    // use dob ... (ex: '1986-09-01T12:20:30-04:00')
+    // use res.value ... (ex: '1986-09-01T12:20:30-04:00')
+	// use res.age ... (ex: 29)
 });
 ```
 
