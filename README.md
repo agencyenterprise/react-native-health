@@ -204,8 +204,8 @@ If new read/write permissions are added to the options object then the app user 
 ```javascript
 let options = {
     permissions: {
-        read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
-        write: ["Weight", "Steps", "BodyMassIndex"]
+        read: ["Height", "Weight", "StepCount", "DateOfBirth", "BodyMassIndex"],
+        write: ["Weight", "StepCount", "BodyMassIndex"]
     }
 };
 ```
