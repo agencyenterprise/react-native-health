@@ -308,7 +308,17 @@ let options = {
     endDate:   (new Date()).toISOString()          // optional; default now
 };
 ```
-the function will be called with an array of elements. each element is an object containing `value`, `startDate`, and `endDate` fields
+the function will be called with an array of elements. each element is an object containing `value`, `startDate`, and `endDate` fields:
+```javascript
+[ 
+  { value: 8, startDate: '2016-07-09T00:00:00.000-0400', endDate: '2016-07-10T00:00:00.000-0400' },
+  { value: 1923, startDate: '2016-07-08T00:00:00.000-0400', endDate: '2016-07-09T00:00:00.000-0400' },
+  { value: 1802, startDate: '2016-07-07T00:00:00.000-0400', endDate: '2016-07-08T00:00:00.000-0400' },
+  ...
+]
+```
+
+
 ```javascript
  AppleHealthKit.getDailyStepCountSamples(options: Object, (err: Object, res: Array<Array<Object>) => {
     if(this._handleHealthKitError(err, 'getDailyStepCountSamples')){
