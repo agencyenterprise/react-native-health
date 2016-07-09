@@ -241,7 +241,7 @@ AppleHealthKit.getDateOfBirth(null, (err: Object, dob: string) => {
 
 ___
 
-#### ~~**`getStepCount`**~~
+#### **`getStepCount`**
 get the aggregated total steps for a specific day (starting and ending at midnight). 
 
 an optional options object may be provided containing `date` field representing the selected day. If `date` is not set or an options object is not provided then the current day will be used. 
