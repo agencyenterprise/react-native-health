@@ -248,7 +248,7 @@ ___
 #### **`getDateOfBirth`**
 Get the date of birth.
 
-On success, the callback function will be provided with a `res` object containing dob `value: string` (ISO timestamp), and `age: number` in years:
+On success, the callback function will be provided with a `res` object containing dob `value: string` (ISO timestamp), and `age: number` (age in years):
 ```javascript
 { 
 	value: '1986-09-01T00:00:00.000-0400', 
