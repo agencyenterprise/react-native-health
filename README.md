@@ -21,9 +21,9 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [initHealthKit](#inithealthkit)
       * [getBiologicalSex](#getbiologicalsex)
       * [getDateOfBirth](#getdateofbirth)
+      * [getStepCount](#getstepcount)
       * ~~[getStepCountForToday](#getstepcountfortoday)~~
       * ~~[getStepCountForDay](#getstepcountforday)~~
-      * [getStepCount]
       * [getMultiDayStepCounts](#getmultidaystepcounts)
       * [getDistanceWalkingRunning](#getdistancewalkingrunning)
       * [getDistanceCycling](#getdistancecycling)
@@ -236,6 +236,28 @@ AppleHealthKit.getDateOfBirth(null, (err: Object, dob: string) => {
         return;
     }
     // use dob ... (ex: '1986-09-01T12:20:30-04:00')
+});
+```
+
+___
+
+#### ~~**`getStepCount`**~~
+get the aggregated total steps for a specific day (starting and ending at midnight). 
+
+an optional options object may be provided containing `date` field representing the selected day. If `date` is not set or an options object is not provided then the current day will be used. 
+```javascript
+let d = new Date(2016,5,27);
+let options = {
+    date: d.toISOString()
+};
+```
+
+```
+AppleHealthKit.getStepCount(options: Object, (err: Object, steps: Object) => {
+    if(this._handleHealthKitError(err, 'getStepCount')){
+        return;
+    }
+    // steps.value is the step count for day 'd'
 });
 ```
 
