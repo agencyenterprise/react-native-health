@@ -264,7 +264,7 @@ AppleHealthKit.getStepCount(options: Object, (err: Object, steps: Object) => {
 ___
 
 #### ~~**`getStepCountForToday`**~~
-`removed` - replaced by `getStepCount`
+**removed** - replaced by `getStepCount`
 
 get the aggregated total steps for the current day starting and ending at midnight
 ```javascript
@@ -279,7 +279,7 @@ AppleHealthKit.getStepCountForToday(null, (err: Object, steps: number) => {
 ___
 
 #### ~~**`getStepCountForDay`**~~
-`removed` - replaced by `getStepCount`
+**removed** - replaced by `getStepCount`
 
 get the the aggregated total steps for the day provided as `date` in options object. the `date` field expects an ISO date string as its value
 ```javascript
