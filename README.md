@@ -154,7 +154,7 @@ import AppleHealthKit from 'react-native-apple-healthkit';
 // get the available permissions from AppleHealthKit.Constants object
 const PERMS = AppleHealthKit.Constants.Permissions;
 
-// setup healthkit read/write permissions from PERMS
+// setup healthkit read/write permissions using PERMS
 const healthKitOptions = {
     permissions: {
         read:  [
