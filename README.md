@@ -719,9 +719,13 @@ On success, the callback function will be provided with a `leanBodyMass` object 
 
 #### StepsDemo
 
+[Steps Demo](https://github.com/GregWilson/react-native-apple-healthkit/tree/master/examples/StepsDemo)
+
 ![alt text](https://raw.githubusercontent.com/GregWilson/react-native-apple-healthkit/master/examples/images/steps_demo_screen.png "Steps Demo App Screenshot")
 
 #### BodyMeasurements
+
+[Body Measurements Demo](https://github.com/GregWilson/react-native-apple-healthkit/tree/master/examples/BodyMeasurements)
 
 ![alt text](https://raw.githubusercontent.com/GregWilson/react-native-apple-healthkit/master/examples/images/body_measurements_demo_screen.png "Body Measurements Demo App Screenshot")
 
