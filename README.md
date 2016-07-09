@@ -70,8 +70,8 @@ var AppleHealthKit = require('react-native-apple-healthkit');
 
 let options = {
     permissions: {
-        read: ["Height", "Weight", "Steps", "DateOfBirth", "BodyMassIndex"],
-        write: ["Weight", "Steps", "BodyMassIndex"]
+        read: ["Height", "Weight", "StepCount", "DateOfBirth", "BodyMassIndex"],
+        write: ["Weight", "StepCount", "BodyMassIndex"]
     }
 };
 
