@@ -227,7 +227,7 @@ AppleHealthKit.getBiologicalSex(null, (err: Object, bioSex: string) => {
 
 ___
 
-#### ~~**`getDateOfBirth`**~~
+#### **`getDateOfBirth`**
 get the date of birth. this will be an ISO timestamp
 
 ```javascript
@@ -256,7 +256,7 @@ AppleHealthKit.getStepCountForToday(null, (err: Object, steps: number) => {
 
 ___
 
-#### **`getStepCountForDay`**
+#### ~~**`getStepCountForDay`**~~
 `removed - replaced by getStepCount`
 
 get the the aggregated total steps for the day provided as `date` in options object. the `date` field expects an ISO date string as its value
