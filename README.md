@@ -96,12 +96,12 @@ var _ = require('lodash');
 
 ...
 
-AppleHealthKit.getLatestWeight(null, (err: Object, weight: number) => {
+AppleHealthKit.getLatestWeight(null, (err: Object, weight: Object) => {
     if(err){
         console.log("error getting current weight: ", err);
         return;
     }
-    // use weight ...
+    // use weight.value ...
 });
 
 ...
