@@ -252,7 +252,7 @@ let options = {
 };
 ```
 
-```
+```javascript
 AppleHealthKit.getStepCount(options: Object, (err: Object, steps: Object) => {
     if(this._handleHealthKitError(err, 'getStepCount')){
         return;
