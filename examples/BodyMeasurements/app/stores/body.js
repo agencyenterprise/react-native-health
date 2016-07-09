@@ -213,10 +213,11 @@ class BodyStore extends airflux.Store {
         let options = {
             unit: "pound"
         };
-        AppleHealthKit.getLatestWeight(options, (err, weight) => {
+        AppleHealthKit.getLatestWeight(options, (err, res) => {
             if(this._handleHealthKitError(err, 'getLatestWeight')){
                 return;
             }
+            let weight = res.value;
             weight = _.round(weight,1);
 
             DATA.weight = weight;
@@ -253,10 +254,11 @@ class BodyStore extends airflux.Store {
         let options = {
             unit: "inch"
         };
-        AppleHealthKit.getLatestHeight(options, (err, height) => {
+        AppleHealthKit.getLatestHeight(options, (err, res) => {
             if(this._handleHealthKitError(err, 'getLatestHeight')){
                 return;
             }
+            let height = res.value;
             console.log("HEIGHT: ", height);
 
             if(typeof height === "number" && height > 0){
@@ -331,10 +333,12 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitBodyFatPercentage() {
         let self = this;
-        AppleHealthKit.getLatestBodyFatPercentage({blah:true}, (err, fatPercentage) => {
+        AppleHealthKit.getLatestBodyFatPercentage({blah:true}, (err, res) => {
             if(this._handleHealthKitError(err, 'getLatestBodyFatPercentage')){
                 return;
             }
+            let fatPercentage = res.value;
+
             console.log("BODY FAT PERCENTAGE: ", fatPercentage);
             DATA.bodyFatPercentage = fatPercentage;
             self.trigger({
@@ -348,10 +352,11 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitLeanBodyMass() {
         let self = this;
-        AppleHealthKit.getLatestLeanBodyMass({blah:true}, (err, leanMass) => {
+        AppleHealthKit.getLatestLeanBodyMass({blah:true}, (err, res) => {
             if(this._handleHealthKitError(err, 'getLatestLeanBodyMass')){
                 return;
             }
+            let leanMass = res.value;
             console.log("LEAN BODY MASS: ", leanMass);
             DATA.leanBodyMass = _.round(leanMass,0);
             self.trigger({
@@ -366,7 +371,7 @@ class BodyStore extends airflux.Store {
 
     _fetchHealthKitStepCountToday() {
         let self = this;
-        AppleHealthKit.getStepCountForToday({options:"true"}, (err, steps) => {
+        AppleHealthKit.getStepCount({options:"true"}, (err, steps) => {
             if(this._handleHealthKitError(err, 'getStepCountForToday')){
                 return;
             }
@@ -389,7 +394,7 @@ class BodyStore extends airflux.Store {
         let options = {
             date: d.toISOString()
         };
-        AppleHealthKit.getStepCountForDay(options, (err, steps) => {
+        AppleHealthKit.getStepCount(options, (err, steps) => {
             if(this._handleHealthKitError(err, 'getStepCountForDay')){
                 return;
             }
@@ -412,7 +417,7 @@ class BodyStore extends airflux.Store {
         let options = {
             startDate: d.toISOString()
         };
-        AppleHealthKit.getMultiDayStepCounts(options, (err, res) => {
+        AppleHealthKit.getDailyStepCountSamples(options, (err, res) => {
             if(this._handleHealthKitError(err, 'getMultiDayStepCounts')){
                 return;
             }
