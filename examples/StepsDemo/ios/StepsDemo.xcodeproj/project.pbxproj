@@ -23,7 +23,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		378616B61D257B040027C300 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378616B51D257B040027C300 /* HealthKit.framework */; };
-		378DCB461D3158A800E83D06 /* libRCTAppleHealthKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 378DCB451D31589600E83D06 /* libRCTAppleHealthKit.a */; };
+		378DCB4D1D3179B500E83D06 /* libRCTAppleHealthKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 378DCB4C1D3179B000E83D06 /* libRCTAppleHealthKit.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -91,9 +91,9 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		378DCB441D31589600E83D06 /* PBXContainerItemProxy */ = {
+		378DCB4B1D3179B000E83D06 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 378DCB401D31589600E83D06 /* RCTAppleHealthKit.xcodeproj */;
+			containerPortal = 378DCB471D3179B000E83D06 /* RCTAppleHealthKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 3774C88D1D2092F20000B3F3;
 			remoteInfo = RCTAppleHealthKit;
@@ -136,7 +136,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		378616B51D257B040027C300 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		378616B71D257B040027C300 /* StepsDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = StepsDemo.entitlements; path = StepsDemo/StepsDemo.entitlements; sourceTree = "<group>"; };
-		378DCB401D31589600E83D06 /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/react-native-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
+		378DCB471D3179B000E83D06 /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/react-native-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,7 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				378DCB461D3158A800E83D06 /* libRCTAppleHealthKit.a in Frameworks */,
+				378DCB4D1D3179B500E83D06 /* libRCTAppleHealthKit.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				378616B61D257B040027C300 /* HealthKit.framework in Frameworks */,
@@ -268,10 +268,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		378DCB411D31589600E83D06 /* Products */ = {
+		378DCB481D3179B000E83D06 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				378DCB451D31589600E83D06 /* libRCTAppleHealthKit.a */,
+				378DCB4C1D3179B000E83D06 /* libRCTAppleHealthKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -287,7 +287,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				378DCB401D31589600E83D06 /* RCTAppleHealthKit.xcodeproj */,
+				378DCB471D3179B000E83D06 /* RCTAppleHealthKit.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -411,8 +411,8 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
-					ProductGroup = 378DCB411D31589600E83D06 /* Products */;
-					ProjectRef = 378DCB401D31589600E83D06 /* RCTAppleHealthKit.xcodeproj */;
+					ProductGroup = 378DCB481D3179B000E83D06 /* Products */;
+					ProjectRef = 378DCB471D3179B000E83D06 /* RCTAppleHealthKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -516,11 +516,11 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		378DCB451D31589600E83D06 /* libRCTAppleHealthKit.a */ = {
+		378DCB4C1D3179B000E83D06 /* libRCTAppleHealthKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRCTAppleHealthKit.a;
-			remoteRef = 378DCB441D31589600E83D06 /* PBXContainerItemProxy */;
+			remoteRef = 378DCB4B1D3179B000E83D06 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {

@@ -16,18 +16,17 @@ import styles from '../../styles/styles';
 import History from './history';
 
 // setup the HealthKit initialization options
-const WPERMS = AppleHealthKit.Constants.Permissions.WRITE;
-const RPERMS = AppleHealthKit.Constants.Permissions.READ;
+const HKPERMS = AppleHealthKit.Constants.Permissions;
 const HKOPTIONS = {
     permissions: {
         read:  [
-            RPERMS.StepCount,
-            RPERMS.DistanceWalkingRunning,
-            RPERMS.FlightsClimbed,
-            RPERMS.Height,
+            HKPERMS.StepCount,
+            HKPERMS.DistanceWalkingRunning,
+            HKPERMS.FlightsClimbed,
+            HKPERMS.Height,
         ],
         write: [
-            WPERMS.StepCount
+            HKPERMS.StepCount
         ],
     }
 };
@@ -59,23 +58,6 @@ class Home extends Component {
                     }
                     this._fetchStepsToday();
                     this._fetchStepsHistory();
-
-                    //setTimeout(() => {
-                    //
-                    //    let options = {
-                    //        value: 100,
-                    //        startDate: (new Date(2016,6,2,6,0,0)).toISOString(),
-                    //        endDate: (new Date(2016,6,2,6,30,0)).toISOString()
-                    //    };
-                    //    AppleHealthKit.saveSteps(options, (err, res) => {
-                    //        if(this._handleHKError(err, 'saveSteps')){
-                    //            return;
-                    //        }
-                    //        console.log('steps saved...');
-                    //    });
-                    //
-                    //},1000);
-
                 });
             }
         });
