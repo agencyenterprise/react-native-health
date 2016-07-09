@@ -87,8 +87,8 @@ class Home extends Component {
      * @private
      */
     _fetchStepsToday() {
-        AppleHealthKit.getStepCountForToday(null, (err, steps) => {
-            if(this._handleHKError(err, 'getStepCountForToday')){
+        AppleHealthKit.getStepCount(null, (err, steps) => {
+            if(this._handleHKError(err, 'getStepCount')){
                 return;
             }
             this.setState({stepsToday: steps});
@@ -104,8 +104,8 @@ class Home extends Component {
         let options = {
             startDate: (new Date(2016,4,1)).toISOString(),
         };
-        AppleHealthKit.getDailyStepSamples(options, (err, res) => {
-            if(this._handleHKError(err, 'getDailyStepSamples')){
+        AppleHealthKit.getDailyStepCountSamples(options, (err, res) => {
+            if(this._handleHKError(err, 'getDailyStepCountSamples')){
                 return;
             }
             this.setState({stepHistory: res});

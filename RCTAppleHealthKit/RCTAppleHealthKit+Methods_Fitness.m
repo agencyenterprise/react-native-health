@@ -31,7 +31,7 @@
 }
 
 
-- (void)fitness_getStepCountForDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+- (void)fitness_getStepCountOnDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
 

@@ -94,22 +94,22 @@ RCT_EXPORT_METHOD(getLatestLeanBodyMass:(NSDictionary *)input callback:(RCTRespo
 }
 
 
-RCT_EXPORT_METHOD(getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+//RCT_EXPORT_METHOD(getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+//{
+//    [self fitness_getStepCountForToday:input callback:callback];
+//}
+
+RCT_EXPORT_METHOD(getStepCount:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
-    [self fitness_getStepCountForToday:input callback:callback];
+    [self fitness_getStepCountOnDay:input callback:callback];
 }
 
-RCT_EXPORT_METHOD(getStepCountForDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
-{
-    [self fitness_getStepCountForDay:input callback:callback];
-}
+//RCT_EXPORT_METHOD(getMultiDayStepCounts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+//{
+//    [self fitness_getDailyStepCounts:input callback:callback];
+//}
 
-RCT_EXPORT_METHOD(getMultiDayStepCounts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
-{
-    [self fitness_getDailyStepCounts:input callback:callback];
-}
-
-RCT_EXPORT_METHOD(getDailyStepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getDailyStepCountSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getDailyStepSamples:input callback:callback];
 }

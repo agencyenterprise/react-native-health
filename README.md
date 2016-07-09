@@ -21,8 +21,9 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [initHealthKit](#inithealthkit)
       * [getBiologicalSex](#getbiologicalsex)
       * [getDateOfBirth](#getdateofbirth)
-      * [getStepCountForToday](#getstepcountfortoday)
-      * [getStepCountForDay](#getstepcountforday)
+      * ~~[getStepCountForToday](#getstepcountfortoday)~~
+      * ~~[getStepCountForDay](#getstepcountforday)~~
+      * [getStepCount]
       * [getMultiDayStepCounts](#getmultidaystepcounts)
       * [getDistanceWalkingRunning](#getdistancewalkingrunning)
       * [getDistanceCycling](#getdistancecycling)
