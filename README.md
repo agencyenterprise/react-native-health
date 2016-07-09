@@ -164,7 +164,7 @@ Methods
 -------
 
 #### **`isAvailable`** 
-check if HealthKit is available on the device
+Check if HealthKit is available on the device.
 ```javascript
 AppleHealthKit.isAvailable((err: Object, available: boolean) => {
     if(available){
@@ -175,15 +175,15 @@ AppleHealthKit.isAvailable((err: Object, available: boolean) => {
 ___
 
 #### **`initHealthKit`** 
-initialize HealthKit. this will show the HealthKit permissions prompt for any read/write permissions set in the required `options` object. 
+Initialize HealthKit. This will show the HealthKit permissions prompt for any read/write permissions set in the required `options` object. 
 
-due to Apple's privacy model if an app user has previously denied a specific permission then they can not be prompted again for that same permission. the app user would have to go into the Apple Health app and grant the permission to your react-native app under *sources* tab. 
+Due to Apple's privacy model if an app user has previously denied a specific permission then they can not be prompted again for that same permission. The app user would have to go into the Apple Health app and grant the permission to your react-native app under *sources* tab. 
 
-for any data that is read from HealthKit the status/error is the same for both. this privacy restriction results in having no knowledge of whether the permission was denied (make sure it's added to the permissions options object), or the data for the specific request was nil (ex. no steps recorded today)
+For any data that is read from HealthKit the status/error is the same for both. This privacy restriction results in having no knowledge of whether the permission was denied (make sure it's added to the permissions options object), or the data for the specific request was nil (ex. no steps recorded today).
 
-for any data written to HealthKit an authorization error can be caught. if an authorization error occurs you can prompt the user to set the specific permission or add the permission to the options object if not present
+For any data written to HealthKit an authorization error can be caught. If an authorization error occurs you can prompt the user to set the specific permission or add the permission to the options object if not present.
 
-if new read/write permissions are added to the options object then the app user will see the HealthKit permissions prompt with the new permissions to allow
+If new read/write permissions are added to the options object then the app user will see the HealthKit permissions prompt with the new permissions to allow.
 
 `initHealthKit` requires an options object with HealthKit permission settings
 ```javascript
@@ -209,7 +209,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, res: Object) => {
 ___
 
 #### **`getBiologicalSex`**
-get the biological sex (gender). if the `BiologicalSex` read permission is missing or the user has denied it then the value will be `unknown`. the possible values are:
+Get the biological sex (gender). If the `BiologicalSex` read permission is missing or the user has denied it then the value will be `unknown`. The possible values are:
 
 | Value   | HKBiologicalSex       |
 |---------|-----------------------|
@@ -230,7 +230,7 @@ AppleHealthKit.getBiologicalSex(null, (err: Object, bioSex: string) => {
 ___
 
 #### **`getDateOfBirth`**
-get the date of birth. this will be an ISO timestamp
+Get the date of birth. This will be an ISO timestamp
 
 ```javascript
 AppleHealthKit.getDateOfBirth(null, (err: Object, dob: string) => {
@@ -244,9 +244,9 @@ AppleHealthKit.getDateOfBirth(null, (err: Object, dob: string) => {
 ___
 
 #### **`getStepCount`**
-get the aggregated total steps for a specific day (starting and ending at midnight). 
+Get the aggregated total steps for a specific day (starting and ending at midnight). 
 
-an optional options object may be provided containing `date` field representing the selected day. If `date` is not set or an options object is not provided then the current day will be used. 
+An optional options object may be provided containing `date` field representing the selected day. If `date` is not set or an options object is not provided then the current day will be used. 
 ```javascript
 let d = new Date(2016,5,27);
 let options = {
@@ -300,16 +300,16 @@ AppleHealthKit.getStepCountForDay(options: Object, (err: Object, steps: number) 
 ___
 
 #### **`getDailyStepCountSamples`**
-get the total steps per day over a specified date range. 
+Get the total steps per day over a specified date range. 
 
-`getDailyStepCountSamples` accepts an options object containing required *`startDate: ISO8601Timestamp`* and optional *`endDate: ISO8601Timestamp`*. if `endDate` is not provided it will default to the current time
+`getDailyStepCountSamples` accepts an options object containing required *`startDate: ISO8601Timestamp`* and optional *`endDate: ISO8601Timestamp`*. If `endDate` is not provided it will default to the current time
 ```javascript
 let options = {
     startDate: (new Date(2016,5,1)).toISOString()  // required
     endDate:   (new Date()).toISOString()          // optional; default now
 };
 ```
-the function will be called with an array of elements. each element is an object containing `value`, `startDate`, and `endDate` fields:
+The function will be called with an array of elements. Each element is an object containing `value`, `startDate`, and `endDate` fields:
 ```javascript
 [ 
   { value: 8, startDate: '2016-07-09T00:00:00.000-0400', endDate: '2016-07-10T00:00:00.000-0400' },
@@ -341,7 +341,7 @@ ___
 #### ~~**`getMultiDayStepCounts`**~~
 **removed** - replaced by `getDailyStepCountSamples`
 
-get the total steps per day over a specified date range. 
+Get the total steps per day over a specified date range. 
 
 `getMultiDayStepCounts` accepts an options object containing required *`startDate: ISO8601Timestamp`* and optional *`endDate: ISO8601Timestamp`*. if `endDate` is not provided it will default to the current time
 ```javascript
@@ -369,9 +369,9 @@ the function will be called with an array of elements `res` containing date and 
 ___
 
 #### **`saveSteps`**
-save a step count sample.
+Save a step count sample.
 
-a step count sample represents the number of steps during a specific period of time. a sample should be a precise as possible, with startDate and endDate representing the range of time the steps were taken in.
+A step count sample represents the number of steps during a specific period of time. A sample should be a precise as possible, with startDate and endDate representing the range of time the steps were taken in.
 
 `saveSteps` accepts an options object containing required *`value: number`*, *`startDate: ISO8601Timestamp`*, and *`endDate: ISO8601Timestamp`*.
 ```javascript
@@ -396,9 +396,9 @@ AppleHealthKit.saveSteps(options, (err, res) => {
 ___
 
 #### **`getDistanceWalkingRunning`**
-get the total distance walking/running on a specific day. 
+Get the total distance walking/running on a specific day. 
 
-`getDistanceWalkingRunning` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. if `date` is not provided it will default to the current time. `unit` defaults to `meter`
+`getDistanceWalkingRunning` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. If `date` is not provided it will default to the current time. `unit` defaults to `meter`.
 ```javascript
 let options = {
 	unit: 'mile',									// optional; default 'meter'
@@ -407,7 +407,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthKit.getDistanceWalkingRunning(null, (err, distance) => {
+AppleHealthKit.getDistanceWalkingRunning(options: Object, (err: Object, distance: number) => {
     if(this._handleHKError(err, 'getDistanceWalkingRunning')){
     	return;
     }
@@ -418,9 +418,9 @@ AppleHealthKit.getDistanceWalkingRunning(null, (err, distance) => {
 ___
 
 #### **`getDistanceCycling`**
-get the total distance cycling on a specific day. 
+Get the total distance cycling on a specific day. 
 
-`getDistanceCycling` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. if `date` is not provided it will default to the current time. `unit` defaults to `meter`
+`getDistanceCycling` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. If `date` is not provided it will default to the current time. `unit` defaults to `meter`
 ```javascript
 let options = {
 	unit: 'meter',									// optional; default 'meter'
@@ -429,7 +429,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthKit.getDistanceCycling(null, (err, distance) => {
+AppleHealthKit.getDistanceCycling(options: Object, (err: Object, distance: number) => {
     if(this._handleHKError(err, 'getDistanceCycling')){
     	return;
     }
@@ -450,7 +450,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthKit.getFlightsClimbed(null, (err, flights) => {
+AppleHealthKit.getFlightsClimbed(options: Object, (err: Object, flights: number) => {
     if(this._handleHKError(err, 'getFlightsClimbed')){
     	return;
     }
