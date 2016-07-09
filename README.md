@@ -144,6 +144,32 @@ The available HealthKit permissions to use with `initHealthKit`
 | AppleExerciseTime      | [HKQuantityTypeIdentifierAppleExerciseTime](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierappleexercisetime?language=objc)           | ✓    |       |
 | DietaryEnergy          | [HKQuantityTypeIdentifierDietaryEnergyConsumed](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierdietaryenergyconsumed?language=objc)   | ✓    | ✓     |
 
+These permissions are exported as constants of the `react-native-apple-healthkit` module.
+
+```javascript
+import AppleHealthKit from 'react-native-apple-healthkit';
+
+...
+
+// get the available permissions from AppleHealthKit.Constants object
+const PERMS = AppleHealthKit.Constants.Permissions;
+
+// setup healthkit read/write permissions from PERMS
+const healthKitOptions = {
+    permissions: {
+        read:  [
+            PERMS.StepCount,
+            PERMS.Height,
+        ],
+        write: [
+            PERMS.StepCount
+        ],
+    }
+};
+
+...
+```
+
 
 Options
 -------
