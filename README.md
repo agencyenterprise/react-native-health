@@ -156,6 +156,29 @@ The available HealthKit permissions to use with `initHealthKit`
 | ActiveEnergy      | HKQuantityTypeIdentifierActiveEnergyBurned    |
         
 
+
+| Permission             | HealthKit Identifier Type                      | Read | Write |
+|------------------------|------------------------------------------------|------|-------|
+| DateOfBirth            | HKCharacteristicTypeIdentifierDateOfBirth      | ✓    |       |
+| BiologicalSex          | HKCharacteristicTypeIdentifierBiologicalSex    | ✓    |       |
+| Height                 | HKQuantityTypeIdentifierHeight                 | ✓    | ✓     |
+| Weight                 | HKQuantityTypeIdentifierBodyMass               | ✓    | ✓     |
+| BodyFatPercentage      | HKQuantityTypeIdentifierBodyFatPercentage      | ✓    | ✓     |
+| BodyMassIndex          | HKQuantityTypeIdentifierBodyMassIndex          | ✓    | ✓     |
+| LeanBodyMass           | HKQuantityTypeIdentifierLeanBodyMass           | ✓    | ✓     |
+| StepCount              | HKQuantityTypeIdentifierStepCount              | ✓    | ✓     |
+| DistanceWalkingRunning | HKQuantityTypeIdentifierDistanceWalkingRunning | ✓    | ✓     |
+| DistanceCycling        | HKQuantityTypeIdentifierDistanceCycling        | ✓    | ✓     |
+| BasalEnergyBurned      | HKQuantityTypeIdentifierBasalEnergyBurned      | ✓    | ✓     |
+| ActiveEnergyBurned     | HKQuantityTypeIdentifierActiveEnergyBurned     | ✓    | ✓     |
+| FlightsClimbed         | HKQuantityTypeIdentifierFlightsClimbed         | ✓    | ✓     |
+| NikeFuel               | HKQuantityTypeIdentifierNikeFuel               | ✓    |       |
+| AppleExerciseTime      | HKQuantityTypeIdentifierAppleExerciseTime      | ✓    |       |
+| DietaryEnergy          | HKQuantityTypeIdentifierDietaryEnergyConsumed  | ✓    | ✓     |
+
+
+
+
 Options
 -------
 
