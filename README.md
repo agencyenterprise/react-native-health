@@ -24,7 +24,8 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getStepCount](#getstepcount)
       * ~~[getStepCountForToday](#getstepcountfortoday)~~
       * ~~[getStepCountForDay](#getstepcountforday)~~
-      * [getMultiDayStepCounts](#getmultidaystepcounts)
+      * [getDailyStepCountSamples](#getdailystepcountsamples)
+      * ~~[getMultiDayStepCounts](#getmultidaystepcounts)~~
       * [getDistanceWalkingRunning](#getdistancewalkingrunning)
       * [getDistanceCycling](#getdistancecycling)
       * [getFlightsClimbed](#getflightsclimbed)
@@ -297,7 +298,38 @@ AppleHealthKit.getStepCountForDay(options: Object, (err: Object, steps: number) 
 
 ___
 
-#### **`getMultiDayStepCounts`**
+#### **`getDailyStepCountSamples`**
+get the total steps per day over a specified date range. 
+
+`getDailyStepCountSamples` accepts an options object containing required *`startDate: ISO8601Timestamp`* and optional *`endDate: ISO8601Timestamp`*. if `endDate` is not provided it will default to the current time
+```javascript
+let options = {
+    startDate: (new Date(2016,5,1)).toISOString()  // required
+    endDate:   (new Date()).toISOString()          // optional; default now
+};
+```
+the function will be called with an array of elements. each element is an object containing `value`, `startDate`, and `endDate` fields
+```javascript
+ AppleHealthKit.getDailyStepCountSamples(options: Object, (err: Object, res: Array<Array<Object>) => {
+    if(this._handleHealthKitError(err, 'getDailyStepCountSamples')){
+        return;
+    }
+    // 'res' is array of {value: number, startDate: string, endDate: string} objects
+    // sorted ascending from startDate through endDate
+    for(let i=0; i<res.length; ++i){
+        let elem = res[i];
+        let stepCount = elem.value;
+        let day = elem.startDate;
+		// ...
+    }
+});
+```
+
+___
+
+#### ~~**`getMultiDayStepCounts`**~~
+**removed** - replaced by `getDailyStepCountSamples`
+
 get the total steps per day over a specified date range. 
 
 `getMultiDayStepCounts` accepts an options object containing required *`startDate: ISO8601Timestamp`* and optional *`endDate: ISO8601Timestamp`*. if `endDate` is not provided it will default to the current time
