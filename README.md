@@ -125,24 +125,24 @@ Permissions
 
 The available HealthKit permissions to use with `initHealthKit` 
 
-| Permission             | HealthKit Identifier Type                      | Read | Write |
-|------------------------|------------------------------------------------|------|-------|
-| DateOfBirth            | HKCharacteristicTypeIdentifierDateOfBirth      | ✓    |       |
-| BiologicalSex          | HKCharacteristicTypeIdentifierBiologicalSex    | ✓    |       |
-| Height                 | HKQuantityTypeIdentifierHeight                 | ✓    | ✓     |
-| Weight                 | HKQuantityTypeIdentifierBodyMass               | ✓    | ✓     |
-| BodyFatPercentage      | HKQuantityTypeIdentifierBodyFatPercentage      | ✓    | ✓     |
-| BodyMassIndex          | HKQuantityTypeIdentifierBodyMassIndex          | ✓    | ✓     |
-| LeanBodyMass           | HKQuantityTypeIdentifierLeanBodyMass           | ✓    | ✓     |
-| StepCount              | HKQuantityTypeIdentifierStepCount              | ✓    | ✓     |
-| DistanceWalkingRunning | HKQuantityTypeIdentifierDistanceWalkingRunning | ✓    | ✓     |
-| DistanceCycling        | HKQuantityTypeIdentifierDistanceCycling        | ✓    | ✓     |
-| BasalEnergyBurned      | HKQuantityTypeIdentifierBasalEnergyBurned      | ✓    | ✓     |
-| ActiveEnergyBurned     | HKQuantityTypeIdentifierActiveEnergyBurned     | ✓    | ✓     |
-| FlightsClimbed         | HKQuantityTypeIdentifierFlightsClimbed         | ✓    | ✓     |
-| NikeFuel               | HKQuantityTypeIdentifierNikeFuel               | ✓    |       |
-| AppleExerciseTime      | HKQuantityTypeIdentifierAppleExerciseTime      | ✓    |       |
-| DietaryEnergy          | HKQuantityTypeIdentifierDietaryEnergyConsumed  | ✓    | ✓     |
+| Permission             | HealthKit Identifier Type                                                                                                                    | Read | Write |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|------|-------|
+| DateOfBirth            | HKCharacteristicTypeIdentifierDateOfBirth                                                                                                    | ✓    |       |
+| BiologicalSex          | HKCharacteristicTypeIdentifierBiologicalSex                                                                                                  | ✓    |       |
+| Height                 | HKQuantityTypeIdentifierHeight                                                                                                               | ✓    | ✓     |
+| Weight                 | HKQuantityTypeIdentifierBodyMass                                                                                                             | ✓    | ✓     |
+| BodyFatPercentage      | HKQuantityTypeIdentifierBodyFatPercentage                                                                                                    | ✓    | ✓     |
+| BodyMassIndex          | [HKQuantityTypeIdentifierBodyMassIndex](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbodymassindex?language=objc) | ✓    | ✓     |
+| LeanBodyMass           | HKQuantityTypeIdentifierLeanBodyMass                                                                                                         | ✓    | ✓     |
+| StepCount              | HKQuantityTypeIdentifierStepCount                                                                                                            | ✓    | ✓     |
+| DistanceWalkingRunning | HKQuantityTypeIdentifierDistanceWalkingRunning                                                                                               | ✓    | ✓     |
+| DistanceCycling        | HKQuantityTypeIdentifierDistanceCycling                                                                                                      | ✓    | ✓     |
+| BasalEnergyBurned      | HKQuantityTypeIdentifierBasalEnergyBurned                                                                                                    | ✓    | ✓     |
+| ActiveEnergyBurned     | HKQuantityTypeIdentifierActiveEnergyBurned                                                                                                   | ✓    | ✓     |
+| FlightsClimbed         | HKQuantityTypeIdentifierFlightsClimbed                                                                                                       | ✓    | ✓     |
+| NikeFuel               | HKQuantityTypeIdentifierNikeFuel                                                                                                             | ✓    |       |
+| AppleExerciseTime      | HKQuantityTypeIdentifierAppleExerciseTime                                                                                                    | ✓    |       |
+| DietaryEnergy          | HKQuantityTypeIdentifierDietaryEnergyConsumed                                                                                                | ✓    | ✓     |
 
 
 
