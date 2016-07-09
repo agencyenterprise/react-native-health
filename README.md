@@ -321,7 +321,7 @@ The function will be called with an array of elements. Each element is an object
 
 
 ```javascript
- AppleHealthKit.getDailyStepCountSamples(options: Object, (err: Object, res: Array<Array<Object>) => {
+ AppleHealthKit.getDailyStepCountSamples(options: Object, (err: Object, res: Array<Object>) => {
     if(this._handleHealthKitError(err, 'getDailyStepCountSamples')){
         return;
     }
