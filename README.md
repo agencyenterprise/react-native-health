@@ -14,8 +14,6 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
     * [Usage](#usage)
   * [Documentation](#documentation)
     * [Permissions](#permissions)
-      * [Read](#read-permissions)
-      * [Write](#write-permissions)
     * [Methods](#methods)
       * [isAvailable](#isavailable)
       * [initHealthKit](#inithealthkit)
@@ -126,36 +124,6 @@ Permissions
 -----------
 
 The available HealthKit permissions to use with `initHealthKit` 
-
-##### Read Permissions
-
-| Permission        | HealthKit Identifier Type                     |
-|-------------------|-----------------------------------------------|
-| Height            | HKQuantityTypeIdentifierHeight                |
-| Weight            | HKQuantityTypeIdentifierBodyMass              |
-| BodyFatPercentage | HKQuantityTypeIdentifierBodyFatPercentage     |
-| BodyMassIndex     | HKQuantityTypeIdentifierBodyMassIndex         |
-| LeanBodyMass      | HKQuantityTypeIdentifierLeanBodyMass          |
-| Steps             | HKQuantityTypeIdentifierStepCount             |
-| BiologicalSex     | HKCharacteristicTypeIdentifierBiologicalSex   |
-| DateOfBirth       | HKCharacteristicTypeIdentifierDateOfBirth     |
-| DietaryEnergy     | HKQuantityTypeIdentifierDietaryEnergyConsumed |
-| ActiveEnergy      | HKQuantityTypeIdentifierActiveEnergyBurned    |
-
-##### Write Permissions
-
-| Permission        | HealthKit Identifier Type                     |
-|-------------------|-----------------------------------------------|
-| Height            | HKQuantityTypeIdentifierHeight                |
-| Weight            | HKQuantityTypeIdentifierBodyMass              |
-| BodyFatPercentage | HKQuantityTypeIdentifierBodyFatPercentage     |
-| BodyMassIndex     | HKQuantityTypeIdentifierBodyMassIndex         |
-| LeanBodyMass      | HKQuantityTypeIdentifierLeanBodyMass          |
-| Steps             | HKQuantityTypeIdentifierStepCount             |
-| DietaryEnergy     | HKQuantityTypeIdentifierDietaryEnergyConsumed |
-| ActiveEnergy      | HKQuantityTypeIdentifierActiveEnergyBurned    |
-        
-
 
 | Permission             | HealthKit Identifier Type                      | Read | Write |
 |------------------------|------------------------------------------------|------|-------|
