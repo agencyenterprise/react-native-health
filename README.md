@@ -432,11 +432,11 @@ let options = {
 ```
 
 ```javascript
-AppleHealthKit.getDistanceWalkingRunning(options: Object, (err: Object, distance: number) => {
+AppleHealthKit.getDistanceWalkingRunning(options: Object, (err: Object, res: Object) => {
     if(this._handleHKError(err, 'getDistanceWalkingRunning')){
     	return;
     }
-	// use distance ...
+	// use res.value ...
 });
 ```
 
@@ -454,11 +454,11 @@ let options = {
 ```
 
 ```javascript
-AppleHealthKit.getDistanceCycling(options: Object, (err: Object, distance: number) => {
+AppleHealthKit.getDistanceCycling(options: Object, (err: Object, res: Object) => {
     if(this._handleHKError(err, 'getDistanceCycling')){
     	return;
     }
-	// use distance ...
+	// use res.value ...
 });
 ```
 
@@ -475,11 +475,11 @@ let options = {
 ```
 
 ```javascript
-AppleHealthKit.getFlightsClimbed(options: Object, (err: Object, flights: number) => {
+AppleHealthKit.getFlightsClimbed(options: Object, (err: Object, res: Object) => {
     if(this._handleHKError(err, 'getFlightsClimbed')){
     	return;
     }
-	// use flights ...
+	// use res.value ...
 });
 ```
 
