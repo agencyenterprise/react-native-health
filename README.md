@@ -463,7 +463,7 @@ ___
 #### **`getLatestWeight`**
 Get the most recent weight sample.
 
-On success, the callback function will be provided with a `weight` object containing the weight `value`, and the `startDate` and `endDate` of the weight sample. *Note: startDate and endDate will be the same as weight samples are saved at a specific point in time*
+On success, the callback function will be provided with a `weight` object containing the weight `value`, and the `startDate` and `endDate` of the weight sample. *Note: startDate and endDate will be the same as weight samples are saved at a specific point in time.*
 ```javascript
 {
 	value: 200,
@@ -529,7 +529,7 @@ ___
 #### **`getLatestHeight`**
 Get the most recent height value.
 
-On success, the callback function will be provided with a `height` object containing the height `value`, and the `startDate` and `endDate` of the height sample. *Note: startDate and endDate will be the same as height samples are saved at a specific point in time*
+On success, the callback function will be provided with a `height` object containing the height `value`, and the `startDate` and `endDate` of the height sample. *Note: startDate and endDate will be the same as height samples are saved at a specific point in time.*
 ```javascript
 {
 	value: 72,
@@ -605,7 +605,7 @@ ___
 #### **`getLatestBmi`**
 Get the most recent BMI sample. 
 
-On success, the callback function will be provided with a `bmi` object containing the BMI `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bmi samples are saved at a specific point in time*
+On success, the callback function will be provided with a `bmi` object containing the BMI `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bmi samples are saved at a specific point in time.*
 ```javascript
 {
 	value: 27.2,
@@ -649,7 +649,7 @@ ___
 #### **`getLatestBodyFatPercentage`**
 Get the most recent body fat percentage. The percentage value is a number between 0 and 100.
 
-On success, the callback function will be provided with a `bodyFatPercentage` object containing the body fat percentage `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bodyFatPercentage samples are saved at a specific point in time*
+On success, the callback function will be provided with a `bodyFatPercentage` object containing the body fat percentage `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bodyFatPercentage samples are saved at a specific point in time.*
 ```javascript
 {
 	value: 20,
@@ -672,7 +672,7 @@ ___
 #### **`getLatestLeanBodyMass`**
 Get the most recent lean body mass. The value is a number representing the weight in pounds (lbs)
 
-On success, the callback function will be provided with a `leanBodyMass` object containing the leanBodyMass `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as leanBodyMass samples are saved at a specific point in time*
+On success, the callback function will be provided with a `leanBodyMass` object containing the leanBodyMass `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as leanBodyMass samples are saved at a specific point in time.*
 ```javascript
 {
 	value: 176,
