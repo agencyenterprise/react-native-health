@@ -461,14 +461,24 @@ AppleHealthKit.getFlightsClimbed(null, (err, flights) => {
 ___
 
 #### **`getLatestWeight`**
-get the most recent weight value
+Get the most recent weight sample.
+
+On success, the callback function will be provided with a `weight` object containing the weight `value`, and the `startDate` and `endDate` of the weight sample. *Note: startDate and endDate will be the same as weight samples are saved at a specific point in time*
 ```javascript
-AppleHealthKit.getLatestWeight(null, (err: string, weight: number) => {
+{
+	value: 200,
+	startDate: '2016-07-08T12:00:00.000-0400', 
+	endDate: '2016-07-08T12:00:00.000-0400'
+}
+```
+
+```javascript
+AppleHealthKit.getLatestWeight(null, (err: string, weight: Object) => {
     if(err){
         console.log("error getting latest weight: ", err);
         return;
     }
-    // use weight ...
+    // use weight.value, weight.startDate, etc ...
 });
 ```
 
@@ -517,14 +527,25 @@ AppleHealthKit.saveWeight(options: Object, (err: Object, res: Object) => {
 ___
 
 #### **`getLatestHeight`**
-get the most recent height value
+Get the most recent height value.
+
+On success, the callback function will be provided with a `height` object containing the height `value`, and the `startDate` and `endDate` of the height sample. *Note: startDate and endDate will be the same as height samples are saved at a specific point in time*
 ```javascript
-AppleHealthKit.getLatestHeight(null, (err: string, height: number) => {
+{
+	value: 72,
+	startDate: '2016-07-08T12:00:00.000-0400', 
+	endDate: '2016-07-08T12:00:00.000-0400'
+}
+```
+
+
+```javascript
+AppleHealthKit.getLatestHeight(null, (err: string, height: Object) => {
     if(err){
         console.log("error getting latest height: ", err);
         return;
     }
-    // use height ...
+    // use height.value, height.startDate, etc ...
 });
 ```
 
@@ -582,18 +603,26 @@ AppleHealthKit.saveHeight(options: Object, (err: Object, res: Object) => {
 ___
 
 #### **`getLatestBmi`**
-get the most recent BMI data. the handler function will be called with a `bmi` object containing *`value: number`*, *`startDate: ISO8601Timestamp`*, and *`endDate: ISO8601Timestamp`*. The BMI value may be very old so the sample dates are provided as well. *should apply this to all other RCT types* 
+Get the most recent BMI sample. 
+
+On success, the callback function will be provided with a `bmi` object containing the BMI `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bmi samples are saved at a specific point in time*
+```javascript
+{
+	value: 27.2,
+	startDate: '2016-07-08T12:00:00.000-0400', 
+	endDate: '2016-07-08T12:00:00.000-0400'
+}
+```
+
 ```javascript
 AppleHealthKit.getLatestBmi(null, (err: string, bmi: Object) => {
     if(err){
         console.log("error getting latest bmi data: ", err);
         return;
     }
-    if(bmi && bmi.value){
-        let d = bmi.startDate
-        let val = bmi.value;
-        // ...
-    }
+    let d = bmi.startDate
+    let val = bmi.value;
+    // ...
 });
 ```
 
@@ -618,26 +647,46 @@ AppleHealthKit.saveBmi(options: Object, (err: Object, res: Object) => {
 ___
 
 #### **`getLatestBodyFatPercentage`**
-get the most recent body fat percentage. the percentage value is a number between 0 and 100
+Get the most recent body fat percentage. The percentage value is a number between 0 and 100.
+
+On success, the callback function will be provided with a `bodyFatPercentage` object containing the body fat percentage `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bodyFatPercentage samples are saved at a specific point in time*
 ```javascript
-AppleHealthKit.getLatestBodyFatPercentage(null, (err: Object, bodyFatPercentage: number) => {
+{
+	value: 20,
+	startDate: '2016-07-08T12:00:00.000-0400', 
+	endDate: '2016-07-08T12:00:00.000-0400'
+}
+```
+
+```javascript
+AppleHealthKit.getLatestBodyFatPercentage(null, (err: Object, bodyFatPercentage: Object) => {
     if(this._handleHealthKitError(err, 'getLatestBodyFatPercentage')){
         return;
     }
-    // use bodyFatPercentage ...
+    // use bodyFatPercentage.value, bodyFatPercentage.startDate, etc ...
 });
 ```
 
 ___
 
 #### **`getLatestLeanBodyMass`**
-get the most recent lean body mass. the value is a number representing the weight in pounds (lbs)
+Get the most recent lean body mass. The value is a number representing the weight in pounds (lbs)
+
+On success, the callback function will be provided with a `leanBodyMass` object containing the leanBodyMass `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as leanBodyMass samples are saved at a specific point in time*
 ```javascript
- AppleHealthKit.getLatestLeanBodyMass(null, (err: Object, leanBodyMass: number) => {
+{
+	value: 176,
+	startDate: '2016-07-08T12:00:00.000-0400', 
+	endDate: '2016-07-08T12:00:00.000-0400'
+}
+```
+
+```javascript
+ AppleHealthKit.getLatestLeanBodyMass(null, (err: Object, leanBodyMass: Object) => {
     if(this._handleHealthKitError(err, 'getLatestLeanBodyMass')){
         return;
     }
-    // use leanBodyMass ...
+    // use leanBodyMass.value, leanBodyMass.startDate, etc ...
 });
 ```
 
