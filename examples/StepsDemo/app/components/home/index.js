@@ -71,11 +71,11 @@ class Home extends Component {
      * @private
      */
     _fetchStepsToday() {
-        AppleHealthKit.getStepCount(null, (err, steps) => {
+        AppleHealthKit.getStepCount(null, (err, res) => {
             if(this._handleHKError(err, 'getStepCount')){
                 return;
             }
-            this.setState({stepsToday: steps});
+            this.setState({stepsToday: res.value});
         });
     }
 

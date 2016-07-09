@@ -7,9 +7,9 @@
 //
 
 #import "RCTAppleHealthKit.h"
-#import "RCTAppleHealthKit+Queries.h"
+//#import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
-#import "RCTAppleHealthKit+Utils.h"
+//#import "RCTAppleHealthKit+Utils.h"
 
 #import "RCTAppleHealthKit+Methods_Body.h"
 #import "RCTAppleHealthKit+Methods_Fitness.h"

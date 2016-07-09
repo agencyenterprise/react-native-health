@@ -12,23 +12,23 @@
 
 @implementation RCTAppleHealthKit (Methods_Fitness)
 
-- (void)fitness_getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    HKUnit *stepsUnit = [HKUnit countUnit];
-
-    [self fetchSumOfSamplesTodayForType:stepCountType
-                                   unit:stepsUnit
-                             completion:^(double totalSteps, NSError *error) {
-        if (!totalSteps) {
-            NSLog(@"Either an error occured fetching the user's step count information or none has been stored yet. In your app, try to handle this gracefully.");
-            callback(@[RCTMakeError(@"Either an error occured fetching the user's step count information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
-            return;
-        }
-
-        callback(@[[NSNull null], @(totalSteps)]);
-    }];
-}
+//- (void)fitness_getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+//{
+//    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+//    HKUnit *stepsUnit = [HKUnit countUnit];
+//
+//    [self fetchSumOfSamplesTodayForType:stepCountType
+//                                   unit:stepsUnit
+//                             completion:^(double totalSteps, NSError *error) {
+//        if (!totalSteps) {
+//            NSLog(@"Either an error occured fetching the user's step count information or none has been stored yet. In your app, try to handle this gracefully.");
+//            callback(@[RCTMakeError(@"Either an error occured fetching the user's step count information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
+//            return;
+//        }
+//
+//        callback(@[[NSNull null], @(totalSteps)]);
+//    }];
+//}
 
 
 - (void)fitness_getStepCountOnDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -46,45 +46,52 @@
     [self fetchSumOfSamplesOnDayForType:stepCountType
                                    unit:stepsUnit
                                     day:date
-                             completion:^(double totalSteps, NSError *error) {
-        if (!totalSteps) {
+                             completion:^(double value, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!value) {
             NSLog(@"could not fetch step count for day: %@", error);
             callback(@[RCTMakeError(@"could not fetch step count for day", error, nil)]);
             return;
         }
-        callback(@[[NSNull null], @(totalSteps)]);
+
+         NSDictionary *response = @{
+                 @"value" : @(value),
+                 @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                 @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+         };
+
+        callback(@[[NSNull null], response]);
     }];
 }
 
 
 
-
-- (void)fitness_getDailyStepCounts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    NSDate *startDate = [RCTAppleHealthKit startDateFromOptions:input];
-    NSDate *endDate = [RCTAppleHealthKit endDateFromOptionsDefaultNow:input];
-
-    if(startDate == nil) {
-        callback(@[RCTMakeError(@"could not parse required startDate from options.startDate", nil, nil)]);
-        return;
-    }
-
-    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    HKUnit *stepsUnit = [HKUnit countUnit];
-
-    [self fetchCumulativeSumStatisticsCollection:stepCountType
-                                            unit:stepsUnit
-                                       startDate:startDate
-                                         endDate:endDate
-                                      completion:^(NSArray *arr, NSError *err){
-        if (err != nil) {
-            NSLog(@"error with fetchCumulativeSumStatisticsCollection: %@", err);
-            callback(@[RCTMakeError(@"error with fetchCumulativeSumStatisticsCollection", err, nil)]);
-            return;
-        }
-        callback(@[[NSNull null], arr]);
-    }];
-}
+//
+//- (void)fitness_getDailyStepCounts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+//{
+//    NSDate *startDate = [RCTAppleHealthKit startDateFromOptions:input];
+//    NSDate *endDate = [RCTAppleHealthKit endDateFromOptionsDefaultNow:input];
+//
+//    if(startDate == nil) {
+//        callback(@[RCTMakeError(@"could not parse required startDate from options.startDate", nil, nil)]);
+//        return;
+//    }
+//
+//    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+//    HKUnit *stepsUnit = [HKUnit countUnit];
+//
+//    [self fetchCumulativeSumStatisticsCollection:stepCountType
+//                                            unit:stepsUnit
+//                                       startDate:startDate
+//                                         endDate:endDate
+//                                      completion:^(NSArray *arr, NSError *err){
+//        if (err != nil) {
+//            NSLog(@"error with fetchCumulativeSumStatisticsCollection: %@", err);
+//            callback(@[RCTMakeError(@"error with fetchCumulativeSumStatisticsCollection", err, nil)]);
+//            return;
+//        }
+//        callback(@[[NSNull null], arr]);
+//    }];
+//}
 
 
 
@@ -157,13 +164,21 @@
 
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
 
-    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSError *error) {
+    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!distance) {
             NSLog(@"ERROR getting DistanceWalkingRunning: %@", error);
             callback(@[RCTMakeError(@"ERROR getting DistanceWalkingRunning", error, nil)]);
             return;
         }
-        callback(@[[NSNull null], @(distance)]);
+
+        NSDictionary *response = @{
+                @"value" : @(distance),
+                @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+        };
+
+
+        callback(@[[NSNull null], response]);
     }];
 }
 
@@ -175,13 +190,20 @@
 
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
 
-    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSError *error) {
+    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!distance) {
             NSLog(@"ERROR getting DistanceCycling: %@", error);
             callback(@[RCTMakeError(@"ERROR getting DistanceCycling", error, nil)]);
             return;
         }
-        callback(@[[NSNull null], @(distance)]);
+
+        NSDictionary *response = @{
+                @"value" : @(distance),
+                @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+        };
+
+        callback(@[[NSNull null], response]);
     }];
 }
 
@@ -193,13 +215,20 @@
 
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
 
-    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double count, NSError *error) {
+    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double count, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!count) {
             NSLog(@"ERROR getting FlightsClimbed: %@", error);
             callback(@[RCTMakeError(@"ERROR getting FlightsClimbed", error, nil), @(count)]);
             return;
         }
-        callback(@[[NSNull null], @(count)]);
+
+        NSDictionary *response = @{
+                @"value" : @(count),
+                @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+        };
+
+        callback(@[[NSNull null], response]);
     }];
 }
 
