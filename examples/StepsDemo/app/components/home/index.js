@@ -108,7 +108,6 @@ class Home extends Component {
             if(this._handleHKError(err, 'getDailyStepCountSamples')){
                 return;
             }
-            console.log('res: ', res);
             this.setState({stepHistory: res});
         });
     }
