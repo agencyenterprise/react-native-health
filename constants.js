@@ -42,7 +42,10 @@ const UNITS = {
 	joule: 'joule',
 	calorie: 'calorie',
 	count: 'count',
-	percent: 'percent'
+	percent: 'percent',
+	bpm: 'bpm',
+	fahrenheit: 'fahrenheit',
+	celsius: 'celsius',
 };
 
 
