@@ -229,7 +229,7 @@
         HKUnit *count = [HKUnit countUnit];
         HKUnit *minute = [HKUnit minuteUnit];
 
-        theUnit = [count unitedDividedByUnit:minute];
+        theUnit = [count unitDividedByUnit:minute];
     }
     if([unitString isEqualToString:@"fahrenheit"]){
         theUnit = [HKUnit degreeFahrenheitUnit];
