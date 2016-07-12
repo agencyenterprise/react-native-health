@@ -19,6 +19,12 @@ const PERMISSIONS = {
 	NikeFuel: 'NikeFuel',
 	AppleExerciseTime: 'AppleExerciseTime',
 	DietaryEnergy: 'DietaryEnergy',
+	HeartRate: 'HeartRate',
+  BodyTemperature: 'BodyTemperature',
+  BloodPressureSystolic: 'BloodPressureSystolic',
+  BloodPressureDiastolic: 'BloodPressureDiastolic',
+  RespiratoryRate: 'RespiratoryRate',
+  BloodGlucose: 'BloodGlucose',
 };
 
 
