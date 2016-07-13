@@ -46,6 +46,7 @@ const UNITS = {
 	bpm: 'bpm',
 	fahrenheit: 'fahrenheit',
 	celsius: 'celsius',
+	mmhg: 'mmhg',
 };
 
 

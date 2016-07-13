@@ -6,9 +6,7 @@
 
 - (void)vitals_getBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
-- (void)vitals_getBloodPressureSystolicSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
-
-- (void)vitals_getBloodPressureDiastolicSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)vitals_getBloodPressureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
 - (void)vitals_getRespiratoryRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 

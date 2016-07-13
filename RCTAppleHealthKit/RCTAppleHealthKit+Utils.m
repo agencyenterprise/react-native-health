@@ -237,6 +237,9 @@
     if([unitString isEqualToString:@"celsius"]){
         theUnit = [HKUnit degreeCelsiusUnit];
     }
+    if([unitString isEqualToString:@"mmhg"]){
+        theUnit = [HKUnit millimeterOfMercuryUnit];
+    }
 
     if(theUnit == nil){
         theUnit = defaultValue;
