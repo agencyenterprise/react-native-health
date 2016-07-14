@@ -243,7 +243,7 @@
     if([unitString isEqualToString:@"mmolPerL"]){
         theUnit = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
     }
-    if([unitString isEqualToString:@"mgPerL"]){
+    if([unitString isEqualToString:@"mgPerdL"]){
         theUnit = [HKUnit unitFromString:@"mg/dL"];
     }
 
