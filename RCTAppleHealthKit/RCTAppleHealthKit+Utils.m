@@ -240,6 +240,12 @@
     if([unitString isEqualToString:@"mmhg"]){
         theUnit = [HKUnit millimeterOfMercuryUnit];
     }
+    if([unitString isEqualToString:@"mmolPerL"]){
+        theUnit = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
+    }
+    if([unitString isEqualToString:@"mgPerL"]){
+        theUnit = [HKUnit unitFromString:@"mg/dL"];
+    }
 
     if(theUnit == nil){
         theUnit = defaultValue;

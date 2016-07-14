@@ -47,6 +47,8 @@ const UNITS = {
 	fahrenheit: 'fahrenheit',
 	celsius: 'celsius',
 	mmhg: 'mmhg',
+	mmolPerL: 'mmolPerL',
+	mgPerL: 'mgPerL',
 };
 
 
