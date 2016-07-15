@@ -38,6 +38,11 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [saveBmi](#savebmi)
       * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
       * [getLatestLeanBodyMass](#getlatestleanbodymass)
+      * [getHeartRateSamples](#getHeartRateSamples)
+      * [getBodyTemperatureSamples](#getBodyTemperatureSamples)
+      * [getBloodPressureSamples](#getBloodPressureSamples)
+      * [getRespiratoryRateSamples](#getRespiratoryRateSamples)
+      * [getBloodGlucoseSamples](#getBloodGlucoseSamples)
   * [Examples](#examples)
   
 
@@ -721,6 +726,148 @@ On success, the callback function will be provided with a `leanBodyMass` object 
     // use leanBodyMass.value, leanBodyMass.startDate, etc ...
 });
 ```
+
+___
+
+#### **`getHeartRateSamples`**
+query for heart rate samples. the options object is used to setup a query to retrieve relevant samples.
+```javascript
+let options = {
+    unit: 'bpm',										// optional; default 'bpm'
+    startDate: (new Date(2016,4,27)).toISOString(),		// required
+	endDate: (new Date()).toISOString(),				// optional; default now
+    ascending: false,									// optional; default false
+    limit:10,											// optional; default no limit
+};
+```
+
+the callback function will be called with a `samples` array containing objects with *value*, *startDate*, and *endDate* fields
+
+*example usage*
+```javascript
+AppleHealthKit.getHeartRateSamples(options, (err: Object, samples: Array<Object>) => {
+	if(this._handleHealthKitError(err, 'getHeartRateSamples')){
+		return;
+	}
+	// use samples ...
+});
+```
+
+___
+
+#### **`getBodyTemperatureSamples`**
+query for body temperature samples. the options object is used to setup a query to retrieve relevant samples.
+```javascript
+let options = {
+    unit: 'celsius',									// optional; default 'celsius'
+    startDate: (new Date(2016,4,27)).toISOString(),		// required
+	endDate: (new Date()).toISOString(),				// optional; default now
+    ascending: false,									// optional; default false
+    limit:10,											// optional; default no limit
+};
+```
+available units are: `'fahrenheit'`, `'celsius'`.
+
+the callback function will be called with a `samples` array containing objects with *value*, *startDate*, and *endDate* fields.
+
+*example usage*
+```javascript
+AppleHealthKit.getBodyTemperatureSamples(options, (err: Object, samples: Array<Object>) => {
+	if(this._handleHealthKitError(err, 'getBodyTemperatureSamples')){
+		return;
+	}
+	// use samples ...
+});
+```
+
+___
+
+#### **`getBloodPressureSamples`**
+query for blood pressure samples. the options object is used to setup a query to retrieve relevant samples.
+```javascript
+let options = {
+    unit: 'mmhg',								    	// optional; default 'mmhg'
+    startDate: (new Date(2016,4,27)).toISOString(),		// required
+	endDate: (new Date()).toISOString(),				// optional; default now
+    ascending: false,									// optional; default false
+    limit:10,											// optional; default no limit
+};
+```
+
+the callback function will be called with a `samples` array containing objects with *bloodPressureSystolicValue*, *bloodPressureDiastolicValue*, *startDate*, and *endDate* fields
+```javascript
+// samples is array of objects
+[
+	{bloodPressureSystolicValue: 120, bloodPressureDiastolicValue: 81, startDate:'2016-06-29T17:55:00.000-0400', endDate:'2016-06-29T17:55:00.000-0400'},
+	{bloodPressureSystolicValue: 119, bloodPressureDiastolicValue: 77, startDate:'2016-03-12T13:22:00.000-0400', endDate:'2016-03-12T13:22:00.000-0400'},
+	...
+]
+```
+*example usage*
+```javascript
+AppleHealthKit.getBloodPressureSamples(options, (err: Object, samples: Array<Object>) => {
+	if(this._handleHealthKitError(err, 'getBloodPressureSamples')){
+		return;
+	}
+	// use samples ...
+});
+```
+
+___
+
+#### **`getRespiratoryRateSamples`**
+query for respiratory rate samples. the options object is used to setup a query to retrieve relevant samples.
+```javascript
+let options = {
+    unit: 'bpm',								    	// optional; default 'bpm'
+    startDate: (new Date(2016,4,27)).toISOString(),		// required
+	endDate: (new Date()).toISOString(),				// optional; default now
+    ascending: false,									// optional; default false
+    limit:10,											// optional; default no limit
+};
+```
+
+the callback function will be called with a `samples` array containing objects with *value*, *startDate*, and *endDate* fields
+
+*example usage*
+```javascript
+AppleHealthKit.getRespiratoryRateSamples(options, (err: Object, samples: Array<Object>) => {
+	if(this._handleHealthKitError(err, 'getRespiratoryRateSamples')){
+		return;
+	}
+	// use samples ...
+});
+```
+
+___
+
+#### **`getBloodGlucoseSamples`**
+query for blood glucose samples. the options object is used to setup a query to retrieve relevant samples.
+```javascript
+let options = {
+    unit: 'mmolPerL',							    	// optional; default 'mmolPerL'
+    startDate: (new Date(2016,4,27)).toISOString(),		// required
+	endDate: (new Date()).toISOString(),				// optional; default now
+    ascending: false,									// optional; default false
+    limit:10,											// optional; default no limit
+};
+```
+available units are: `'mmolPerL'`, `'mgPerdL'`.
+
+the callback function will be called with a `samples` array containing objects with *value*, *startDate*, and *endDate* fields
+
+*example usage*
+```javascript
+AppleHealthKit.getBloodGlucoseSamples(options, (err: Object, samples: Array<Object>) => {
+	if(this._handleHealthKitError(err, 'getBloodGlucoseSamples')){
+		return;
+	}
+	// use samples ...
+});
+```
+
+
+
 
 ## Examples
 
