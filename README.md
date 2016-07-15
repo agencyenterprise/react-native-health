@@ -38,11 +38,11 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [saveBmi](#savebmi)
       * [getLatestBodyFatPercentage](#getlatestbodyfatpercentage)
       * [getLatestLeanBodyMass](#getlatestleanbodymass)
-      * [getHeartRateSamples](#getHeartRateSamples)
-      * [getBodyTemperatureSamples](#getBodyTemperatureSamples)
-      * [getBloodPressureSamples](#getBloodPressureSamples)
-      * [getRespiratoryRateSamples](#getRespiratoryRateSamples)
-      * [getBloodGlucoseSamples](#getBloodGlucoseSamples)
+      * [getHeartRateSamples](#getheartratesamples)
+      * [getBodyTemperatureSamples](#getbodytemperaturesamples)
+      * [getBloodPressureSamples](#getbloodpressuresamples)
+      * [getRespiratoryRateSamples](#getrespiratoryratesamples)
+      * [getBloodGlucoseSamples](#getbloodglucosesamples)
   * [Examples](#examples)
   
 
