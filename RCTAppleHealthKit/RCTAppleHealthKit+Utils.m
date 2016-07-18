@@ -50,9 +50,9 @@
 }
 
 + (NSPredicate *)predicateForSamplesBetweenDates:(NSDate *)startDate endDate:(NSDate *)endDate {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *start = [calendar startOfDayForDate:startDate];
-    NSDate *end = endDate;
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+//    NSDate *start = [calendar startOfDayForDate:startDate];
+//    NSDate *end = endDate;
 //    NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
     return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
 }
