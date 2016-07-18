@@ -19,6 +19,12 @@ const PERMISSIONS = {
 	NikeFuel: 'NikeFuel',
 	AppleExerciseTime: 'AppleExerciseTime',
 	DietaryEnergy: 'DietaryEnergy',
+	HeartRate: 'HeartRate',
+  BodyTemperature: 'BodyTemperature',
+  BloodPressureSystolic: 'BloodPressureSystolic',
+  BloodPressureDiastolic: 'BloodPressureDiastolic',
+  RespiratoryRate: 'RespiratoryRate',
+  BloodGlucose: 'BloodGlucose',
 };
 
 
@@ -36,7 +42,13 @@ const UNITS = {
 	joule: 'joule',
 	calorie: 'calorie',
 	count: 'count',
-	percent: 'percent'
+	percent: 'percent',
+	bpm: 'bpm',
+	fahrenheit: 'fahrenheit',
+	celsius: 'celsius',
+	mmhg: 'mmhg',
+	mmolPerL: 'mmolPerL',
+	mgPerdL: 'mgPerdL',
 };
 
 
