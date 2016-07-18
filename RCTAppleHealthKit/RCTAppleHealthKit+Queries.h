@@ -21,7 +21,6 @@
                                     completion:(void (^)(NSArray *, NSError *))completionHandler;
 
 
-
 - (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
                               unit:(HKUnit *)unit
                          predicate:(NSPredicate *)predicate
@@ -30,6 +29,12 @@
                         completion:(void (^)(NSArray *, NSError *))completion;
 
 
+- (void)fetchCorrelationSamplesOfType:(HKQuantityType *)quantityType
+                                 unit:(HKUnit *)unit
+                            predicate:(NSPredicate *)predicate
+                            ascending:(BOOL)asc
+                                limit:(NSUInteger)lim
+                           completion:(void (^)(NSArray *, NSError *))completion;
 
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType

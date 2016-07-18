@@ -225,6 +225,27 @@
     if([unitString isEqualToString:@"percent"]){
         theUnit = [HKUnit percentUnit];
     }
+    if([unitString isEqualToString:@"bpm"]){
+        HKUnit *count = [HKUnit countUnit];
+        HKUnit *minute = [HKUnit minuteUnit];
+
+        theUnit = [count unitDividedByUnit:minute];
+    }
+    if([unitString isEqualToString:@"fahrenheit"]){
+        theUnit = [HKUnit degreeFahrenheitUnit];
+    }
+    if([unitString isEqualToString:@"celsius"]){
+        theUnit = [HKUnit degreeCelsiusUnit];
+    }
+    if([unitString isEqualToString:@"mmhg"]){
+        theUnit = [HKUnit millimeterOfMercuryUnit];
+    }
+    if([unitString isEqualToString:@"mmolPerL"]){
+        theUnit = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
+    }
+    if([unitString isEqualToString:@"mgPerdL"]){
+        theUnit = [HKUnit unitFromString:@"mg/dL"];
+    }
 
     if(theUnit == nil){
         theUnit = defaultValue;
