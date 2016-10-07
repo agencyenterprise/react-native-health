@@ -55,6 +55,14 @@
         callback(@[RCTMakeError(@"error getting date of birth", error, nil)]);
         return;
     }
+    if(dob == nil) {
+        NSDictionary *response = @{
+                                   @"value" : [NSNull null],
+                                   @"age" : [NSNull null]
+                                   };
+        callback(@[[NSNull null], response]);
+        return;
+    }
 
     NSString *dobString = [RCTAppleHealthKit buildISO8601StringFromDate:dob];
 
