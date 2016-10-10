@@ -23,9 +23,9 @@
   "author": "Greg Wilson",
   "license": "MIT",
   "devDependencies": {
-    "react-native": "^0.28.0"
+    "react-native": ">=0.28.0"
   },
   "peerDependencies": {
-    "react-native": "^0.28.0"
+    "react-native": ">=0.28.0"
   }
 }
