@@ -9,8 +9,10 @@ import {
     ScrollView,
     Image,
     Text,
-    View
+    View,
+    NativeAppEventEmitter,
 } from 'react-native';
+
 import AppleHealthKit from 'react-native-apple-healthkit';
 import styles from '../../styles/styles';
 import History from './history';
@@ -58,11 +60,28 @@ class Home extends Component {
                     if(this._handleHKError(err, 'initHealthKit')){
                         return;
                     }
+
+                    AppleHealthKit.initStepCountObserver({}, () => {});
+
+                    var subscription = NativeAppEventEmitter.addListener(
+                        'change:steps',
+                        (evt) => {
+                            console.log('change:steps EVENT!! : ', evt);
+                            this._fetchStepsToday();
+                        }
+                    );
+
+                    this.sub = subscription;
+
                     this._fetchStepsToday();
                     this._fetchStepsHistory();
                 });
             }
         });
+    }
+
+    componentWillUnmount() {
+        this.sub.remove();
     }
 
     /**
