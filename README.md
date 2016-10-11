@@ -391,7 +391,12 @@ AppleHealthKit.initHealthKit(HKOPTIONS, (err, res) => {
       this._fetchStepCountData();
     }
   );
-  ...
+
+  // other tasks to perform after HealthKit has been
+  // initialized (fetch relevant HealthKit data).
+  this._fetchStepCountData();
+  this._fetchOtherRelevantHealthKitData();
+  // ...
 });
 
 ...
