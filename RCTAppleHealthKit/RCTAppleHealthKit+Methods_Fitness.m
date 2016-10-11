@@ -10,7 +10,11 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
+#import "RCTBridge.h"
+#import "RCTEventDispatcher.h"
+
 @implementation RCTAppleHealthKit (Methods_Fitness)
+
 
 //- (void)fitness_getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 //{
@@ -154,6 +158,38 @@
     }];
 }
 
+
+
+- (void)fitness_initializeStepEventObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKSampleType *sampleType =
+    [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+
+    HKObserverQuery *query =
+    [[HKObserverQuery alloc]
+     initWithSampleType:sampleType
+     predicate:nil
+     updateHandler:^(HKObserverQuery *query,
+                     HKObserverQueryCompletionHandler completionHandler,
+                     NSError *error) {
+
+         if (error) {
+             // Perform Proper Error Handling Here...
+             NSLog(@"*** An error occured while setting up the stepCount observer. %@ ***", error.localizedDescription);
+             callback(@[RCTMakeError(@"An error occured while setting up the stepCount observer", error, nil)]);
+             return;
+         }
+
+          [self.bridge.eventDispatcher sendAppEventWithName:@"change:steps"
+                                                       body:@{@"name": @"change:steps"}];
+
+         // If you have subscribed for background updates you must call the completion handler here.
+         // completionHandler();
+
+     }];
+
+    [self.healthStore executeQuery:query];
+}
 
 
 

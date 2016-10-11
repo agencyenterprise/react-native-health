@@ -17,7 +17,13 @@
 #import "RCTAppleHealthKit+Methods_Vitals.h"
 #import "RCTAppleHealthKit+Methods_Results.h"
 
+#import "RCTBridge.h"
+#import "RCTEventDispatcher.h"
+
 @implementation RCTAppleHealthKit
+
+@synthesize bridge = _bridge;
+
 
 RCT_EXPORT_MODULE();
 
@@ -30,6 +36,11 @@ RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
 RCT_EXPORT_METHOD(initHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self initializeHealthKit:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(initStepCountObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self fitness_initializeStepEventObserver:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getBiologicalSex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -181,7 +192,7 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
 - (void)initializeHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     self.healthStore = [[HKHealthStore alloc] init];
-    
+
     if ([HKHealthStore isHealthDataAvailable]) {
         NSSet *writeDataTypes;
         NSSet *readDataTypes;
@@ -193,7 +204,7 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
             NSArray* writePermsArray = [permissions objectForKey:@"write"];
             NSSet* readPerms = [self getReadPermsFromOptions:readPermsArray];
             NSSet* writePerms = [self getWritePermsFromOptions:writePermsArray];
-            
+
             if(readPerms != nil) {
                 readDataTypes = readPerms;
             }

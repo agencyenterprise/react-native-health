@@ -1,5 +1,5 @@
 # react-native-apple-healthkit
-A React Native bridge module for interacting with [Apple HealthKit] data. 
+A React Native bridge module for interacting with [Apple HealthKit] data.
 
 ![Alt text](https://devimages.apple.com.edgekey.net/assets/elements/icons/healthkit/healthkit-64x64.png "Apple HealthKit")
 
@@ -20,10 +20,8 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getBiologicalSex](#getbiologicalsex)
       * [getDateOfBirth](#getdateofbirth)
       * [getStepCount](#getstepcount)
-      * ~~[getStepCountForToday](#getstepcountfortoday)~~
-      * ~~[getStepCountForDay](#getstepcountforday)~~
       * [getDailyStepCountSamples](#getdailystepcountsamples)
-      * ~~[getMultiDayStepCounts](#getmultidaystepcounts)~~
+      * [initStepCountObserver](#initstepcountobserver)
       * [saveSteps](#savesteps)
       * [getDistanceWalkingRunning](#getdistancewalkingrunning)
       * [getDistanceCycling](#getdistancecycling)
@@ -44,7 +42,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getRespiratoryRateSamples](#getrespiratoryratesamples)
       * [getBloodGlucoseSamples](#getbloodglucosesamples)
   * [Examples](#examples)
-  
+
 
 ## Getting started
 
@@ -55,7 +53,7 @@ Install the [react-native-apple-healthkit] package from npm:
 `npm install react-native-apple-healthkit --save`
 
 ##### Xcode
-  
+
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
 2. Go to `node_modules` ➜ `react-native-apple-healthkit` and add `RCTAppleHealthKit.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRCTAppleHealthKit.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
@@ -128,7 +126,7 @@ AppleHealthKit.saveWeight(options: Object, (err: Object, res: Object) => {
 Permissions
 -----------
 
-The available HealthKit permissions to use with `initHealthKit` 
+The available HealthKit permissions to use with `initHealthKit`
 
 | Permission             | HealthKit Identifier Type                                                                                                                                      | Read | Write |
 |------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|------|-------|
@@ -190,7 +188,7 @@ Options
 Methods
 -------
 
-#### **`isAvailable`** 
+#### **`isAvailable`**
 Check if HealthKit is available on the device.
 ```javascript
 AppleHealthKit.isAvailable((err: Object, available: boolean) => {
@@ -201,10 +199,10 @@ AppleHealthKit.isAvailable((err: Object, available: boolean) => {
 ```
 ___
 
-#### **`initHealthKit`** 
-Initialize HealthKit. This will show the HealthKit permissions prompt for any read/write permissions set in the required `options` object. 
+#### **`initHealthKit`**
+Initialize HealthKit. This will show the HealthKit permissions prompt for any read/write permissions set in the required `options` object.
 
-Due to Apple's privacy model if an app user has previously denied a specific permission then they can not be prompted again for that same permission. The app user would have to go into the Apple Health app and grant the permission to your react-native app under *sources* tab. 
+Due to Apple's privacy model if an app user has previously denied a specific permission then they can not be prompted again for that same permission. The app user would have to go into the Apple Health app and grant the permission to your react-native app under *sources* tab.
 
 For any data that is read from HealthKit the status/error is the same for both. This privacy restriction results in having no knowledge of whether the permission was denied (make sure it's added to the permissions options object), or the data for the specific request was nil (ex. no steps recorded today).
 
@@ -262,9 +260,9 @@ Get the date of birth.
 
 On success, the callback function will be provided with a `res` object containing dob `value: string` (ISO timestamp), and `age: number` (age in years):
 ```javascript
-{ 
-	value: '1986-09-01T00:00:00.000-0400', 
-	age: 29 
+{
+	value: '1986-09-01T00:00:00.000-0400',
+	age: 29
 }
 ```
 
@@ -281,9 +279,9 @@ AppleHealthKit.getDateOfBirth(null, (err: Object, res: Object) => {
 ___
 
 #### **`getStepCount`**
-Get the aggregated total steps for a specific day (starting and ending at midnight). 
+Get the aggregated total steps for a specific day (starting and ending at midnight).
 
-An optional options object may be provided containing `date` field representing the selected day. If `date` is not set or an options object is not provided then the current day will be used. 
+An optional options object may be provided containing `date` field representing the selected day. If `date` is not set or an options object is not provided then the current day will be used.
 ```javascript
 let d = new Date(2016,5,27);
 let options = {
@@ -302,42 +300,8 @@ AppleHealthKit.getStepCount(options: Object, (err: Object, steps: Object) => {
 
 ___
 
-#### ~~**`getStepCountForToday`**~~
-**removed** - replaced by `getStepCount`
-
-get the aggregated total steps for the current day starting and ending at midnight
-```javascript
-AppleHealthKit.getStepCountForToday(null, (err: Object, steps: number) => {
-    if(this._handleHealthKitError(err, 'getStepCountForToday')){
-        return;
-    }
-    // use steps...
-});
-```
-
-___
-
-#### ~~**`getStepCountForDay`**~~
-**removed** - replaced by `getStepCount`
-
-get the the aggregated total steps for the day provided as `date` in options object. the `date` field expects an ISO date string as its value
-```javascript
-let d = new Date(2016,5,27);
-let options = {
-    date: d.toISOString()
-};
-AppleHealthKit.getStepCountForDay(options: Object, (err: Object, steps: number) => {
-    if(this._handleHealthKitError(err, 'getStepCountForDay')){
-        return;
-    }
-    // steps is the step count for day 'd'
-});
-```
-
-___
-
 #### **`getDailyStepCountSamples`**
-Get the total steps per day over a specified date range. 
+Get the total steps per day over a specified date range.
 
 `getDailyStepCountSamples` accepts an options object containing required *`startDate: ISO8601Timestamp`* and optional *`endDate: ISO8601Timestamp`*. If `endDate` is not provided it will default to the current time
 ```javascript
@@ -348,7 +312,7 @@ let options = {
 ```
 The function will be called with an array of elements. Each element is an object containing `value`, `startDate`, and `endDate` fields:
 ```javascript
-[ 
+[
   { value: 8, startDate: '2016-07-09T00:00:00.000-0400', endDate: '2016-07-10T00:00:00.000-0400' },
   { value: 1923, startDate: '2016-07-08T00:00:00.000-0400', endDate: '2016-07-09T00:00:00.000-0400' },
   { value: 1802, startDate: '2016-07-07T00:00:00.000-0400', endDate: '2016-07-08T00:00:00.000-0400' },
@@ -375,32 +339,69 @@ The function will be called with an array of elements. Each element is an object
 
 ___
 
-#### ~~**`getMultiDayStepCounts`**~~
-**removed** - replaced by `getDailyStepCountSamples`
+#### **`initStepCountObserver`**
+Setup an HKObserverQuery for step count (HKQuantityTypeIdentifierStepCount) that will
+trigger an event listenable on react-native `NativeAppEventEmitter` when the
+HealthKit step count has changed.
 
-Get the total steps per day over a specified date range. 
+The `initStepCountObserver` method must be called before adding a listener to
+NativeAppEventEmitter. After the step count observer has been initialized you can
+listen to the NativeAppEventEmitter `change:steps` event and re-fetch relevent
+step count data in the event handler.
 
-`getMultiDayStepCounts` accepts an options object containing required *`startDate: ISO8601Timestamp`* and optional *`endDate: ISO8601Timestamp`*. if `endDate` is not provided it will default to the current time
+The `initStepCountObserver` method should be called after HealthKit has been
+successfully initialized (AppleHealthKit.initHealthKit has been called without
+error).
+
 ```javascript
-let options = {
-    startDate: (new Date(2016,5,1)).toISOString()  // required
-    endDate:   (new Date()).toISOString()          // optional; default now
-};
-```
-the function will be called with an array of elements `res` containing date and step count information
-```javascript
- AppleHealthKit.getMultiDayStepCounts(options: Object, (err: Object, res: Array<Array<string|number>>) => {
-    if(this._handleHealthKitError(err, 'getMultiDayStepCounts')){
-        return;
+// import NativeAppEventEmitter from react-native
+import {
+  Navigator,
+  View,
+  ...
+  NativeAppEventEmitter,
+} from 'react-native';
+
+...
+
+// initialize the step count observer and add an event
+// listener for 'change:steps' event after HealthKit has
+// been successfully initialized.
+AppleHealthKit.initHealthKit(HKOPTIONS, (err, res) => {
+  if(this._handleHKError(err, 'initHealthKit')){
+    return;
+  }
+
+  // initialize the step count observer
+  AppleHealthKit.initStepCountObserver({}, () => {});
+
+  // add event listener for 'change:steps' and handle the
+  // event in the event handler function.
+  //
+  // when adding a listener, a 'subscription' object is
+  // returned that must be used to remove the listener
+  // when the component unmounts. The subscription object
+  // must be accessible to any function/method/instance
+  // that will be unsubscribing from the event.
+  this.sub = NativeAppEventEmitter.addListener(
+    'change:steps',
+    (evt) => {
+      // a 'change:steps' event has been received. step
+      // count data should be re-fetched from HealthKit.
+      this._fetchStepCountData();
     }
-    // 'res' is array of [ISOTimestamp: string, stepCount: number] arrays
-    // sorted ascending from startDate through endDate
-    for(let i=0; i<res.length; ++i){
-        let elem = res[i];
-        // elem[0] is ISOTimestamp : string
-        // elem[1] is step count   : number
-    }
+  );
+  ...
 });
+
+...
+
+// when the component where the listener was added unmounts
+// (or whenever the listener should be removed), call the
+// `remove` method of the subscription object.
+componentWillUnmount() {
+  this.sub.remove();
+}
 ```
 
 ___
@@ -412,7 +413,7 @@ A step count sample represents the number of steps during a specific period of t
 
 `saveSteps` accepts an options object containing required *`value: number`*, *`startDate: ISO8601Timestamp`*, and *`endDate: ISO8601Timestamp`*.
 ```javascript
-// startDate and endDate are 30 minutes apart. 
+// startDate and endDate are 30 minutes apart.
 // this means the step count value occured within those 30 minutes.
 let options = {
 	value: 100,
@@ -423,7 +424,7 @@ let options = {
 
 ```javascript
 AppleHealthKit.saveSteps(options, (err, res) => {
-	if(this._handleHKError(err, 'saveSteps')){
+  if(this._handleHKError(err, 'saveSteps')){
 		return;
 	}
 	// step count sample successfully saved
@@ -433,7 +434,7 @@ AppleHealthKit.saveSteps(options, (err, res) => {
 ___
 
 #### **`getDistanceWalkingRunning`**
-Get the total distance walking/running on a specific day. 
+Get the total distance walking/running on a specific day.
 
 `getDistanceWalkingRunning` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. If `date` is not provided it will default to the current time. `unit` defaults to `meter`.
 ```javascript
@@ -455,7 +456,7 @@ AppleHealthKit.getDistanceWalkingRunning(options: Object, (err: Object, res: Obj
 ___
 
 #### **`getDistanceCycling`**
-Get the total distance cycling on a specific day. 
+Get the total distance cycling on a specific day.
 
 `getDistanceCycling` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. If `date` is not provided it will default to the current time. `unit` defaults to `meter`
 ```javascript
@@ -477,7 +478,7 @@ AppleHealthKit.getDistanceCycling(options: Object, (err: Object, res: Object) =>
 ___
 
 #### **`getFlightsClimbed`**
-get the total flights climbed (1 flight is ~10ft of elevation) on a specific day. 
+get the total flights climbed (1 flight is ~10ft of elevation) on a specific day.
 
 `getFlightsClimbed` accepts an options object containing optional *`date: ISO8601Timestamp`*. if `date` is not provided it will default to the current time.
 ```javascript
@@ -504,7 +505,7 @@ On success, the callback function will be provided with a `weight` object contai
 ```javascript
 {
 	value: 200,
-	startDate: '2016-07-08T12:00:00.000-0400', 
+	startDate: '2016-07-08T12:00:00.000-0400',
 	endDate: '2016-07-08T12:00:00.000-0400'
 }
 ```
@@ -570,7 +571,7 @@ On success, the callback function will be provided with a `height` object contai
 ```javascript
 {
 	value: 72,
-	startDate: '2016-07-08T12:00:00.000-0400', 
+	startDate: '2016-07-08T12:00:00.000-0400',
 	endDate: '2016-07-08T12:00:00.000-0400'
 }
 ```
@@ -640,13 +641,13 @@ AppleHealthKit.saveHeight(options: Object, (err: Object, res: Object) => {
 ___
 
 #### **`getLatestBmi`**
-Get the most recent BMI sample. 
+Get the most recent BMI sample.
 
 On success, the callback function will be provided with a `bmi` object containing the BMI `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bmi samples are saved at a specific point in time.*
 ```javascript
 {
 	value: 27.2,
-	startDate: '2016-07-08T12:00:00.000-0400', 
+	startDate: '2016-07-08T12:00:00.000-0400',
 	endDate: '2016-07-08T12:00:00.000-0400'
 }
 ```
@@ -690,7 +691,7 @@ On success, the callback function will be provided with a `bodyFatPercentage` ob
 ```javascript
 {
 	value: 20,
-	startDate: '2016-07-08T12:00:00.000-0400', 
+	startDate: '2016-07-08T12:00:00.000-0400',
 	endDate: '2016-07-08T12:00:00.000-0400'
 }
 ```
@@ -713,7 +714,7 @@ On success, the callback function will be provided with a `leanBodyMass` object 
 ```javascript
 {
 	value: 176,
-	startDate: '2016-07-08T12:00:00.000-0400', 
+	startDate: '2016-07-08T12:00:00.000-0400',
 	endDate: '2016-07-08T12:00:00.000-0400'
 }
 ```
