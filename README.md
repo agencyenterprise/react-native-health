@@ -403,7 +403,7 @@ AppleHealthKit.initHealthKit(HKOPTIONS, (err, res) => {
 
 // when the component where the listener was added unmounts
 // (or whenever the listener should be removed), call the
-// `remove` method of the subscription object.
+// 'remove' method of the subscription object.
 componentWillUnmount() {
   this.sub.remove();
 }
