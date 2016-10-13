@@ -10,6 +10,7 @@
 
 @implementation RCTAppleHealthKit (TypesAndPermissions)
 
+
 #pragma mark - HealthKit Permissions
 
 - (NSDictionary *)readPermsDict {
@@ -48,6 +49,7 @@
     return readPerms;
 }
 
+
 - (NSDictionary *)writePermsDict {
     NSDictionary *writePerms = @{
         // Body Measurements
@@ -76,16 +78,14 @@
 - (NSSet *)getReadPermsFromOptions:(NSArray *)options {
     NSDictionary *readPermDict = [self readPermsDict];
     NSMutableSet *readPermSet = [NSMutableSet setWithCapacity:1];
-    
+
     for(int i=0; i<[options count]; i++) {
         NSString *optionKey = options[i];
         HKObjectType *val = [readPermDict objectForKey:optionKey];
         if(val != nil) {
-//            RCTLogInfo(@"Adding read permissions from options: %@", optionKey);
             [readPermSet addObject:val];
         }
     }
-    
     return readPermSet;
 }
 
@@ -94,16 +94,14 @@
 - (NSSet *)getWritePermsFromOptions:(NSArray *)options {
     NSDictionary *writePermDict = [self writePermsDict];
     NSMutableSet *writePermSet = [NSMutableSet setWithCapacity:1];
-    
+
     for(int i=0; i<[options count]; i++) {
         NSString *optionKey = options[i];
         HKObjectType *val = [writePermDict objectForKey:optionKey];
         if(val != nil) {
-//            RCTLogInfo(@"Adding write permissions from options: %@", optionKey);
             [writePermSet addObject:val];
         }
     }
-    
     return writePermSet;
 }
 

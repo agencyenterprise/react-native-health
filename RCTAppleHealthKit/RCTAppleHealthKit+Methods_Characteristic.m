@@ -78,6 +78,4 @@
     callback(@[[NSNull null], response]);
 }
 
-
-
 @end

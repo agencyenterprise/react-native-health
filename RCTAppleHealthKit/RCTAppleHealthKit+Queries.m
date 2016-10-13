@@ -49,7 +49,6 @@
 }
 
 
-
 - (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
                               unit:(HKUnit *)unit
                          predicate:(NSPredicate *)predicate
@@ -97,7 +96,6 @@
         }
     };
 
-
     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType
                                                            predicate:predicate
                                                                limit:lim
@@ -135,16 +133,14 @@
             dispatch_async(dispatch_get_main_queue(), ^{
 
                 for (HKCorrelation *sample in results) {
-
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
 
                     NSDictionary *elem = @{
-                                           @"correlation" : sample,
-                                           @"startDate" : startDateString,
-                                           @"endDate" : endDateString,
-                                           };
-
+                      @"correlation" : sample,
+                      @"startDate" : startDateString,
+                      @"endDate" : endDateString,
+                    };
                     [data addObject:elem];
                 }
 
@@ -152,7 +148,6 @@
             });
         }
     };
-
 
     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType
                                                            predicate:predicate
@@ -164,10 +159,6 @@
 }
 
 
-
-
-
-
 - (void)fetchSumOfSamplesTodayForType:(HKQuantityType *)quantityType
                                  unit:(HKUnit *)unit
                            completion:(void (^)(double, NSError *))completionHandler {
@@ -177,24 +168,15 @@
                                                           quantitySamplePredicate:predicate
                                                           options:HKStatisticsOptionCumulativeSum
                                                           completionHandler:^(HKStatisticsQuery *query, HKStatistics *result, NSError *error) {
-
                                                                 HKQuantity *sum = [result sumQuantity];
                                                                 if (completionHandler) {
                                                                     double value = [sum doubleValueForUnit:unit];
                                                                     completionHandler(value, error);
                                                                 }
-
                                                           }];
-    
+
     [self.healthStore executeQuery:query];
 }
-
-
-
-
-
-
-
 
 
 - (void)fetchSumOfSamplesOnDayForType:(HKQuantityType *)quantityType
@@ -207,7 +189,6 @@
                                                           quantitySamplePredicate:predicate
                                                           options:HKStatisticsOptionCumulativeSum
                                                           completionHandler:^(HKStatisticsQuery *query, HKStatistics *result, NSError *error) {
-
                                                               HKQuantity *sum = [result sumQuantity];
                                                               NSDate *startDate = result.startDate;
                                                               NSDate *endDate = result.endDate;
@@ -215,18 +196,10 @@
                                                                      double value = [sum doubleValueForUnit:unit];
                                                                      completionHandler(value,startDate, endDate, error);
                                                               }
-
                                                           }];
 
     [self.healthStore executeQuery:query];
 }
-
-
-
-
-
-
-
 
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
@@ -270,30 +243,16 @@
                                            NSLog(@"%@: %f", date, value);
 
                                            NSString *dateString = [RCTAppleHealthKit buildISO8601StringFromDate:date];
-
                                            NSArray *elem = @[dateString, @(value)];
-
                                            [data addObject:elem];
                                        }
-
                                    }];
         NSError *err;
         completionHandler(data, err);
-
     };
 
     [self.healthStore executeQuery:query];
 }
-
-
-
-
-
-
-
-
-
-
 
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
@@ -347,10 +306,8 @@
                                                    @"startDate" : startDateString,
                                                    @"endDate" : endDateString,
                                            };
-
                                            [data addObject:elem];
                                        }
-
                                    }];
         // is ascending by default
         if(asc == false) {
@@ -369,17 +326,5 @@
 
     [self.healthStore executeQuery:query];
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end

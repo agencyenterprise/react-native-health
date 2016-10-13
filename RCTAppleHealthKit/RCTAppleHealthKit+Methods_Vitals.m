@@ -8,7 +8,7 @@
 - (void)vitals_getHeartRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *heartRateType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
-    
+
     HKUnit *count = [HKUnit countUnit];
     HKUnit *minute = [HKUnit minuteUnit];
 
@@ -39,6 +39,7 @@
         }
     }];
 }
+
 
 - (void)vitals_getBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
@@ -116,7 +117,6 @@
                 [data addObject:elem];
             }
 
-
             callback(@[[NSNull null], data]);
             return;
         } else {
@@ -126,6 +126,7 @@
         }
     }];
 }
+
 
 - (void)vitals_getRespiratoryRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
@@ -161,6 +162,5 @@
         }
     }];
 }
-
 
 @end

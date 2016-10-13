@@ -4,6 +4,7 @@
 
 @implementation RCTAppleHealthKit (Methods_Results)
 
+
 - (void)results_getBloodGlucoseSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *bloodGlucoseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
@@ -37,6 +38,5 @@
         }
     }];
 }
-
 
 @end

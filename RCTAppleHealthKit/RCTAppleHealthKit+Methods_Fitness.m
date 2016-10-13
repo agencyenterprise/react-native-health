@@ -16,25 +16,6 @@
 @implementation RCTAppleHealthKit (Methods_Fitness)
 
 
-//- (void)fitness_getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-//{
-//    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-//    HKUnit *stepsUnit = [HKUnit countUnit];
-//
-//    [self fetchSumOfSamplesTodayForType:stepCountType
-//                                   unit:stepsUnit
-//                             completion:^(double totalSteps, NSError *error) {
-//        if (!totalSteps) {
-//            NSLog(@"Either an error occured fetching the user's step count information or none has been stored yet. In your app, try to handle this gracefully.");
-//            callback(@[RCTMakeError(@"Either an error occured fetching the user's step count information or none has been stored yet. In your app, try to handle this gracefully.", nil, nil)]);
-//            return;
-//        }
-//
-//        callback(@[[NSNull null], @(totalSteps)]);
-//    }];
-//}
-
-
 - (void)fitness_getStepCountOnDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
@@ -68,38 +49,6 @@
 }
 
 
-
-//
-//- (void)fitness_getDailyStepCounts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-//{
-//    NSDate *startDate = [RCTAppleHealthKit startDateFromOptions:input];
-//    NSDate *endDate = [RCTAppleHealthKit endDateFromOptionsDefaultNow:input];
-//
-//    if(startDate == nil) {
-//        callback(@[RCTMakeError(@"could not parse required startDate from options.startDate", nil, nil)]);
-//        return;
-//    }
-//
-//    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-//    HKUnit *stepsUnit = [HKUnit countUnit];
-//
-//    [self fetchCumulativeSumStatisticsCollection:stepCountType
-//                                            unit:stepsUnit
-//                                       startDate:startDate
-//                                         endDate:endDate
-//                                      completion:^(NSArray *arr, NSError *err){
-//        if (err != nil) {
-//            NSLog(@"error with fetchCumulativeSumStatisticsCollection: %@", err);
-//            callback(@[RCTMakeError(@"error with fetchCumulativeSumStatisticsCollection", err, nil)]);
-//            return;
-//        }
-//        callback(@[[NSNull null], arr]);
-//    }];
-//}
-
-
-
-
 - (void)fitness_getDailyStepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
@@ -131,7 +80,6 @@
 }
 
 
-
 - (void)fitness_saveSteps:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     double value = [RCTAppleHealthKit doubleFromOptions:input key:@"value" withDefault:(double)0];
@@ -157,7 +105,6 @@
         callback(@[[NSNull null], @(value)]);
     }];
 }
-
 
 
 - (void)fitness_initializeStepEventObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -190,7 +137,6 @@
 
     [self.healthStore executeQuery:query];
 }
-
 
 
 - (void)fitness_getDistanceWalkingRunningOnDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -267,9 +213,5 @@
         callback(@[[NSNull null], response]);
     }];
 }
-
-
-
-
 
 @end

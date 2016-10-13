@@ -7,9 +7,7 @@
 //
 
 #import "RCTAppleHealthKit.h"
-//#import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
-//#import "RCTAppleHealthKit+Utils.h"
 
 #import "RCTAppleHealthKit+Methods_Body.h"
 #import "RCTAppleHealthKit+Methods_Fitness.h"
@@ -21,12 +19,9 @@
 #import "RCTEventDispatcher.h"
 
 @implementation RCTAppleHealthKit
-
 @synthesize bridge = _bridge;
 
-
 RCT_EXPORT_MODULE();
-
 
 RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
 {
@@ -68,7 +63,6 @@ RCT_EXPORT_METHOD(saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBl
     [self body_saveWeight:input callback:callback];
 }
 
-
 RCT_EXPORT_METHOD(getLatestHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self body_getLatestHeight:input callback:callback];
@@ -84,7 +78,6 @@ RCT_EXPORT_METHOD(saveHeight:(NSDictionary *)input callback:(RCTResponseSenderBl
     [self body_saveHeight:input callback:callback];
 }
 
-
 RCT_EXPORT_METHOD(getLatestBmi:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self body_getLatestBodyMassIndex:input callback:callback];
@@ -94,7 +87,6 @@ RCT_EXPORT_METHOD(saveBmi:(NSDictionary *)input callback:(RCTResponseSenderBlock
 {
     [self body_saveBodyMassIndex:input callback:callback];
 }
-
 
 RCT_EXPORT_METHOD(getLatestBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
@@ -106,21 +98,10 @@ RCT_EXPORT_METHOD(getLatestLeanBodyMass:(NSDictionary *)input callback:(RCTRespo
     [self body_getLatestLeanBodyMass:input callback:callback];
 }
 
-
-//RCT_EXPORT_METHOD(getStepCountForToday:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
-//{
-//    [self fitness_getStepCountForToday:input callback:callback];
-//}
-
 RCT_EXPORT_METHOD(getStepCount:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getStepCountOnDay:input callback:callback];
 }
-
-//RCT_EXPORT_METHOD(getMultiDayStepCounts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
-//{
-//    [self fitness_getDailyStepCounts:input callback:callback];
-//}
 
 RCT_EXPORT_METHOD(getDailyStepCountSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
@@ -171,7 +152,6 @@ RCT_EXPORT_METHOD(getBloodGlucoseSamples:(NSDictionary *)input callback:(RCTResp
 {
     [self results_getBloodGlucoseSamples:input callback:callback];
 }
-
 
 RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
@@ -239,7 +219,6 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
     }
 }
 
-
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDictionary *info = @{
@@ -250,6 +229,5 @@ RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock
     };
     callback(@[[NSNull null], info]);
 }
-
 
 @end

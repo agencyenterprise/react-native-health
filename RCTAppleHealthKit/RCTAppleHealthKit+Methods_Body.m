@@ -10,13 +10,11 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
-
 @implementation RCTAppleHealthKit (Methods_Body)
 
 
 - (void)body_getLatestWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    // Query to get the user's latest weight, if it exists.
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
 
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
@@ -80,8 +78,6 @@
 }
 
 
-
-
 - (void)body_saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     double weight = [RCTAppleHealthKit doubleValueFromOptions:input];
@@ -105,7 +101,6 @@
 
 - (void)body_getLatestBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    // Query to get the user's latest BMI, if it exists.
     HKQuantityType *bmiType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
 
     [self fetchMostRecentQuantitySampleOfType:bmiType
@@ -132,7 +127,6 @@
 }
 
 
-
 - (void)body_saveBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     double bmi = [RCTAppleHealthKit doubleValueFromOptions:input];
@@ -152,7 +146,6 @@
         callback(@[[NSNull null], @(bmi)]);
     }];
 }
-
 
 
 - (void)body_getLatestHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -185,7 +178,6 @@
         }
     }];
 }
-
 
 
 - (void)body_getHeightSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -221,7 +213,6 @@
 }
 
 
-
 - (void)body_saveHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     double height = [RCTAppleHealthKit doubleValueFromOptions:input];
@@ -245,7 +236,6 @@
         callback(@[[NSNull null], @(height)]);
     }];
 }
-
 
 
 - (void)body_getLatestBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -303,6 +293,5 @@
         }
     }];
 }
-
 
 @end
