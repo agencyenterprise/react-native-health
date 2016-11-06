@@ -41,6 +41,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getBloodPressureSamples](#getbloodpressuresamples)
       * [getRespiratoryRateSamples](#getrespiratoryratesamples)
       * [getBloodGlucoseSamples](#getbloodglucosesamples)
+      * [getSleepSamples](#getsleepsamples)
   * [Examples](#examples)
 
 
@@ -151,7 +152,10 @@ The available HealthKit permissions to use with `initHealthKit`
 | BloodPressureSystolic  | [HKQuantityTypeIdentifierBloodPressureSystolic](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodpressuresystolic?language=objc)   | ✓    |       |
 | BloodPressureDiastolic | [HKQuantityTypeIdentifierBloodPressureDiastolic](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodpressurediastolic?language=objc) | ✓    |       |
 | RespiratoryRate        | [HKQuantityTypeIdentifierRespiratoryRate](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierrespiratoryrate?language=objc)               | ✓    |       |
-| BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                     | ✓    |       |
+| BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                     | ✓    |       
+|
+| SleepAnalysis          | [HKCategoryTypeIdentifierSleepAnalysis](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiersleepanalysis?language=objc)                   | ✓    |     
+|
 
 
 These permissions are exported as constants of the `react-native-apple-healthkit` module.
@@ -873,6 +877,40 @@ AppleHealthKit.getBloodGlucoseSamples(options, (err: Object, samples: Array<Obje
 ```
 
 
+___
+
+#### **`getSleepSamples`**
+query for sleep samples.
+
+each sleep sample represents a period of time with a startDate and an endDate.
+the sample's value will be either `INBED` or `ASLEEP`. these values should overlap,
+meaning that two samples represent a single nights sleep activity. see
+[HealthKit SleepAnalysis] reference documentation
+
+the options object is used to setup a query to retrieve relevant samples.
+the options must contain `startDate` and may also optionally include `endDate`
+and `limit` options
+```javascript
+let options = {
+    startDate: (new Date(2016,10,1)).toISOString(),		// required
+	  endDate: (new Date()).toISOString(),				// optional; default now
+    limit:10,											// optional; default no limit
+};
+```
+
+the callback function will be called with a `samples` array containing objects
+with *value*, *startDate*, and *endDate* fields
+
+*example usage*
+```javascript
+AppleHealthKit.getSleepSamples(options, (err: Object, samples: Array<Object>) => {
+	if(this._handleHealthKitError(err, 'getSleepSamples')){
+		return;
+	}
+	// use samples ...
+});
+```
+
 
 
 ## Examples
@@ -892,3 +930,4 @@ AppleHealthKit.getBloodGlucoseSamples(options, (err: Object, samples: Array<Obje
 
 [Apple HealthKit]: https://developer.apple.com/healthkit/
 [react-native-apple-healthkit]: https://www.npmjs.com/package/react-native-apple-healthkit
+[HealthKit SleepAnalysis]: https://developer.apple.com/reference/healthkit/hkcategoryvaluesleepanalysis?language=objc

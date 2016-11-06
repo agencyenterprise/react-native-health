@@ -9,7 +9,6 @@
     "lodash": "^4.13.1",
     "react": "15.1.0",
     "react-mixin": "^2.0.2",
-    "react-native": "^0.28.0",
-    "react-native-apple-healthkit": "file:///Users/greg/Dev/experimental/RCTAppleHealthKit"
+    "react-native": "^0.28.0"
   }
 }

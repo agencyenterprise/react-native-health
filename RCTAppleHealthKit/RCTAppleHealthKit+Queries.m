@@ -140,7 +140,7 @@
 
                 for (HKCategorySample *sample in results) {
 
-                    HKCategoryType *catType = sample.categoryType;
+                    // HKCategoryType *catType = sample.categoryType;
                     NSInteger val = sample.value;
 
                     // HKQuantity *quantity = sample.quantity;
@@ -149,9 +149,22 @@
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
 
+                    NSString *valueString;
+
+                    switch (val) {
+                      case HKCategoryValueSleepAnalysisInBed:
+                        valueString = @"INBED";
+                      break;
+                      case HKCategoryValueSleepAnalysisAsleep:
+                        valueString = @"ASLEEP";
+                      break;
+                     default:
+                        valueString = @"UNKNOWN";
+                     break;
+                  }
+
                     NSDictionary *elem = @{
-                            @"value" : @(( (float) val )),
-                           @"catType" : catType.identifier,
+                            @"value" : valueString,
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,
                     };
