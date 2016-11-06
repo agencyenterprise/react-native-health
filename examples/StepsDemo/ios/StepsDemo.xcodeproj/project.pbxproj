@@ -90,9 +90,9 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		37837E301DCFDBCA000201A0 /* PBXContainerItemProxy */ = {
+		37837E561DCFDC54000201A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 37837E2C1DCFDBCA000201A0 /* RCTAppleHealthKit.xcodeproj */;
+			containerPortal = 37837E521DCFDC53000201A0 /* RCTAppleHealthKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 3774C88D1D2092F20000B3F3;
 			remoteInfo = RCTAppleHealthKit;
@@ -133,7 +133,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = StepsDemo/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = StepsDemo/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		37837E2C1DCFDBCA000201A0 /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/react-native-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
+		37837E521DCFDC53000201A0 /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/react-native-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
 		378616B51D257B040027C300 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		378616B71D257B040027C300 /* StepsDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = StepsDemo.entitlements; path = StepsDemo/StepsDemo.entitlements; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -266,10 +266,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		37837E2D1DCFDBCA000201A0 /* Products */ = {
+		37837E531DCFDC53000201A0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				37837E311DCFDBCA000201A0 /* libRCTAppleHealthKit.a */,
+				37837E571DCFDC54000201A0 /* libRCTAppleHealthKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -285,7 +285,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				37837E2C1DCFDBCA000201A0 /* RCTAppleHealthKit.xcodeproj */,
+				37837E521DCFDC53000201A0 /* RCTAppleHealthKit.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -409,8 +409,8 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
-					ProductGroup = 37837E2D1DCFDBCA000201A0 /* Products */;
-					ProjectRef = 37837E2C1DCFDBCA000201A0 /* RCTAppleHealthKit.xcodeproj */;
+					ProductGroup = 37837E531DCFDC53000201A0 /* Products */;
+					ProjectRef = 37837E521DCFDC53000201A0 /* RCTAppleHealthKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -514,11 +514,11 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		37837E311DCFDBCA000201A0 /* libRCTAppleHealthKit.a */ = {
+		37837E571DCFDC54000201A0 /* libRCTAppleHealthKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRCTAppleHealthKit.a;
-			remoteRef = 37837E301DCFDBCA000201A0 /* PBXContainerItemProxy */;
+			remoteRef = 37837E561DCFDC54000201A0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
