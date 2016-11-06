@@ -38,4 +38,10 @@
                                          limit:(NSUInteger)lim
                                     completion:(void (^)(NSArray *, NSError *))completionHandler;
 
+
+
+- (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
+                                   limit:(NSUInteger)lim
+                                   completion:(void (^)(NSArray *, NSError *))completion;
+
 @end

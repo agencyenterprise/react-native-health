@@ -28,6 +28,7 @@ const HKOPTIONS = {
             HKPERMS.Height,
             HKPERMS.DateOfBirth,
             HKPERMS.BiologicalSex,
+            HKPERMS.SleepAnalysis,
         ],
         write: [
             HKPERMS.StepCount
@@ -75,6 +76,8 @@ class Home extends Component {
 
                     this._fetchStepsToday();
                     this._fetchStepsHistory();
+
+                    this._fetchSleepAnalysis();
                 });
             }
         });
@@ -114,6 +117,29 @@ class Home extends Component {
             this.setState({stepHistory: res});
         });
     }
+
+
+
+    _fetchSleepAnalysis() {
+        let options = {
+            startDate: (new Date(2016,10,1)).toISOString(),
+        };
+        AppleHealthKit.getSleepSamples(options, (err, res) => {
+            if(this._handleHKError(err, 'getSleepSamples')){
+                return;
+            }
+            //this.setState({stepHistory: res});
+
+            console.log('######################################')
+            console.log('###           SLEEP SAMPLES        ###')
+            console.log('######################################')
+            console.log(res)
+
+        });
+    }
+
+
+
 
     /**
      * render the Navigator which will render the navigation
