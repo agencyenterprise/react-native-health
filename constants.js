@@ -25,6 +25,7 @@ const PERMISSIONS = {
   BloodPressureDiastolic: 'BloodPressureDiastolic',
   RespiratoryRate: 'RespiratoryRate',
   BloodGlucose: 'BloodGlucose',
+	SleepAnalysis: 'SleepAnalysis',
 };
 
 
