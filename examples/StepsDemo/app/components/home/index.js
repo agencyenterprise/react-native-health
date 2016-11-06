@@ -134,6 +134,7 @@ class Home extends Component {
             console.log('###           SLEEP SAMPLES        ###')
             console.log('######################################')
             console.log(res)
+
         });
     }
 

@@ -141,7 +141,7 @@
                 for (HKCategorySample *sample in results) {
 
                     HKCategoryType *catType = sample.categoryType;
-                    NSInteger *val = sample.value;
+                    NSInteger val = sample.value;
 
                     // HKQuantity *quantity = sample.quantity;
                     // double value = [quantity doubleValueForUnit:unit];
@@ -150,7 +150,7 @@
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
 
                     NSDictionary *elem = @{
-                            @"value" : @(( (float) *val )),
+                            @"value" : @(( (float) val )),
                            @"catType" : catType.identifier,
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,

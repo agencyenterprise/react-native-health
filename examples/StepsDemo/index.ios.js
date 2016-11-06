@@ -12,6 +12,8 @@ import {
   View
 } from 'react-native';
 
+require('RCTNativeAppEventEmitter')
+
 import App from './app/app';
 
 class StepsDemo extends Component {
