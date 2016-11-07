@@ -884,7 +884,7 @@ query for sleep samples.
 
 each sleep sample represents a period of time with a startDate and an endDate.
 the sample's value will be either `INBED` or `ASLEEP`. these values should overlap,
-meaning that two samples represent a single nights sleep activity. see
+meaning that two (or more) samples represent a single nights sleep activity. see
 [HealthKit SleepAnalysis] reference documentation
 
 the options object is used to setup a query to retrieve relevant samples.
