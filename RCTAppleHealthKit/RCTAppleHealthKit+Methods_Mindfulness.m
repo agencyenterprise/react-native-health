@@ -14,6 +14,7 @@
 
 - (void)mindfulness_saveMindfulSession:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
+    double value = [RCTAppleHealthKit doubleFromOptions:input key:@"value" withDefault:(double)0];
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
 
@@ -22,14 +23,8 @@
         return;
     }
 
-    // original
-    HKQuantity *quantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
-    HKQuantityType *type = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    HKQuantitySample *sample = [HKQuantitySample categorySampleWithType:type quantity:quantity startDate:startDate endDate:endDate];
-
-    // new
     HKCategoryType *type = [HKCategoryType categoryTypeForIdentifier: HKCategoryTypeIdentifierMindfulSession];
-    HKCategorySample *sample = [HKCategorySample categorySampleWithType:type value:nil startDate:startDate endDate:endDate];
+    HKCategorySample *sample = [HKCategorySample categorySampleWithType:type value:value startDate:startDate endDate:endDate];
 
 
     [self.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
