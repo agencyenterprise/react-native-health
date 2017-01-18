@@ -26,6 +26,7 @@ const PERMISSIONS = {
   RespiratoryRate: 'RespiratoryRate',
   BloodGlucose: 'BloodGlucose',
 	SleepAnalysis: 'SleepAnalysis',
+  MindfulSession: 'MindfulSession',
 };
 
 
