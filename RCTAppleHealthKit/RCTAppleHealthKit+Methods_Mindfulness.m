@@ -30,7 +30,7 @@
     [self.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             NSLog(@"An error occured saving the mindful session sample %@. The error was: %@.", sample, error);
-            callback(@[RCTMakeError(@"An error occured saving the step count sample", error, nil)]);
+            callback(@[RCTMakeError(@"An error occured saving the mindful session sample", error, nil)]);
             return;
         }
         callback(@[[NSNull null], @(value)]);
