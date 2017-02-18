@@ -16,8 +16,8 @@
 #import "RCTAppleHealthKit+Methods_Results.h"
 #import "RCTAppleHealthKit+Methods_Sleep.h"
 
-#import "RCTBridge.h"
-#import "RCTEventDispatcher.h"
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventDispatcher.h>
 
 @implementation RCTAppleHealthKit
 @synthesize bridge = _bridge;
