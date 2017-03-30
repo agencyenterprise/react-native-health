@@ -42,6 +42,7 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getRespiratoryRateSamples](#getrespiratoryratesamples)
       * [getBloodGlucoseSamples](#getbloodglucosesamples)
       * [getSleepSamples](#getsleepsamples)
+      * [saveMindfulSession](#saveMindfulSession)
   * [Examples](#examples)
 
 
@@ -155,7 +156,8 @@ The available HealthKit permissions to use with `initHealthKit`
 | BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                     | ✓    |       
 |
 | SleepAnalysis          | [HKCategoryTypeIdentifierSleepAnalysis](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiersleepanalysis?language=objc)                   | ✓    |     
-|
+| MindfulSession         | [HKCategoryTypeIdentifierMindfulSession](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiermindfulsession?language=objc)                 |      |  ✓    |
+
 
 
 These permissions are exported as constants of the `react-native-apple-healthkit` module.
@@ -911,6 +913,20 @@ AppleHealthKit.getSleepSamples(options, (err: Object, samples: Array<Object>) =>
 });
 ```
 
+___
+
+#### **`saveMindfulSession`**
+saveMindfulSession
+
+each mindfulness sample represents a period of time with a startDate and an endDate.
+the options must contain `startDate` and `endDate`
+
+```javascript
+let options = {
+    startDate: (new Date(2016,10,1)).toISOString(),   // required
+    endDate: (new Date()).toISOString(),        // optional; default now
+};
+```
 
 
 ## Examples
