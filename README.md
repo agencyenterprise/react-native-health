@@ -926,10 +926,7 @@ let options = {
     endDate: (new Date()).toISOString(),        // optional; default now
 };
 
-AppleHealthKit.saveMindfulSession({
-  startDate: startDate,
-  endDate: endDate
-}, (err, res) => {
+AppleHealthKit.saveMindfulSession(options, (err, res) => {
   if (err) return console.log(err)
   console.log('Mindful session saved')
 });
