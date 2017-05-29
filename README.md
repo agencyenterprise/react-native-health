@@ -152,10 +152,8 @@ The available HealthKit permissions to use with `initHealthKit`
 | BloodPressureSystolic  | [HKQuantityTypeIdentifierBloodPressureSystolic](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodpressuresystolic?language=objc)   | ✓    |       |
 | BloodPressureDiastolic | [HKQuantityTypeIdentifierBloodPressureDiastolic](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodpressurediastolic?language=objc) | ✓    |       |
 | RespiratoryRate        | [HKQuantityTypeIdentifierRespiratoryRate](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierrespiratoryrate?language=objc)               | ✓    |       |
-| BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                     | ✓    |       
-|
-| SleepAnalysis          | [HKCategoryTypeIdentifierSleepAnalysis](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiersleepanalysis?language=objc)                   | ✓    |     
-|
+| BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                     | ✓    |
+| SleepAnalysis          | [HKCategoryTypeIdentifierSleepAnalysis](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiersleepanalysis?language=objc)                   | ✓    |
 
 
 These permissions are exported as constants of the `react-native-apple-healthkit` module.
