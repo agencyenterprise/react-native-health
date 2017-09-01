@@ -94,26 +94,31 @@ When the module has been successfully initialized you can read and write HealthK
 var AppleHealthKit = require('rn-apple-healthkit');
 var _ = require('lodash');
 
-...
 
-AppleHealthKit.getLatestWeight(null, (err: Object, weight: Object) => {
-    if(err){
-        console.log("error getting current weight: ", err);
-        return;
-    }
-    // use weight.value ...
-});
+AppleHealthKit.initHealthKit(null: Object, (err: string, res: Object) => {
 
-...
+  ...
 
-let options = {value: 200};
-AppleHealthKit.saveWeight(options: Object, (err: Object, res: Object) => {
-    if(err){
-        console.log("error saving weight to healthkit: ", err);
-        return;
-    }
-    // weight successfully saved
-});
+  AppleHealthKit.getLatestWeight(null, (err: Object, weight: Object) => {
+      if(err){
+          console.log("error getting current weight: ", err);
+          return;
+      }
+      // use weight.value ...
+  });
+
+  ...
+
+  let options = {value: 200};
+  AppleHealthKit.saveWeight(options: Object, (err: Object, res: Object) => {
+      if(err){
+          console.log("error saving weight to healthkit: ", err);
+          return;
+      }
+      // weight successfully saved
+  });
+
+}
 
 
 ```
