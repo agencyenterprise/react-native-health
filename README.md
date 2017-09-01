@@ -153,41 +153,14 @@ The available HealthKit permissions to use with `initHealthKit`
 
 These permissions are exported as constants of the `rn-apple-healthkit` module.
 
-```javascript
-import AppleHealthKit from 'rn-apple-healthkit';
 
-...
-
-// get the available permissions from AppleHealthKit.Constants object
-const PERMS = AppleHealthKit.Constants.Permissions;
-
-// setup healthkit read/write permissions using PERMS
-const healthKitOptions = {
-    permissions: {
-        read:  [
-            PERMS.StepCount,
-            PERMS.Height,
-        ],
-        write: [
-            PERMS.StepCount
-        ],
-    }
-};
-
-...
-```
-
-
-Options
--------
-
-
-Methods
--------
+## Methods
 
 #### **`isAvailable`**
 Check if HealthKit is available on the device.
 ```javascript
+import AppleHealthKit from 'rn-apple-healthkit';
+
 AppleHealthKit.isAvailable((err: Object, available: boolean) => {
     if(available){
         // ...
@@ -219,7 +192,7 @@ let options = {
 
 ```javascript
 AppleHealthKit.initHealthKit(options: Object, (err: string, res: Object) => {
-    if(err) {
+    if (err) {
         console.log("error initializing healthkit: ", err);
         return;
     }
@@ -504,22 +477,30 @@ ___
 Get the most recent weight sample.
 
 On success, the callback function will be provided with a `weight` object containing the weight `value`, and the `startDate` and `endDate` of the weight sample. *Note: startDate and endDate will be the same as weight samples are saved at a specific point in time.*
+
+```javascript
+AppleHealthKit.initHealthKit(null: Object, (err: string, res: Object) => {
+
+  let options = {
+    unit: 'pound'
+  };
+  AppleHealthKit.getLatestWeight(options, (err: string, weight: Object) => {
+      if (err) {
+          console.log("error getting latest weight: ", err);
+          return;
+      }
+      console.log(weight)
+  });
+
+});
+```
+
 ```javascript
 {
 	value: 200,
 	startDate: '2016-07-08T12:00:00.000-0400',
 	endDate: '2016-07-08T12:00:00.000-0400'
 }
-```
-
-```javascript
-AppleHealthKit.getLatestWeight(null, (err: string, weight: Object) => {
-    if(err){
-        console.log("error getting latest weight: ", err);
-        return;
-    }
-    // use weight.value, weight.startDate, etc ...
-});
 ```
 
 ___
