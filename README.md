@@ -3,10 +3,6 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
 
 ![Alt text](https://devimages.apple.com.edgekey.net/assets/elements/icons/healthkit/healthkit-64x64.png "Apple HealthKit")
 
-
-#### Notice
-> *This package is fork from [react-native-apple-healthkit](https://github.com/GregWilson/react-native-apple-healthkit)*
-
 ## Table of Contents
   * [Getting Started](#getting-started)
     * [Installation](#installation)
@@ -43,6 +39,8 @@ A React Native bridge module for interacting with [Apple HealthKit] data.
       * [getSleepSamples](#getsleepsamples)
   * [Examples](#examples)
 
+## References
+- Apple HealthKit Documentation [https://developer.apple.com/healthkit/](https://developer.apple.com/healthkit/)
 
 ## Getting started
 
@@ -66,6 +64,7 @@ Install the [rn-apple-healthkit] package from npm:
 ### Usage
 
 Just `require` the `rn-apple-healthkit` module and you're ready to go!
+
 ```javascript
 var AppleHealthKit = require('rn-apple-healthkit');
 
@@ -908,23 +907,8 @@ AppleHealthKit.getSleepSamples(options, (err: Object, samples: Array<Object>) =>
 });
 ```
 
-
-
 ## Examples
+- [Steps Demo](https://github.com/GregWilson/rn-apple-healthkit/tree/master/examples/StepsDemo)
+- [Body Measurements Demo](https://github.com/GregWilson/rn-apple-healthkit/tree/master/examples/BodyMeasurements)
 
-#### StepsDemo
-
-[Steps Demo](https://github.com/GregWilson/rn-apple-healthkit/tree/master/examples/StepsDemo)
-
-![alt text](https://raw.githubusercontent.com/GregWilson/rn-apple-healthkit/master/examples/images/steps_demo_screen.png "Steps Demo App Screenshot")
-
-#### BodyMeasurements
-
-[Body Measurements Demo](https://github.com/GregWilson/rn-apple-healthkit/tree/master/examples/BodyMeasurements)
-
-![alt text](https://raw.githubusercontent.com/GregWilson/rn-apple-healthkit/master/examples/images/body_measurements_demo_screen.png "Body Measurements Demo App Screenshot")
-
-
-[Apple HealthKit]: https://developer.apple.com/healthkit/
-[rn-apple-healthkit]: https://www.npmjs.com/package/rn-apple-healthkit
-[HealthKit SleepAnalysis]: https://developer.apple.com/reference/healthkit/hkcategoryvaluesleepanalysis?language=objc
+> *This package is fork from [react-native-apple-healthkit](https://github.com/GregWilson/react-native-apple-healthkit)*
