@@ -109,9 +109,9 @@ AppleHealthKit.initHealthKit(null: Object, (err: string, res: Object) => {
 
   ...
 
-  let options = {value: 200};
+  let options = { value: 200 };
   AppleHealthKit.saveWeight(options: Object, (err: Object, res: Object) => {
-      if(err){
+      if (err) {
           console.log("error saving weight to healthkit: ", err);
           return;
       }
