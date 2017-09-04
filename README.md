@@ -417,20 +417,26 @@ ___
 Get the total distance walking/running on a specific day.
 
 `getDistanceWalkingRunning` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. If `date` is not provided it will default to the current time. `unit` defaults to `meter`.
-```javascript
-let options = {
-	unit: 'mile',									// optional; default 'meter'
-    date: (new Date(2016,5,1)).toISOString(),  		// optional; default now
-};
-```
 
 ```javascript
+let options = {
+  unit: 'mile', // optional; default 'meter'
+  date: (new Date(2016,5,1)).toISOString(), // optional; default now
+};
+
 AppleHealthKit.getDistanceWalkingRunning(options: Object, (err: Object, res: Object) => {
     if(this._handleHKError(err, 'getDistanceWalkingRunning')){
     	return;
     }
-	// use res.value ...
 });
+```
+
+```javascript
+{
+	value: 200,
+	startDate: '2016-07-08T12:00:00.000-0400',
+	endDate: '2016-07-08T12:00:00.000-0400'
+}
 ```
 
 ___
@@ -489,6 +495,7 @@ AppleHealthKit.initHealthKit(null: Object, (err: string, res: Object) => {
   let options = {
     unit: 'pound'
   };
+
   AppleHealthKit.getLatestWeight(options, (err: string, weight: Object) => {
       if (err) {
           console.log("error getting latest weight: ", err);
