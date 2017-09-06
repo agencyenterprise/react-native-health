@@ -37,7 +37,6 @@ A React Native bridge module for interacting with [Apple Healthkit] data.
       * [getRespiratoryRateSamples](#getrespiratoryratesamples)
       * [getBloodGlucoseSamples](#getbloodglucosesamples)
       * [getSleepSamples](#getsleepsamples)
-  * [Examples](#examples)
 
 ## References
 - Apple Healthkit Documentation [https://developer.apple.com/Healthkit/](https://developer.apple.com/Healthkit/)
@@ -929,9 +928,5 @@ AppleHealthkit.getSleepSamples(options, (err: Object, results: Array<Object>) =>
   console.log(results).
 });
 ```
-
-## Examples
-- [Steps Demo](https://github.com/GregWilson/rn-apple-Healthkit/tree/master/examples/StepsDemo)
-- [Body Measurements Demo](https://github.com/GregWilson/rn-apple-Healthkit/tree/master/examples/BodyMeasurements)
 
 > *This package is fork from [react-native-apple-Healthkit](https://github.com/GregWilson/react-native-apple-Healthkit)*
