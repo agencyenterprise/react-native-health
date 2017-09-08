@@ -139,7 +139,6 @@ The available Healthkit permissions to use with `initHealthkit`
 
 | Permission             | Healthkit Identifier Type                                                                                                                                      | Read | Write |
 |------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|------|-------|
-<<<<<<< HEAD
 | ActiveEnergyBurned     | [HKQuantityTypeIdentifierActiveEnergyBurned](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifieractiveenergyburned?language=objc)         | ✓    | ✓     |
 | AppleExerciseTime      | [HKQuantityTypeIdentifierAppleExerciseTime](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierappleexercisetime?language=objc)           | ✓    |       |
 | BasalEnergyBurned      | [HKQuantityTypeIdentifierBasalEnergyBurned](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbasalenergyburned?language=objc)           | ✓    | ✓     |
@@ -155,6 +154,7 @@ The available Healthkit permissions to use with `initHealthkit`
 | HeartRate              | [HKQuantityTypeIdentifierHeartRate](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierheartrate?language=objc)                           | ✓    |       |
 | Height                 | [HKQuantityTypeIdentifierHeight](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierheight?language=objc)                                 | ✓    | ✓     |
 | LeanBodyMass           | [HKQuantityTypeIdentifierLeanBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierleanbodymass?language=objc)                     | ✓    | ✓     |
+| MindfulSession         | [HKCategoryTypeIdentifierMindfulSession](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiermindfulsession?language=objc)                 |      |  ✓    |
 | NikeFuel               | [HKQuantityTypeIdentifierNikeFuel](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifiernikefuel?language=objc)                             | ✓    |       |
 | RespiratoryRate        | [HKQuantityTypeIdentifierRespiratoryRate](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierrespiratoryrate?language=objc)               | ✓    |       |
 | SleepAnalysis          | [HKCategoryTypeIdentifierSleepAnalysis](https://developer.apple.com/reference/Healthkit/hkcategorytypeidentifiersleepanalysis?language=objc)                   | ✓    |       |
@@ -163,39 +163,6 @@ The available Healthkit permissions to use with `initHealthkit`
 | Weight                 | [HKQuantityTypeIdentifierBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodymass?language=objc)                             | ✓    | ✓     |
 
 These permissions are exported as constants of the `rn-apple-Healthkit` module.
-
-
-## Methods
-=======
-| DateOfBirth            | [HKCharacteristicTypeIdentifierDateOfBirth](https://developer.apple.com/reference/healthkit/hkcharacteristictypeidentifierdateofbirth?language=objc)           | ✓    |       |
-| BiologicalSex          | [HKCharacteristicTypeIdentifierBiologicalSex](https://developer.apple.com/reference/healthkit/hkcharacteristictypeidentifierbiologicalsex?language=objc)       | ✓    |       |
-| Height                 | [HKQuantityTypeIdentifierHeight](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierheight?language=objc)                                 | ✓    | ✓     |
-| Weight                 | [HKQuantityTypeIdentifierBodyMass](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbodymass?language=objc)                             | ✓    | ✓     |
-| BodyFatPercentage      | [HKQuantityTypeIdentifierBodyFatPercentage](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbodyfatpercentage?language=objc)           | ✓    | ✓     |
-| BodyMassIndex          | [HKQuantityTypeIdentifierBodyMassIndex](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbodymassindex?language=objc)                   | ✓    | ✓     |
-| LeanBodyMass           | [HKQuantityTypeIdentifierLeanBodyMass](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierleanbodymass?language=objc)                     | ✓    | ✓     |
-| StepCount              | [HKQuantityTypeIdentifierStepCount](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierstepcount?language=objc)                           | ✓    | ✓     |
-| DistanceWalkingRunning | [HKQuantityTypeIdentifierDistanceWalkingRunning](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierdistancewalkingrunning?language=objc) | ✓    | ✓     |
-| DistanceCycling        | [HKQuantityTypeIdentifierDistanceCycling](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierdistancecycling?language=objc)               | ✓    | ✓     |
-| BasalEnergyBurned      | [HKQuantityTypeIdentifierBasalEnergyBurned](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbasalenergyburned?language=objc)           | ✓    | ✓     |
-| ActiveEnergyBurned     | [HKQuantityTypeIdentifierActiveEnergyBurned](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifieractiveenergyburned?language=objc)         | ✓    | ✓     |
-| FlightsClimbed         | [HKQuantityTypeIdentifierFlightsClimbed](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierflightsclimbed?language=objc)                 | ✓    | ✓     |
-| NikeFuel               | [HKQuantityTypeIdentifierNikeFuel](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifiernikefuel?language=objc)                             | ✓    |       |
-| AppleExerciseTime      | [HKQuantityTypeIdentifierAppleExerciseTime](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierappleexercisetime?language=objc)           | ✓    |       |
-| DietaryEnergy          | [HKQuantityTypeIdentifierDietaryEnergyConsumed](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierdietaryenergyconsumed?language=objc)   | ✓    | ✓     |
-| HeartRate              | [HKQuantityTypeIdentifierHeartRate](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierheartrate?language=objc)                           | ✓    |       |
-| BodyTemperature        | [HKQuantityTypeIdentifierBodyTemperature](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbodytemperature?language=objc)               | ✓    |       |
-| BloodPressureSystolic  | [HKQuantityTypeIdentifierBloodPressureSystolic](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodpressuresystolic?language=objc)   | ✓    |       |
-| BloodPressureDiastolic | [HKQuantityTypeIdentifierBloodPressureDiastolic](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodpressurediastolic?language=objc) | ✓    |       |
-| RespiratoryRate        | [HKQuantityTypeIdentifierRespiratoryRate](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierrespiratoryrate?language=objc)               | ✓    |       |
-| BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                     | ✓    |       
-|
-| SleepAnalysis          | [HKCategoryTypeIdentifierSleepAnalysis](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiersleepanalysis?language=objc)                   | ✓    |     
-| MindfulSession         | [HKCategoryTypeIdentifierMindfulSession](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiermindfulsession?language=objc)                 |      |  ✓    |
-
-
-
-These permissions are exported as constants of the `react-native-apple-healthkit` module.
 
 ```javascript
 import AppleHealthKit from 'react-native-apple-healthkit';
@@ -224,11 +191,6 @@ const healthKitOptions = {
 
 Options
 -------
-
-
-Methods
--------
->>>>>>> 5adade4a95b5b3cd1816a8d203c1e36a702cfa8a
 
 #### **`isAvailable`**
 Check if Healthkit is available on the device.
