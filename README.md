@@ -48,18 +48,27 @@ A React Native bridge module for interacting with [Apple Healthkit] data.
 
 Install the [rn-apple-Healthkit] package from npm:
 
-`npm install rn-apple-Healthkit --save`
+- Run `npm install rn-apple-healthkit --save`
+- Run `react-native link rn-apple-Healthkit`
 
-##### Xcode
+Update `info.plist` in your React Native project
+```
+<key>NSHealthShareUsageDescription</key>
+<string>Read and understand health data.</string>
+<key>NSHealthUpdateUsageDescription</key>
+<string>Share workout data with other apps.</string>
+```
 
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `rn-apple-Healthkit` and add `RCTAppleHealthkit.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRCTAppleHealthkit.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Click `RCTAppleHealthkit.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). In the `Search Paths` section, look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../../react-native/React` and `$(SRCROOT)/../../../React` - mark both as `recursive`.
-5. Enable Healthkit in your application's `Capabilities`
+### Manual Installation
+
+1. Run `npm install rn-apple-healthkit --save`
+2. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
+3. Go to `node_modules` ➜ `rn-apple-Healthkit` and add `RCTAppleHealthkit.xcodeproj`
+4. In XCode, in the project navigator, select your project. Add `libRCTAppleHealthkit.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
+5. Click `RCTAppleHealthkit.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). In the `Search Paths` section, look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../../react-native/React` and `$(SRCROOT)/../../../React` - mark both as `recursive`.
+6. Enable Healthkit in your application's `Capabilities`
 ![Alt text](/examples/images/Capabilities_Healthkit.png "Xcode Capabilities Section")
-
-6. Compile and run
+7. Compile and run
 
 ### Usage
 
