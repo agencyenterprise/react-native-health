@@ -82,13 +82,13 @@ let options = {
     }
 };
 AppleHealthKit.isAvailable((err: Object, available: boolean) => {
-	AppleHealthkit.initHealthKit(options: Object, (err: Object, results: Object) => {
-			if (err) {
-		console.log("error initializing Healthkit: ", err);
-		return;
-			}
-			// Healthkit initialized...
-	});
+  AppleHealthkit.initHealthKit(options: Object, (err: Object, results: Object) => {
+    if (err) {
+      console.log("error initializing Healthkit: ", err);
+      return;
+    }
+    // Healthkit initialized...
+  });
 });
 
 ```
