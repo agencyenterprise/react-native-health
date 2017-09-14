@@ -44,10 +44,10 @@ A React Native bridge module for interacting with [Apple Healthkit] data.
 
 ###  Installation
 
-Install the [rn-apple-Healthkit] package from npm:
+Install the [rn-apple-healthkit] package from npm:
 
 - Run `npm install rn-apple-healthkit --save`
-- Run `react-native link rn-apple-Healthkit`
+- Run `react-native link rn-apple-healthkit`
 
 Update `info.plist` in your React Native project
 ```
@@ -61,7 +61,7 @@ Update `info.plist` in your React Native project
 
 1. Run `npm install rn-apple-healthkit --save`
 2. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-3. Go to `node_modules` ➜ `rn-apple-Healthkit` and add `RCTAppleHealthkit.xcodeproj`
+3. Go to `node_modules` ➜ `rn-apple-healthkit` and add `RCTAppleHealthkit.xcodeproj`
 4. In XCode, in the project navigator, select your project. Add `libRCTAppleHealthkit.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 5. Click `RCTAppleHealthkit.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). In the `Search Paths` section, look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../../react-native/React` and `$(SRCROOT)/../../../React` - mark both as `recursive`.
 6. Enable Healthkit in your application's `Capabilities`
@@ -70,10 +70,10 @@ Update `info.plist` in your React Native project
 
 ### Usage
 
-Just `import` the `rn-apple-Healthkit` module and you're ready to go!
+Just `import` the `rn-apple-healthkit` module and you're ready to go!
 
 ```javascript
-import AppleHealthkit from 'rn-apple-Healthkit';
+import AppleHealthkit from 'rn-apple-healthkit';
 
 let options = {
     permissions: {
@@ -96,7 +96,7 @@ AppleHealthkit.initHealthkit(options: Object, (err: Object, results: Object) => 
 When the module has been successfully initialized you can read and write Healthkit data
 
 ```javascript
-import AppleHealthkit from 'rn-apple-Healthkit';
+import AppleHealthkit from 'rn-apple-healthkit';
 
 AppleHealthkit.initHealthkit(null: Object, (err: string, results: Object) => {
 
@@ -160,7 +160,7 @@ The available Healthkit permissions to use with `initHealthkit`
 | Steps                  | [HKQuantityTypeIdentifierSteps](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifiersteps?language=objc)                                   | ✓    | ✓     |
 | Weight                 | [HKQuantityTypeIdentifierBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodymass?language=objc)                             | ✓    | ✓     |
 
-These permissions are exported as constants of the `rn-apple-Healthkit` module.
+These permissions are exported as constants of the `rn-apple-healthkit` module.
 
 ```javascript
 import AppleHealthKit from 'react-native-apple-healthkit';
@@ -193,7 +193,7 @@ Options
 #### **`isAvailable`**
 Check if Healthkit is available on the device.
 ```javascript
-import AppleHealthkit from 'rn-apple-Healthkit';
+import AppleHealthkit from 'rn-apple-healthkit';
 
 AppleHealthkit.isAvailable((err: Object, available: boolean) => {
     if (available) {
