@@ -9,7 +9,7 @@ A React Native bridge module for interacting with [Apple Healthkit] data.
     * [Permissions](#permissions)
     * [Methods](#methods)
       * [isAvailable](#isavailable)
-      * [initHealthkit](#initHealthkit)
+      * [initHealthKit](#initHealthKit)
       * [getBiologicalSex](#getbiologicalsex)
       * [getDateOfBirth](#getdateofbirth)
       * [getStepCount](#getstepcount)
@@ -81,15 +81,15 @@ let options = {
         write: ["Weight", "StepCount", "BodyMassIndex"]
     }
 };
-
-AppleHealthkit.initHealthkit(options: Object, (err: Object, results: Object) => {
-    if (err) {
-        console.log("error initializing Healthkit: ", err);
-        return;
-    }
-    // Healthkit initialized...
+AppleHealthKit.isAvailable((err: Object, available: boolean) => {
+	AppleHealthkit.initHealthKit(options: Object, (err: Object, results: Object) => {
+			if (err) {
+		console.log("error initializing Healthkit: ", err);
+		return;
+			}
+			// Healthkit initialized...
+	});
 });
-
 
 ```
 
@@ -98,7 +98,7 @@ When the module has been successfully initialized you can read and write Healthk
 ```javascript
 import AppleHealthkit from 'rn-apple-healthkit';
 
-AppleHealthkit.initHealthkit(null: Object, (err: string, results: Object) => {
+AppleHealthkit.initHealthKit(null: Object, (err: string, results: Object) => {
 
   ...
 
@@ -133,7 +133,7 @@ AppleHealthkit.initHealthkit(null: Object, (err: string, results: Object) => {
 
 ### Permissions
 
-The available Healthkit permissions to use with `initHealthkit`
+The available Healthkit permissions to use with `initHealthKit`
 
 | Permission             | Healthkit Identifier Type                                                                                                                                      | Read | Write |
 |------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|------|-------|
@@ -203,7 +203,7 @@ AppleHealthkit.isAvailable((err: Object, available: boolean) => {
 ```
 ___
 
-#### **`initHealthkit`**
+#### **`initHealthKit`**
 Initialize Healthkit. This will show the Healthkit permissions prompt for any read/write permissions set in the required `options` object.
 
 Due to Apple's privacy model if an app user has previously denied a specific permission then they can not be prompted again for that same permission. The app user would have to go into the Apple Health app and grant the permission to your react-native app under *sources* tab.
@@ -214,7 +214,7 @@ For any data written to Healthkit an authorization error can be caught. If an au
 
 If new read/write permissions are added to the options object then the app user will see the Healthkit permissions prompt with the new permissions to allow.
 
-`initHealthkit` requires an options object with Healthkit permission settings
+`initHealthKit` requires an options object with Healthkit permission settings
 ```javascript
 let options = {
     permissions: {
@@ -225,7 +225,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.initHealthkit(options: Object, (err: string, results: Object) => {
+AppleHealthkit.initHealthKit(options: Object, (err: string, results: Object) => {
     if (err) {
         console.log("error initializing Healthkit: ", err);
         return;
@@ -356,7 +356,7 @@ listen to the NativeAppEventEmitter `change:steps` event and re-fetch relevent
 step count data in the event handler.
 
 The `initStepCountObserver` method should be called after Healthkit has been
-successfully initialized (AppleHealthkit.initHealthkit has been called without
+successfully initialized (AppleHealthkit.initHealthKit has been called without
 error).
 
 ```javascript
@@ -370,8 +370,8 @@ import {
 
 
 ```javascript
-AppleHealthkit.initHealthkit(HKOPTIONS, (err, res) => {
-  if (this._handleHKError(err, 'initHealthkit')) {
+AppleHealthkit.initHealthKit(HKOPTIONS, (err, res) => {
+  if (this._handleHKError(err, 'initHealthKit')) {
     return;
   }
 
