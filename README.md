@@ -66,7 +66,7 @@ Update `info.plist` in your React Native project
 4. In XCode, in the project navigator, select your project. Add `libRCTAppleHealthkit.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 5. Click `RCTAppleHealthkit.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). In the `Search Paths` section, look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../../react-native/React` and `$(SRCROOT)/../../../React` - mark both as `recursive`.
 6. Enable Healthkit in your application's `Capabilities`
-![Alt text](/examples/images/Capabilities_Healthkit.png "Xcode Capabilities Section")
+![](https://i.imgur.com/eOCCCyv.png "Xcode Capabilities Section")
 7. Compile and run
 
 ### Usage
