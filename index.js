@@ -2,10 +2,14 @@
 
 let { AppleHealthKit } = require('react-native').NativeModules;
 
-import Constants from './constants';
+import { Permissions } from './Constants/Permissions'
+import { Units } from './Constants/Units'
 
 let HealthKit = Object.assign({}, AppleHealthKit, {
-	Constants: Constants
+	Constants: {
+		Permissions: Permissions,
+		Units: Units,
+	}
 });
 
 export default HealthKit
