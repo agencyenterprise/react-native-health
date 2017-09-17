@@ -423,7 +423,7 @@
             [RCTAppleHealthKit reverseNSMutableArray:data];
         }
 
-        if(lim > 0) {
+        if((lim > 0) && ([data count] > lim)) {
             NSArray* slicedArray = [data subarrayWithRange:NSMakeRange(0, lim)];
             NSError *err;
             completionHandler(slicedArray, err);
