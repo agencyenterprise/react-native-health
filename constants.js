@@ -1,5 +1,9 @@
 'use strict'
 
+/**
+ * Apple Health Permissions
+ * @type {Object}
+ */
 const PERMISSIONS = {
 	DateOfBirth: 'DateOfBirth',
 	BiologicalSex: 'BiologicalSex',
@@ -26,9 +30,12 @@ const PERMISSIONS = {
   RespiratoryRate: 'RespiratoryRate',
   BloodGlucose: 'BloodGlucose',
 	SleepAnalysis: 'SleepAnalysis',
+  MindfulSession: 'MindfulSession',
 };
 
-
+/**
+ * Unit Request Types
+ */
 const UNITS = {
 	gram: 'gram',
 	pound: 'pound',
@@ -51,8 +58,6 @@ const UNITS = {
 	mmolPerL: 'mmolPerL',
 	mgPerdL: 'mgPerdL',
 };
-
-
 
 const CONSTANTS = {
 	Permissions: PERMISSIONS,
