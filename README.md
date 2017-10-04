@@ -188,6 +188,11 @@ const healthKitOptions = {
 - pound
 - second
 
+
+## Changelog 
+0.6.1v
+- HKQuantityTypeIdentifierActiveEnergyBurned
+
 ## References
 - Apple Healthkit Documentation [https://developer.apple.com/Healthkit/](https://developer.apple.com/Healthkit/)
 
