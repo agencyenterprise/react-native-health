@@ -9,6 +9,7 @@
 #import "RCTAppleHealthKit.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
+#import "RCTAppleHealthKit+Methods_Activity.h"
 #import "RCTAppleHealthKit+Methods_Body.h"
 #import "RCTAppleHealthKit+Methods_Fitness.h"
 #import "RCTAppleHealthKit+Methods_Characteristic.h"
@@ -133,6 +134,11 @@ RCT_EXPORT_METHOD(getFlightsClimbed:(NSDictionary *)input callback:(RCTResponseS
 RCT_EXPORT_METHOD(getHeartRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self vitals_getHeartRateSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getActiveEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self activity_getActiveEnergyBurned:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
