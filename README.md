@@ -1,6 +1,6 @@
 
 # React Native Apple Healthkit
-A React Native bridge module for interacting with [Apple Healthkit] data.
+A React Native bridge module for interacting with Apple Healthkit data. Checkout the [full documentation](https://github.com/terrillo/rn-apple-healthkit/wiki)
 
 ## Installation
 
@@ -76,6 +76,10 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
 	age: 29
 }
 ```
+
+## Changelog 
+0.6.1v
+- HKQuantityTypeIdentifierActiveEnergyBurned
 
 ## Wiki
   * [Installation](https://github.com/terrillo/rn-apple-healthkit/wiki/Install)
@@ -188,10 +192,6 @@ const healthKitOptions = {
 - pound
 - second
 
-
-## Changelog 
-0.6.1v
-- HKQuantityTypeIdentifierActiveEnergyBurned
 
 ## References
 - Apple Healthkit Documentation [https://developer.apple.com/Healthkit/](https://developer.apple.com/Healthkit/)
