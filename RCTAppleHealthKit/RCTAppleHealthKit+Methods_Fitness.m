@@ -3,8 +3,7 @@
 //  RCTAppleHealthKit
 //
 //  Created by Greg Wilson on 2016-06-26.
-//  This source code is licensed under the MIT-style license found in the
-//  LICENSE file in the root directory of this source tree.
+//  Copyright © 2016 Greg Wilson. All rights reserved.
 //
 
 #import "RCTAppleHealthKit+Methods_Fitness.h"
@@ -47,6 +46,55 @@
 
         callback(@[[NSNull null], response]);
     }];
+}
+
+- (void)fitness_getStepCountSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    BOOL isTracked = [RCTAppleHealthKit boolFromOptions:input key:@"isTracked" withDefault:true];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd-hh-mm-ss"];
+    NSLog(@"samples interval: %@ %@",[formatter stringFromDate:startDate], [formatter stringFromDate:endDate]);
+    
+    // no isTracked
+    NSArray *subPredicates = [[NSArray alloc] init];
+    NSMutableArray *subPredicatesAux = [[NSMutableArray alloc] init];
+    NSPredicate *predicateDate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
+    NSPredicate *predicateType = isTracked ? [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered] : [NSPredicate predicateWithFormat:@"metadata.%K == YES", HKMetadataKeyWasUserEntered];
+    [subPredicatesAux addObject:predicateDate];
+    [subPredicatesAux addObject:predicateType];
+    subPredicates = [subPredicatesAux copy];
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
+    
+    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    
+    NSString * paramName = @"isTracked";
+    
+    [self fetchQuantitySamplesOfType:stepCountType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                 additionalParamName:paramName
+                     additionalParam:isTracked
+                          completion:^(NSArray *results, NSError *error) {
+                              if(results){
+                                  callback(@[[NSNull null], results]);
+                                  return;
+                              } else {
+                                  NSLog(@"error getting active energy burned samples: %@", error);
+                                  callback(@[RCTMakeError(@"error getting active energy burned samples", nil, nil)]);
+                                  return;
+                              }
+                          }];
 }
 
 

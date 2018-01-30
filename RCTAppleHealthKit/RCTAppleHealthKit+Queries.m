@@ -3,8 +3,7 @@
 //  RCTAppleHealthKit
 //
 //  Created by Greg Wilson on 2016-06-26.
-//  This source code is licensed under the MIT-style license found in the
-//  LICENSE file in the root directory of this source tree.
+//  Copyright © 2016 Greg Wilson. All rights reserved.
 //
 
 #import "RCTAppleHealthKit+Queries.h"
@@ -106,7 +105,64 @@
     [self.healthStore executeQuery:query];
 }
 
-
+- (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
+                              unit:(HKUnit *)unit
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+               additionalParamName:(NSString *)paramName
+                   additionalParam:(BOOL)param
+                        completion:(void (^)(NSArray *, NSError *))completion {
+    
+    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
+                                                                       ascending:asc];
+    
+    // declare the block
+    void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+    // create and assign the block
+    handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if (!results) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+        
+        if (completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                for (HKQuantitySample *sample in results) {
+                    HKQuantity *quantity = sample.quantity;
+                    double value = [quantity doubleValueForUnit:unit];
+                    
+                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                    
+                    NSDictionary *elem = @{
+                                           @"value" : @(value),
+                                           @"startDate" : startDateString,
+                                           @"endDate" : endDateString,
+                                           paramName : @(param),
+                                           };
+                    
+                    [data addObject:elem];
+                }
+                
+                completion(data, error);
+            });
+        }
+    };
+    
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType
+                                                           predicate:predicate
+                                                               limit:lim
+                                                     sortDescriptors:@[timeSortDescriptor]
+                                                      resultsHandler:handlerBlock];
+    
+    [self.healthStore executeQuery:query];
+}
 
 
 

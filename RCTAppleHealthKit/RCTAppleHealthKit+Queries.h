@@ -3,8 +3,7 @@
 //  RCTAppleHealthKit
 //
 //  Created by Greg Wilson on 2016-06-26.
-//  This source code is licensed under the MIT-style license found in the
-//  LICENSE file in the root directory of this source tree.
+//  Copyright © 2016 Greg Wilson. All rights reserved.
 //
 
 #import "RCTAppleHealthKit.h"
@@ -24,6 +23,14 @@
                          predicate:(NSPredicate *)predicate
                          ascending:(BOOL)asc
                              limit:(NSUInteger)lim
+                        completion:(void (^)(NSArray *, NSError *))completion;
+- (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
+                              unit:(HKUnit *)unit
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+               additionalParamName:(NSString *)paramName
+                   additionalParam:(BOOL)param
                         completion:(void (^)(NSArray *, NSError *))completion;
 - (void)fetchCorrelationSamplesOfType:(HKQuantityType *)quantityType
                                  unit:(HKUnit *)unit
