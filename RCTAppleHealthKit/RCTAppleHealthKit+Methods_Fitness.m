@@ -54,6 +54,7 @@
     NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
     BOOL isTracked = [RCTAppleHealthKit boolFromOptions:input key:@"isTracked" withDefault:true];
+    NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
     if(startDate == nil){
@@ -62,7 +63,6 @@
     }
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYY-MM-dd-hh-mm-ss"];
-    NSLog(@"samples interval: %@ %@",[formatter stringFromDate:startDate], [formatter stringFromDate:endDate]);
     
     // no isTracked
     NSArray *subPredicates = [[NSArray alloc] init];
@@ -74,11 +74,22 @@
     subPredicates = [subPredicatesAux copy];
     NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
     
-    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    HKQuantityType *samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    if ([type isEqual:@"Walking"]) {
+        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    } else if ([type isEqual:@"StairClimbing"]) {
+        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
+    } else if ([type isEqual:@"Running"]){
+        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+        unit = [HKUnit mileUnit];
+    } else if ([type isEqual:@"Cycling"]){
+        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
+        unit = [HKUnit mileUnit];
+    }
     
     NSString * paramName = @"isTracked";
     
-    [self fetchQuantitySamplesOfType:stepCountType
+    [self fetchQuantitySamplesOfType:samplesType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending

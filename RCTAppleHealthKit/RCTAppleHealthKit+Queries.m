@@ -113,7 +113,6 @@
                additionalParamName:(NSString *)paramName
                    additionalParam:(BOOL)param
                         completion:(void (^)(NSArray *, NSError *))completion {
-    
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                                        ascending:asc];
     
