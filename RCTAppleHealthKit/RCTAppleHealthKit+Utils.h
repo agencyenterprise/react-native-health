@@ -32,5 +32,6 @@
 + (bool)boolFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(bool)defaultValue;
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
++ (NSString*) stringForHKWorkoutActivityType:(int) enumValue;
 
 @end

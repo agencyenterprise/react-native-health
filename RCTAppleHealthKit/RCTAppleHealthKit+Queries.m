@@ -133,24 +133,23 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (type == [HKObjectType workoutType]) {
                     for (HKWorkout *sample in results) {
-                        HKQuantity *quantity = sample.quantity;
-                        double value = [quantity doubleValueForUnit:unit];
+                        double energy =  [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                        double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
+                        NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
                         
                         NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                         NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
                         
                         NSDictionary *elem = @{
-                                               @"value" : @(value),
+                                               @"type" : type,
+                                               @"energy" : @(energy),
+                                               @"distance" : @(distance),
                                                @"startDate" : startDateString,
                                                @"endDate" : endDateString,
                                                paramName : @(param),
                                                };
                         
                         [data addObject:elem];
-                        
-                        NSLog(@"%lu", (unsigned long)[sample workoutActivityType]);
-                        NSLog(@"energy burned %f", [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]]);
-                        NSLog(@"total distance %f", [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]]);
                     }
                 } else {
                     for (HKQuantitySample *sample in results) {
