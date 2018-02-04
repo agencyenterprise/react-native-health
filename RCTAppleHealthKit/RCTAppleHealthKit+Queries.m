@@ -138,16 +138,19 @@
                         
                         NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                         NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                        
                         bool isTracked = true;
-                        for(id key in [sample metadata])
-                            if (key == HKMetadataKeyWasUserEntered ) {
-                                isTracked = false;
-                            }
+                        if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
+                            isTracked = false;
+                        }
                         
                         NSDictionary *elem = @{
                                                @"type" : type,
                                                @"energy" : @(energy),
                                                @"isTracked" : @(isTracked),
+                                               @"sourceName" : [[[sample sourceRevision] source] name],
+                                               @"sourceBundleId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                               @"device": [[sample sourceRevision] productType],
                                                @"distance" : @(distance),
                                                @"startDate" : startDateString,
                                                @"endDate" : endDateString
@@ -164,14 +167,16 @@
                         NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
                         
                         bool isTracked = true;
-                        for(id key in [sample metadata])
-                            if (key == HKMetadataKeyWasUserEntered ) {
-                                isTracked = false;
-                            }
+                        if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
+                            isTracked = false;
+                        }
                         
                         NSDictionary *elem = @{
                                                @"value" : @(value),
                                                @"isTracked" : @(isTracked),
+                                               @"sourceName" : [[[sample sourceRevision] source] name],
+                                               @"sourceBundleId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                               @"device": [[sample sourceRevision] productType],
                                                @"startDate" : startDateString,
                                                @"endDate" : endDateString
                                                };
