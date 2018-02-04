@@ -105,7 +105,7 @@
     [self.healthStore executeQuery:query];
 }
 
-- (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
+- (void)fetchQuantitySamplesOfType:(HKSampleType *)type
                               unit:(HKUnit *)unit
                          predicate:(NSPredicate *)predicate
                          ascending:(BOOL)asc
@@ -131,22 +131,44 @@
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-                for (HKQuantitySample *sample in results) {
-                    HKQuantity *quantity = sample.quantity;
-                    double value = [quantity doubleValueForUnit:unit];
-                    
-                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
-                    
-                    NSDictionary *elem = @{
-                                           @"value" : @(value),
-                                           @"startDate" : startDateString,
-                                           @"endDate" : endDateString,
-                                           paramName : @(param),
-                                           };
-                    
-                    [data addObject:elem];
+                if (type == [HKObjectType workoutType]) {
+                    for (HKWorkout *sample in results) {
+                        HKQuantity *quantity = sample.quantity;
+                        double value = [quantity doubleValueForUnit:unit];
+                        
+                        NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                        NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                        
+                        NSDictionary *elem = @{
+                                               @"value" : @(value),
+                                               @"startDate" : startDateString,
+                                               @"endDate" : endDateString,
+                                               paramName : @(param),
+                                               };
+                        
+                        [data addObject:elem];
+                        
+                        NSLog(@"%lu", (unsigned long)[sample workoutActivityType]);
+                        NSLog(@"energy burned %f", [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]]);
+                        NSLog(@"total distance %f", [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]]);
+                    }
+                } else {
+                    for (HKQuantitySample *sample in results) {
+                        HKQuantity *quantity = sample.quantity;
+                        double value = [quantity doubleValueForUnit:unit];
+                        
+                        NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                        NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                        
+                        NSDictionary *elem = @{
+                                               @"value" : @(value),
+                                               @"startDate" : startDateString,
+                                               @"endDate" : endDateString,
+                                               paramName : @(param),
+                                               };
+                        
+                        [data addObject:elem];
+                    }
                 }
                 
                 completion(data, error);
@@ -154,7 +176,7 @@
         }
     };
     
-    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:type
                                                            predicate:predicate
                                                                limit:lim
                                                      sortDescriptors:@[timeSortDescriptor]
@@ -162,7 +184,6 @@
     
     [self.healthStore executeQuery:query];
 }
-
 
 
 

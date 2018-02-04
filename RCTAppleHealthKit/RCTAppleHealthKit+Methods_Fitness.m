@@ -48,7 +48,7 @@
     }];
 }
 
-- (void)fitness_getStepCountSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+- (void)fitness_getSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
     NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
@@ -72,9 +72,10 @@
     [subPredicatesAux addObject:predicateDate];
     [subPredicatesAux addObject:predicateType];
     subPredicates = [subPredicatesAux copy];
-    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
+
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:predicateType, predicateDate, nil]];
     
-    HKQuantityType *samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    HKSampleType *samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     if ([type isEqual:@"Walking"]) {
         samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     } else if ([type isEqual:@"StairClimbing"]) {
@@ -85,6 +86,8 @@
     } else if ([type isEqual:@"Cycling"]){
         samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
         unit = [HKUnit mileUnit];
+    } else if ([type isEqual:@"Workout"]){
+        samplesType = [HKObjectType workoutType];
     }
     
     NSString * paramName = @"isTracked";
