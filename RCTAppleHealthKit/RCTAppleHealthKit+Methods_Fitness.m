@@ -53,27 +53,11 @@
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
     NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
-    BOOL isTracked = [RCTAppleHealthKit boolFromOptions:input key:@"isTracked" withDefault:true];
     NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
-    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
-    if(startDate == nil){
-        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
-        return;
-    }
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd-hh-mm-ss"];
     
-    // no isTracked
-    NSArray *subPredicates = [[NSArray alloc] init];
-    NSMutableArray *subPredicatesAux = [[NSMutableArray alloc] init];
-    NSPredicate *predicateDate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
-    NSPredicate *predicateType = isTracked ? [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered] : [NSPredicate predicateWithFormat:@"metadata.%K == YES", HKMetadataKeyWasUserEntered];
-    [subPredicatesAux addObject:predicateDate];
-    [subPredicatesAux addObject:predicateType];
-    subPredicates = [subPredicatesAux copy];
-
-    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:predicateType, predicateDate, nil]];
+    NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
     
     HKSampleType *samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     if ([type isEqual:@"Walking"]) {
@@ -90,15 +74,11 @@
         samplesType = [HKObjectType workoutType];
     }
     
-    NSString * paramName = @"isTracked";
-    
-    [self fetchQuantitySamplesOfType:samplesType
+    [self fetchSamplesOfType:samplesType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
-                 additionalParamName:paramName
-                     additionalParam:isTracked
                           completion:^(NSArray *results, NSError *error) {
                               if(results){
                                   callback(@[[NSNull null], results]);

@@ -18,7 +18,7 @@
                                      startDate:(NSDate *)startDate
                                        endDate:(NSDate *)endDate
                                     completion:(void (^)(NSArray *, NSError *))completionHandler;
-- (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
+- (void)fetchSamplesOfType:(HKSampleType *)quantityType
                               unit:(HKUnit *)unit
                          predicate:(NSPredicate *)predicate
                          ascending:(BOOL)asc
@@ -29,8 +29,6 @@
                          predicate:(NSPredicate *)predicate
                          ascending:(BOOL)asc
                              limit:(NSUInteger)lim
-               additionalParamName:(NSString *)paramName
-                   additionalParam:(BOOL)param
                         completion:(void (^)(NSArray *, NSError *))completion;
 - (void)fetchCorrelationSamplesOfType:(HKQuantityType *)quantityType
                                  unit:(HKUnit *)unit
