@@ -438,6 +438,40 @@
             return @"Yoga";
         case HKWorkoutActivityTypeOther:
             return @"Other";
+        case HKWorkoutActivityTypeBarre:
+            return @"TypeBarre";
+        case HKWorkoutActivityTypeCoreTraining:
+            return @"TypeCoreTraining";
+        case HKWorkoutActivityTypeCrossCountrySkiing:
+            return @"TypeCrossCountrySkiing";
+        case HKWorkoutActivityTypeDownhillSkiing:
+            return @"TypeDownhillSkiing";
+        case HKWorkoutActivityTypeFlexibility:
+            return @"TypeFlexibility";
+        case HKWorkoutActivityTypeHighIntensityIntervalTraining:
+            return @"TypeHighIntensityIntervalTraining";
+        case HKWorkoutActivityTypeJumpRope:
+            return @"TypeJumpRope";
+        case HKWorkoutActivityTypeKickboxing:
+            return @"TypeKickboxing";
+        case HKWorkoutActivityTypePilates:
+            return @"TypePilates";
+        case HKWorkoutActivityTypeSnowboarding:
+            return @"TypeSnowboarding";
+        case HKWorkoutActivityTypeStairs:
+            return @"TypeStairs";
+        case HKWorkoutActivityTypeStepTraining:
+            return @"TypeStepTraining";
+        case HKWorkoutActivityTypeWheelchairWalkPace:
+            return @"TypeWheelchairWalkPace";
+        case HKWorkoutActivityTypeWheelchairRunPace:
+            return @"TypeWheelchairRunPace";
+        case HKWorkoutActivityTypeTaiChi:
+            return @"TypeTaiChi";
+        case HKWorkoutActivityTypeMixedCardio:
+            return @"TypeMixedCardio";
+        case HKWorkoutActivityTypeHandCycling:
+            return @"TypeHandCycling";
         default:{
             NSException *e = [NSException
                               exceptionWithName:@"HKWorkoutActivityType InvalidValue"
