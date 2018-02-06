@@ -439,39 +439,39 @@
         case HKWorkoutActivityTypeOther:
             return @"Other";
         case HKWorkoutActivityTypeBarre:
-            return @"TypeBarre";
+            return @"Barre";
         case HKWorkoutActivityTypeCoreTraining:
-            return @"TypeCoreTraining";
+            return @"CoreTraining";
         case HKWorkoutActivityTypeCrossCountrySkiing:
-            return @"TypeCrossCountrySkiing";
+            return @"CrossCountrySkiing";
         case HKWorkoutActivityTypeDownhillSkiing:
-            return @"TypeDownhillSkiing";
+            return @"DownhillSkiing";
         case HKWorkoutActivityTypeFlexibility:
-            return @"TypeFlexibility";
+            return @"Flexibility";
         case HKWorkoutActivityTypeHighIntensityIntervalTraining:
-            return @"TypeHighIntensityIntervalTraining";
+            return @"HighIntensityIntervalTraining";
         case HKWorkoutActivityTypeJumpRope:
-            return @"TypeJumpRope";
+            return @"JumpRope";
         case HKWorkoutActivityTypeKickboxing:
-            return @"TypeKickboxing";
+            return @"Kickboxing";
         case HKWorkoutActivityTypePilates:
-            return @"TypePilates";
+            return @"Pilates";
         case HKWorkoutActivityTypeSnowboarding:
-            return @"TypeSnowboarding";
+            return @"Snowboarding";
         case HKWorkoutActivityTypeStairs:
-            return @"TypeStairs";
+            return @"Stairs";
         case HKWorkoutActivityTypeStepTraining:
-            return @"TypeStepTraining";
+            return @"StepTraining";
         case HKWorkoutActivityTypeWheelchairWalkPace:
-            return @"TypeWheelchairWalkPace";
+            return @"WheelchairWalkPace";
         case HKWorkoutActivityTypeWheelchairRunPace:
-            return @"TypeWheelchairRunPace";
+            return @"WheelchairRunPace";
         case HKWorkoutActivityTypeTaiChi:
-            return @"TypeTaiChi";
+            return @"TaiChi";
         case HKWorkoutActivityTypeMixedCardio:
-            return @"TypeMixedCardio";
+            return @"MixedCardio";
         case HKWorkoutActivityTypeHandCycling:
-            return @"TypeHandCycling";
+            return @"HandCycling";
         default:{
             NSException *e = [NSException
                               exceptionWithName:@"HKWorkoutActivityType InvalidValue"
