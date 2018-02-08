@@ -9,6 +9,9 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventDispatcher.h>
+
 @implementation RCTAppleHealthKit (Queries)
 
 
@@ -199,7 +202,65 @@
     [self.healthStore executeQuery:query];
 }
 
+- (void)setObserverForType:(HKSampleType *)type
+                      unit:(HKUnit *)unit
+                completion:(void (^)(NSArray *, NSError *))completion {
+    NSLog(@"set observer");
+    void(^handler)(HKObserverQuery *query, HKObserverQueryCompletionHandler completionHandler, NSError * _Nullable error);
+    handler = ^(HKObserverQuery *query, HKObserverQueryCompletionHandler completionHandler, NSError * _Nullable error) {
+        NSLog(@"enter to a handler %@", [error localizedDescription]);
+        UIApplication *app = [UIApplication sharedApplication];
+        UIApplicationState appState = [app applicationState];
 
+        if (!self.isSync){
+//            switch (appState) {
+//            case UIApplicationStateActive:
+//                NSLog(@"app Active try to make sync");
+//                break;
+//            case UIApplicationStateInactive:
+//                {
+//                    NSLog(@"enter to inactive case");
+//                break;
+//                }
+//            case UIApplicationStateBackground:
+//                {
+//                    NSLog(@"enter to background case");
+//                    self.isSync = true;
+//                    __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [app beginBackgroundTaskWithExpirationHandler:^{
+//
+//                        NSLog(@"call event background");
+////                        [self.bridge.eventDispatcher sendAppEventWithName:@"change:steps"
+////                                                                     body:@{@"name": @"change:steps"}];
+//                        [self fetchSamplesOfType:type unit:unit predicate:nil ascending:true limit:1 completion:completion];
+//                        [app endBackgroundTask:backgroundTaskIdentifier];
+//                        self.isSync = false;
+//                    }];
+//                }
+//
+//            };
+            
+            NSLog(@"enter to background case");
+            self.isSync = true;
+            __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [app beginBackgroundTaskWithExpirationHandler:^{
+                
+                NSLog(@"call event background");
+                                        [self.bridge.eventDispatcher sendAppEventWithName:@"change:steps"
+                                                                                     body:@{@"name": @"change:steps"}];
+                [self fetchSamplesOfType:type unit:unit predicate:nil ascending:true limit:1 completion:completion];
+                [app endBackgroundTask:backgroundTaskIdentifier];
+                completionHandler();
+                self.isSync = false;
+            }];
+        }
+        
+    };
+    HKObserverQuery *query = [[HKObserverQuery alloc] initWithSampleType:type predicate:nil updateHandler:handler];
+    
+    [self.healthStore executeQuery:query];
+    [self.healthStore enableBackgroundDeliveryForType:type frequency:HKUpdateFrequencyImmediate withCompletion:^(BOOL success, NSError * _Nullable error) {
+        NSLog(@"success %s print some error %@", success ? "true" : "false", [error localizedDescription]);
+    }];
+}
 
 
 

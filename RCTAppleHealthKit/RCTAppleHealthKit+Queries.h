@@ -18,12 +18,19 @@
                                      startDate:(NSDate *)startDate
                                        endDate:(NSDate *)endDate
                                     completion:(void (^)(NSArray *, NSError *))completionHandler;
+
+
 - (void)fetchSamplesOfType:(HKSampleType *)quantityType
                               unit:(HKUnit *)unit
                          predicate:(NSPredicate *)predicate
                          ascending:(BOOL)asc
                              limit:(NSUInteger)lim
                         completion:(void (^)(NSArray *, NSError *))completion;
+- (void)setObserverForType:(HKSampleType *)quantityType
+                      unit:(HKUnit *)unit
+                completion:(void (^)(NSArray *, NSError *))completion;
+
+
 - (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
                               unit:(HKUnit *)unit
                          predicate:(NSPredicate *)predicate

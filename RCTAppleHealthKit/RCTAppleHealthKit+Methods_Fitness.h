@@ -12,6 +12,7 @@
 
 - (void)fitness_getStepCountOnDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)fitness_getSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)fitness_setObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)fitness_getDailyStepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)fitness_saveSteps:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)fitness_initializeStepEventObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;

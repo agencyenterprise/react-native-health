@@ -91,6 +91,31 @@
                           }];
 }
 
+- (void)fitness_setObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
+    NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
+    
+    HKSampleType *samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    if ([type isEqual:@"Walking"]) {
+        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    } else if ([type isEqual:@"StairClimbing"]) {
+        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
+    } else if ([type isEqual:@"Running"]){
+        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+        unit = [HKUnit mileUnit];
+    } else if ([type isEqual:@"Cycling"]){
+        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
+        unit = [HKUnit mileUnit];
+    } else if ([type isEqual:@"Workout"]){
+        samplesType = [HKObjectType workoutType];
+    }
+    
+    [self setObserverForType:samplesType unit:unit completion:^(NSArray *results, NSError * error) {
+        callback(@[[NSNull null], results]);
+    }];
+}
+
 
 - (void)fitness_getDailyStepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
