@@ -111,9 +111,9 @@ RCT_EXPORT_METHOD(getSamples:(NSDictionary *)input callback:(RCTResponseSenderBl
     [self fitness_getSamples:input callback:callback];
 }
 
-RCT_EXPORT_METHOD(setObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(setObserver:(NSDictionary *)input)
 {
-    [self fitness_setObserver:input callback:callback];
+    [self fitness_setObserver:input];
 }
 
 

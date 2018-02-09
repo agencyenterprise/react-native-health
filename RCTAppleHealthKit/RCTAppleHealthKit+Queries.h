@@ -27,8 +27,7 @@
                              limit:(NSUInteger)lim
                         completion:(void (^)(NSArray *, NSError *))completion;
 - (void)setObserverForType:(HKSampleType *)quantityType
-                      unit:(HKUnit *)unit
-                completion:(void (^)(NSArray *, NSError *))completion;
+                      unit:(HKUnit *)unit;
 
 
 - (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType

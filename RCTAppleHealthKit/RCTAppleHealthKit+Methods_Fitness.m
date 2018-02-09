@@ -91,7 +91,7 @@
                           }];
 }
 
-- (void)fitness_setObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+- (void)fitness_setObserver:(NSDictionary *)input
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
     NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
@@ -111,9 +111,7 @@
         samplesType = [HKObjectType workoutType];
     }
     
-    [self setObserverForType:samplesType unit:unit completion:^(NSArray *results, NSError * error) {
-        callback(@[[NSNull null], results]);
-    }];
+    [self setObserverForType:samplesType unit:unit];
 }
 
 
