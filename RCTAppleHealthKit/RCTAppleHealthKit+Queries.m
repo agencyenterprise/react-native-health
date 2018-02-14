@@ -147,15 +147,15 @@
                         }
                         
                         NSDictionary *elem = @{
-                                               @"type" : type,
-                                               @"energy" : @(energy),
-                                               @"isTracked" : @(isTracked),
+                                               @"activityName" : type,
+                                               @"calories" : @(energy),
+                                               @"tracked" : @(isTracked),
                                                @"sourceName" : [[[sample sourceRevision] source] name],
-                                               @"sourceBundleId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                               @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
                                                @"device": [[sample sourceRevision] productType],
                                                @"distance" : @(distance),
-                                               @"startDate" : startDateString,
-                                               @"endDate" : endDateString
+                                               @"start" : startDateString,
+                                               @"end" : endDateString
                                                };
                         
                         [data addObject:elem];
@@ -174,13 +174,13 @@
                         }
                         
                         NSDictionary *elem = @{
-                                               @"value" : @(value),
-                                               @"isTracked" : @(isTracked),
+                                               @"quantity" : @(value),
+                                               @"tracked" : @(isTracked),
                                                @"sourceName" : [[[sample sourceRevision] source] name],
-                                               @"sourceBundleId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                               @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
                                                @"device": [[sample sourceRevision] productType],
-                                               @"startDate" : startDateString,
-                                               @"endDate" : endDateString
+                                               @"start" : startDateString,
+                                               @"end" : endDateString
                                                };
                         
                         [data addObject:elem];
