@@ -165,6 +165,11 @@
                         HKQuantity *quantity = sample.quantity;
                         double value = [quantity doubleValueForUnit:unit];
                         
+                        NSString * valueType = @"quantity";
+                        if (unit == [HKUnit mileUnit]) {
+                            valueType = @"distance";
+                        }
+                        
                         NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                         NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
                         
@@ -174,7 +179,7 @@
                         }
                         
                         NSDictionary *elem = @{
-                                               @"quantity" : @(value),
+                                               valueType : @(value),
                                                @"tracked" : @(isTracked),
                                                @"sourceName" : [[[sample sourceRevision] source] name],
                                                @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
