@@ -3,8 +3,7 @@
 //  RCTAppleHealthKit
 //
 //  Created by Greg Wilson on 2016-06-26.
-//  This source code is licensed under the MIT-style license found in the
-//  LICENSE file in the root directory of this source tree.
+//  Copyright © 2016 Greg Wilson. All rights reserved.
 //
 
 #import "RCTAppleHealthKit.h"
@@ -13,6 +12,7 @@
 #import "RCTAppleHealthKit+Methods_Activity.h"
 #import "RCTAppleHealthKit+Methods_Body.h"
 #import "RCTAppleHealthKit+Methods_Fitness.h"
+#import "RCTAppleHealthKit+Methods_Dietary.h"
 #import "RCTAppleHealthKit+Methods_Characteristic.h"
 #import "RCTAppleHealthKit+Methods_Vitals.h"
 #import "RCTAppleHealthKit+Methods_Results.h"
@@ -145,6 +145,16 @@ RCT_EXPORT_METHOD(getFlightsClimbed:(NSDictionary *)input callback:(RCTResponseS
 RCT_EXPORT_METHOD(getDailyFlightsClimbedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getDailyFlightsClimbedSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self saveFood:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveWater:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self saveWater:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getHeartRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
