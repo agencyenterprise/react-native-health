@@ -19,7 +19,7 @@
 
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
     if(unit == nil){
-        unit = [HKUnit poundUnit];
+        unit = [HKUnit gramUnit];
     }
 
     [self fetchMostRecentQuantitySampleOfType:weightType
@@ -154,7 +154,7 @@
 
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
     if(unit == nil){
-        unit = [HKUnit inchUnit];
+        unit = [HKUnit meterUnit];
     }
 
     [self fetchMostRecentQuantitySampleOfType:heightType
