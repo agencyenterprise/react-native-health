@@ -17,7 +17,7 @@
 {
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
 
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo]];
     if(unit == nil){
         unit = [HKUnit gramUnit];
     }
@@ -151,7 +151,7 @@
 {
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
 
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit meterUnitWithMetricPrefix:HKMetricPrefixCenti]];;
     if(unit == nil){
         unit = [HKUnit meterUnit];
     }
@@ -217,7 +217,7 @@
     double height = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
 
-    HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input];
+    HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];;
     if(heightUnit == nil){
         heightUnit = [HKUnit inchUnit];
     }
