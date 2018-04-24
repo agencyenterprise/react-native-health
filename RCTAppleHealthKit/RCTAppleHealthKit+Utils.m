@@ -123,58 +123,6 @@
     return date;
 }
 
-// ==========
-// DEPRECATED
-// ==========
-+ (HKUnit *)hkUnitFromOptions:(NSDictionary *)options {
-    NSString *unitString = [options objectForKey:@"unit"];
-    HKUnit *theUnit;
-
-    if([unitString isEqualToString:@"gram"]){
-        theUnit = [HKUnit gramUnit];
-    }
-    if([unitString isEqualToString:@"pound"]){
-        theUnit = [HKUnit poundUnit];
-    }
-    if([unitString isEqualToString:@"meter"]){
-        theUnit = [HKUnit meterUnit];
-    }
-    if([unitString isEqualToString:@"mile"]){
-        theUnit = [HKUnit mileUnit];
-    }
-    if([unitString isEqualToString:@"inch"]){
-        theUnit = [HKUnit inchUnit];
-    }
-    if([unitString isEqualToString:@"foot"]){
-        theUnit = [HKUnit footUnit];
-    }
-    if([unitString isEqualToString:@"second"]){
-        theUnit = [HKUnit secondUnit];
-    }
-    if([unitString isEqualToString:@"minute"]){
-        theUnit = [HKUnit minuteUnit];
-    }
-    if([unitString isEqualToString:@"hour"]){
-        theUnit = [HKUnit hourUnit];
-    }
-    if([unitString isEqualToString:@"day"]){
-        theUnit = [HKUnit dayUnit];
-    }
-    if([unitString isEqualToString:@"joule"]){
-        theUnit = [HKUnit jouleUnit];
-    }
-    if([unitString isEqualToString:@"calorie"]){
-        theUnit = [HKUnit calorieUnit];
-    }
-    if([unitString isEqualToString:@"count"]){
-        theUnit = [HKUnit countUnit];
-    }
-    if([unitString isEqualToString:@"percent"]){
-        theUnit = [HKUnit percentUnit];
-    }
-    return theUnit;
-}
-
 
 + (HKUnit *)hkUnitFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKUnit *)defaultValue {
     NSString *unitString = [options objectForKey:key];
@@ -183,11 +131,20 @@
     if([unitString isEqualToString:@"gram"]){
         theUnit = [HKUnit gramUnit];
     }
+    if([unitString isEqualToString:@"kg"]){
+        theUnit = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
+    }
+    if([unitString isEqualToString:@"stone"]){
+        theUnit = [HKUnit stoneUnit];
+    }
     if([unitString isEqualToString:@"pound"]){
         theUnit = [HKUnit poundUnit];
     }
     if([unitString isEqualToString:@"meter"]){
         theUnit = [HKUnit meterUnit];
+    }
+    if([unitString isEqualToString:@"cm"]){
+        theUnit = [HKUnit meterUnitWithMetricPrefix:HKMetricPrefixCenti];
     }
     if([unitString isEqualToString:@"inch"]){
         theUnit = [HKUnit inchUnit];

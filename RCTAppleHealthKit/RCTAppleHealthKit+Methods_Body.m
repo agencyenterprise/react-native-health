@@ -32,7 +32,6 @@
         else {
             // Determine the weight in the required unit.
             double usersWeight = [mostRecentQuantity doubleValueForUnit:unit];
-
             NSDictionary *response = @{
                     @"value" : @(usersWeight),
                     @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
