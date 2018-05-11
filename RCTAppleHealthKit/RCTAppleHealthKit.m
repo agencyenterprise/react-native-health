@@ -36,6 +36,11 @@ RCT_EXPORT_METHOD(initHealthKit:(NSDictionary *)input callback:(RCTResponseSende
     [self initializeHealthKit:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(checkSharePermission:(NSString *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self checkPermission:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(initStepCountObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_initializeStepEventObserver:input callback:callback];
@@ -243,6 +248,23 @@ RCT_EXPORT_METHOD(saveMindfulSession:(NSDictionary *)input callback:(RCTResponse
                 });
             }
         }];
+    } else {
+        callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
+    }
+}
+
+- (void)checkPermission:(NSString *)input callback:(RCTResponseSenderBlock)callback
+{
+    self.healthStore = [[HKHealthStore alloc] init];
+    if ([HKHealthStore isHealthDataAvailable]) {
+        
+        HKObjectType *val = [[self writePermsDict] objectForKey:input];
+        
+        if ([self.healthStore authorizationStatusForType:val] == HKAuthorizationStatusSharingAuthorized) {
+            callback(@[[NSNull null], @true]);
+        } else {
+            callback(@[[NSNull null], @false]);
+        }
     } else {
         callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
     }

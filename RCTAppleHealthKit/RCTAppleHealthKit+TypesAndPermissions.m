@@ -83,7 +83,6 @@
     return writePerms;
 }
 
-
 // Returns HealthKit read permissions from options array
 - (NSSet *)getReadPermsFromOptions:(NSArray *)options {
     NSDictionary *readPermDict = [self readPermsDict];
