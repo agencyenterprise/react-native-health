@@ -208,23 +208,20 @@
 
 - (void)setObserverForType:(HKSampleType *)type
                       unit:(HKUnit *)unit {
-    NSLog(@"set observer");
     HKObserverQuery *query = [[HKObserverQuery alloc] initWithSampleType:type predicate:nil updateHandler:^(HKObserverQuery *query, HKObserverQueryCompletionHandler completionHandler, NSError * _Nullable error){
-        UIApplication *app = [UIApplication sharedApplication];
-        NSLog(@"observer fired");
-        [self.bridge.eventDispatcher sendAppEventWithName:@"observer"             body:@""];
-        completionHandler();
-//        self.isSync = true;
-//        __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [app beginBackgroundTaskWithExpirationHandler:^{
-//
-//            NSLog(@"observer fired from bg");
-//            [self.bridge.eventDispatcher sendAppEventWithName:@"observer"
-//                                                         body:@""];
-//
-//            [app endBackgroundTask:backgroundTaskIdentifier];
+        if (error) {
+            NSLog(@"*** An error occured while setting up the stepCount observer. %@ ***", error.localizedDescription);
+            return;
+        }
+        [self.bridge.eventDispatcher sendAppEventWithName:@"observer" body:@""];
+        
+        // Theoretically, HealthKit expect that copletionHandler would be called at the end of query process,
+        // but it's unclear how to do in in event paradigm
+        
+//        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 5);
+//        dispatch_after(delay, dispatch_get_main_queue(), ^(void){
 //            completionHandler();
-//            self.isSync = false;
-//        }];
+//        });
     }];
     
     [self.healthStore executeQuery:query];

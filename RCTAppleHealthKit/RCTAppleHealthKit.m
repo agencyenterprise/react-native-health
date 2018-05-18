@@ -22,6 +22,7 @@
 #import <React/RCTEventDispatcher.h>
 
 @implementation RCTAppleHealthKit
+
 @synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE();
