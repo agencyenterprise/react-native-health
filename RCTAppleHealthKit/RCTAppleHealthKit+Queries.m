@@ -178,12 +178,22 @@
                             isTracked = false;
                         }
                         
+                        NSString* device = @"";
+                        if (@available(iOS 11.0, *)) {
+                            device = [[sample sourceRevision] productType];
+                        } else {
+                            device = [[sample device] name];
+                            if (!device) {
+                                device = @"iPhone";
+                            }
+                        }
+                        
                         NSDictionary *elem = @{
                                                valueType : @(value),
                                                @"tracked" : @(isTracked),
                                                @"sourceName" : [[[sample sourceRevision] source] name],
                                                @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
-                                               @"device": [[sample sourceRevision] productType],
+                                               @"device": device,
                                                @"start" : startDateString,
                                                @"end" : endDateString
                                                };
