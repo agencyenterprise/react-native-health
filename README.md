@@ -28,7 +28,6 @@ Update `info.plist` in your React Native project
 ![](https://i.imgur.com/eOCCCyv.png "Xcode Capabilities Section")
 7. Compile and run
 
-
 ## Get Started
 Initialize Healthkit. This will show the Healthkit permissions prompt for any read/write permissions set in the required `options` object.
 
@@ -77,7 +76,10 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
 }
 ```
 
-## Changelog 
+## Changelog
+0.6.4v
+- Basal energy ([#23](https://github.com/terrillo/rn-apple-healthkit/pull/23))
+
 0.6.1v
 - HKQuantityTypeIdentifierActiveEnergyBurned
 
