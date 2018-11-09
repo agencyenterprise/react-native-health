@@ -93,6 +93,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [initStepCountObserver](https://github.com/terrillo/rn-apple-healthkit/wiki/initStepCountObserver())
     * Read Methods
       * [getActiveEnergyBurned](https://github.com/terrillo/rn-apple-healthkit/wiki/getActiveEnergyBurned())
+      * [getBasalEnergyBurned](https://github.com/terrillo/rn-apple-healthkit/wiki/getBasalEnergyBurned())
       * [getBiologicalSex](https://github.com/terrillo/rn-apple-healthkit/wiki/getBiologicalSex())
       * [getBloodGlucoseSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getbloodglucosesamples())
       * [getBloodPressureSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getbloodpressuresamples())
@@ -127,7 +128,8 @@ The available Healthkit permissions to use with `initHealthKit`
 
 | Permission             | Healthkit Identifier Type                                                                                                                                          | Read | Write |
 |------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|-------|
-| ActiveEnergyBurned          | [HKCharacteristicTypeIdentifierActiveEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615771-activeenergyburned?language=objc)           | ✓    |       |
+| ActiveEnergyBurned     | [HKQuantityTypeIdentifierActiveEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615771-activeenergyburned?language=objc)           | ✓    |       |
+| BasalEnergyBurned      | [HKQuantityTypeIdentifierBasalEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615512-basalenergyburned?language=objc)           | ✓    |       |
 | BiologicalSex          | [HKCharacteristicTypeIdentifierBiologicalSex](https://developer.apple.com/reference/Healthkit/hkcharacteristictypeidentifierbiologicalsex?language=objc)           | ✓    |       |
 | BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                         | ✓    |       |
 | BloodPressureDiastolic | [HKQuantityTypeIdentifierBloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierbloodpressurediastolic?language=objc) | ✓    | ✓     |
