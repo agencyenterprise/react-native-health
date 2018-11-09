@@ -80,6 +80,9 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
 0.6.4v
 - Basal energy ([#23](https://github.com/terrillo/rn-apple-healthkit/pull/23))
 
+0.6.3v
+- Food and Water ([#19](https://github.com/terrillo/rn-apple-healthkit/pull/19))
+
 0.6.1v
 - HKQuantityTypeIdentifierActiveEnergyBurned
 
