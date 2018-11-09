@@ -79,6 +79,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
 ## Changelog
 0.6.4v
 - Basal energy ([#23](https://github.com/terrillo/rn-apple-healthkit/pull/23))
+- Fixed issues with saving weight in the past
 
 0.6.3v
 - Food and Water ([#19](https://github.com/terrillo/rn-apple-healthkit/pull/19))
