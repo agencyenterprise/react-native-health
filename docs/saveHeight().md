@@ -8,7 +8,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.saveHeight(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.saveHeight(options: Object, (err: Object, results: Object) => {
   if (err) {
     return;
   }

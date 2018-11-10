@@ -1,7 +1,7 @@
 Check for Healthkit availability
 
 ```javascript
-import AppleHealthkit from 'rn-apple-healthkit';
+import AppleHealthKit from 'rn-apple-healthkit';
 
 AppleHealthKit.isAvailable((err: Object, available: boolean) => {
   if (err) {

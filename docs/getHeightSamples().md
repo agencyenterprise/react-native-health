@@ -10,7 +10,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.getHeightSamples(options, (err: Object, results: Array<Object>) => {
+AppleHealthKit.getHeightSamples(options, (err: Object, results: Array<Object>) => {
   if (err) {
     return;
   }

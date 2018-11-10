@@ -9,7 +9,7 @@ let options = {
 ```
 
 ```javascript
- AppleHealthkit.getDailyStepCountSamples(options: Object, (err: Object, results: Array<Object>) => {
+ AppleHealthKit.getDailyStepCountSamples(options: Object, (err: Object, results: Array<Object>) => {
     if (this._handleHealthkitError(err, 'getDailyStepCountSamples')) {
         return;
     }

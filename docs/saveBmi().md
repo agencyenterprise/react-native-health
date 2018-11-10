@@ -7,7 +7,7 @@ let options = {
 }
 ```
 ```javascript
-AppleHealthkit.saveBmi(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.saveBmi(options: Object, (err: Object, results: Object) => {
   if (err) {
     return;
   }

@@ -13,7 +13,7 @@ Available units are: `'mmolPerL'`, `'mgPerdL'`.
 The callback function will be called with a `samples` array containing objects with *value*, *startDate*, and *endDate* fields
 
 ```javascript
-AppleHealthkit.getBloodGlucoseSamples(options, (err: Object, results: Array<Object>) => {
+AppleHealthKit.getBloodGlucoseSamples(options, (err: Object, results: Array<Object>) => {
   if (err) {
     return;
   }

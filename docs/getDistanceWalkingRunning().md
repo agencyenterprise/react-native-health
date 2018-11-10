@@ -10,7 +10,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.getDistanceWalkingRunning(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.getDistanceWalkingRunning(options: Object, (err: Object, results: Object) => {
     if (err) {
     	return;
     }

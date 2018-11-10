@@ -8,7 +8,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.saveWeight(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.saveWeight(options: Object, (err: Object, results: Object) => {
     if (err) {
         console.log("error saving weight to Healthkit: ", err);
         return;

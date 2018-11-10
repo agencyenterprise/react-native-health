@@ -7,7 +7,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.getBasalEnergyBurned(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.getBasalEnergyBurned(options: Object, (err: Object, results: Object) => {
     if (err) {
         return;
     }

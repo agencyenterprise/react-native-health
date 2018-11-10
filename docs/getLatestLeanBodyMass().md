@@ -3,7 +3,7 @@ Get the most recent lean body mass. The value is a number representing the weigh
 On success, the callback function will be provided with a `leanBodyMass` object containing the leanBodyMass `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as leanBodyMass samples are saved at a specific point in time.*
 
 ```javascript
- AppleHealthkit.getLatestLeanBodyMass(null, (err: Object, results: Object) => {
+ AppleHealthKit.getLatestLeanBodyMass(null, (err: Object, results: Object) => {
   if (err) {
     return;
   }

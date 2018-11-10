@@ -8,7 +8,7 @@ listen to the NativeAppEventEmitter `change:steps` event and re-fetch relevent
 step count data in the event handler.
 
 The `initStepCountObserver` method should be called after Healthkit has been
-successfully initialized (AppleHealthkit.initHealthKit has been called without
+successfully initialized (AppleHealthKit.initHealthKit has been called without
 error).
 
 ```javascript

@@ -11,7 +11,7 @@ let options = {
 
 The callback function will be called with a `samples` array containing objects with *value*, *startDate*, and *endDate* fields
 ```javascript
-AppleHealthkit.getHeartRateSamples(options, (err: Object, results: Array<Object>) => {
+AppleHealthKit.getHeartRateSamples(options, (err: Object, results: Array<Object>) => {
   if (err) {
     return;
   }

@@ -2,7 +2,7 @@ Get the most recent BMI sample.
 
 On success, the callback function will be provided with a `bmi` object containing the BMI `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bmi samples are saved at a specific point in time.*
 ```javascript
-AppleHealthkit.getLatestBmi(null, (err: string, results: Object) => {
+AppleHealthKit.getLatestBmi(null, (err: string, results: Object) => {
     if (err) {
         console.log("error getting latest bmi data: ", err);
         return;

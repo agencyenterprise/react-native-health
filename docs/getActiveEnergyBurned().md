@@ -9,7 +9,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.getActiveEnergyBurned(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.getActiveEnergyBurned(options: Object, (err: Object, results: Object) => {
     if (err) {
         return;
     }

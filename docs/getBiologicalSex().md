@@ -8,7 +8,7 @@ Get the biological sex (gender). If the `BiologicalSex` read permission is missi
 | other   | HKBiologicalSexOther  |
 
 ```javascript
-AppleHealthkit.getBiologicalSex(null, (err: Object, results: Object) => {
+AppleHealthKit.getBiologicalSex(null, (err: Object, results: Object) => {
     if (this._handleHealthkitError(err, 'getBiologicalSex')) {
       return;
     }

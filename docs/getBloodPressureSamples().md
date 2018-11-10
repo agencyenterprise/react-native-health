@@ -12,7 +12,7 @@ let options = {
 The callback function will be called with a `samples` array containing objects with *bloodPressureSystolicValue*, *bloodPressureDiastolicValue*, *startDate*, and *endDate* fields
 
 ```javascript
-AppleHealthkit.getBloodPressureSamples(options, (err: Object, results: Array<Object>) => {
+AppleHealthKit.getBloodPressureSamples(options, (err: Object, results: Array<Object>) => {
   if (err) {
     return;
   }

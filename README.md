@@ -1,6 +1,6 @@
 
 # React Native Apple Healthkit
-A React Native bridge module for interacting with Apple Healthkit data. Checkout the [full documentation](https://github.com/terrillo/rn-apple-healthkit/wiki)
+A React Native bridge module for interacting with Apple Healthkit data. Checkout the [full documentation](https://github.com/terrillo/rn-apple-healthkit/tree/master/docs)
 
 ## Installation
 
@@ -80,6 +80,11 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
 0.6.4v
 - Basal energy ([#23](https://github.com/terrillo/rn-apple-healthkit/pull/23))
 - Fixed issues with saving weight in the past
+- Commited the docs to increase pull request support
+- Add daily samples for:
+  - Flights Climbed
+  - WalkingRunning Distance
+  - Cycling Distance
 
 0.6.3v
 - Food and Water ([#19](https://github.com/terrillo/rn-apple-healthkit/pull/19))
@@ -105,8 +110,8 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [getBloodPressureSamples](/docs/getbloodpressuresamples().md)
       * [getBodyTemperatureSamples](/docs/getbodytemperaturesamples().md)
       * [getDailyDistanceCyclingSamples]()
-      * [getDailyDistanceWalkingRunningSamples]()
-      * [getDailyFlightsClimbedSamples]()
+      * [getDailyDistanceWalkingRunningSamples](/docs/getDailyDistanceWalkingRunningSamples().md)
+      * [getDailyFlightsClimbedSamples](/docs/getDailyFlightsClimbedSamples().md)
       * [getDailyStepCountSamples](/docs/getDailyStepCountSamples().md)
       * [getDateOfBirth](/docs/getDateOfBirth().md)
       * [getDistanceCycling](/docs/getdistancecycling().md)

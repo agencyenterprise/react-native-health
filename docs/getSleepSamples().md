@@ -20,7 +20,7 @@ The callback function will be called with a `samples` array containing objects
 with *value*, *startDate*, and *endDate* fields
 
 ```javascript
-AppleHealthkit.getSleepSamples(options, (err: Object, results: Array<Object>) => {
+AppleHealthKit.getSleepSamples(options, (err: Object, results: Array<Object>) => {
   if (err) {
     return;
   }

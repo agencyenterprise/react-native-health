@@ -14,7 +14,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.saveSteps(options, (err, res) => {
+AppleHealthKit.saveSteps(options, (err, res) => {
   if (this._handleHKError(err, 'saveSteps')) {
     return;
   }

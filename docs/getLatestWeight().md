@@ -9,7 +9,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.getLatestWeight(options, (err: string, results: Object) => {
+AppleHealthKit.getLatestWeight(options, (err: string, results: Object) => {
   if (err) {
     console.log("error getting latest weight: ", err);
     return;

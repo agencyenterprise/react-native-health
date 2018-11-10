@@ -9,7 +9,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.getStepCount(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.getStepCount(options: Object, (err: Object, results: Object) => {
     if (err) {
         return;
     }

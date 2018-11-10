@@ -8,7 +8,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.getFlightsClimbed(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.getFlightsClimbed(options: Object, (err: Object, results: Object) => {
   if (err) {
     return;
   }

@@ -11,7 +11,7 @@ let options = {
 ```
 
 ```javascript
-AppleHealthkit.getWeightSamples(options, (err: Object, results: Array<Object>) => {
+AppleHealthKit.getWeightSamples(options, (err: Object, results: Array<Object>) => {
   if (err) {
     return;
   }
