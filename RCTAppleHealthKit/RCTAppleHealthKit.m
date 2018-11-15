@@ -12,6 +12,7 @@
 #import "RCTAppleHealthKit+Methods_Activity.h"
 #import "RCTAppleHealthKit+Methods_Body.h"
 #import "RCTAppleHealthKit+Methods_Fitness.h"
+#import "RCTAppleHealthKit+Methods_Dietary.h"
 #import "RCTAppleHealthKit+Methods_Characteristic.h"
 #import "RCTAppleHealthKit+Methods_Vitals.h"
 #import "RCTAppleHealthKit+Methods_Results.h"
@@ -138,14 +139,39 @@ RCT_EXPORT_METHOD(getDistanceWalkingRunning:(NSDictionary *)input callback:(RCTR
     [self fitness_getDistanceWalkingRunningOnDay:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getDailyDistanceWalkingRunningSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self fitness_getDailyDistanceWalkingRunningSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getDistanceCycling:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getDistanceCyclingOnDay:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getDailyDistanceCyclingSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self fitness_getDailyDistanceCyclingSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getFlightsClimbed:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getFlightsClimbedOnDay:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getDailyFlightsClimbedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self fitness_getDailyFlightsClimbedSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self saveFood:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveWater:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self saveWater:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getHeartRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -156,6 +182,11 @@ RCT_EXPORT_METHOD(getHeartRateSamples:(NSDictionary *)input callback:(RCTRespons
 RCT_EXPORT_METHOD(getActiveEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
    [self activity_getActiveEnergyBurned:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getBasalEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self activity_getBasalEnergyBurned:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)

@@ -80,7 +80,7 @@
 - (void)body_saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     double weight = [RCTAppleHealthKit doubleValueFromOptions:input];
-    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit poundUnit]];
 
     HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:unit doubleValue:weight];

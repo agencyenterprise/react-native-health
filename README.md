@@ -1,6 +1,6 @@
 
 # React Native Apple Healthkit
-A React Native bridge module for interacting with Apple Healthkit data. Checkout the [full documentation](https://github.com/terrillo/rn-apple-healthkit/wiki)
+A React Native bridge module for interacting with Apple Healthkit data. Checkout the [full documentation](https://github.com/terrillo/rn-apple-healthkit/tree/master/docs)
 
 ## Installation
 
@@ -28,7 +28,6 @@ Update `info.plist` in your React Native project
 ![](https://i.imgur.com/eOCCCyv.png "Xcode Capabilities Section")
 7. Compile and run
 
-
 ## Get Started
 Initialize Healthkit. This will show the Healthkit permissions prompt for any read/write permissions set in the required `options` object.
 
@@ -44,8 +43,8 @@ If new read/write permissions are added to the options object then the app user 
 ```javascript
 let options = {
     permissions: {
-        read: ["Height", "Weight", "StepCount", "DateOfBirth", "BodyMassIndex"],
-        write: ["Weight", "StepCount", "BodyMassIndex"]
+        read: ["Height", "Weight", "StepCount", "DateOfBirth", "BodyMassIndex", "ActiveEnergyBurned"],
+        write: ["Height", "Weight", "StepCount", "BodyMassIndex", "Biotin", "Caffeine", "Calcium", "Carbohydrates", "Chloride", "Cholesterol", "Copper", "EnergyConsumed", "FatMonounsaturated", "FatPolyunsaturated", "FatSaturated", "FatTotal", "Fiber", "Folate", "Iodine", "Iron", "Magnesium", "Manganese", "Molybdenum", "Niacin", "PantothenicAcid", "Phosphorus", "Potassium", "Protein", "Riboflavin", "Selenium", "Sodium", "Sugar", "Thiamin", "VitaminA", "VitaminB12", "VitaminB6", "VitaminC", "VitaminD", "VitaminE", "VitaminK", "Zinc", "Water"]
     }
 };
 ```
@@ -77,48 +76,64 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
 }
 ```
 
-## Changelog 
+## Changelog
+0.6.4v
+- Basal energy ([#23](https://github.com/terrillo/rn-apple-healthkit/pull/23))
+- Fixed issues with saving weight in the past
+- Commited the docs to increase pull request support
+- Add daily samples for:
+  - Flights Climbed
+  - WalkingRunning Distance
+  - Cycling Distance
+
+0.6.3v
+- Food and Water ([#19](https://github.com/terrillo/rn-apple-healthkit/pull/19))
+
 0.6.1v
 - HKQuantityTypeIdentifierActiveEnergyBurned
 
 ## Wiki
-  * [Installation](https://github.com/terrillo/rn-apple-healthkit/wiki/Install)
+  * [Installation](/docs/Install)
   * [Documentation](#documentation)
     * [Permissions](#permissions)
     * [Units](#units)
     * Base Methods
-      * [isAvailable](https://github.com/terrillo/rn-apple-healthkit/wiki/isAvailable())
-      * [initHealthKit](https://github.com/terrillo/rn-apple-healthkit/wiki/initHealthKit())
+      * [isAvailable](/docs/isAvailable().md)
+      * [initHealthKit](/docs/initHealthKit().md)
     * Realtime Methods
-      * [initStepCountObserver](https://github.com/terrillo/rn-apple-healthkit/wiki/initStepCountObserver())
+      * [initStepCountObserver](/docs/initStepCountObserver().md)
     * Read Methods
-      * [getActiveEnergyBurned](https://github.com/terrillo/rn-apple-healthkit/wiki/getActiveEnergyBurned())
-      * [getBiologicalSex](https://github.com/terrillo/rn-apple-healthkit/wiki/getBiologicalSex())
-      * [getBloodGlucoseSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getbloodglucosesamples())
-      * [getBloodPressureSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getbloodpressuresamples())
-      * [getBodyTemperatureSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getbodytemperaturesamples())
-      * [getDailyStepCountSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getDailyStepCountSamples())
-      * [getDateOfBirth](https://github.com/terrillo/rn-apple-healthkit/wiki/getDateOfBirth())
-      * [getDistanceCycling](https://github.com/terrillo/rn-apple-healthkit/wiki/getdistancecycling())
-      * [getDistanceWalkingRunning](https://github.com/terrillo/rn-apple-healthkit/wiki/getDistanceWalkingRunning())
-      * [getFlightsClimbed](https://github.com/terrillo/rn-apple-healthkit/wiki/getflightsclimbed())
-      * [getHeartRateSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getheartratesamples())
-      * [getHeightSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getheightsamples())
-      * [getLatestBmi](https://github.com/terrillo/rn-apple-healthkit/wiki/getlatestbmi())
-      * [getLatestBodyFatPercentage](https://github.com/terrillo/rn-apple-healthkit/wiki/getlatestbodyfatpercentage())
-      * [getLatestHeight](https://github.com/terrillo/rn-apple-healthkit/wiki/getlatestheight())
-      * [getLatestLeanBodyMass](https://github.com/terrillo/rn-apple-healthkit/wiki/getlatestleanbodymass())
-      * [getLatestWeight](https://github.com/terrillo/rn-apple-healthkit/wiki/getlatestweight())
-      * [getRespiratoryRateSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getrespiratoryratesamples())
-      * [getSleepSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getsleepsamples())
-      * [getStepCount](https://github.com/terrillo/rn-apple-healthkit/wiki/getStepCount())
-      * [getWeightSamples](https://github.com/terrillo/rn-apple-healthkit/wiki/getweightsamples())
+      * [getActiveEnergyBurned](/docs/getActiveEnergyBurned().md)
+      * [getBasalEnergyBurned](/docs/getBasalEnergyBurned().md)
+      * [getBiologicalSex](/docs/getBiologicalSex().md)
+      * [getBloodGlucoseSamples](/docs/getbloodglucosesamples().md)
+      * [getBloodPressureSamples](/docs/getbloodpressuresamples().md)
+      * [getBodyTemperatureSamples](/docs/getbodytemperaturesamples().md)
+      * [getDailyDistanceCyclingSamples]()
+      * [getDailyDistanceWalkingRunningSamples](/docs/getDailyDistanceWalkingRunningSamples().md)
+      * [getDailyFlightsClimbedSamples](/docs/getDailyFlightsClimbedSamples().md)
+      * [getDailyStepCountSamples](/docs/getDailyStepCountSamples().md)
+      * [getDateOfBirth](/docs/getDateOfBirth().md)
+      * [getDistanceCycling](/docs/getdistancecycling().md)
+      * [getDistanceWalkingRunning](/docs/getDistanceWalkingRunning().md)
+      * [getFlightsClimbed](/docs/getflightsclimbed().md)
+      * [getHeartRateSamples](/docs/getheartratesamples().md)
+      * [getHeightSamples](/docs/getheightsamples().md)
+      * [getLatestBmi](/docs/getlatestbmi().md)
+      * [getLatestBodyFatPercentage](/docs/getlatestbodyfatpercentage().md)
+      * [getLatestHeight](/docs/getlatestheight().md)
+      * [getLatestLeanBodyMass](/docs/getlatestleanbodymass().md)
+      * [getLatestWeight](/docs/getlatestweight().md)
+      * [getRespiratoryRateSamples](/docs/getrespiratoryratesamples().md)
+      * [getSleepSamples](/docs/getsleepsamples().md)
+      * [getStepCount](/docs/getStepCount().md)
+      * [getWeightSamples](/docs/getweightsamples().md)
     * Write Methods
-      * [saveBmi](https://github.com/terrillo/rn-apple-healthkit/wiki/savebmi())
-      * [saveHeight](https://github.com/terrillo/rn-apple-healthkit/wiki/saveheight())
-      * [saveMindfulSession](https://github.com/terrillo/rn-apple-healthkit/wiki/saveMindfulSession())
-      * [saveWeight](https://github.com/terrillo/rn-apple-healthkit/wiki/saveweight())
-      * [saveSteps](https://github.com/terrillo/rn-apple-healthkit/wiki/saveSteps())
+      * [saveBmi](/docs/savebmi().md)
+      * [saveHeight](/docs/saveheight().md)
+      * [saveMindfulSession](/docs/saveMindfulSession().md)
+      * [saveWeight](/docs/saveweight().md)
+      * [saveSteps](/docs/saveSteps().md)
   * [References](#references)
 
 ## Supported Apple Permissions
@@ -127,7 +142,8 @@ The available Healthkit permissions to use with `initHealthKit`
 
 | Permission             | Healthkit Identifier Type                                                                                                                                          | Read | Write |
 |------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|-------|
-| ActiveEnergyBurned          | [HKCharacteristicTypeIdentifierActiveEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615771-activeenergyburned?language=objc)           | ✓    |       |
+| ActiveEnergyBurned     | [HKQuantityTypeIdentifierActiveEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615771-activeenergyburned?language=objc)           | ✓    |       |
+| BasalEnergyBurned      | [HKQuantityTypeIdentifierBasalEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615512-basalenergyburned?language=objc)           | ✓    |       |
 | BiologicalSex          | [HKCharacteristicTypeIdentifierBiologicalSex](https://developer.apple.com/reference/Healthkit/hkcharacteristictypeidentifierbiologicalsex?language=objc)           | ✓    |       |
 | BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                         | ✓    |       |
 | BloodPressureDiastolic | [HKQuantityTypeIdentifierBloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierbloodpressurediastolic?language=objc) | ✓    | ✓     |
