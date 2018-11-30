@@ -268,6 +268,26 @@ RCT_EXPORT_METHOD(saveMindfulSession:(NSDictionary *)input callback:(RCTResponse
     }
 }
 
+RCT_EXPORT_METHOD(authorizationStatusForType:(NSString *)type
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+{
+    self.healthStore = [[HKHealthStore alloc] init];
+
+    if ([HKHealthStore isHealthDataAvailable]) {
+        HKObjectType *objectType = [self getWritePermFromString:type];
+        if (objectType == nil) {
+            reject(@"unknown write permission", nil, nil);
+            return;
+        }
+
+        NSString *status = [self getAuthorizationStatusString:[self.healthStore authorizationStatusForType:objectType]];
+        resolve(status);
+    } else {
+        reject(@"HealthKit data is not available", nil, nil);
+    }
+})
+
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDictionary *info = @{
