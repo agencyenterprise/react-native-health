@@ -32,8 +32,7 @@
             callback(@[[NSNull null], results]);
             return;
         } else {
-            NSLog(@"error getting blood glucose samples: %@", error);
-            callback(@[RCTMakeError(@"error getting blood glucose samples", nil, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
     }];

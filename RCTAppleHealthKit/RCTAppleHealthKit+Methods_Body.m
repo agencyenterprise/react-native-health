@@ -27,8 +27,7 @@
                                     predicate:nil
                                    completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"error getting latest weight: %@", error);
-            callback(@[RCTMakeError(@"error getting latest weight", error, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
         }
         else {
             // Determine the weight in the required unit.
@@ -71,8 +70,7 @@
             callback(@[[NSNull null], results]);
             return;
         } else {
-            NSLog(@"error getting weight samples: %@", error);
-            callback(@[RCTMakeError(@"error getting weight samples", nil, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
     }];
@@ -91,8 +89,7 @@
 
     [self.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
-            NSLog(@"error saving the weight sample: %@", error);
-            callback(@[RCTMakeError(@"error saving the weight sample", error, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
         callback(@[[NSNull null], @(weight)]);
@@ -108,8 +105,7 @@
                                     predicate:nil
                                    completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"error getting latest BMI: %@", error);
-            callback(@[RCTMakeError(@"error getting latest BMI", error, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
         }
         else {
             // Determine the bmi in the required unit.
@@ -140,8 +136,7 @@
 
     [self.healthStore saveObject:bmiSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
-            NSLog(@"error saving BMI sample: %@.", error);
-            callback(@[RCTMakeError(@"error saving BMI sample", error, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
         callback(@[[NSNull null], @(bmi)]);
@@ -206,8 +201,7 @@
           callback(@[[NSNull null], results]);
           return;
         } else {
-          NSLog(@"error getting height samples: %@", error);
-          callback(@[RCTMakeError(@"error getting height samples", error, nil)]);
+          callback(@[RCTJSErrorFromNSError(error)]);
           return;
         }
     }];
@@ -230,8 +224,7 @@
 
     [self.healthStore saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
-            NSLog(@"error saving height sample: %@", error);
-            callback(@[RCTMakeError(@"error saving height sample", error, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
         callback(@[[NSNull null], @(height)]);
@@ -247,8 +240,7 @@
                                     predicate:nil
                                    completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"error getting latest body fat percentage: %@", error);
-            callback(@[RCTMakeError(@"error getting latest body fat percentage", error, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
         }
         else {
             // Determine the weight in the required unit.
@@ -277,8 +269,7 @@
                                     predicate:nil
                                    completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
         if (!mostRecentQuantity) {
-            NSLog(@"error getting latest lean body mass: %@", error);
-            callback(@[RCTMakeError(@"error getting latest lean body mass", error, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
         }
         else {
             HKUnit *weightUnit = [HKUnit poundUnit];

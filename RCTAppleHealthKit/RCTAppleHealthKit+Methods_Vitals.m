@@ -33,8 +33,7 @@
             callback(@[[NSNull null], results]);
             return;
         } else {
-            NSLog(@"error getting heart rate samples: %@", error);
-            callback(@[RCTMakeError(@"error getting heart rate samples", nil, nil)]);
+            callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
     }];
