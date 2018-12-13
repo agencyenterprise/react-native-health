@@ -270,7 +270,9 @@ RCT_EXPORT_METHOD(authorizationStatusForType:(NSString *)type
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject
 {
-    self.healthStore = [[HKHealthStore alloc] init];
+    if (self.healthStore == nil) {
+        self.healthStore = [[HKHealthStore alloc] init];
+    }
 
     if ([HKHealthStore isHealthDataAvailable]) {
         HKObjectType *objectType = [self getWritePermFromString:type];
