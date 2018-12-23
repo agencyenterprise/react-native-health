@@ -3,7 +3,8 @@
 //  RCTAppleHealthKit
 //
 //  Created by Greg Wilson on 2016-06-26.
-//  Copyright © 2016 Greg Wilson. All rights reserved.
+//  This source code is licensed under the MIT-style license found in the
+//  LICENSE file in the root directory of this source tree.
 //
 
 #import "RCTAppleHealthKit+Methods_Fitness.h"
@@ -59,21 +60,11 @@
     
     NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
     
-    HKSampleType *samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    if ([type isEqual:@"Walking"]) {
-        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    } else if ([type isEqual:@"StairClimbing"]) {
-        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
-    } else if ([type isEqual:@"Running"]){
-        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+    HKSampleType *samplesType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
+    if ([type isEqual:@"Running"] || [type isEqual:@"Cycling"]) {
         unit = [HKUnit mileUnit];
-    } else if ([type isEqual:@"Cycling"]){
-        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
-        unit = [HKUnit mileUnit];
-    } else if ([type isEqual:@"Workout"]){
-        samplesType = [HKObjectType workoutType];
     }
-    
+    NSLog(@"error getting samples: %@", [samplesType identifier]);
     [self fetchSamplesOfType:samplesType
                                 unit:unit
                            predicate:predicate
@@ -84,8 +75,8 @@
                                   callback(@[[NSNull null], results]);
                                   return;
                               } else {
-                                  NSLog(@"error getting active energy burned samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting active energy burned samples", nil, nil)]);
+                                  NSLog(@"error getting samples: %@", error);
+                                  callback(@[RCTMakeError(@"error getting samples", nil, nil)]);
                                   return;
                               }
                           }];
@@ -96,19 +87,9 @@
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
     NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
     
-    HKSampleType *samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    if ([type isEqual:@"Walking"]) {
-        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    } else if ([type isEqual:@"StairClimbing"]) {
-        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
-    } else if ([type isEqual:@"Running"]){
-        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+    HKSampleType *samplesType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
+    if ([type isEqual:@"Running"] || [type isEqual:@"Cycling"]) {
         unit = [HKUnit mileUnit];
-    } else if ([type isEqual:@"Cycling"]){
-        samplesType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
-        unit = [HKUnit mileUnit];
-    } else if ([type isEqual:@"Workout"]){
-        samplesType = [HKObjectType workoutType];
     }
     
     [self setObserverForType:samplesType unit:unit];

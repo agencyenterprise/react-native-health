@@ -3,8 +3,8 @@
 //  RCTAppleHealthKit
 //
 //  Created by Alexander Vallorosi on 4/27/17.
-//  Copyright © 2017 Alexander Vallorosi. All rights reserved.
-//
+//  This source code is licensed under the MIT-style license found in the
+//  LICENSE file in the root directory of this source tree.
 
 #import "RCTAppleHealthKit+Methods_Activity.h"
 #import "RCTAppleHealthKit+Queries.h"

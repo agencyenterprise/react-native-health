@@ -3,7 +3,8 @@
 //  RCTAppleHealthKit
 //
 //  Created by Greg Wilson on 2016-06-26.
-//  Copyright © 2016 Greg Wilson. All rights reserved.
+//  This source code is licensed under the MIT-style license found in the
+//  LICENSE file in the root directory of this source tree.
 //
 
 #import "RCTAppleHealthKit+Utils.h"
@@ -121,6 +122,20 @@
         date = [NSDate date];
     }
     return date;
+}
+
++ (HKSampleType *)hkQuantityTypeFromString:(NSString *)type {
+    if ([type isEqual:@"Walking"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    } else if ([type isEqual:@"StairClimbing"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
+    } else if ([type isEqual:@"Running"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+    } else if ([type isEqual:@"Cycling"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
+    }
+    // default [type isEqual:@"Workout"])
+    return [HKObjectType workoutType];
 }
 
 
