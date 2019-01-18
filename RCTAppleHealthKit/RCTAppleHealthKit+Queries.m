@@ -293,9 +293,12 @@
                                  unit:(HKUnit *)unit
                                   day:(NSDate *)day
                            completion:(void (^)(double, NSDate *, NSDate *, NSError *))completionHandler {
-
-    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesOnDay:day];
-    HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType
+   NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
+   //NSPredicate *predicate =
+   NSPredicate *predicate2 = [RCTAppleHealthKit predicateForSamplesOnDay:day];
+   NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates: @[predicate1, predicate2]];
+   HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType
+                                                        //  predicate:p
                                                           quantitySamplePredicate:predicate
                                                           options:HKStatisticsOptionCumulativeSum
                                                           completionHandler:^(HKStatisticsQuery *query, HKStatistics *result, NSError *error) {
@@ -303,6 +306,19 @@
                                                               NSDate *startDate = result.startDate;
                                                               NSDate *endDate = result.endDate;
                                                               if (completionHandler) {
+
+                                                                  printf("HELOOOOOOOOOOOOOO");
+                                                                  NSLog(@"%@",result.sources);
+                                                                 for (HKSource *source in result.sources)
+                                                             {
+                                                                 printf("%s", source.bundleIdentifier);
+                                                                //  if (![source.bundleIdentifier isEqualToString:@"com.apple.Health"])
+                                                                //  {
+                                                                //      [dataSources addObject:source];
+                                                                //  }
+                                                             }
+                                                                  printf("HELOOOOOOOOOOOOOO");
+                                                                  
                                                                      double value = [sum doubleValueForUnit:unit];
                                                                      completionHandler(value,startDate, endDate, error);
                                                               }
