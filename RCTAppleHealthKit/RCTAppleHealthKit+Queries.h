@@ -33,8 +33,7 @@
                            completion:(void (^)(NSArray *, NSError *))completion;
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
                                           unit:(HKUnit *)unit
-                                          period:(NSUInteger)period
-                                     startDate:(NSDate *)startDate
+                                          startDate:(NSDate *)startDate
                                        endDate:(NSDate *)endDate
                                      ascending:(BOOL)asc
                                          limit:(NSUInteger)lim

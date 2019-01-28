@@ -467,7 +467,7 @@ NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES",
     interval.minute = period;
 
     NSDateComponents *anchorComponents = [calendar components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
-                                                     fromDate:[NSDate date]];
+                                                     fromDate:startDate];
     //anchorComponents.hour = 0;
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
