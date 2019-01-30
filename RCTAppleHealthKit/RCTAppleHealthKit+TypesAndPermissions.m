@@ -3,7 +3,8 @@
 //  RCTAppleHealthKit
 //
 //  Created by Greg Wilson on 2016-06-26.
-//  Copyright © 2016 Greg Wilson. All rights reserved.
+//  This source code is licensed under the MIT-style license found in the
+//  LICENSE file in the root directory of this source tree.
 //
 
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
@@ -49,6 +50,8 @@
         @"SleepAnalysis" : [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis],
         // Mindfulness
         @"MindfulSession" : [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession],
+        //workouts
+        @"Workout" : [HKObjectType workoutType],
     };
     return readPerms;
 }
@@ -117,7 +120,6 @@
     };
     return writePerms;
 }
-
 
 // Returns HealthKit read permissions from options array
 - (NSSet *)getReadPermsFromOptions:(NSArray *)options {

@@ -10,8 +10,10 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
-@implementation RCTAppleHealthKit (Queries)
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventDispatcher.h>
 
+@implementation RCTAppleHealthKit (Queries)
 
 - (void)fetchMostRecentQuantitySampleOfType:(HKQuantityType *)quantityType
                                   predicate:(NSPredicate *)predicate
@@ -48,7 +50,6 @@
     ];
     [self.healthStore executeQuery:query];
 }
-
 
 - (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
                               unit:(HKUnit *)unit
@@ -106,18 +107,151 @@
     [self.healthStore executeQuery:query];
 }
 
+- (void)fetchSamplesOfType:(HKSampleType *)type
+                              unit:(HKUnit *)unit
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+                        completion:(void (^)(NSArray *, NSError *))completion {
+    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
+                                                                       ascending:asc];
+    
+    // declare the block
+    void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+    // create and assign the block
+    handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if (!results) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+        
+        if (completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (type == [HKObjectType workoutType]) {
+                    for (HKWorkout *sample in results) {
+                        double energy =  [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                        double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
+                        NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
+                        
+                        NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                        NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                        
+                        bool isTracked = true;
+                        if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
+                            isTracked = false;
+                        }
+                        
+                        NSString* device = @"";
+                        if (@available(iOS 11.0, *)) {
+                            device = [[sample sourceRevision] productType];
+                        } else {
+                            device = [[sample device] name];
+                            if (!device) {
+                                device = @"iPhone";
+                            }
+                        }
+                        
+                        NSDictionary *elem = @{
+                                               @"activityName" : [NSNumber numberWithInt:[sample workoutActivityType]],
+                                               @"calories" : @(energy),
+                                               @"tracked" : @(isTracked),
+                                               @"sourceName" : [[[sample sourceRevision] source] name],
+                                               @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                               @"device": device,
+                                               @"distance" : @(distance),
+                                               @"start" : startDateString,
+                                               @"end" : endDateString
+                                               };
+                        
+                        [data addObject:elem];
+                    }
+                } else {
+                    for (HKQuantitySample *sample in results) {
+                        HKQuantity *quantity = sample.quantity;
+                        double value = [quantity doubleValueForUnit:unit];
+                        
+                        NSString * valueType = @"quantity";
+                        if (unit == [HKUnit mileUnit]) {
+                            valueType = @"distance";
+                        }
+                        
+                        NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                        NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                        
+                        bool isTracked = true;
+                        if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
+                            isTracked = false;
+                        }
+                        
+                        NSString* device = @"";
+                        if (@available(iOS 11.0, *)) {
+                            device = [[sample sourceRevision] productType];
+                        } else {
+                            device = [[sample device] name];
+                            if (!device) {
+                                device = @"iPhone";
+                            }
+                        }
+                        
+                        NSDictionary *elem = @{
+                                               valueType : @(value),
+                                               @"tracked" : @(isTracked),
+                                               @"sourceName" : [[[sample sourceRevision] source] name],
+                                               @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                               @"device": device,
+                                               @"start" : startDateString,
+                                               @"end" : endDateString
+                                               };
+                        
+                        [data addObject:elem];
+                    }
+                }
+                
+                completion(data, error);
+            });
+        }
+    };
+    
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:type
+                                                           predicate:predicate
+                                                               limit:lim
+                                                     sortDescriptors:@[timeSortDescriptor]
+                                                      resultsHandler:handlerBlock];
+    
+    [self.healthStore executeQuery:query];
+}
 
-
-
-
-
-
-
+- (void)setObserverForType:(HKSampleType *)type
+                      unit:(HKUnit *)unit {
+    HKObserverQuery *query = [[HKObserverQuery alloc] initWithSampleType:type predicate:nil updateHandler:^(HKObserverQuery *query, HKObserverQueryCompletionHandler completionHandler, NSError * _Nullable error){
+        if (error) {
+            NSLog(@"*** An error occured while setting up the stepCount observer. %@ ***", error.localizedDescription);
+            return;
+        }
+        [self.bridge.eventDispatcher sendAppEventWithName:@"observer" body:@""];
+        
+        // Theoretically, HealthKit expect that copletionHandler would be called at the end of query process,
+        // but it's unclear how to do in in event paradigm
+        
+//        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 5);
+//        dispatch_after(delay, dispatch_get_main_queue(), ^(void){
+//            completionHandler();
+//        });
+    }];
+    
+    [self.healthStore executeQuery:query];
+    [self.healthStore enableBackgroundDeliveryForType:type frequency:HKUpdateFrequencyImmediate withCompletion:^(BOOL success, NSError * _Nullable error) {
+        NSLog(@"success %s print some error %@", success ? "true" : "false", [error localizedDescription]);
+    }];
+}
 
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
                                    limit:(NSUInteger)lim
                                    completion:(void (^)(NSArray *, NSError *))completion {
-
 
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                                        ascending:false];
@@ -293,12 +427,9 @@
                                  unit:(HKUnit *)unit
                                   day:(NSDate *)day
                            completion:(void (^)(double, NSDate *, NSDate *, NSError *))completionHandler {
-   NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
-   //NSPredicate *predicate =
-   NSPredicate *predicate2 = [RCTAppleHealthKit predicateForSamplesOnDay:day];
-   NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates: @[predicate1, predicate2]];
-   HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType
-                                                        //  predicate:p
+
+    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesOnDay:day];
+    HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType
                                                           quantitySamplePredicate:predicate
                                                           options:HKStatisticsOptionCumulativeSum
                                                           completionHandler:^(HKStatisticsQuery *query, HKStatistics *result, NSError *error) {
@@ -306,19 +437,6 @@
                                                               NSDate *startDate = result.startDate;
                                                               NSDate *endDate = result.endDate;
                                                               if (completionHandler) {
-
-                                                                  printf("HELOOOOOOOOOOOOOO");
-                                                                  NSLog(@"%@",result.sources);
-                                                                 for (HKSource *source in result.sources)
-                                                             {
-                                                                 printf("%s", source.bundleIdentifier);
-                                                                //  if (![source.bundleIdentifier isEqualToString:@"com.apple.Health"])
-                                                                //  {
-                                                                //      [dataSources addObject:source];
-                                                                //  }
-                                                             }
-                                                                  printf("HELOOOOOOOOOOOOOO");
-                                                                  
                                                                      double value = [sum doubleValueForUnit:unit];
                                                                      completionHandler(value,startDate, endDate, error);
                                                               }
@@ -336,16 +454,16 @@
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *interval = [[NSDateComponents alloc] init];
-    interval.hour = 1;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
-    NSDateComponents *anchorComponents = [calendar components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
+    interval.day = 1;
+
+    NSDateComponents *anchorComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                      fromDate:[NSDate date]];
-    //anchorComponents.hour = 0;
+    anchorComponents.hour = 0;
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
 
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
-                                                                           quantitySamplePredicate:predicate
+                                                                           quantitySamplePredicate:nil
                                                                                            options:HKStatisticsOptionCumulativeSum
                                                                                         anchorDate:anchorDate
                                                                                 intervalComponents:interval];
@@ -391,16 +509,16 @@
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *interval = [[NSDateComponents alloc] init];
-    interval.hour = 1;
+    interval.day = 1;
 
-    NSDateComponents *anchorComponents = [calendar components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
+    NSDateComponents *anchorComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                                      fromDate:[NSDate date]];
-    //anchorComponents.hour = 0;
+    anchorComponents.hour = 0;
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
-NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
+
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
-                                                                           quantitySamplePredicate:predicate
+                                                                           quantitySamplePredicate:nil
                                                                                            options:HKStatisticsOptionCumulativeSum
                                                                                         anchorDate:anchorDate
                                                                                 intervalComponents:interval];
