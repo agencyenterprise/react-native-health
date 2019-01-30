@@ -133,8 +133,6 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
     } else if ([type isEqual:@"Cycling"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
-    } else if ([type isEqual:@"Swimming"]){
-        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceSwimming];
     }
     // default [type isEqual:@"Workout"])
     return [HKObjectType workoutType];
