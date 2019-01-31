@@ -145,6 +145,11 @@ RCT_EXPORT_METHOD(getDailyDistanceWalkingRunningSamples:(NSDictionary *)input ca
     [self fitness_getDailyDistanceWalkingRunningSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getDailyDistanceSwimmingSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self fitness_getDailyDistanceSwimmingSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getDistanceCycling:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self fitness_getDistanceCyclingOnDay:input callback:callback];

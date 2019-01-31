@@ -460,10 +460,10 @@
                                                      fromDate:[NSDate date]];
     anchorComponents.hour = 0;
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
-
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
-                                                                           quantitySamplePredicate:nil
+                                                                           quantitySamplePredicate:predicate
                                                                                            options:HKStatisticsOptionCumulativeSum
                                                                                         anchorDate:anchorDate
                                                                                 intervalComponents:interval];
@@ -515,10 +515,10 @@
                                                      fromDate:[NSDate date]];
     anchorComponents.hour = 0;
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
-
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
-                                                                           quantitySamplePredicate:nil
+                                                                           quantitySamplePredicate:predicate
                                                                                            options:HKStatisticsOptionCumulativeSum
                                                                                         anchorDate:anchorDate
                                                                                 intervalComponents:interval];
