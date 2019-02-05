@@ -100,8 +100,10 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
     * Base Methods
       * [isAvailable](/docs/isAvailable().md)
       * [initHealthKit](/docs/initHealthKit().md)
+      * checkSharePermission
     * Realtime Methods
       * [initStepCountObserver](/docs/initStepCountObserver().md)
+      * [setObserverForType](/docs/setObserverForType().md)
     * Read Methods
       * [getActiveEnergyBurned](/docs/getActiveEnergyBurned().md)
       * [getBasalEnergyBurned](/docs/getBasalEnergyBurned().md)
@@ -128,6 +130,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [getSleepSamples](/docs/getsleepsamples().md)
       * [getStepCount](/docs/getStepCount().md)
       * [getWeightSamples](/docs/getweightsamples().md)
+      * [getSamples](docs/getSamples().md)
     * Write Methods
       * [saveBmi](/docs/savebmi().md)
       * [saveHeight](/docs/saveheight().md)
