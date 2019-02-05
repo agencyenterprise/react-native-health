@@ -103,7 +103,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * checkSharePermission
     * Realtime Methods
       * [initStepCountObserver](/docs/initStepCountObserver().md)
-      * [setObserverForType](/docs/setObserverForType().md)
+      * [setObserver](/docs/setObserver().md)
     * Read Methods
       * [getActiveEnergyBurned](/docs/getActiveEnergyBurned().md)
       * [getBasalEnergyBurned](/docs/getBasalEnergyBurned().md)
