@@ -49,6 +49,52 @@
     }];
 }
 
+- (void)fitness_getSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    
+    NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
+    
+    HKSampleType *samplesType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
+    if ([type isEqual:@"Running"] || [type isEqual:@"Cycling"]) {
+        unit = [HKUnit mileUnit];
+    }
+    NSLog(@"error getting samples: %@", [samplesType identifier]);
+    [self fetchSamplesOfType:samplesType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+                              if(results){
+                                  callback(@[[NSNull null], results]);
+                                  return;
+                              } else {
+                                  NSLog(@"error getting samples: %@", error);
+                                  callback(@[RCTMakeError(@"error getting samples", nil, nil)]);
+                                  return;
+                              }
+                          }];
+}
+
+- (void)fitness_setObserver:(NSDictionary *)input
+{
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
+    NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
+    
+    HKSampleType *samplesType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
+    if ([type isEqual:@"Running"] || [type isEqual:@"Cycling"]) {
+        unit = [HKUnit mileUnit];
+    }
+    
+    [self setObserverForType:samplesType unit:unit];
+}
+
 
 - (void)fitness_getDailyStepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {

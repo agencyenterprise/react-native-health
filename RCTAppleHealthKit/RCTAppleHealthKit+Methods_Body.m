@@ -18,11 +18,8 @@
 {
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
 
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
-    if(unit == nil){
-        unit = [HKUnit poundUnit];
-    }
-
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit poundUnit]];
+    
     [self fetchMostRecentQuantitySampleOfType:weightType
                                     predicate:nil
                                    completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
@@ -33,7 +30,6 @@
         else {
             // Determine the weight in the required unit.
             double usersWeight = [mostRecentQuantity doubleValueForUnit:unit];
-
             NSDictionary *response = @{
                     @"value" : @(usersWeight),
                     @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
@@ -152,11 +148,7 @@
 - (void)body_getLatestHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input];
-    if(unit == nil){
-        unit = [HKUnit inchUnit];
-    }
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];;
 
     [self fetchMostRecentQuantitySampleOfType:heightType
                                     predicate:nil
@@ -218,11 +210,7 @@
 {
     double height = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
-
-    HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input];
-    if(heightUnit == nil){
-        heightUnit = [HKUnit inchUnit];
-    }
+    HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];
 
     HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:heightUnit doubleValue:height];
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
