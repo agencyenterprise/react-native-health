@@ -95,7 +95,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
 ## Wiki
   * [Installation](/docs/Install)
   * [Documentation](#documentation)
-    * [Permissions](#permissions)
+    * [Permissions](#supported-apple-permissions)
     * [Units](#units)
     * Base Methods
       * [isAvailable](/docs/isAvailable().md)
