@@ -23,7 +23,8 @@ Resulting object has different fields for different types.
 In case of workout:
 ```
 {
-  activityNameId: Number, // [NSNumber numberWithInt:[sample workoutActivityType]]
+  activityId: Number, // [NSNumber numberWithInt:[sample workoutActivityType]]
+  activityName: Number, // [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]]
   calories: Number, // [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]]
   tracked: Boolean, // [[sample metadata][HKMetadataKeyWasUserEntered] intValue] !== 1
   sourceName: String, // [[[sample sourceRevision] source] name]
@@ -37,7 +38,6 @@ In case of workout:
 for other types:
 ```
 {
-  activityNameId: Number, // [NSNumber numberWithInt:[sample workoutActivityType]]
   tracked: Boolean, // [[sample metadata][HKMetadataKeyWasUserEntered] intValue] !== 1
   sourceName: String, // [[[sample sourceRevision] source] name]
   sourceId: String, // [[[sample sourceRevision] source] bundleIdentifier]

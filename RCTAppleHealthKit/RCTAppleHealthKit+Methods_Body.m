@@ -18,11 +18,8 @@
 {
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
 
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo]];
-    if(unit == nil){
-        unit = [HKUnit gramUnit];
-    }
-
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit poundUnit]];
+    
     [self fetchMostRecentQuantitySampleOfType:weightType
                                     predicate:nil
                                    completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
@@ -151,11 +148,7 @@
 - (void)body_getLatestHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit meterUnitWithMetricPrefix:HKMetricPrefixCenti]];;
-    if(unit == nil){
-        unit = [HKUnit meterUnit];
-    }
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];;
 
     [self fetchMostRecentQuantitySampleOfType:heightType
                                     predicate:nil
@@ -217,11 +210,7 @@
 {
     double height = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
-
-    HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];;
-    if(heightUnit == nil){
-        heightUnit = [HKUnit inchUnit];
-    }
+    HKUnit *heightUnit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];
 
     HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:heightUnit doubleValue:height];
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
