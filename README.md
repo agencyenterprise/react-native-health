@@ -100,7 +100,6 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
     * Base Methods
       * [isAvailable](/docs/isAvailable().md)
       * [initHealthKit](/docs/initHealthKit().md)
-      * checkSharePermission
     * Realtime Methods
       * [initStepCountObserver](/docs/initStepCountObserver().md)
       * [setObserver](/docs/setObserver().md)
