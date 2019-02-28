@@ -4,7 +4,7 @@ Status will be one of `"NotDetermined"`, `"SharingDenied"`, `"SharingAuthorized"
 
 ```javascript
 AppleHealthKit.authorizationStatusForType(
-  "initHealthKit", (error, status) => {
+  "StepCount", (error, status) => {
     if (status) {
       console.log("status is", status)
     }
