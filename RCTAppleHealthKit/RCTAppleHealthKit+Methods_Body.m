@@ -259,7 +259,6 @@
 
 - (void)body_saveBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    
     double percentage = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
     HKUnit *unit = [HKUnit percentUnit];
@@ -304,6 +303,27 @@
 
             callback(@[[NSNull null], response]);
         }
+    }];
+}
+
+
+- (void)body_saveLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    double mass = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit poundUnit]];
+    
+    HKQuantity *massQuantity = [HKQuantity quantityWithUnit:unit doubleValue:mass];
+    HKQuantityType *massType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
+    HKQuantitySample *massSample = [HKQuantitySample quantitySampleWithType:massType quantity:massQuantity startDate:sampleDate endDate:sampleDate];
+    
+    [self.healthStore saveObject:massSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"error saving lean body mass sample: %@", error);
+            callback(@[RCTMakeError(@"error saving lean body mass sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(mass)]);
     }];
 }
 
