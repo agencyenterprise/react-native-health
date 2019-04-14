@@ -142,6 +142,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [saveMindfulSession](/docs/saveMindfulSession().md)
       * [saveWeight](/docs/saveWeight().md)
       * [saveSteps](/docs/saveSteps().md)
+      * [saveBodyFatPercentage](/docs/saveBodyFatPercentage().md)
   * [References](#references)
 
 ## Supported Apple Permissions
@@ -171,6 +172,7 @@ The available Healthkit permissions to use with `initHealthKit`
 | StepCount              | [HKQuantityTypeIdentifierStepCount](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierstepcount?language=objc)                               | ✓    | ✓     |
 | Steps                  | [HKQuantityTypeIdentifierSteps](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifiersteps?language=objc)                                       | ✓    | ✓     |
 | Weight                 | [HKQuantityTypeIdentifierBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodymass?language=objc)                                 | ✓    | ✓     |
+| BodyFatPercentage      | [HKQuantityTypeIdentifierBodyFatPercentage](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodyfatpercentage?language=objc)                                 | ✓    | ✓     |
 
 These permissions are exported as constants of the `rn-apple-healthkit` module.
 

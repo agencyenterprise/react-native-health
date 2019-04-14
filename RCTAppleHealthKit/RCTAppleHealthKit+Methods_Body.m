@@ -257,6 +257,30 @@
 }
 
 
+- (void)body_saveBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    
+    double percentage = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+    HKUnit *unit = [HKUnit percentUnit];
+    
+    percentage = percentage / 100;
+
+    HKQuantity *bodyFatPercentQuantity = [HKQuantity quantityWithUnit:unit doubleValue:percentage];
+    HKQuantityType *bodyFatPercentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];
+    HKQuantitySample *bodyFatPercentSample = [HKQuantitySample quantitySampleWithType:bodyFatPercentType quantity:bodyFatPercentQuantity startDate:sampleDate endDate:sampleDate];
+    
+    [self.healthStore saveObject:bodyFatPercentSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"error saving body fat percent sample: %@", error);
+            callback(@[RCTMakeError(@"error saving body fat percent sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(percentage)]);
+    }];
+}
+
+
 - (void)body_getLatestLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *leanBodyMassType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
