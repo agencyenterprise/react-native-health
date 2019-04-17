@@ -143,6 +143,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [saveWeight](/docs/saveWeight().md)
       * [saveSteps](/docs/saveSteps().md)
       * [saveBodyFatPercentage](/docs/saveBodyFatPercentage().md)
+      * [saveLeanBodyMass](/docs/saveLeanBodyMass().md)
   * [References](#references)
 
 ## Supported Apple Permissions

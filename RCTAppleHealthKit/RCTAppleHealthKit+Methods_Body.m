@@ -257,6 +257,39 @@
 }
 
 
+- (void)body_getBodyFatPercentageSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *bodyFatPercentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];
+    
+    HKUnit *unit = [HKUnit percentUnit];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+    
+    [self fetchQuantitySamplesOfType:bodyFatPercentType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+                              if(results){
+                                  callback(@[[NSNull null], results]);
+                                  return;
+                              } else {
+                                  NSLog(@"error getting body fat percentage samples: %@", error);
+                                  callback(@[RCTMakeError(@"error getting body fat percentage samples", nil, nil)]);
+                                  return;
+                              }
+                          }];
+}
+
+
 - (void)body_saveBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     double percentage = [RCTAppleHealthKit doubleValueFromOptions:input];
@@ -304,6 +337,39 @@
             callback(@[[NSNull null], response]);
         }
     }];
+}
+
+
+- (void)body_getLeanBodyMassSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *leanBodyMassType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
+    
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit poundUnit]];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+    
+    [self fetchQuantitySamplesOfType:leanBodyMassType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+                              if(results){
+                                  callback(@[[NSNull null], results]);
+                                  return;
+                              } else {
+                                  NSLog(@"error getting lean body mass samples: %@", error);
+                                  callback(@[RCTMakeError(@"error getting lean body mass samples", nil, nil)]);
+                                  return;
+                              }
+                          }];
 }
 
 
