@@ -156,7 +156,8 @@
                         }
                         
                         NSDictionary *elem = @{
-                                               @"activityName" : [NSNumber numberWithInt:[sample workoutActivityType]],
+                                               @"activityId" : [NSNumber numberWithInt:[sample workoutActivityType]],
+                                               @"activityName" : type,
                                                @"calories" : @(energy),
                                                @"tracked" : @(isTracked),
                                                @"sourceName" : [[[sample sourceRevision] source] name],
