@@ -578,6 +578,7 @@
                                        endDate:(NSDate *)endDate
                                      ascending:(BOOL)asc
                                          limit:(NSUInteger)lim
+                                         includeManuallyAdded:(BOOL)includeManuallyAdded
                                     completion:(void (^)(NSArray *, NSError *))completionHandler {
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -588,7 +589,10 @@
                                                      fromDate:startDate];
     //anchorComponents.hour = 0;
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
-NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
+    NSPredicate *predicate = nil;
+    if (includeManuallyAdded == false) {
+        predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
+    }
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
                                                                            quantitySamplePredicate:predicate

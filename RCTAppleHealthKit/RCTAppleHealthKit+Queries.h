@@ -57,6 +57,7 @@
                                        endDate:(NSDate *)endDate
                                      ascending:(BOOL)asc
                                          limit:(NSUInteger)lim
+                                         includeManuallyAdded:(BOOL)includeManuallyAdded
                                     completion:(void (^)(NSArray *, NSError *))completionHandler;
 
 
