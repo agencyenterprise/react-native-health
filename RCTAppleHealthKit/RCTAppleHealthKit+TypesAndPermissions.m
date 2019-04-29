@@ -152,4 +152,18 @@
     return writePermSet;
 }
 
+- (HKObjectType *)getWritePermFromString:(NSString *)writePerm {
+    return [[self writePermsDict] objectForKey:writePerm];
+}
+- (NSString *)getAuthorizationStatusString:(HKAuthorizationStatus)status {
+    switch (status) {
+        case HKAuthorizationStatusNotDetermined:
+            return @"NotDetermined";
+        case HKAuthorizationStatusSharingDenied:
+            return @"SharingDenied";
+        case HKAuthorizationStatusSharingAuthorized:
+            return @"SharingAuthorized";
+    }
+}
+
 @end

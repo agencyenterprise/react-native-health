@@ -106,6 +106,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
     * Base Methods
       * [isAvailable](/docs/isAvailable().md)
       * [initHealthKit](/docs/initHealthKit().md)
+      * [authorizationStatusForType](/docs/authorizationStatusForType().md)
     * Realtime Methods
       * [initStepCountObserver](/docs/initStepCountObserver().md)
       * [setObserver](/docs/setObserver().md)

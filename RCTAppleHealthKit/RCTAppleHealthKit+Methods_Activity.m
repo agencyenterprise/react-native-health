@@ -35,8 +35,7 @@
                                   callback(@[[NSNull null], results]);
                                   return;
                               } else {
-                                  NSLog(@"error getting active energy burned samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting active energy burned samples", nil, nil)]);
+                                  callback(@[RCTJSErrorFromNSError(error)]);
                                   return;
                               }
                           }];
@@ -65,8 +64,7 @@
                                   callback(@[[NSNull null], results]);
                                   return;
                               } else {
-                                  NSLog(@"error getting basal energy burned samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting basal energy burned samples", nil, nil)]);
+                                  callback(@[RCTJSErrorFromNSError(error)]);
                                   return;
                               }
                           }];

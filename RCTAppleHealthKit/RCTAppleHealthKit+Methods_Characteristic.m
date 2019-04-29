@@ -34,8 +34,7 @@
     }
 
     if(value == nil){
-        NSLog(@"error getting biological sex: %@", error);
-        callback(@[RCTMakeError(@"error getting biological sex", error, nil)]);
+        callback(@[RCTJSErrorFromNSError(error)]);
         return;
     }
 
@@ -52,8 +51,7 @@
     NSDate *dob = [self.healthStore dateOfBirthWithError:&error];
 
     if(error != nil){
-        NSLog(@"error getting date of birth: %@", error);
-        callback(@[RCTMakeError(@"error getting date of birth", error, nil)]);
+        callback(@[RCTJSErrorFromNSError(error)]);
         return;
     }
     if(dob == nil) {
