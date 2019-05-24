@@ -99,9 +99,29 @@ RCT_EXPORT_METHOD(getLatestBodyFatPercentage:(NSDictionary *)input callback:(RCT
     [self body_getLatestBodyFatPercentage:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getBodyFatPercentageSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getBodyFatPercentageSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_saveBodyFatPercentage:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getLatestLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self body_getLatestLeanBodyMass:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getLeanBodyMassSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getLeanBodyMassSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_saveLeanBodyMass:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getStepCount:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -271,9 +291,7 @@ RCT_EXPORT_METHOD(saveMindfulSession:(NSDictionary *)input callback:(RCTResponse
 
         [self.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
             if (!success) {
-                NSString *errMsg = [NSString stringWithFormat:@"Error with HealthKit authorization: %@", error];
-                NSLog(errMsg);
-                callback(@[RCTMakeError(errMsg, nil, nil)]);
+                callback(@[RCTJSErrorFromNSError(error)]);
                 return;
             } else {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -285,6 +303,28 @@ RCT_EXPORT_METHOD(saveMindfulSession:(NSDictionary *)input callback:(RCTResponse
         callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
     }
 }
+
+RCT_EXPORT_METHOD(authorizationStatusForType:(NSString *)type
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject
+{
+    if (self.healthStore == nil) {
+        self.healthStore = [[HKHealthStore alloc] init];
+    }
+
+    if ([HKHealthStore isHealthDataAvailable]) {
+        HKObjectType *objectType = [self getWritePermFromString:type];
+        if (objectType == nil) {
+            reject(@"unknown write permission", nil, nil);
+            return;
+        }
+
+        NSString *status = [self getAuthorizationStatusString:[self.healthStore authorizationStatusForType:objectType]];
+        resolve(status);
+    } else {
+        reject(@"HealthKit data is not available", nil, nil);
+    }
+})
 
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
