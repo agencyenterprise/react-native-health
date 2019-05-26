@@ -55,6 +55,7 @@ export const Permissions = {
   Zinc: "Zinc",
   Water: "Water",
   DistanceCycling: "DistanceCycling",
+  DistanceSwimming: "DistanceSwimming",
   DistanceWalkingRunning: "DistanceWalkingRunning",
   FlightsClimbed: "FlightsClimbed",
   HeartRate: "HeartRate",
