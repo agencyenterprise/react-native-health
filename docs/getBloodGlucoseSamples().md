@@ -10,7 +10,7 @@ let options = {
 ```
 Available units are: `'mmolPerL'`, `'mgPerdL'`.
 
-The callback function will be called with a `samples` array containing objects with *value*, *startDate*, and *endDate* fields
+The callback function will be called with a `samples` array containing objects with *value*, *sourceId*, *sourceName*, *startDate*, and *endDate* fields
 
 ```javascript
 AppleHealthKit.getBloodGlucoseSamples(options, (err: Object, results: Array<Object>) => {
