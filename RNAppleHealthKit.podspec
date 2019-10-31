@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint react-native-freestyle-libre.podspec' to ensure this is a
+# Be sure to run `pod lib lint RNAppleHealthKit.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -32,10 +32,6 @@ A React Native package for interacting with Apple HealthKit
   s.swift_version = '4.2'
 
   s.source_files = 'RCTAppleHealthKit/**/*'
-
-  # s.resource_bundles = {
-  #   'react-native-freestyle-libre' => ['react-native-freestyle-libre/Assets/*.png']
-  # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = ['HealthKit']
