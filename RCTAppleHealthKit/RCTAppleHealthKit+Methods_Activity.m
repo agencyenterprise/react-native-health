@@ -23,22 +23,23 @@
         callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
         return;
     }
-    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
-    [self fetchQuantitySamplesOfType:activeEnergyType
-                                unit:cal
-                           predicate:predicate
-                           ascending:false
-                               limit:HKObjectQueryNoLimit
-                          completion:^(NSArray *results, NSError *error) {
-                              if(results){
-                                  callback(@[[NSNull null], results]);
-                                  return;
-                              } else {
-                                  callback(@[RCTJSErrorFromNSError(error)]);
-                                  return;
-                              }
-                          }];
+    [self fetchCumulativeSumStatisticsCollection:activeEnergyType
+                                            unit:cal
+                                       startDate:startDate
+                                         endDate:endDate
+                                       ascending:false
+                                           limit:HKObjectQueryNoLimit
+                                      completion:^(NSArray *results, NSError *error) {
+                                          if(results){
+                                              callback(@[[NSNull null], results]);
+                                              return;
+                                          } else {
+                                              NSLog(@"error getting active energy burned samples: %@", error);
+                                              callback(@[RCTMakeError(@"error getting active energy burned samples", nil, nil)]);
+                                              return;
+                                          }
+                                      }];
 }
 
 - (void)activity_getBasalEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -47,28 +48,59 @@
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
     HKUnit *cal = [HKUnit kilocalorieUnit];
-    
+
     if(startDate == nil){
         callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
         return;
     }
-    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
-    
-    [self fetchQuantitySamplesOfType:basalEnergyType
-                                unit:cal
-                           predicate:predicate
-                           ascending:false
-                               limit:HKObjectQueryNoLimit
-                          completion:^(NSArray *results, NSError *error) {
-                              if(results){
-                                  callback(@[[NSNull null], results]);
-                                  return;
-                              } else {
-                                  callback(@[RCTJSErrorFromNSError(error)]);
-                                  return;
-                              }
-                          }];
-    
+
+    [self fetchCumulativeSumStatisticsCollection:basalEnergyType
+                                                unit:cal
+                                        startDate:startDate
+                                            endDate:endDate
+                                        ascending:false
+                                            limit:HKObjectQueryNoLimit
+                                        completion:^(NSArray *results, NSError *error) {
+                                            if(results){
+                                                callback(@[[NSNull null], results]);
+                                                return;
+                                            } else {
+                                                NSLog(@"error getting basal energy burned samples: %@", error);
+                                                callback(@[RCTMakeError(@"error getting basal energy burned samples", nil, nil)]);
+                                                return;
+                                            }
+                                        }];
+}
+
+
+- (void)activity_getAppleExerciseTime:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *exerciseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleExerciseTime];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    HKUnit *unit = [HKUnit secondUnit];
+
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+
+    [self fetchCumulativeSumStatisticsCollection:exerciseType
+                                            unit:unit
+                                       startDate:startDate
+                                         endDate:endDate
+                                       ascending:false
+                                           limit:HKObjectQueryNoLimit
+                                      completion:^(NSArray *results, NSError *error) {
+                                          if(results){
+                                              callback(@[[NSNull null], results]);
+                                              return;
+                                          } else {
+                                              NSLog(@"error getting exercise time: %@", error);
+                                              callback(@[RCTMakeError(@"error  getting exercise time", nil, nil)]);
+                                              return;
+                                          }
+                                      }];
 }
 
 @end
