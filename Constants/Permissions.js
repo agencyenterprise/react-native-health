@@ -68,5 +68,4 @@ export default {
   Steps: 'Steps',
   Weight: 'Weight',
   Workout: 'Workout',
-  Cholesterol: 'Cholesterol',
 }

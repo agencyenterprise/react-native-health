@@ -246,11 +246,6 @@ RCT_EXPORT_METHOD(getWorkout:(NSDictionary *)input callback:(RCTResponseSenderBl
     [self workout_get:input callback:callback];
 }
 
-RCT_EXPORT_METHOD(getCholesterol:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
-{
-    [self nutrition_getCholesterol:input callback:callback];
-}
-
 RCT_EXPORT_METHOD(saveWorkout:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self workout_save:input callback:callback];

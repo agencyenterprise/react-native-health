@@ -71,10 +71,4 @@
                limit:(NSUInteger)limit
                       completion:(void (^)(NSArray *, NSError *))completion;
 
-- (void)fetchCholesterolForPredicate: (NSPredicate *)predicate
-                       ascending: (BOOL)ascending
-                           limit:(NSUInteger)limit
-                          completion:(void (^)(NSArray *, NSError *))completion;
-
-
 @end
