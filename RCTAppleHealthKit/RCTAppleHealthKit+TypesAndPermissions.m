@@ -11,7 +11,6 @@
 
 @implementation RCTAppleHealthKit (TypesAndPermissions)
 
-
 #pragma mark - HealthKit Permissions
 
 - (NSDictionary *)readPermsDict {
@@ -53,8 +52,9 @@
         @"SleepAnalysis" : [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis],
         // Mindfulness
         @"MindfulSession" : [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession],
-        //workouts
+        // Workout
         @"Workout" : [HKObjectType workoutType],
+        
     };
     return readPerms;
 }
@@ -120,6 +120,8 @@
         @"SleepAnalysis" : [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis],
         // Mindfulness
         @"MindfulSession" : [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession],
+        // Workout
+        @"Workout" : [HKObjectType workoutType],
     };
     return writePerms;
 }
