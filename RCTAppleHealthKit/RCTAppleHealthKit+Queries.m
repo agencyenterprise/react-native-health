@@ -681,8 +681,8 @@
                                            @"activityName" : [numberToWorkoutNameDictionary objectForKey: activityNumber],
                                            @"calories" : @(energy),
                                            @"distance" : @(distance),
-                                           @"start" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
-                                           @"end" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate]
+                                           @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
+                                           @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate]
                                            };
                     [data addObject:elem];
                 }
