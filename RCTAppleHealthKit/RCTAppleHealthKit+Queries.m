@@ -9,6 +9,7 @@
 
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
+#import "RCTAppleHealthKit+TypesAndPermissions.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -650,5 +651,52 @@
 
     [self.healthStore executeQuery:query];
 }
+
+ - (void)fetchWorkoutForPredicate: (NSPredicate *)predicate
+                       ascending: (BOOL)ascending
+                           limit:(NSUInteger)limit
+                      completion:(void (^)(NSArray *, NSError *))completion {
+
+    void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+    NSSortDescriptor *endDateSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:ascending];
+    handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if(!results) {
+            if(completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+
+        if(completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+            NSDictionary *numberToWorkoutNameDictionary = [RCTAppleHealthKit getNumberToWorkoutNameDictionary];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (HKWorkout * sample in results) {
+                    double energy = [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                    double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
+                    NSNumber *activityNumber =  [NSNumber numberWithInt: [sample workoutActivityType]];
+
+                    NSDictionary *elem = @{
+                                           @"activityName" : [numberToWorkoutNameDictionary objectForKey: activityNumber],
+                                           @"calories" : @(energy),
+                                           @"distance" : @(distance),
+                                           @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
+                                           @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate]
+                                           };
+                    [data addObject:elem];
+                }
+                completion(data, error);
+            });
+
+        }
+    };
+
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:[HKObjectType workoutType] predicate:predicate limit:limit sortDescriptors:@[endDateSortDescriptor] resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+
+}
+
 
 @end

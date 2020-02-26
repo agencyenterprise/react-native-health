@@ -8,9 +8,9 @@
 //
 
 #import "RCTAppleHealthKit+Utils.h"
+#import "RCTAppleHealthKit+TypesAndPermissions.h"
 
 @implementation RCTAppleHealthKit (Utils)
-
 
 #pragma mark - Utilities
 
@@ -292,6 +292,28 @@
         j--;
     }
     return array;
+}
+
++ (HKWorkoutActivityType)hkWorkoutActivityTypeFromOptions: (NSDictionary *)options key: (NSString *)key withDefault: (HKWorkoutActivityType)defaultValue {
+    NSDictionary * stringToWorkoutActivityType = [RCTAppleHealthKit getStringToWorkoutActivityTypeDictionary];
+    HKWorkoutActivityType activityType = defaultValue;
+
+    if([options objectForKey:key] && [stringToWorkoutActivityType objectForKey:[options valueForKey:key]]) {
+        NSString * activityString = [options valueForKey:key];
+        activityType = [(NSNumber *)[stringToWorkoutActivityType objectForKey:activityString] integerValue];
+    }
+    return activityType;
+}
+
++ (HKQuantity *)hkQuantityFromOptions:(NSDictionary *)options valueKey: (NSString *)valueKey unitKey: (NSString *)unitKey {
+    const int outOfBoundValue = -1;
+    double value = [RCTAppleHealthKit doubleFromOptions:options key:valueKey withDefault:outOfBoundValue];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:options key:unitKey withDefault:nil];
+
+    if(unit != nil && value >= 0) {
+        return [HKQuantity quantityWithUnit:unit doubleValue:value];
+    }
+    return nil;
 }
 
 + (NSString*)stringForHKWorkoutActivityType:(int) enumValue{

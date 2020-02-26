@@ -19,6 +19,7 @@
 #import "RCTAppleHealthKit+Methods_Results.h"
 #import "RCTAppleHealthKit+Methods_Sleep.h"
 #import "RCTAppleHealthKit+Methods_Mindfulness.h"
+#import "RCTAppleHealthKit+Methods_Workout.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -240,6 +241,22 @@ RCT_EXPORT_METHOD(saveMindfulSession:(NSDictionary *)input callback:(RCTResponse
     [self mindfulness_saveMindfulSession:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getWorkout:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self workout_get:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveWorkout:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self workout_save:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getAuthStatus: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self getAuthorizationStatus:input callback:callback];
+}
+
+
 
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback
 {
@@ -310,6 +327,45 @@ RCT_EXPORT_METHOD(saveMindfulSession:(NSDictionary *)input callback:(RCTResponse
             @"author": @"Greg Wilson",
     };
     callback(@[[NSNull null], info]);
+}
+
+- (void)getAuthorizationStatus:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    if ([HKHealthStore isHealthDataAvailable]) {
+
+        NSArray* readPermsArray;
+        NSArray* writePermsArray;
+
+        NSDictionary* permissions =[input objectForKey:@"permissions"];
+        if(permissions != nil && [permissions objectForKey:@"read"] != nil && [permissions objectForKey:@"write"] != nil){
+            NSArray* readPermsNamesArray = [permissions objectForKey:@"read"];
+            NSArray* writePermsNamesArray = [permissions objectForKey:@"write"];
+            readPermsArray = [self getReadPermsArrayFromOptions:readPermsNamesArray];
+            writePermsArray = [self getWritePermsArrayFromOptions:writePermsNamesArray];
+        } else {
+            callback(@[RCTMakeError(@"permissions must be included in permissions object with read and write options", nil, nil)]);
+            return;
+        }
+
+
+        NSMutableArray * read = [NSMutableArray arrayWithCapacity: 1];
+        for(HKObjectType * perm in readPermsArray) {
+            [read  addObject:[NSNumber numberWithInt:[self.healthStore authorizationStatusForType: perm]]];
+        }
+        NSMutableArray * write = [NSMutableArray arrayWithCapacity: 1];
+        for(HKObjectType * perm in writePermsArray) {
+            [write  addObject:[NSNumber numberWithInt:[self.healthStore authorizationStatusForType: perm]]];
+        }
+        callback(@[[NSNull null], @{
+                       @"permissions":
+                           @{
+                               @"read": read,
+                               @"write": write
+                               }
+                       }]);
+    } else {
+        callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
+    }
 }
 
 @end
