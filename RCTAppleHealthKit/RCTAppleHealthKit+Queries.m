@@ -84,16 +84,18 @@
 
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
-
-                    NSDictionary *elem = @{
-                            @"value" : @(value),
-                            @"sourceName" : [[[sample sourceRevision] source] name],
-                            @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
-                            @"startDate" : startDateString,
-                            @"endDate" : endDateString,
-                    };
-
-                    [data addObject:elem];
+                    NSString *activityName = [numberToWorkoutNameDictionary objectForKey: activityNumber];
+                    
+                    if (activityName) {
+                        NSDictionary *elem = @{
+                            @"activityName" : activityName,
+                            @"calories" : @(energy),
+                            @"distance" : @(distance),
+                            @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
+                            @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate]
+                        };
+                        [data addObject:elem];
+                    }
                 }
 
                 completion(data, error);
