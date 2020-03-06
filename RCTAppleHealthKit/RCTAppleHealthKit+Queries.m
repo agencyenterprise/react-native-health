@@ -84,7 +84,8 @@
 
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
-
+                    NSString *activityName = [numberToWorkoutNameDictionary objectForKey: activityNumber];
+                    
                     NSDictionary *elem = @{
                             @"value" : @(value),
                             @"sourceName" : [[[sample sourceRevision] source] name],
@@ -677,14 +678,18 @@
                     double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
                     NSNumber *activityNumber =  [NSNumber numberWithInt: [sample workoutActivityType]];
 
-                    NSDictionary *elem = @{
-                                           @"activityName" : [numberToWorkoutNameDictionary objectForKey: activityNumber],
-                                           @"calories" : @(energy),
-                                           @"distance" : @(distance),
-                                           @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
-                                           @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate]
-                                           };
-                    [data addObject:elem];
+                    NSString *activityName = [numberToWorkoutNameDictionary objectForKey: activityNumber];
+                    
+                    if (activityName) {
+                        NSDictionary *elem = @{
+                            @"activityName" : activityName,
+                            @"calories" : @(energy),
+                            @"distance" : @(distance),
+                            @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
+                            @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate]
+                        };
+                        [data addObject:elem];
+                    }
                 }
                 completion(data, error);
             });
