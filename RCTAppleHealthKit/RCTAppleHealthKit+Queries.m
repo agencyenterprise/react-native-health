@@ -84,8 +84,7 @@
 
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
-                    NSString *activityName = [numberToWorkoutNameDictionary objectForKey: activityNumber];
-                    
+
                     NSDictionary *elem = @{
                             @"value" : @(value),
                             @"sourceName" : [[[sample sourceRevision] source] name],
@@ -679,7 +678,7 @@
                     NSNumber *activityNumber =  [NSNumber numberWithInt: [sample workoutActivityType]];
 
                     NSString *activityName = [numberToWorkoutNameDictionary objectForKey: activityNumber];
-                    
+
                     if (activityName) {
                         NSDictionary *elem = @{
                             @"activityName" : activityName,
