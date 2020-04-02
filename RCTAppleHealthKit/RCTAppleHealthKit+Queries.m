@@ -306,6 +306,8 @@
                             @"value" : valueString,
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,
+                            @"sourceName" : [[[sample sourceRevision] source] name],
+                            @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
                     };
 
                     [data addObject:elem];
