@@ -10,8 +10,12 @@
     HKQuantityType *bloodGlucoseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
 
     HKUnit *mmoLPerL = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
+    
+    HKUnit *mgPerdL = [[HKUnit gramUnitWithMetricPrefix:HKMetricPrefixMilli] unitDividedByUnit:[HKUnit literUnitWithMetricPrefix:HKMetricPrefixDeci]];
 
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:mmoLPerL];
+    
+
+    HKUnit *unit = [RCTAppleHealthKit stringFromOptions:input key:@"unit" withDefault:mgPerdL];
     NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
@@ -32,7 +36,8 @@
             callback(@[[NSNull null], results]);
             return;
         } else {
-            callback(@[RCTJSErrorFromNSError(error)]);
+            NSLog(@"An error occured while retrieving the glucose sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while retrieving the glucose sample", error, nil)]);
             return;
         }
     }];
@@ -44,10 +49,11 @@
 
     HKUnit *mmoLPerL = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
 
+    HKUnit *mgPerdL = [[HKUnit gramUnitWithMetricPrefix:HKMetricPrefixMilli] unitDividedByUnit:[HKUnit literUnitWithMetricPrefix:HKMetricPrefixDeci]];
 
     double value = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:mmoLPerL];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:mgPerdL];
 
 
     HKQuantity *glucoseQuantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
@@ -55,7 +61,8 @@
 
     [self.healthStore saveObject:glucoseSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
-            callback(@[RCTJSErrorFromNSError(error)]);
+            NSLog(@"An error occured while saving the glucose sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while saving the glucose sample", error, nil)]);
             return;
         }
         callback(@[[NSNull null], @(value)]);
