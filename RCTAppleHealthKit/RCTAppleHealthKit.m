@@ -226,6 +226,11 @@ RCT_EXPORT_METHOD(getBloodGlucoseSamples:(NSDictionary *)input callback:(RCTResp
     [self results_getBloodGlucoseSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(saveBloodGlucoseSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self results_saveBloodGlucoseSample:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getSleepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self sleep_getSleepSamples:input callback:callback];
