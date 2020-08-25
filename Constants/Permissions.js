@@ -58,6 +58,8 @@ export default {
   DistanceWalkingRunning: 'DistanceWalkingRunning',
   FlightsClimbed: 'FlightsClimbed',
   HeartRate: 'HeartRate',
+  RestingHeartRate: 'RestingHeartRate',
+  HeartRateVariability: 'HeartRateVariability',
   Height: 'Height',
   LeanBodyMass: 'LeanBodyMass',
   MindfulSession: 'MindfulSession',
@@ -67,5 +69,5 @@ export default {
   StepCount: 'StepCount',
   Steps: 'Steps',
   Weight: 'Weight',
-  Workout: 'Workout',
-}
+  Workout: 'Workout'
+};
