@@ -127,6 +127,8 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [getDistanceWalkingRunning](/docs/getDistanceWalkingRunning().md)
       * [getFlightsClimbed](/docs/getFlightsClimbed().md)
       * [getHeartRateSamples](/docs/getHeartRateSamples().md)
+      * [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples().md)
+      * [getRestingHeartRateSamples](/docs/getRestingHeartRateSamples().md)
       * [getHeightSamples](/docs/getHeightSamples().md)
       * [getLatestBmi](/docs/getLatestBmi().md)
       * [getLatestBodyFatPercentage](/docs/getLatestBodyFatPercentage().md)
