@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 A React Native package to interact with Apple HealthKit
                        DESC
 
-  s.homepage         = 'https://github.com/agencyenterprise/react-native-healthkit'
+  s.homepage         = 'https://github.com/agencyenterprise/react-native-health'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Agency Enterprise' => '' }
   s.source           = { :git => 'https://github.com/agencyenterprise/react-native-healthkit.git', :tag => s.version.to_s }
