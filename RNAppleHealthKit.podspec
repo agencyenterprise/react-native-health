@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RNAppleHealthKit'
-  s.version          = '0.6.6'
-  s.summary          = 'A React Native package for interacting with Apple HealthKit'
+  s.version          = '1.0.0'
+  s.summary          = 'A React Native package to interact with Apple HealthKit'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,22 +18,19 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-A React Native package for interacting with Apple HealthKit
+A React Native package to interact with Apple HealthKit
                        DESC
 
-  s.homepage         = 'https://github.com/terrillo/rn-apple-healthkit'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/agencyenterprise/react-native-healthkit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Terrillo Walls' => '' }
-  s.source           = { :git => 'https://github.com/terrillo/rn-apple-healthkit.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { 'Agency Enterprise' => '' }
+  s.source           = { :git => 'https://github.com/agencyenterprise/react-native-healthkit.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
   s.swift_version = '4.2'
 
   s.source_files = 'RCTAppleHealthKit/**/*'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = ['HealthKit']
   s.dependency 'React'
 end
