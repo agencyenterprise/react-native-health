@@ -232,8 +232,21 @@
 - (void)setObserverForType:(HKSampleType *)type
                       unit:(HKUnit *)unit {
     HKObserverQuery *query = [[HKObserverQuery alloc] initWithSampleType:type predicate:nil updateHandler:^(HKObserverQuery *query, HKObserverQueryCompletionHandler completionHandler, NSError * _Nullable error){
+
         if (error) {
-            NSLog(@"*** An error occured while setting up the stepCount observer. %@ ***", error.localizedDescription);
+            NSLog(@"*** An error occured while setting up the observer. %@ ***", error.localizedDescription);
+            return;
+        }
+
+        [self.bridge.eventDispatcher sendAppEventWithName:@"observer/test" body:@""];
+
+        completionHandler();
+    }];
+
+    [self.healthStore enableBackgroundDeliveryForType:type frequency:HKUpdateFrequencyImmediate withCompletion:^(BOOL success, NSError * _Nullable error) {
+
+        if (error) {
+            NSLog(@"*** An error occured while setting up the observer. %@ ***", error.localizedDescription);
             return;
         }
 
@@ -241,9 +254,6 @@
     }];
 
     [self.healthStore executeQuery:query];
-    [self.healthStore enableBackgroundDeliveryForType:type frequency:HKUpdateFrequencyImmediate withCompletion:^(BOOL success, NSError * _Nullable error) {
-        NSLog(@"success %s print some error %@", success ? "true" : "false", [error localizedDescription]);
-    }];
 }
 
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
