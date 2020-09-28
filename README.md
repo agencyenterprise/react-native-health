@@ -141,6 +141,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [getStepCount](/docs/getStepCount().md)
       * [getWeightSamples](/docs/getWeightSamples().md)
       * [getSamples](docs/getSamples().md)
+      * [getMindfulSession](docs/getMindfulSession().md)
     * Write Methods
       * [saveBmi](/docs/saveBmi().md)
       * [saveHeight](/docs/saveHeight().md)
