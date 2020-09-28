@@ -299,4 +299,40 @@
     }];
 }
 
+- (void)vitals_getVo2MaxSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback {
+    HKQuantityType *vo2MaxType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierVO2Max];
+
+    HKUnit *ml = [HKUnit literUnitWithMetricPrefix:HKMetricPrefixMilli];
+    HKUnit *kg = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
+    HKUnit *min = [HKUnit minuteUnit];
+    HKUnit *u = [ml unitDividedByUnit:[kg unitMultipliedByUnit:min]]; // ml/(kg*min)
+
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:u];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+    [self fetchQuantitySamplesOfType:vo2MaxType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+        if (results) {
+            callback(@[[NSNull null], results]);
+            return;
+        } else {
+            NSString *errStr = [NSString stringWithFormat:@"error getting Vo2Max samples: %@", error];
+            NSLog(errStr);
+
+            callback(@[RCTMakeError(errStr, nil, nil)]);
+
+            return;
+        }
+    }];
+}
+
+
 @end

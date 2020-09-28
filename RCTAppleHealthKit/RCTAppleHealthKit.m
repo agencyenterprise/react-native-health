@@ -201,6 +201,11 @@ RCT_EXPORT_METHOD(getAppleExerciseTime:(NSDictionary *)input callback:(RCTRespon
     [self activity_getAppleExerciseTime:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getVo2MaxSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self vitals_getVo2MaxSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self vitals_getBodyTemperatureSamples:input callback:callback];

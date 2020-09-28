@@ -1,6 +1,6 @@
 /**
  * Apple Health Permissions
- * https://github.com/terrillo/rn-apple-healthkit#permissions
+ *
  * @type {Object}
  */
 export default {
@@ -68,6 +68,7 @@ export default {
   SleepAnalysis: 'SleepAnalysis',
   StepCount: 'StepCount',
   Steps: 'Steps',
+  Vo2Max: 'Vo2Max',
   Weight: 'Weight',
-  Workout: 'Workout'
-};
+  Workout: 'Workout',
+}

@@ -72,6 +72,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
     } else if ([@"HeartRateVariability" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRateVariabilitySDNN];
+    } else if ([@"Vo2Max" isEqualToString: key] && systemVersion >= 11.0) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierVO2Max];
     } else if ([@"BodyTemperature" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
     } else if ([@"BloodPressureSystolic" isEqualToString: key]) {

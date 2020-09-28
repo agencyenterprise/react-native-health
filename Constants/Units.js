@@ -1,6 +1,6 @@
 /**
  * Units
- * https://github.com/terrillo/rn-apple-healthkit#units
+ *
  * @type {Object}
  */
 export default {
@@ -24,4 +24,5 @@ export default {
   percent: 'percent',
   pound: 'pound',
   second: 'second',
+  mlPerKgMin: 'mlPerKgMin',
 }
