@@ -277,10 +277,16 @@ RCT_EXPORT_METHOD(getAuthStatus: (NSDictionary *)input callback:(RCTResponseSend
     [self getAuthorizationStatus:input callback:callback];
 }
 
-RCT_EXPORT_METHOD(getBloodAlcoholContent: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getLatestBloodAlcoholContent: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
-    [self labTests_getBloodAlcoholContent:input callback:callback];
+    [self labTests_getLatestBloodAlcoholContent:input callback:callback];
 }
+
+RCT_EXPORT_METHOD(getBloodAlcoholContentSamples: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self labTests_getBloodAlcoholContentSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self labTests_saveBloodAlcoholContent:input callback:callback];

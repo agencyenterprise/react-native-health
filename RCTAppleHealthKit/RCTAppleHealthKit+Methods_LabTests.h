@@ -11,6 +11,7 @@
 
 @interface RCTAppleHealthKit (Methods_LabTests)
 
-- (void)labTests_getBloodAlcoholContent:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)labTests_getLatestBloodAlcoholContent:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)labTests_getBloodAlcoholContentSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)labTests_saveBloodAlcoholContent:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 @end

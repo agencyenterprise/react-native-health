@@ -252,7 +252,12 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
-    getBloodAlcoholContent(
+    getLatestBloodAlcoholContent(
+      options: HealthUnitOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
+    getBloodAlcoholContentSamples(
       options: HealthUnitOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
