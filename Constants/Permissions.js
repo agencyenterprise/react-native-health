@@ -8,6 +8,7 @@ export default {
   AppleExerciseTime: 'AppleExerciseTime',
   BasalEnergyBurned: 'BasalEnergyBurned',
   BiologicalSex: 'BiologicalSex',
+  BloodAlcoholContent: 'BloodAlcoholContent',
   BloodGlucose: 'BloodGlucose',
   BloodPressureDiastolic: 'BloodPressureDiastolic',
   BloodPressureSystolic: 'BloodPressureSystolic',
