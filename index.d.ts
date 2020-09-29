@@ -48,7 +48,7 @@ declare module 'react-native-health' {
     ): void
 
     saveWeight(
-      options: Object,
+      options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -63,7 +63,7 @@ declare module 'react-native-health' {
     ): void
 
     saveHeight(
-      options: Object,
+      options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -73,7 +73,7 @@ declare module 'react-native-health' {
     ): void
 
     saveBmi(
-      options: Object,
+      options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -97,14 +97,13 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
-    // setObserver
     getDailyStepCountSamples(
       options: HealthUnitOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     saveSteps(
-      options: Object,
+      options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -144,7 +143,7 @@ declare module 'react-native-health' {
     ): void
 
     saveWater(
-      options: Object,
+      options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -214,7 +213,7 @@ declare module 'react-native-health' {
     ): void
 
     saveBloodGlucoseSample(
-      options: Object,
+      options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -234,7 +233,7 @@ declare module 'react-native-health' {
     ): void
 
     saveMindfulSession(
-      options: Object,
+      options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -244,7 +243,7 @@ declare module 'react-native-health' {
     ): void
 
     saveWorkout(
-      options: Object,
+      options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -283,8 +282,8 @@ declare module 'react-native-health' {
 
   export interface HealthValueOptions extends HealthUnitOptions{
     value: number
-    startDate: string
-    endDate: string
+    startDate?: string
+    endDate?: string
   }
 
   export enum HealthUnit {
