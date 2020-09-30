@@ -2,7 +2,6 @@
 //  RCTAppleHealthKit+Methods_Activity.m
 //  RCTAppleHealthKit
 //
-//  Created by Alexander Vallorosi on 4/27/17.
 //  This source code is licensed under the MIT-style license found in the
 //  LICENSE file in the root directory of this source tree.
 

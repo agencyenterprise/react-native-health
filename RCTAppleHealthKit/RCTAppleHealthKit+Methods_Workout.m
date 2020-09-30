@@ -2,8 +2,8 @@
 //  RCTAppleHealthKit+Methods_Workout.m
 //  RCTAppleHealthKit
 //
-//  Created by Ahmed Fathy Ghazy on 4/27/18.
-//  Copyright © 2018 Greg Wilson. All rights reserved.
+//  This source code is licensed under the MIT-style license found in the
+//  LICENSE file in the root directory of this source tree.
 //
 
 #import "RCTAppleHealthKit+Methods_Workout.h"

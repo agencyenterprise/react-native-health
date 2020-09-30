@@ -2,7 +2,6 @@
 //  RCTAppleHealthKit+Methods_Fitness.m
 //  RCTAppleHealthKit
 //
-//  Created by Greg Wilson on 2016-06-26.
 //  This source code is licensed under the MIT-style license found in the
 //  LICENSE file in the root directory of this source tree.
 //
@@ -83,18 +82,11 @@
 
 - (void)fitness_setObserver:(NSDictionary *)input
 {
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
     NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
+    HKSampleType *sampleType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
 
-    HKSampleType *samplesType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
-
-    if ([type isEqual:@"Running"] || [type isEqual:@"Cycling"]) {
-        unit = [HKUnit mileUnit];
-    }
-
-    [self setObserverForType:samplesType unit:unit];
+    [self setObserverForType:sampleType type:type];
 }
-
 
 - (void)fitness_getDailyStepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {

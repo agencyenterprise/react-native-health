@@ -1,3 +1,11 @@
+//
+//  RCTAppleHealthKit+Methods_Vitals.m
+//  RCTAppleHealthKit
+//
+//  This source code is licensed under the MIT-style license found in the
+//  LICENSE file in the root directory of this source tree.
+
+
 #import "RCTAppleHealthKit+Methods_Vitals.h"
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
