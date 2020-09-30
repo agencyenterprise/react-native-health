@@ -7,10 +7,10 @@ declare module 'react-native-health' {
   }
 
   export interface Constants {
-    Activities: HealthActivity
-    Observers: HealthObserver
-    Permissions: HealthPermission
-    Units: HealthUnit
+    Activities: Record<HealthActivity, HealthActivity>
+    Observers: Record<HealthObserver, HealthObserver>
+    Permissions: Record<HealthPermission, HealthPermission>
+    Units: Record<HealthUnit, HealthUnit>
   }
 
   export interface AppleHealthKit {
@@ -82,17 +82,17 @@ declare module 'react-native-health' {
     ): void
 
     getStepCount(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getDailyStepCountSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
@@ -102,32 +102,32 @@ declare module 'react-native-health' {
     ): void
 
     getDistanceWalkingRunning(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getDailyDistanceWalkingRunningSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getDistanceCycling(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getDailyDistanceCyclingSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getFlightsClimbed(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getDailyFlightsClimbedSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
@@ -142,67 +142,67 @@ declare module 'react-native-health' {
     ): void
 
     getHeartRateSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getRestingHeartRate(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getWalkingHeartRateAverage(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getActiveEnergyBurned(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getBasalEnergyBurned(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getAppleExerciseTime(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getVo2MaxSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getBodyTemperatureSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getBloodPressureSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getRespiratoryRateSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getHeartRateVariabilitySamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getRestingHeartRateSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getBloodGlucoseSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
@@ -212,7 +212,7 @@ declare module 'react-native-health' {
     ): void
 
     getSleepSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
@@ -222,7 +222,7 @@ declare module 'react-native-health' {
     ): void
 
     getMindfulSession(
-      options: HealthValueOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
@@ -232,7 +232,7 @@ declare module 'react-native-health' {
     ): void
 
     getWorkout(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
@@ -247,12 +247,12 @@ declare module 'react-native-health' {
     ): void
 
     getLatestBloodAlcoholContent(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
     getBloodAlcoholContentSamples(
-      options: HealthUnitOptions,
+      options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
@@ -283,12 +283,17 @@ declare module 'react-native-health' {
     unit: HealthUnit
   }
 
-  export interface HealthValueOptions extends HealthUnitOptions {
-    value: number
+  export interface HealthInputOptions extends HealthUnitOptions {
     startDate?: string
     endDate?: string
     limit?: number
     ascending?: boolean
+  }
+
+  export interface HealthValueOptions extends HealthUnitOptions {
+    value: number
+    startDate?: string
+    endDate?: string
   }
 
   export interface HealthObserverOptions {
