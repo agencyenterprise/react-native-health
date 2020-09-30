@@ -1,7 +1,7 @@
-These permissions are exported as constants of the `rn-apple-healthkit` module.
+These permissions are exported as constants of the `react-native-health` module.
 
 ```javascript
-import AppleHealthKit from 'rn-apple-healthkit';
+import AppleHealthKit from 'react-native-health';
 
 // get the available permissions from AppleHealthKit.Constants object
 const PERMS = AppleHealthKit.Constants.Permissions;

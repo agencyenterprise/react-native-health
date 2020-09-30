@@ -1,7 +1,7 @@
 Check for Healthkit availability
 
 ```javascript
-import AppleHealthKit from 'rn-apple-healthkit';
+import AppleHealthKit from 'react-native-health';
 
 AppleHealthKit.isAvailable((err: Object, available: boolean) => {
   if (err) {
