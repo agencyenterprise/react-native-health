@@ -103,6 +103,11 @@
         return [HKObjectType workoutType];
     }
 
+    // Lab and tests
+    if ([@"BloodAlcoholContent" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
+    }
+
     return nil;
 }
 
@@ -233,6 +238,11 @@
 		// Workout
     if ([@"Workout" isEqualToString:key]) {
         return [HKObjectType workoutType];
+    }
+    
+    // Lab and tests
+    if ([@"BloodAlcoholContent" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
     }
 
     return nil;

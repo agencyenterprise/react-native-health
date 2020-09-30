@@ -113,6 +113,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [getActiveEnergyBurned](/docs/getActiveEnergyBurned().md)
       * [getBasalEnergyBurned](/docs/getBasalEnergyBurned().md)
       * [getBiologicalSex](/docs/getBiologicalSex().md)
+      * [getBloodAlcoholContentSamples](/docs/getBloodAlcoholContentSamples().md)
       * [getBloodGlucoseSamples](/docs/getBloodglucoseSamples().md)
       * [getBloodPressureSamples](/docs/getBloodPressureSamples().md)
       * [getBodyTemperatureSamples](/docs/getBodyTemperatureSamples().md)
@@ -130,6 +131,7 @@ AppleHealthKit.initHealthKit(options: Object, (err: string, results: Object) => 
       * [getRestingHeartRateSamples](/docs/getRestingHeartRateSamples().md)
       * [getVo2MaxSamples](/docs/getVo2MaxSamples().md)
       * [getHeightSamples](/docs/getHeightSamples().md)
+      * [getLatestBloodAlcoholContent](/docs/getLatestBloodAlcoholContent().md)
       * [getLatestBmi](/docs/getLatestBmi().md)
       * [getLatestBodyFatPercentage](/docs/getLatestBodyFatPercentage().md)
       * [getBodyFatPercentageSamples](/docs/getBodyFatPercentageSamples().md)
@@ -162,6 +164,7 @@ The available Healthkit permissions to use with `initHealthKit`
 | ActiveEnergyBurned     | [HKQuantityTypeIdentifierActiveEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615771-activeenergyburned?language=objc)           | ✓    |       |
 | BasalEnergyBurned      | [HKQuantityTypeIdentifierBasalEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615512-basalenergyburned?language=objc)           | ✓    |       |
 | BiologicalSex          | [HKCharacteristicTypeIdentifierBiologicalSex](https://developer.apple.com/reference/Healthkit/hkcharacteristictypeidentifierbiologicalsex?language=objc)           | ✓    |       |
+| BloodAlcoholContent    | [HKQuantityTypeIdentifierBloodAlcoholContent](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbloodalcoholcontent?language=objc)           | ✓    | ✓     |
 | BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                         | ✓    |       |
 | BloodPressureDiastolic | [HKQuantityTypeIdentifierBloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierbloodpressurediastolic?language=objc) | ✓    | ✓     |
 | BloodPressureSystolic  | [HKQuantityTypeIdentifierBloodPressureSystolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierbloodpressuresystolic?language=objc)   | ✓    | ✓     |
