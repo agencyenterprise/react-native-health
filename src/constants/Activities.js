@@ -1,10 +1,9 @@
 /**
- * Apple Health Permissions
+ * Apple Health Activities
  *
  * @type {Object}
  */
-
-export default {
+export const Activities = {
   AmericanFootball: 'AmericanFootball',
   Archery: 'Archery',
   AustralianFootball: 'AustralianFootball',

@@ -3,7 +3,7 @@
  *
  * @type {Object}
  */
-export default {
+export const Permissions = {
   ActiveEnergyBurned: 'ActiveEnergyBurned',
   AppleExerciseTime: 'AppleExerciseTime',
   BasalEnergyBurned: 'BasalEnergyBurned',

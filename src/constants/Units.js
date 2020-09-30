@@ -3,7 +3,7 @@
  *
  * @type {Object}
  */
-export default {
+export const Units = {
   bpm: 'bpm',
   calorie: 'calorie',
   celsius: 'celsius',
