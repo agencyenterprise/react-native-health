@@ -62,3 +62,6 @@ componentWillUnmount() {
   this.sub.remove();
 }
 ```
+
+**Note** - Some data types, such as step counts, have a minimum frequency
+ of HKUpdateFrequencyHourly. This frequency is enforced transparently.
