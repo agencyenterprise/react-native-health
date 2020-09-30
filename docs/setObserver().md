@@ -1,8 +1,11 @@
-Adds an observer to HealthKit updates. The background notification is handled
-by iOS and your app will be notified by any updates in the given type of
-data.
+# Set Observer
+An observer is responsible by listen to HealthKit updates and notify your app
+in case any new data was added. The background notification is handled
+by iOS and the following tutorial shows how to detect these changes using
+react-native-health library.
 
-Available types are the following
+Currently, the supported data identifiers that can be observed are the
+following
 
 - `Cycling`
 - `HeartRate`
@@ -12,15 +15,38 @@ Available types are the following
 - `Walking`
 - `Workout`
 
-```javascript 1.8
+### Observer Types
+
+This package triggers two types of events in your app, one when the observer
+is successfuly setup and another for each new sample that is added to HealthKit.
+
+They follow the patterns bellow
+
+```
+"healthKit:<OBSERVER_TYPE>:enabled"
+"healthKit:<OBSERVER_TYPE>:sample"
+```
+
+### Example
+
+```javascript
 import { NativeAppEventEmitter } from 'react-native';
 
 const callback = () => {}
 
-AppleHealthKit.setObserver({ type: 'Workout' });
-NativeAppEventEmitter.addListener('observer', callback);
+/* Communicate to HealthKit the data types to be notified */
+AppleHealthKit.setObserver({ type: 'HeartRate' });
+
+/* Register native listener that will be triggered on each update */
+NativeAppEventEmitter.addListener('healthKit:HeartRate:sample', callback);
+
+/* Register native listener that will be triggered when successfuly enabled */
+NativeAppEventEmitter.addListener('healthKit:HeartRate:enabled', callback);
 ```
 
-So, callback would be call when new data of given type appears.
-When it happens, in order to get new info need to call `getSamples()`
-function with proper arguments.
+When a new sample appears, in order to get the information you need to call
+the [getSamples]('./getSamples().md') function from your callback.
+
+**Note** - Some data types, such as step counts, have a minimum frequency
+ of HKUpdateFrequencyHourly. This frequency is enforced transparently.
+

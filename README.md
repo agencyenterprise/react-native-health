@@ -236,4 +236,5 @@ const healthKitOptions = {
 ## Acknowledgement
 
 > *This package is a fork of [rn-apple-healthkit](https://github.com/terrillo/rn-apple-healthkit)*
+
 > *This package also inherits additional features from [Nutrisense](https://www.nutrisense.io/) fork*

@@ -2,7 +2,6 @@
 //  RCTAppleHealthKit+Queries.m
 //  RCTAppleHealthKit
 //
-//  Created by Greg Wilson on 2016-06-26.
 //  This source code is licensed under the MIT-style license found in the
 //  LICENSE file in the root directory of this source tree.
 //
@@ -111,16 +110,18 @@
 }
 
 - (void)fetchSamplesOfType:(HKSampleType *)type
-                              unit:(HKUnit *)unit
-                         predicate:(NSPredicate *)predicate
-                         ascending:(BOOL)asc
-                             limit:(NSUInteger)lim
-                        completion:(void (^)(NSArray *, NSError *))completion {
+                      unit:(HKUnit *)unit
+                 predicate:(NSPredicate *)predicate
+                 ascending:(BOOL)asc
+                     limit:(NSUInteger)lim
+                completion:(void (^)(NSArray *, NSError *))completion {
+
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                                        ascending:asc];
 
     // declare the block
     void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+
     // create and assign the block
     handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
         if (!results) {
@@ -229,35 +230,46 @@
     [self.healthStore executeQuery:query];
 }
 
-- (void)setObserverForType:(HKSampleType *)type
-                      unit:(HKUnit *)unit {
-    HKObserverQuery *query = [[HKObserverQuery alloc] initWithSampleType:type predicate:nil updateHandler:^(HKObserverQuery *query, HKObserverQueryCompletionHandler completionHandler, NSError * _Nullable error){
-
+- (void)setObserverForType:(HKSampleType *)sampleType
+                      type:(NSString *)type {
+    HKObserverQuery* query = [
+        [HKObserverQuery alloc] initWithSampleType:sampleType
+                                         predicate:nil
+                                     updateHandler:^(HKObserverQuery* query,
+                                                     HKObserverQueryCompletionHandler completionHandler,
+                                                     NSError * _Nullable error) {
         if (error) {
-            NSLog(@"*** An error occured while setting up the observer. %@ ***", error.localizedDescription);
+            NSLog(@"*** An error occured while receiving observer answer. %@ ***", error.localizedDescription);
             return;
         }
 
-        [self.bridge.eventDispatcher sendAppEventWithName:@"observer/test" body:@""];
+        NSString* observerName;
 
-        completionHandler();
-    }];
+        observerName = [NSString stringWithFormat:@"healthKit:%@:sample", type];
 
-    [self.healthStore enableBackgroundDeliveryForType:type frequency:HKUpdateFrequencyImmediate withCompletion:^(BOOL success, NSError * _Nullable error) {
-
-        if (error) {
-            NSLog(@"*** An error occured while setting up the observer. %@ ***", error.localizedDescription);
-            return;
-        }
-
-        [self.bridge.eventDispatcher sendAppEventWithName:@"observer" body:@""];
+        [self.bridge.eventDispatcher sendAppEventWithName:observerName body:@""];
     }];
 
     [self.healthStore executeQuery:query];
+
+    [self.healthStore enableBackgroundDeliveryForType:sampleType
+                                            frequency:HKUpdateFrequencyImmediate
+                                       withCompletion:^(BOOL success, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"*** An error occured while setting up the observer. %@ ***", error.localizedDescription);
+            return;
+        }
+
+        NSString *observerName;
+
+        observerName = [NSString stringWithFormat:@"healthKit:%@:enabled", type];
+
+        [self.bridge.eventDispatcher sendAppEventWithName:observerName body:@""];
+    }];
 }
 
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
-                                   limit:(NSUInteger)lim
+                                        limit:(NSUInteger)lim
                                    completion:(void (^)(NSArray *, NSError *))completion {
 
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
@@ -321,43 +333,17 @@
         }
     };
 
-    // HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType
-    //                                                        predicate:predicate
-    //                                                            limit:lim
-    //                                                  sortDescriptors:@[timeSortDescriptor]
-    //                                                   resultsHandler:handlerBlock];
-
     HKCategoryType *categoryType =
     [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
 
-    // HKCategorySample *categorySample =
-    // [HKCategorySample categorySampleWithType:categoryType
-    //                                    value:value
-    //                                startDate:startDate
-    //                                  endDate:endDate];
-
-
-   HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:categoryType
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:categoryType
                                                           predicate:predicate
                                                               limit:lim
                                                     sortDescriptors:@[timeSortDescriptor]
                                                      resultsHandler:handlerBlock];
 
-
     [self.healthStore executeQuery:query];
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 - (void)fetchCorrelationSamplesOfType:(HKQuantityType *)quantityType
                                  unit:(HKUnit *)unit
@@ -411,7 +397,6 @@
     [self.healthStore executeQuery:query];
 }
 
-
 - (void)fetchSumOfSamplesTodayForType:(HKQuantityType *)quantityType
                                  unit:(HKUnit *)unit
                            completion:(void (^)(double, NSError *))completionHandler {
@@ -430,7 +415,6 @@
 
     [self.healthStore executeQuery:query];
 }
-
 
 - (void)fetchSumOfSamplesOnDayForType:(HKQuantityType *)quantityType
                                  unit:(HKUnit *)unit
@@ -453,7 +437,6 @@
 
     [self.healthStore executeQuery:query];
 }
-
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
                                           unit:(HKUnit *)unit
@@ -506,7 +489,6 @@
 
     [self.healthStore executeQuery:query];
 }
-
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
                                           unit:(HKUnit *)unit
@@ -582,12 +564,12 @@
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
                                           unit:(HKUnit *)unit
-                                          period:(NSUInteger)period
+                                        period:(NSUInteger)period
                                      startDate:(NSDate *)startDate
                                        endDate:(NSDate *)endDate
                                      ascending:(BOOL)asc
                                          limit:(NSUInteger)lim
-                                         includeManuallyAdded:(BOOL)includeManuallyAdded
+                          includeManuallyAdded:(BOOL)includeManuallyAdded
                                     completion:(void (^)(NSArray *, NSError *))completionHandler {
 
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -657,10 +639,10 @@
     [self.healthStore executeQuery:query];
 }
 
- - (void)fetchWorkoutForPredicate: (NSPredicate *)predicate
-                       ascending: (BOOL)ascending
-                           limit:(NSUInteger)limit
-                      completion:(void (^)(NSArray *, NSError *))completion {
+ - (void)fetchWorkoutForPredicate:(NSPredicate *)predicate
+                        ascending:(BOOL)ascending
+                            limit:(NSUInteger)limit
+                       completion:(void (^)(NSArray *, NSError *))completion {
 
     void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
     NSSortDescriptor *endDateSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:ascending];
@@ -704,8 +686,6 @@
     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:[HKObjectType workoutType] predicate:predicate limit:limit sortDescriptors:@[endDateSortDescriptor] resultsHandler:handlerBlock];
 
     [self.healthStore executeQuery:query];
-
 }
-
 
 @end
