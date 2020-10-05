@@ -293,12 +293,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
 
                 for (HKCategorySample *sample in results) {
-
-                    // HKCategoryType *catType = sample.categoryType;
                     NSInteger val = sample.value;
-
-                    // HKQuantity *quantity = sample.quantity;
-                    // double value = [quantity doubleValueForUnit:unit];
 
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];

@@ -90,7 +90,7 @@
 
     // Sleep
     if ([@"SleepAnalysis" isEqualToString: key]) {
-        return [HKObjectType quantityTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
     }
 
     // workouts
@@ -238,7 +238,7 @@
     if ([@"Workout" isEqualToString:key]) {
         return [HKObjectType workoutType];
     }
-    
+
     // Lab and tests
     if ([@"BloodAlcoholContent" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
