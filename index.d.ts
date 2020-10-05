@@ -288,6 +288,7 @@ declare module 'react-native-health' {
     endDate?: string
     limit?: number
     ascending?: boolean
+    type?: HealthObserver
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {
