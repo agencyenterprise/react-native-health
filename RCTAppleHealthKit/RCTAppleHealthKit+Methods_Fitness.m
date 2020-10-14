@@ -237,6 +237,29 @@
                                       }];
 }
 
+- (void)fitness_getDistanceSwimmingOnDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit meterUnit]];
+    NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+
+    HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceSwimming];
+
+    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!distance) {
+            callback(@[RCTJSErrorFromNSError(error)]);
+            return;
+        }
+
+        NSDictionary *response = @{
+                @"value" : @(distance),
+                @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+        };
+
+        callback(@[[NSNull null], response]);
+    }];
+}
+
 - (void)fitness_getDailyDistanceSwimmingSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit meterUnit]];
