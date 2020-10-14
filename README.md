@@ -26,7 +26,7 @@ Or, if you need to manually link it, run
 react-native link react-native-health
 ```
 
-Update the `info.plist` file in your project
+Update the `ios/<Project Name>/info.plist` file in your project
 ```
 <key>NSHealthShareUsageDescription</key>
 <string>Read and understand health data.</string>
