@@ -48,6 +48,7 @@
   * [getSamples](docs/getSamples.md)
   * [getDailyDistanceWalkingRunningSamples](getDailyDistanceWalkingRunningSamples.md)
   * [getDistanceWalkingRunning](getDistanceWalkingRunning.md)
+  * [getDailyDistanceSwimmingSamples](getDailyDistanceSwimmingSamples.md)
   * [getDistanceSwimming](getDistanceSwimming.md)
   * [getDailyDistanceCyclingSamples](getDailyDistanceCyclingSamples.md)
   * [getDistanceCycling](getDistanceCycling.md)
