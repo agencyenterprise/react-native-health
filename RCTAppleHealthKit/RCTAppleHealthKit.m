@@ -290,6 +290,11 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
     [self labTests_saveBloodAlcoholContent:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getDailyDistanceSwimmingSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self fitness_getDailyDistanceSwimmingSamples:input callback:callback];
+}
+
 
 
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback

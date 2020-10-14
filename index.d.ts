@@ -261,6 +261,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getDailyDistanceSwimmingSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
     setObserver(options: HealthObserverOptions): void
 
     Constants: Constants
