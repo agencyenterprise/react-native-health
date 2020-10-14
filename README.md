@@ -34,6 +34,11 @@ Update the `info.plist` file in your project
 <string>Share workout data with other apps.</string>
 ```
 
+To add Healthkit support to your application's `Capabilities`
+* Open the `ios/` folder of your project in Xcode
+* Select the project name in the left sidebar
+* In the main view select '+ Capability' and double click 'HealthKit'
+
 ## Usage
 
 In order to start collecting or saving data to HealthKit, you need to request
