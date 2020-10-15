@@ -133,6 +133,7 @@ they are splitted in the following categories
   * [getSamples](docs/getSamples.md)
   * [getDailyDistanceWalkingRunningSamples](/docs/getDailyDistanceWalkingRunningSamples.md)
   * [getDistanceWalkingRunning](/docs/getDistanceWalkingRunning.md)
+  * [getDailyDistanceSwimmingSamples](/docs/getDailyDistanceSwimmingSamples.md)
   * [getDistanceSwimming](/docs/getDistanceSwimming.md)
   * [getDailyDistanceCyclingSamples](/docs/getDailyDistanceCyclingSamples.md)
   * [getDistanceCycling](/docs/getDistanceCycling.md)
