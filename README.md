@@ -26,13 +26,18 @@ Or, if you need to manually link it, run
 react-native link react-native-health
 ```
 
-Update the `info.plist` file in your project
+Update the `ios/<Project Name>/info.plist` file in your project
 ```
 <key>NSHealthShareUsageDescription</key>
 <string>Read and understand health data.</string>
 <key>NSHealthUpdateUsageDescription</key>
 <string>Share workout data with other apps.</string>
 ```
+
+To add Healthkit support to your application's `Capabilities`
+* Open the `ios/` folder of your project in Xcode
+* Select the project name in the left sidebar
+* In the main view select '+ Capability' and double click 'HealthKit'
 
 ## Usage
 
