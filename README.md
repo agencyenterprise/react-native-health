@@ -103,6 +103,7 @@ they are splitted in the following categories
 ### Activity Methods
   * [getActiveEnergyBurned](/docs/getActiveEnergyBurned.md)
   * [getBasalEnergyBurned](/docs/getBasalEnergyBurned.md)
+  * [getAppleStandTime](/docs/getAppleStandTime.md)
 
 ### Body Methods
   * [getLatestHeight](/docs/getLatestHeight.md)

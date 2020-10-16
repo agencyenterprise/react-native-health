@@ -171,6 +171,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getAppleStandTime(
+      options: HealthInputOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
     getVo2MaxSamples(
       options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
@@ -393,6 +398,7 @@ declare module 'react-native-health' {
   export enum HealthPermission {
     ActiveEnergyBurned = 'ActiveEnergyBurned',
     AppleExerciseTime = 'AppleExerciseTime',
+    AppleStandTime = 'AppleStandTime',
     BasalEnergyBurned = 'BasalEnergyBurned',
     BiologicalSex = 'BiologicalSex',
     BloodAlcoholContent = 'BloodAlcoholContent',
