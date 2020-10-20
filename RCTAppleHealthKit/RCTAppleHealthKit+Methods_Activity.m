@@ -102,4 +102,28 @@
                                       }];
 }
 
+- (void)activity_getActivitySummary:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+
+    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchActivitySummaryCollection:predicate
+                          resultsHandler:^(HKActivitySummaryQuery *query, NSArray *activitySummaries, NSError *error) {
+                               if(activitySummaries){
+                                   callback(@[[NSNull null], activitySummaries]);
+                                   return;
+                               } else {
+                                   NSLog(@"error getting activity summaries: %@", error);
+                                   callback(@[RCTMakeError(@"error getting activity summaries", nil, nil)]);
+                                   return;
+                               }
+                          }];
+}
+
 @end

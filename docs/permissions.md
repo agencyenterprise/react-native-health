@@ -26,6 +26,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
 
 ```
   ActiveEnergyBurned
+  ActivitySummary
   AppleExerciseTime
   BasalEnergyBurned
   BiologicalSex

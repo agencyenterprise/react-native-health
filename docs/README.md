@@ -18,6 +18,7 @@
 ### Activity Methods
   * [getActiveEnergyBurned](getActiveEnergyBurned.md)
   * [getBasalEnergyBurned](getBasalEnergyBurned.md)
+  * [getActivitySummary](getActivitySummary.md)
 
 ### Body Methods
   * [getLatestHeight](getLatestHeight.md)

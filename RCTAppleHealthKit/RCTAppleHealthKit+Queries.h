@@ -80,4 +80,7 @@
 - (void)setObserverForType:(HKSampleType *)quantityType
                       type:(NSString *)type;
 
+- (void)fetchActivitySummaryCollection:(NSPredicate *)predicate
+                        resultsHandler:(void (^)(HKActivitySummaryQuery *query, NSArray<HKActivitySummary *> *activitySummaries, NSError *error))handler;
+
 @end

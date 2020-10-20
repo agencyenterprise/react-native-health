@@ -683,4 +683,65 @@
     [self.healthStore executeQuery:query];
 }
 
+- (void)fetchActivitySummaryCollection:(NSPredicate *)predicate
+                        resultsHandler:(void (^)(HKActivitySummaryQuery *query, NSArray<HKActivitySummary *> *activitySummaries, NSError *error))handler {
+
+    void (^handlerBlock)(HKActivitySummaryQuery *query, NSArray *activitySummaries, NSError *error);
+    handlerBlock = ^(HKActivitySummaryQuery *query, NSArray *activitySummaries, NSError *error) {
+        if(!activitySummaries) {
+            if(handler) {
+                handler(nil, nil, error);
+            }
+            return;
+        }
+
+        if(handler) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (HKActivitySummary *summary in activitySummaries) {
+                    NSDateComponents *dateComponents = [summary dateComponentsForCalendar:calendar];
+                    NSDate *date = [calendar dateFromComponents:dateComponents];
+                    NSNumber *activityMoveModeId = [NSNumber numberWithInt:[summary activityMoveMode]];
+                    double activeEnergyBurned = [[summary activeEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                    double activeEnergyBurnedGoal = [[summary activeEnergyBurnedGoal] doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                    double appleExerciseTime = [[summary appleExerciseTime] doubleValueForUnit:[HKUnit minuteUnit]];
+                    double appleExerciseTimeGoal = [[summary appleExerciseTimeGoal] doubleValueForUnit:[HKUnit minuteUnit]];
+                    double appleMoveTime = [[summary appleMoveTime] doubleValueForUnit:[HKUnit minuteUnit]];
+                    double appleMoveTimeGoal = [[summary appleMoveTimeGoal] doubleValueForUnit:[HKUnit minuteUnit]];
+                    double appleStandHours = [[summary appleStandHours] doubleValueForUnit:[HKUnit countUnit]];
+                    double appleStandHoursGoal = [[summary appleStandHoursGoal] doubleValueForUnit:[HKUnit countUnit]];
+
+                    NSString *activityMoveMode = @"ActiveEnergy";
+                    if (activityMoveModeId == 2) {
+                        activityMoveMode = @"AppleMoveTime";
+                    }
+                    NSDictionary *elem = @{
+                        @"date" : [RCTAppleHealthKit buildISO8601StringFromDate:date],
+                        @"activityMoveModeId" : activityMoveModeId,
+                        @"activityMoveMode" : activityMoveMode,
+                        @"activeEnergyBurned" : @(activeEnergyBurned),
+                        @"activeEnergyBurnedGoal" : @(activeEnergyBurnedGoal),
+                        @"appleExerciseTime" : @(appleExerciseTime),
+                        @"appleExerciseTimeGoal" : @(appleExerciseTimeGoal),
+                        @"appleMoveTime" : @(appleMoveTime),
+                        @"appleMoveTimeGoal" : @(appleMoveTimeGoal),
+                        @"appleStandHours" : @(appleStandHours),
+                        @"appleStandHoursGoal" : @(appleStandHoursGoal)
+                    };
+                    [data addObject:elem];
+                }
+                handler(query, data, error);
+            });
+
+        }
+    };
+
+    HKActivitySummaryQuery *query = [[HKActivitySummaryQuery alloc] initWithPredicate:predicate resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+
+}
+
 @end

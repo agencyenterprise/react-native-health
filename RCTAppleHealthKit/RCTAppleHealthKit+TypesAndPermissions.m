@@ -57,6 +57,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
     } else if ([@"NikeFuel" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierNikeFuel];
+    } else if ([@"ActivitySummary" isEqualToString: key]) {
+        return [HKObjectType activitySummaryType];
     }
 
     // Nutrition Identifiers
