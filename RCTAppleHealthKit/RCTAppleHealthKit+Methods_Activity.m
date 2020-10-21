@@ -102,4 +102,34 @@
                                       }];
 }
 
+- (void)activity_getAppleStandTime:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *exerciseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleStandTime];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    HKUnit *unit = [HKUnit secondUnit];
+
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+
+    [self fetchCumulativeSumStatisticsCollection:exerciseType
+                                            unit:unit
+                                       startDate:startDate
+                                         endDate:endDate
+                                       ascending:false
+                                           limit:HKObjectQueryNoLimit
+                                      completion:^(NSArray *results, NSError *error) {
+                                          if(results){
+                                              callback(@[[NSNull null], results]);
+                                              return;
+                                          } else {
+                                              NSLog(@"error getting stand time: %@", error);
+                                              callback(@[RCTMakeError(@"error getting stand time", nil, nil)]);
+                                              return;
+                                          }
+                                      }];
+}
+
 @end
