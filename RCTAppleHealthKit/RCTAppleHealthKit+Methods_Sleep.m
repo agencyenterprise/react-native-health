@@ -13,7 +13,6 @@
 @implementation RCTAppleHealthKit (Methods_Sleep)
 
 
-
 - (void)sleep_getSleepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];

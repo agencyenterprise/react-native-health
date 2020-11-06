@@ -270,11 +270,6 @@ RCT_EXPORT_METHOD(saveMindfulSession:(NSDictionary *)input callback:(RCTResponse
     [self mindfulness_saveMindfulSession:input callback:callback];
 }
 
-RCT_EXPORT_METHOD(getWorkout:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
-{
-    [self workout_get:input callback:callback];
-}
-
 RCT_EXPORT_METHOD(saveWorkout:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self workout_save:input callback:callback];

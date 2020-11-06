@@ -167,7 +167,7 @@ they are splitted in the following categories
   * [saveBmi](/docs/saveBmi.md)
 
 #### Workout Methods
-  * [getWorkout](/docs/getWorkout.md)
+  * [getSamples](docs/getSamples.md)
   * [saveWorkout](/docs/saveWorkout.md)
 
 ## Additional Information
