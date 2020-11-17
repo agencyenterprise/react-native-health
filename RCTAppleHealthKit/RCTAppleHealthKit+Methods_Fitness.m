@@ -59,25 +59,33 @@
     NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
 
     HKSampleType *samplesType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
+
+    void (^completion)(NSArray *results, NSError *error);
+
+    completion = ^(NSArray *results, NSError *error) {
+        if (results){
+            callback(@[[NSNull null], results]);
+
+            return;
+        } else {
+            NSLog(@"error getting samples: %@", error);
+            callback(@[RCTMakeError(@"error getting samples", nil, nil)]);
+
+            return;
+        }
+    };
+
+
     if ([type isEqual:@"Running"] || [type isEqual:@"Cycling"]) {
         unit = [HKUnit mileUnit];
     }
-    NSLog(@"error getting samples: %@", [samplesType identifier]);
+
     [self fetchSamplesOfType:samplesType
-                                unit:unit
-                           predicate:predicate
-                           ascending:ascending
-                               limit:limit
-                          completion:^(NSArray *results, NSError *error) {
-                              if(results){
-                                  callback(@[[NSNull null], results]);
-                                  return;
-                              } else {
-                                  NSLog(@"error getting samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting samples", nil, nil)]);
-                                  return;
-                              }
-                          }];
+                        unit:unit
+                   predicate:predicate
+                   ascending:ascending
+                       limit:limit
+                  completion:completion];
 }
 
 - (void)fitness_setObserver:(NSDictionary *)input
