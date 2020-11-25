@@ -14,9 +14,12 @@
 - (void)activity_getActiveEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *activeEnergyType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit kilocalorieUnit]];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
-    HKUnit *cal = [HKUnit kilocalorieUnit];
+    NSUInteger period = [RCTAppleHealthKit uintFromOptions:input key:@"period" withDefault:60];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
 
     if(startDate == nil){
         callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
@@ -24,11 +27,13 @@
     }
 
     [self fetchCumulativeSumStatisticsCollection:activeEnergyType
-                                            unit:cal
+                                            unit:unit
+                                          period:period
                                        startDate:startDate
                                          endDate:endDate
-                                       ascending:false
+                                       ascending:ascending
                                            limit:HKObjectQueryNoLimit
+                            includeManuallyAdded:includeManuallyAdded
                                       completion:^(NSArray *results, NSError *error) {
                                           if(results){
                                               callback(@[[NSNull null], results]);

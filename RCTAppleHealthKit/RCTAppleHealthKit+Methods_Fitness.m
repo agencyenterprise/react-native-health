@@ -387,6 +387,8 @@
     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    NSUInteger period = [RCTAppleHealthKit uintFromOptions:input key:@"period" withDefault:60];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     if(startDate == nil){
         callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
         return;
@@ -396,10 +398,12 @@
 
     [self fetchCumulativeSumStatisticsCollection:quantityType
                                             unit:unit
+                                          period:period
                                        startDate:startDate
                                          endDate:endDate
                                        ascending:ascending
                                            limit:limit
+                           includeManuallyAdded:includeManuallyAdded
                                       completion:^(NSArray *arr, NSError *err){
                                           if (err != nil) {
                                               callback(@[RCTJSErrorFromNSError(err)]);
