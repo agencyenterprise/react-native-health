@@ -59,6 +59,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierNikeFuel];
     } else if ([@"AppleStandTime" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleStandTime];
+    } else if ([@"AppleExerciseTime" isEqualToString: key] && systemVersion >= 9.3) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleExerciseTime];
     }
 
     // Nutrition Identifiers
