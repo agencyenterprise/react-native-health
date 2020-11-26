@@ -403,7 +403,7 @@
                                          endDate:endDate
                                        ascending:ascending
                                            limit:limit
-                           includeManuallyAdded:includeManuallyAdded
+                            includeManuallyAdded:includeManuallyAdded
                                       completion:^(NSArray *arr, NSError *err){
                                           if (err != nil) {
                                               callback(@[RCTJSErrorFromNSError(err)]);
