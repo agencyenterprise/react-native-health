@@ -88,7 +88,7 @@ declare module 'react-native-health' {
 
     getSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getDailyStepCountSamples(
@@ -158,7 +158,7 @@ declare module 'react-native-health' {
 
     getActiveEnergyBurned(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getBasalEnergyBurned(
