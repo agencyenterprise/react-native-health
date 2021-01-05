@@ -138,6 +138,14 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
     } else if ([type isEqual:@"RestingHeartRate"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
+    } else if ([type isEqual:@"BodyFat"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];
+    } else if ([type isEqual:@"Height"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    } else if ([type isEqual:@"Weight"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    } else if ([type isEqual:@"Steps"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     }
     return [HKObjectType workoutType];
 }
