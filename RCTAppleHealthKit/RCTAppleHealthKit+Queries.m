@@ -230,6 +230,13 @@
     [self.healthStore executeQuery:query];
 }
 
+/*!
+    Set background observer for the given HealthKit sample type. This method should only be called by
+    the native code and not injected by any Javascript code, as that might imply in unstable behavior
+
+    @param sampleType The type of samples to add a listener for
+    @param type A human readable description for the sample type
+ */
 - (void)setObserverForType:(HKSampleType *)sampleType
                       type:(NSString *)type {
     HKObserverQuery* query = [
@@ -238,33 +245,46 @@
                                      updateHandler:^(HKObserverQuery* query,
                                                      HKObserverQueryCompletionHandler completionHandler,
                                                      NSError * _Nullable error) {
+        NSLog(@"New sample received from Apple HealthKit - %@", type);
+
+        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:new", type];
+        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:failure", type];
+
         if (error) {
-            NSLog(@"*** An error occured while receiving observer answer. %@ ***", error.localizedDescription);
+            completionHandler();
+
+            NSLog(@"An error happened when receiving a new sample - %@", error.localizedDescription);
+
+            [self.bridge.eventDispatcher sendAppEventWithName:failureEvent];
+
             return;
         }
 
-        NSString* observerName;
+        [self.bridge.eventDispatcher sendAppEventWithName:successEvent];
 
-        observerName = [NSString stringWithFormat:@"healthKit:%@:sample", type];
+        completionHandler();
 
-        [self.bridge.eventDispatcher sendAppEventWithName:observerName body:@""];
+        NSLog(@"New sample from Apple HealthKit processed - %@", type);
     }];
 
-    [self.healthStore executeQuery:query];
 
     [self.healthStore enableBackgroundDeliveryForType:sampleType
                                             frequency:HKUpdateFrequencyImmediate
                                        withCompletion:^(BOOL success, NSError * _Nullable error) {
+        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:setup:success", type];
+        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:setup:failure", type];
+
         if (error) {
-            NSLog(@"*** An error occured while setting up the observer. %@ ***", error.localizedDescription);
+            NSLog(@"An error happened when setting up background observer - %@", error.localizedDescription);
+
+            [self.bridge.eventDispatcher sendAppEventWithName:failureEvent];
+
             return;
         }
 
-        NSString *observerName;
+        [self.healthStore executeQuery:query];
 
-        observerName = [NSString stringWithFormat:@"healthKit:%@:enabled", type];
-
-        [self.bridge.eventDispatcher sendAppEventWithName:observerName body:@""];
+        [self.bridge.eventDispatcher sendAppEventWithName:successEvent];
     }];
 }
 

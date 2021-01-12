@@ -319,9 +319,11 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback
 {
     BOOL isAvailable = NO;
+
     if ([HKHealthStore isHealthDataAvailable]) {
         isAvailable = YES;
     }
+
     callback(@[[NSNull null], @(isAvailable)]);
 }
 
@@ -424,6 +426,41 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
     } else {
         callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
     }
+}
+
+/*!
+    Initialize background delivery for the specified types. This allows for HealthKit to notify the app when a new
+    sample of data is added to it
+
+    This method must be called at the application:didFinishLaunchingWithOptions: method, in AppDelegate.m
+ */
+- (void)initializeBackgroundObservers
+{
+    NSLog(@"Background observers will be added to the app");
+
+    NSArray *observers = @[
+        @"ActiveEnergyBurned",
+        @"BasalEnergyBurned",
+        @"Cycling",
+        @"HeartRate",
+        @"HeartRateVariabilitySDNN",
+        @"MindfulSession",
+        @"RestingHeartRate",
+        @"Running",
+        @"SleepAnalysis",
+        @"StairClimbing",
+        @"StepCount",
+        @"Swimming",
+        @"Vo2Max",
+        @"Walking",
+        @"Workout"
+    ];
+
+    for(NSString * type in observers) {
+        [self fitness_registerObserver:type];
+    }
+
+    NSLog(@"Background observers added to the app");
 }
 
 @end

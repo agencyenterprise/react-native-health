@@ -123,22 +123,44 @@
     return date;
 }
 
-+ (HKSampleType *)hkQuantityTypeFromString:(NSString *)type {
-    if ([type isEqual:@"Walking"]) {
-        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    } else if ([type isEqual:@"StairClimbing"]) {
-        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
-    } else if ([type isEqual:@"Running"]){
-        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+/*!
+    Convert Human Readable name for a HealthKit activity into a HKObjectType format
+
+    @param type The human readable format
+ */
++ (HKSampleType *)quantityTypeFromName:(NSString *)type {
+    if ([type isEqual:@"ActiveEnergyBurned"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
+    } else if ([type isEqual:@"BasalEnergyBurned"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBasalEnergyBurned];
     } else if ([type isEqual:@"Cycling"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
-    } else if ([type isEqual:@"Swimming"]){
-        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceSwimming];
     } else if ([type isEqual:@"HeartRate"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
+    } else if ([type isEqual:@"HeartRateVariabilitySDNN"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRateVariabilitySDNN];
+    } else if ([type isEqual:@"MindfulSession"]){
+        return [HKObjectType quantityTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession];
     } else if ([type isEqual:@"RestingHeartRate"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
+    } else if ([type isEqual:@"Running"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+    } else if ([type isEqual:@"SleepAnalysis"]){
+        return [HKObjectType quantityTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
+    } else if ([type isEqual:@"StairClimbing"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
+    } else if ([type isEqual:@"StepCount"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    } else if ([type isEqual:@"Swimming"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceSwimming];
+    } else if ([type isEqual:@"Vo2Max"]){
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierVO2Max];
+    } else if ([type isEqual:@"Walking"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    } else if ([type isEqual:@"Workout"]) {
+        return [HKObjectType workoutType];
     }
+
     return [HKObjectType workoutType];
 }
 
