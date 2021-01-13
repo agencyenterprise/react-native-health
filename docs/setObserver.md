@@ -1,3 +1,7 @@
+> DEPRECATED - This method has been depreacted in favor of background initializers
+and will be removed in the next major release. See the [background](background.md)
+page for more information.
+
 # Set Observer
 An observer is responsible by listen to HealthKit updates and notify your app
 in case any new data was added. The background notification is handled
@@ -50,3 +54,6 @@ the [getSamples]('./getSamples().md') function from your callback.
 **Note** - Some data types, such as step counts, have a minimum frequency
  of HKUpdateFrequencyHourly. This frequency is enforced transparently.
 
+> DEPRECATED - This method has been depreacted in favor of background initializers
+and will be removed in the next major release. See the [background](background.md)
+page for more information.
