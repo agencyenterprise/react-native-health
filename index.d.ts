@@ -306,6 +306,7 @@ declare module 'react-native-health' {
     type?: HealthObserver
     date?: string
     includeManuallyAdded?: boolean
+    period?: number
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {

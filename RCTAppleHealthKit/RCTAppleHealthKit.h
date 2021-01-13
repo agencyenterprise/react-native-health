@@ -24,6 +24,6 @@
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)getAuthorizationStatus:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
-- (void)initializeBackgroundObservers;
+- (void)initializeBackgroundObservers:(RCTBridge *)bridge;
 
 @end

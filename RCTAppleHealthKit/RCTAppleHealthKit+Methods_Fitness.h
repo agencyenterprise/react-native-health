@@ -25,6 +25,7 @@
 - (void)fitness_getDailyFlightsClimbedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
 - (void)fitness_setObserver:(NSDictionary *)input __deprecated;
-- (void)fitness_registerObserver:(NSString *)type;
+- (void)fitness_registerObserver:(NSString *)type
+                          bridge:(RCTBridge *)bridge;
 
 @end

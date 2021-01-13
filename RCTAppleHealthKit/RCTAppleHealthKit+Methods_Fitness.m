@@ -409,6 +409,8 @@
  */
 - (void)fitness_setObserver:(NSDictionary *)input __deprecated
 {
+    RCTLogWarn(@"The setObserver() method has been deprecated in favor of initializeBackgroundObservers()");
+
     NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
     HKSampleType *sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
 
@@ -421,10 +423,11 @@
     @param type Human Readable type
  */
 - (void)fitness_registerObserver:(NSString *)type
+                          bridge:(RCTBridge *)bridge
 {
     HKSampleType *sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
 
-    [self setObserverForType:sampleType type:type];
+    [self setObserverForType:sampleType type:type bridge:bridge];
 }
 
 @end

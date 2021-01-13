@@ -230,64 +230,6 @@
     [self.healthStore executeQuery:query];
 }
 
-/*!
-    Set background observer for the given HealthKit sample type. This method should only be called by
-    the native code and not injected by any Javascript code, as that might imply in unstable behavior
-
-    @param sampleType The type of samples to add a listener for
-    @param type A human readable description for the sample type
- */
-- (void)setObserverForType:(HKSampleType *)sampleType
-                      type:(NSString *)type {
-    HKObserverQuery* query = [
-        [HKObserverQuery alloc] initWithSampleType:sampleType
-                                         predicate:nil
-                                     updateHandler:^(HKObserverQuery* query,
-                                                     HKObserverQueryCompletionHandler completionHandler,
-                                                     NSError * _Nullable error) {
-        NSLog(@"New sample received from Apple HealthKit - %@", type);
-
-        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:new", type];
-        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:failure", type];
-
-        if (error) {
-            completionHandler();
-
-            NSLog(@"An error happened when receiving a new sample - %@", error.localizedDescription);
-
-            [self.bridge.eventDispatcher sendAppEventWithName:failureEvent];
-
-            return;
-        }
-
-        [self.bridge.eventDispatcher sendAppEventWithName:successEvent];
-
-        completionHandler();
-
-        NSLog(@"New sample from Apple HealthKit processed - %@", type);
-    }];
-
-
-    [self.healthStore enableBackgroundDeliveryForType:sampleType
-                                            frequency:HKUpdateFrequencyImmediate
-                                       withCompletion:^(BOOL success, NSError * _Nullable error) {
-        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:setup:success", type];
-        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:setup:failure", type];
-
-        if (error) {
-            NSLog(@"An error happened when setting up background observer - %@", error.localizedDescription);
-
-            [self.bridge.eventDispatcher sendAppEventWithName:failureEvent];
-
-            return;
-        }
-
-        [self.healthStore executeQuery:query];
-
-        [self.bridge.eventDispatcher sendAppEventWithName:successEvent];
-    }];
-}
-
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
                                         limit:(NSUInteger)lim
                                    completion:(void (^)(NSArray *, NSError *))completion {
@@ -701,6 +643,122 @@
     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:[HKObjectType workoutType] predicate:predicate limit:limit sortDescriptors:@[endDateSortDescriptor] resultsHandler:handlerBlock];
 
     [self.healthStore executeQuery:query];
+}
+
+/*!
+    Set background observer for the given HealthKit sample type. This method should only be called by
+    the native code and not injected by any Javascript code, as that might imply in unstable behavior
+
+    @deprecated The setObserver() method has been deprecated in favor of initializeBackgroundObservers()
+
+    @param sampleType The type of samples to add a listener for
+    @param type A human readable description for the sample type
+ */
+- (void)setObserverForType:(HKSampleType *)sampleType
+                      type:(NSString *)type __deprecated
+{
+    HKObserverQuery* query = [
+        [HKObserverQuery alloc] initWithSampleType:sampleType
+                                         predicate:nil
+                                     updateHandler:^(HKObserverQuery* query,
+                                                     HKObserverQueryCompletionHandler completionHandler,
+                                                     NSError * _Nullable error) {
+        NSLog(@"[HealthKit] New sample received from Apple HealthKit - %@", type);
+
+        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:sample", type];
+
+        if (error) {
+            completionHandler();
+
+            NSLog(@"[HealthKit] An error happened when receiving a new sample - %@", error.localizedDescription);
+
+            return;
+        }
+
+        [self.bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
+
+        completionHandler();
+
+        NSLog(@"[HealthKit] New sample from Apple HealthKit processed - %@", type);
+    }];
+
+
+    [self.healthStore enableBackgroundDeliveryForType:sampleType
+                                            frequency:HKUpdateFrequencyImmediate
+                                       withCompletion:^(BOOL success, NSError * _Nullable error) {
+        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:enabled", type];
+
+        if (error) {
+            NSLog(@"[HealthKit] An error happened when setting up background observer - %@", error.localizedDescription);
+
+            return;
+        }
+
+        [self.healthStore executeQuery:query];
+
+        [self.bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
+    }];
+}
+
+/*!
+    Set background observer for the given HealthKit sample type. This method should only be called by
+    the native code and not injected by any Javascript code, as that might imply in unstable behavior
+
+    @param sampleType The type of samples to add a listener for
+    @param type A human readable description for the sample type
+    @param bridge React Native bridge instance
+ */
+- (void)setObserverForType:(HKSampleType *)sampleType
+                      type:(NSString *)type
+                    bridge:(RCTBridge *)bridge
+{
+    HKObserverQuery* query = [
+        [HKObserverQuery alloc] initWithSampleType:sampleType
+                                         predicate:nil
+                                     updateHandler:^(HKObserverQuery* query,
+                                                     HKObserverQueryCompletionHandler completionHandler,
+                                                     NSError * _Nullable error) {
+        NSLog(@"[HealthKit] New sample received from Apple HealthKit - %@", type);
+
+        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:new", type];
+        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:failure", type];
+
+        if (error) {
+            completionHandler();
+
+            NSLog(@"[HealthKit] An error happened when receiving a new sample - %@", error.localizedDescription);
+
+            [bridge.eventDispatcher sendAppEventWithName:failureEvent body:@{}];
+
+            return;
+        }
+
+        [bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
+
+        completionHandler();
+
+        NSLog(@"[HealthKit] New sample from Apple HealthKit processed - %@", type);
+    }];
+
+
+    [self.healthStore enableBackgroundDeliveryForType:sampleType
+                                            frequency:HKUpdateFrequencyImmediate
+                                       withCompletion:^(BOOL success, NSError * _Nullable error) {
+        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:setup:success", type];
+        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:setup:failure", type];
+
+        if (error) {
+            NSLog(@"[HealthKit] An error happened when setting up background observer - %@", error.localizedDescription);
+
+            [bridge.eventDispatcher sendAppEventWithName:failureEvent body:@{}];
+
+            return;
+        }
+
+        [self.healthStore executeQuery:query];
+
+        [bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
+    }];
 }
 
 @end

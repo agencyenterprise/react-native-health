@@ -434,33 +434,37 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 
     This method must be called at the application:didFinishLaunchingWithOptions: method, in AppDelegate.m
  */
-- (void)initializeBackgroundObservers
+- (void)initializeBackgroundObservers:(RCTBridge *)bridge
 {
-    NSLog(@"Background observers will be added to the app");
+    NSLog(@"[HealthKit] Background observers will be added to the app");
 
-    NSArray *observers = @[
-        @"ActiveEnergyBurned",
-        @"BasalEnergyBurned",
-        @"Cycling",
-        @"HeartRate",
-        @"HeartRateVariabilitySDNN",
-        @"MindfulSession",
-        @"RestingHeartRate",
-        @"Running",
-        @"SleepAnalysis",
-        @"StairClimbing",
-        @"StepCount",
-        @"Swimming",
-        @"Vo2Max",
-        @"Walking",
-        @"Workout"
-    ];
+    self.healthStore = [[HKHealthStore alloc] init];
 
-    for(NSString * type in observers) {
-        [self fitness_registerObserver:type];
+    if ([HKHealthStore isHealthDataAvailable]) {
+        NSArray *observers = @[
+            @"ActiveEnergyBurned",
+            @"BasalEnergyBurned",
+            @"Cycling",
+            @"HeartRate",
+            @"HeartRateVariabilitySDNN",
+            @"RestingHeartRate",
+            @"Running",
+            @"StairClimbing",
+            @"StepCount",
+            @"Swimming",
+            @"Vo2Max",
+            @"Walking",
+            @"Workout"
+        ];
+
+        for(NSString * type in observers) {
+            [self fitness_registerObserver:type bridge:bridge];
+        }
+
+        NSLog(@"[HealthKit] Background observers added to the app");
+    } else {
+        NSLog(@"[HealthKit] Apple HealthKit is not availabe in this platform");
     }
-
-    NSLog(@"Background observers added to the app");
 }
 
 @end
