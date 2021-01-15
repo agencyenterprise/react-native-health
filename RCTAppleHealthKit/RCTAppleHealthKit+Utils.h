@@ -22,7 +22,7 @@
 + (NSDate *)startDateFromOptions:(NSDictionary *)options;
 + (NSDate *)endDateFromOptions:(NSDictionary *)options;
 + (NSDate *)endDateFromOptionsDefaultNow:(NSDictionary *)options;
-+ (HKSampleType *)hkQuantityTypeFromString:(NSString *)type;
++ (HKSampleType *)quantityTypeFromName:(NSString *)type;
 
 + (HKUnit *)hkUnitFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKUnit *)defaultValue;
 + (NSUInteger)uintFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(NSUInteger)defaultValue;

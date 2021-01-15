@@ -2,13 +2,13 @@
 
 ### Automatic Installation
 
-Install the react-native-health package from [npm](https://www.npmjs.com/package/react-native-health)
+1. Install the react-native-health package from [npm](https://www.npmjs.com/package/react-native-health)
 
 ```
 yarn add react-native-health
 ```
 
-If you are using [CocoaPods](https://cocoapods.org/) you can run the following
+2. If you are using [CocoaPods](https://cocoapods.org/) you can run the following
 from the `ios/` folder of your app
 
 ```
@@ -21,7 +21,7 @@ Or, if you need to manually link it, run
 react-native link react-native-health
 ```
 
-Update the `info.plist` file in your project
+3. Update the `info.plist` file in your project
 ```
 <key>NSHealthShareUsageDescription</key>
 <string>Read and understand health data.</string>
