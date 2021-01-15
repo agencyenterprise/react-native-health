@@ -15,6 +15,7 @@ export const Units = {
   hour: 'hour',
   inch: 'inch',
   joule: 'joule',
+  kilocalorie: 'kilocalorie',
   meter: 'meter',
   mgPerdL: 'mgPerdL',
   mile: 'mile',

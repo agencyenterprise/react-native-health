@@ -108,7 +108,7 @@ declare module 'react-native-health' {
 
     getDailyDistanceWalkingRunningSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getDistanceCycling(
@@ -118,7 +118,7 @@ declare module 'react-native-health' {
 
     getDailyDistanceCyclingSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getFlightsClimbed(
@@ -128,7 +128,7 @@ declare module 'react-native-health' {
 
     getDailyFlightsClimbedSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     saveFood(
@@ -163,17 +163,17 @@ declare module 'react-native-health' {
 
     getBasalEnergyBurned(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getAppleExerciseTime(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getAppleStandTime(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getVo2MaxSamples(
@@ -306,6 +306,7 @@ declare module 'react-native-health' {
     type?: HealthObserver
     date?: string
     includeManuallyAdded?: boolean
+    period?: number
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {
@@ -479,6 +480,7 @@ declare module 'react-native-health' {
     hour = 'hour',
     inch = 'inch',
     joule = 'joule',
+    kilocalorie = 'kilocalorie',
     meter = 'meter',
     mgPerdL = 'mgPerdL',
     mile = 'mile',
