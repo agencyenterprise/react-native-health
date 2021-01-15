@@ -139,14 +139,10 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
     } else if ([type isEqual:@"HeartRateVariabilitySDNN"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRateVariabilitySDNN];
-    } else if ([type isEqual:@"MindfulSession"]){
-        return [HKObjectType quantityTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession];
     } else if ([type isEqual:@"RestingHeartRate"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
     } else if ([type isEqual:@"Running"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
-    } else if ([type isEqual:@"SleepAnalysis"]){
-        return [HKObjectType quantityTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
     } else if ([type isEqual:@"StairClimbing"]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
     } else if ([type isEqual:@"StepCount"]){

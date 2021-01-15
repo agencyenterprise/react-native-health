@@ -118,7 +118,7 @@ following statements:
 ```
 
 After that you can start listening for data updates using the React Native
-client. For more information, see [background listeners](/docs/background.md).
+client. For more information, see [background observers](/docs/background.md).
 
 ## Documentation
 
@@ -137,7 +137,7 @@ they are splitted in the following categories
   * [authorizationStatusForType](/docs/authorizationStatusForType.md)
 
 ### Background Methods
-  * [background listeners](/docs/background.md)
+  * [background observers](/docs/background.md)
   * [initStepCountObserver](/docs/initStepCountObserver.md) - *DEPRECATED*
   * [setObserver](/docs/setObserver.md) - *DEPRECATED*
 
