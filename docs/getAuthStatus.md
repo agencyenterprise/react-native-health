@@ -15,6 +15,7 @@ export interface HealthStatusResult {
 }
 ```
 
+Example:
 
 ```typescript
 const permissions = {
