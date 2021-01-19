@@ -247,7 +247,7 @@ declare module 'react-native-health' {
     ): void
 
     getAuthStatus(
-      options: HealthUnitOptions,
+      permissions: HealthKitPermissions,
       callback: (err: string, results: HealthValue) => void,
     ): void
 
