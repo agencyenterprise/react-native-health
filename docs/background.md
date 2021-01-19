@@ -101,7 +101,7 @@ NativeAppEventEmitter.addListener('healthKit:HeartRate:new', callback);
 ```
 
 When a new sample appears, in order to get the information you need to call
-the [getSamples]('./getSamples().md') methof from your callback function.
+the [getSamples](./getSamples.md) methof from your callback function.
 
 **Note** - Some HealthKit data types have a minimum update frequency of an
 hour. Even setting up an observer, it might take some moment until your
