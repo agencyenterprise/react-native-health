@@ -247,8 +247,8 @@ declare module 'react-native-health' {
     ): void
 
     getAuthStatus(
-      options: HealthUnitOptions,
-      callback: (err: string, results: HealthValue) => void,
+      permissions: HealthKitPermissions,
+      callback: (err: string, results: HealthStatusResult) => void,
     ): void
 
     getLatestBloodAlcoholContent(
@@ -490,6 +490,17 @@ declare module 'react-native-health' {
     percent = 'percent',
     pound = 'pound',
     second = 'second',
+  }
+  
+  export enum HealthStatusCode = {
+    NotDetermined = 0,
+    SharingDenied = 1,
+    SharingAuthorized = 2,
+  }
+
+  export interface HealthStatusResult {
+    read: HealthStatusCode[],
+    write: HealthStatusCode[],
   }
 
   export enum HealthObserver {

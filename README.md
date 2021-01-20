@@ -134,7 +134,7 @@ they are splitted in the following categories
 ### Base Methods
   * [isAvailable](/docs/isAvailable.md)
   * [initHealthKit](/docs/initHealthKit.md)
-  * [authorizationStatusForType](/docs/authorizationStatusForType.md)
+  * [getAuthStatus](/docs/getAuthStatus.md)
 
 ### Background Methods
   * [background observers](/docs/background.md)

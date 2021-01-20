@@ -405,8 +405,8 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
         if(permissions != nil && [permissions objectForKey:@"read"] != nil && [permissions objectForKey:@"write"] != nil){
             NSArray* readPermsNamesArray = [permissions objectForKey:@"read"];
             NSArray* writePermsNamesArray = [permissions objectForKey:@"write"];
-            readPermsArray = [self getReadPermsArrayFromOptions:readPermsNamesArray];
-            writePermsArray = [self getWritePermsArrayFromOptions:writePermsNamesArray];
+            readPermsArray = [self getReadPermsFromOptions:readPermsNamesArray];
+            writePermsArray = [self getWritePermsFromOptions:writePermsNamesArray];
         } else {
             callback(@[RCTMakeError(@"permissions must be included in permissions object with read and write options", nil, nil)]);
             return;
