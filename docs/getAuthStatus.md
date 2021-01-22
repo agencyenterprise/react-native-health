@@ -3,15 +3,17 @@ Check the authorization status for sharing (writing) the specified data type.
 Status will be a HealthStatusResult[]. From index.d.ts:
 
 ```typescript
-export enum HealthStatusCode = {
+export enum HealthStatusCode {
   NotDetermined = 0,
   SharingDenied = 1,
   SharingAuthorized = 2,
 }
 
 export interface HealthStatusResult {
-  read: HealthStatusCode[],
-  write: HealthStatusCode[],
+  permissions: {
+    read: HealthStatusCode[],
+    write: HealthStatusCode[],
+  }
 }
 ```
 
