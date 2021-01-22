@@ -492,15 +492,17 @@ declare module 'react-native-health' {
     second = 'second',
   }
   
-  export enum HealthStatusCode = {
+  export enum HealthStatusCode {
     NotDetermined = 0,
     SharingDenied = 1,
     SharingAuthorized = 2,
   }
 
   export interface HealthStatusResult {
-    read: HealthStatusCode[],
-    write: HealthStatusCode[],
+    permissions: {
+      read: HealthStatusCode[],
+      write: HealthStatusCode[],
+    }
   }
 
   export enum HealthObserver {
