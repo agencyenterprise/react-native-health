@@ -18,6 +18,7 @@
 
 @property (nonatomic) HKHealthStore *healthStore;
 
+- (HKHealthStore *)_initializeHealthStore;
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback;
 - (void)initializeHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)checkPermission:(NSString *)input callback:(RCTResponseSenderBlock)callback;
