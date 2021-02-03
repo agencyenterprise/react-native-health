@@ -168,17 +168,17 @@ declare module 'react-native-health' {
 
     getBasalEnergyBurned(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getAppleExerciseTime(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getAppleStandTime(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getVo2MaxSamples(
@@ -252,8 +252,8 @@ declare module 'react-native-health' {
     ): void
 
     getAuthStatus(
-      options: HealthUnitOptions,
-      callback: (err: string, results: HealthValue) => void,
+      permissions: HealthKitPermissions,
+      callback: (err: string, results: HealthStatusResult) => void,
     ): void
 
     getLatestBloodAlcoholContent(
@@ -311,6 +311,7 @@ declare module 'react-native-health' {
     type?: HealthObserver
     date?: string
     includeManuallyAdded?: boolean
+    period?: number
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {
@@ -484,6 +485,7 @@ declare module 'react-native-health' {
     hour = 'hour',
     inch = 'inch',
     joule = 'joule',
+    kilocalorie = 'kilocalorie',
     meter = 'meter',
     mgPerdL = 'mgPerdL',
     mile = 'mile',
@@ -493,6 +495,17 @@ declare module 'react-native-health' {
     percent = 'percent',
     pound = 'pound',
     second = 'second',
+  }
+  
+  export enum HealthStatusCode = {
+    NotDetermined = 0,
+    SharingDenied = 1,
+    SharingAuthorized = 2,
+  }
+
+  export interface HealthStatusResult {
+    read: HealthStatusCode[],
+    write: HealthStatusCode[],
   }
 
   export enum HealthObserver {

@@ -9,7 +9,7 @@
 ### Base Methods
   * [isAvailable](isAvailable.md)
   * [initHealthKit](initHealthKit.md)
-  * [authorizationStatusForType](authorizationStatusForType.md)
+  * [getAuthStatus](getAuthStatus.md)
 
 ### Background Methods
   * [initStepCountObserver](initStepCountObserver.md)

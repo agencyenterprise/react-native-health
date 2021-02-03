@@ -58,7 +58,7 @@
 
     NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
 
-    HKSampleType *samplesType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
+    HKSampleType *samplesType = [RCTAppleHealthKit quantityTypeFromName:type];
 
     void (^completion)(NSArray *results, NSError *error);
 
@@ -88,13 +88,6 @@
                   completion:completion];
 }
 
-- (void)fitness_setObserver:(NSDictionary *)input
-{
-    NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
-    HKSampleType *sampleType = [RCTAppleHealthKit hkQuantityTypeFromString:type];
-
-    [self setObserverForType:sampleType type:type];
-}
 
 - (void)fitness_getDailyStepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
@@ -387,6 +380,8 @@
     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    NSUInteger period = [RCTAppleHealthKit uintFromOptions:input key:@"period" withDefault:60];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     if(startDate == nil){
         callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
         return;
@@ -396,10 +391,12 @@
 
     [self fetchCumulativeSumStatisticsCollection:quantityType
                                             unit:unit
+                                          period:period
                                        startDate:startDate
                                          endDate:endDate
                                        ascending:ascending
                                            limit:limit
+                            includeManuallyAdded:includeManuallyAdded
                                       completion:^(NSArray *arr, NSError *err){
                                           if (err != nil) {
                                               callback(@[RCTJSErrorFromNSError(err)]);
@@ -407,6 +404,34 @@
                                           }
                                           callback(@[[NSNull null], arr]);
                                       }];
+}
+
+/*!
+    Register observer from React Native object
+
+    @deprecated This method was deprecated. Favor the initializeBackgroundObservers() approach
+ */
+- (void)fitness_setObserver:(NSDictionary *)input __deprecated
+{
+    RCTLogWarn(@"The setObserver() method has been deprecated in favor of initializeBackgroundObservers()");
+
+    NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:@"Walking"];
+    HKSampleType *sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
+
+    [self setObserverForType:sampleType type:type];
+}
+
+/*!
+    Register observer for a specifc human readable type
+
+    @param type Human Readable type
+ */
+- (void)fitness_registerObserver:(NSString *)type
+                          bridge:(RCTBridge *)bridge
+{
+    HKSampleType *sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
+
+    [self setObserverForType:sampleType type:type bridge:bridge];
 }
 
 @end
