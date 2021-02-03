@@ -105,9 +105,24 @@ RCT_EXPORT_METHOD(getBodyFatPercentageSamples:(NSDictionary *)input callback:(RC
     [self body_getBodyFatPercentageSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(saveBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_saveBodyFatPercentage:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getLatestLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self body_getLatestLeanBodyMass:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getLeanBodyMassSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_getLeanBodyMassSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_saveLeanBodyMass:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getStepCount:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -215,6 +230,11 @@ RCT_EXPORT_METHOD(getAppleExerciseTime:(NSDictionary *)input callback:(RCTRespon
     [self activity_getAppleExerciseTime:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getAppleStandTime:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self activity_getAppleStandTime:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getVo2MaxSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self vitals_getVo2MaxSamples:input callback:callback];
@@ -304,9 +324,11 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback
 {
     BOOL isAvailable = NO;
+
     if ([HKHealthStore isHealthDataAvailable]) {
         isAvailable = YES;
     }
+
     callback(@[[NSNull null], @(isAvailable)]);
 }
 
@@ -383,8 +405,8 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
         if(permissions != nil && [permissions objectForKey:@"read"] != nil && [permissions objectForKey:@"write"] != nil){
             NSArray* readPermsNamesArray = [permissions objectForKey:@"read"];
             NSArray* writePermsNamesArray = [permissions objectForKey:@"write"];
-            readPermsArray = [self getReadPermsArrayFromOptions:readPermsNamesArray];
-            writePermsArray = [self getWritePermsArrayFromOptions:writePermsNamesArray];
+            readPermsArray = [self getReadPermsFromOptions:readPermsNamesArray];
+            writePermsArray = [self getWritePermsFromOptions:writePermsNamesArray];
         } else {
             callback(@[RCTMakeError(@"permissions must be included in permissions object with read and write options", nil, nil)]);
             return;
@@ -408,6 +430,45 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
                        }]);
     } else {
         callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
+    }
+}
+
+/*!
+    Initialize background delivery for the specified types. This allows for HealthKit to notify the app when a new
+    sample of data is added to it
+
+    This method must be called at the application:didFinishLaunchingWithOptions: method, in AppDelegate.m
+ */
+- (void)initializeBackgroundObservers:(RCTBridge *)bridge
+{
+    NSLog(@"[HealthKit] Background observers will be added to the app");
+
+    self.healthStore = [[HKHealthStore alloc] init];
+
+    if ([HKHealthStore isHealthDataAvailable]) {
+        NSArray *observers = @[
+            @"ActiveEnergyBurned",
+            @"BasalEnergyBurned",
+            @"Cycling",
+            @"HeartRate",
+            @"HeartRateVariabilitySDNN",
+            @"RestingHeartRate",
+            @"Running",
+            @"StairClimbing",
+            @"StepCount",
+            @"Swimming",
+            @"Vo2Max",
+            @"Walking",
+            @"Workout"
+        ];
+
+        for(NSString * type in observers) {
+            [self fitness_registerObserver:type bridge:bridge];
+        }
+
+        NSLog(@"[HealthKit] Background observers added to the app");
+    } else {
+        NSLog(@"[HealthKit] Apple HealthKit is not availabe in this platform");
     }
 }
 

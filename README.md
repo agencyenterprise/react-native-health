@@ -80,6 +80,46 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
 });
 ```
 
+### Background Processing
+
+For background capabilities, Apple allows developers to setup long running observer
+queries for the health types needed.
+
+To setup that in your app, in XCode open your `ios/AppDelegate.m` file and add the
+following statements:
+
+```objective-c
+#import "AppDelegate.h"
+
+...
+
+/* Add the library import at the top of AppDelegate.m */
+#import "RCTAppleHealthKit.h"
+
+...
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self
+                                            launchOptions:launchOptions];
+
+  ...
+
+  /* Add Background initializer for HealthKit  */
+  [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge];
+
+  ...
+
+  return YES;
+}
+```
+
+After that you can start listening for data updates using the React Native
+client. For more information, see [background observers](/docs/background.md).
+
 ## Documentation
 
 All the documentation is under the [docs](/docs) folder. Additionally,
@@ -94,11 +134,12 @@ they are splitted in the following categories
 ### Base Methods
   * [isAvailable](/docs/isAvailable.md)
   * [initHealthKit](/docs/initHealthKit.md)
-  * [authorizationStatusForType](/docs/authorizationStatusForType.md)
+  * [getAuthStatus](/docs/getAuthStatus.md)
 
 ### Background Methods
-  * [initStepCountObserver](/docs/initStepCountObserver.md)
-  * [setObserver](/docs/setObserver.md)
+  * [background observers](/docs/background.md)
+  * [initStepCountObserver](/docs/initStepCountObserver.md) - *DEPRECATED*
+  * [setObserver](/docs/setObserver.md) - *DEPRECATED*
 
 ### Activity Methods
   * [getActiveEnergyBurned](/docs/getActiveEnergyBurned.md)

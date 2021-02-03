@@ -78,6 +78,10 @@
                       completion:(void (^)(NSArray *, NSError *))completion;
 
 - (void)setObserverForType:(HKSampleType *)quantityType
-                      type:(NSString *)type;
+                      type:(NSString *)type __deprecated;
+
+- (void)setObserverForType:(HKSampleType *)quantityType
+                      type:(NSString *)type
+                    bridge:(RCTBridge *)bridge;
 
 @end
