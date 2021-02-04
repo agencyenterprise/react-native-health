@@ -459,7 +459,10 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
             @"Swimming",
             @"Vo2Max",
             @"Walking",
-            @"Workout"
+            @"Workout",
+            @"BodyFat",
+            @"Height",
+            @"Weight"
         ];
 
         for(NSString * type in observers) {
