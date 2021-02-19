@@ -38,7 +38,7 @@ declare module 'react-native-health' {
 
     getWeightSamples(
       options: HealthUnitOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     saveWeight(
