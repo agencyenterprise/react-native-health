@@ -358,10 +358,14 @@
             return @"Basketball";
         case HKWorkoutActivityTypeBowling:
             return @"Bowling";
+        HKWorkoutActivityTypeCardioDance:
+            return @"CardioDance";
         case HKWorkoutActivityTypeBoxing:
             return @"Boxing";
         case HKWorkoutActivityTypeClimbing:
             return @"Climbing";
+        case HKWorkoutActivityTypeCooldown:
+            return @"Cooldown";
         case HKWorkoutActivityTypeCricket:
             return @"Cricket";
         case HKWorkoutActivityTypeCrossTraining:
@@ -374,12 +378,16 @@
             return @"Dance";
         case HKWorkoutActivityTypeDanceInspiredTraining:
             return @"DanceInspiredTraining";
+        case HKWorkoutActivityTypeDiscSports:
+            return @"DiscSports";
         case HKWorkoutActivityTypeElliptical:
             return @"Elliptical";
         case HKWorkoutActivityTypeEquestrianSports:
             return @"EquestrianSports";
         case HKWorkoutActivityTypeFencing:
             return @"Fencing";
+        case HKWorkoutActivityTypeFitnessGaming:
+            return @"FitnessGaming";
         case HKWorkoutActivityTypeFishing:
             return @"Fishing";
         case HKWorkoutActivityTypeFunctionalStrengthTraining:
@@ -408,6 +416,8 @@
             return @"PaddleSports";
         case HKWorkoutActivityTypePlay:
             return @"Play";
+        case HKWorkoutActivityTypePickleball:
+            return @"Pickleball";
         case HKWorkoutActivityTypePreparationAndRecovery:
             return @"PreparationAndRecovery";
         case HKWorkoutActivityTypeRacquetball:
@@ -426,6 +436,8 @@
             return @"SnowSports";
         case HKWorkoutActivityTypeSoccer:
             return @"Soccer";
+        case HKWorkoutActivityTypeSocialDance:
+            return @"SocialDance";
         case HKWorkoutActivityTypeSoftball:
             return @"Softball";
         case HKWorkoutActivityTypeSquash:
