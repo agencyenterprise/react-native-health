@@ -358,10 +358,10 @@
             return @"Basketball";
         case HKWorkoutActivityTypeBowling:
             return @"Bowling";
-        HKWorkoutActivityTypeCardioDance:
-            return @"CardioDance";
         case HKWorkoutActivityTypeBoxing:
             return @"Boxing";
+        case HKWorkoutActivityTypeCardioDance:
+            return @"CardioDance";
         case HKWorkoutActivityTypeClimbing:
             return @"Climbing";
         case HKWorkoutActivityTypeCooldown:
