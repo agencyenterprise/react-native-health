@@ -276,6 +276,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getOxygenSaturationSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
     setObserver(options: HealthObserverOptions): void
 
     Constants: Constants
@@ -431,6 +436,7 @@ declare module 'react-native-health' {
     Manganese = 'Manganese',
     Molybdenum = 'Molybdenum',
     Niacin = 'Niacin',
+    OxygenSaturation = 'OxygenSaturation',
     PantothenicAcid = 'PantothenicAcid',
     Phosphorus = 'Phosphorus',
     Potassium = 'Potassium',

@@ -38,6 +38,7 @@ export const Permissions = {
   Manganese: 'Manganese',
   Molybdenum: 'Molybdenum',
   Niacin: 'Niacin',
+  OxygenSaturation: 'OxygenSaturation',
   PantothenicAcid: 'PantothenicAcid',
   Phosphorus: 'Phosphorus',
   Potassium: 'Potassium',

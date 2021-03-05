@@ -79,6 +79,7 @@
   * [getVo2MaxSamples](getVo2MaxSamples.md)
   * [getLatestBmi](getLatestBmi.md)
   * [getRespiratoryRateSamples](getRespiratoryRateSamples.md)
+  * [getOxygenSaturationSamples](getOxygenSaturationSamples.md)
   * [saveBmi](saveBmi.md)
 
 #### Workout Methods
