@@ -101,5 +101,5 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 
 #### Workout Methods
 
-- [getWorkout](getWorkout.md)
+- [getAnchoredWorkouts](getAnchoredWorkouts.md)
 - [saveWorkout](saveWorkout.md)

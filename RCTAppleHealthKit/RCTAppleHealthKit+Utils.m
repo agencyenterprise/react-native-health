@@ -57,6 +57,14 @@
     return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
 }
 
++ (NSPredicate *)predicateForAnchoredQueries:(HKQueryAnchor *)anchor startDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    if (startDate == nil) {
+        return nil;
+    } else {
+        return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
+    }
+
+}
 
 + (double)doubleValueFromOptions:(NSDictionary *)options {
     double value = [[options objectForKey:@"value"] doubleValue];
@@ -158,6 +166,17 @@
     }
 
     return [HKObjectType workoutType];
+}
+
++ (HKQueryAnchor *)hkAnchorFromOptions:(NSDictionary *)options {
+    NSString *anchorString = [options objectForKey:@"anchor"];
+    if (!anchorString.length) return nil;
+    NSData* anchorData = [[NSData alloc] initWithBase64EncodedString:anchorString options:0];
+    HKQueryAnchor *anchor = [NSKeyedUnarchiver unarchiveObjectWithData:anchorData];
+    if(anchor == nil){
+        return nil;
+    }
+    return anchor;
 }
 
 
