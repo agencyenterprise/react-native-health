@@ -87,6 +87,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
     } else if ([@"RespiratoryRate" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRespiratoryRate];
+    } else if ([@"OxygenSaturation" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation];
     }
 
     // Results Identifiers

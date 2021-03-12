@@ -265,6 +265,11 @@ RCT_EXPORT_METHOD(getRestingHeartRateSamples:(NSDictionary *)input callback:(RCT
     [self vitals_getRestingHeartRateSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getOxygenSaturationSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self vitals_getOxygenSaturationSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getBloodGlucoseSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self results_getBloodGlucoseSamples:input callback:callback];
@@ -319,7 +324,6 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 {
     [self labTests_saveBloodAlcoholContent:input callback:callback];
 }
-
 
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback
 {
