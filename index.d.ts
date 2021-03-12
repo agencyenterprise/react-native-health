@@ -242,7 +242,7 @@ declare module 'react-native-health' {
     ): void
 
     saveWorkout(
-      options: HealthValueOptions,
+      options: HealthActivityOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -318,6 +318,11 @@ declare module 'react-native-health' {
     value: number
     startDate?: string
     endDate?: string
+  }
+
+  export interface HealthActivityOptions
+    extends Omit<Omit<HealthValueOptions, 'unit'>, 'value'> {
+    type: HealthActivity
   }
 
   export interface HealthObserverOptions {
@@ -503,7 +508,7 @@ declare module 'react-native-health' {
     pound = 'pound',
     second = 'second',
   }
-  
+
   export enum HealthStatusCode {
     NotDetermined = 0,
     SharingDenied = 1,
@@ -512,8 +517,8 @@ declare module 'react-native-health' {
 
   export interface HealthStatusResult {
     permissions: {
-      read: HealthStatusCode[],
-      write: HealthStatusCode[],
+      read: HealthStatusCode[]
+      write: HealthStatusCode[]
     }
   }
 
