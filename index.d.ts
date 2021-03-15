@@ -467,6 +467,7 @@ declare module 'react-native-health' {
     Zinc = 'Zinc',
     Water = 'Water',
     DistanceCycling = 'DistanceCycling',
+    DistanceSwimming = 'DistanceSwimming',
     DistanceWalkingRunning = 'DistanceWalkingRunning',
     FlightsClimbed = 'FlightsClimbed',
     HeartRate = 'HeartRate',

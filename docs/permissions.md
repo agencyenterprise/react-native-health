@@ -78,6 +78,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   Zinc
   Water
   DistanceCycling
+  DistanceSwimming
   DistanceWalkingRunning
   FlightsClimbed
   HeartRate
