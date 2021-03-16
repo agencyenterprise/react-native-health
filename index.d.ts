@@ -300,7 +300,7 @@ declare module 'react-native-health' {
   }
 
   export interface HealthUnitOptions {
-    unit: HealthUnit
+    unit?: HealthUnit
   }
 
   export interface HealthInputOptions extends HealthUnitOptions {
