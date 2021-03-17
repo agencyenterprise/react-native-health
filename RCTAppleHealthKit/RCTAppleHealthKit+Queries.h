@@ -19,8 +19,9 @@
                            completion:(void (^)(double, NSError *))completionHandler;
 
 - (void)fetchSumOfSamplesOnDayForType:(HKQuantityType *)quantityType
-                                 unit:(HKUnit *)unit
-                                  day:(NSDate *)day
+                                   unit:(HKUnit *)unit
+                          includeManuallyAdded:(BOOL)includeManuallyAdded
+                                   day:(NSDate *)day
                            completion:(void (^)(double, NSDate *, NSDate *, NSError *))completionHandler;
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType

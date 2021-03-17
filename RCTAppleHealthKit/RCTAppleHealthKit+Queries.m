@@ -375,20 +375,27 @@
 
 - (void)fetchSumOfSamplesOnDayForType:(HKQuantityType *)quantityType
                                  unit:(HKUnit *)unit
+                                 includeManuallyAdded:(BOOL)includeManuallyAdded
                                   day:(NSDate *)day
                            completion:(void (^)(double, NSDate *, NSDate *, NSError *))completionHandler {
-
-    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesOnDay:day];
+    NSPredicate *dayPredicate = [RCTAppleHealthKit predicateForSamplesOnDay:day];
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[dayPredicate]];
+    if (includeManuallyAdded == false) {
+        NSPredicate *manualDataPredicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
+        predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[dayPredicate, manualDataPredicate]];
+    }
     HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType
                                                           quantitySamplePredicate:predicate
                                                           options:HKStatisticsOptionCumulativeSum
                                                           completionHandler:^(HKStatisticsQuery *query, HKStatistics *result, NSError *error) {
-                                                              HKQuantity *sum = [result sumQuantity];
-                                                              NSDate *startDate = result.startDate;
-                                                              NSDate *endDate = result.endDate;
-                                                              if (completionHandler) {
-                                                                     double value = [sum doubleValueForUnit:unit];
-                                                                     completionHandler(value,startDate, endDate, error);
+                                                              if ([error.localizedDescription isEqualToString:@"No data available for the specified predicate."] && completionHandler) {
+                                                                  completionHandler(0, day, day, nil);
+                                                                } else if (completionHandler) {
+                                                                    HKQuantity *sum = [result sumQuantity];
+                                                                    NSDate *startDate = result.startDate;
+                                                                    NSDate *endDate = result.endDate;
+                                                                    double value = [sum doubleValueForUnit:unit];
+                                                                    completionHandler(value, startDate, endDate, error);
                                                               }
                                                           }];
 
