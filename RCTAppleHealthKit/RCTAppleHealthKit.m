@@ -110,6 +110,11 @@ RCT_EXPORT_METHOD(saveBodyFatPercentage:(NSDictionary *)input callback:(RCTRespo
     [self body_saveBodyFatPercentage:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(saveBodyTemperature:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self body_saveBodyTemperature:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getLatestLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self body_getLatestLeanBodyMass:input callback:callback];

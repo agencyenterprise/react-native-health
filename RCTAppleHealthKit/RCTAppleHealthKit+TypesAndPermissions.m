@@ -132,6 +132,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
     } else if ([@"LeanBodyMass" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
+    } else if ([@"BodyTemperature" isEqualToString:key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
     }
 
     // Fitness Identifiers
