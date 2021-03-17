@@ -1,20 +1,25 @@
 Get the total distance swimming on a specific day.
 
-`getDistanceSwimming` accepts an options object containing optional *`date: ISO8601Timestamp`* and *`unit: string`*. If `date` is not provided it will default to the current time. `unit` defaults to `meter`
+`getDistanceSwimming` accepts an options object containing optional _`date: ISO8601Timestamp`_ and _`unit: string`_. If `date` is not provided it will default to the current time. `unit` defaults to `meter`
+
 ```javascript
 let options = {
   unit: 'mile', // optional; default 'meter'
   date: (new Date(2016,5,1)).toISOString(), // optional; default now
+  includeManuallyAdded: false. // optional: default true
 };
 ```
 
 ```javascript
-AppleHealthKit.getDistanceSwimming(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.getDistanceSwimming(
+  (options: Object),
+  (err: Object, results: Object) => {
     if (err) {
-    	return;
+      return
     }
     console.log(results)
-});
+  },
+)
 ```
 
 ```javascript
