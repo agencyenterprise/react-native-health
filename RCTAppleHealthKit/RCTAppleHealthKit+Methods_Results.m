@@ -50,6 +50,37 @@
     }];
 }
 
+- (void)results_getCarbohydratesSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *carbohydratesType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryCarbohydrates];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit gramUnit]];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchQuantitySamplesOfType:carbohydratesType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+        if(results){
+            callback(@[[NSNull null], results]);
+            return;
+        } else {
+            NSLog(@"An error occured while retrieving the carbohydates sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while retrieving the carbohydates sample", error, nil)]);
+            return;
+        }
+    }];
+}
+
 - (void)results_saveBloodGlucoseSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *bloodGlucoseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
@@ -70,6 +101,28 @@
         if (!success) {
             NSLog(@"An error occured while saving the glucose sample %@. The error was: ", error);
             callback(@[RCTMakeError(@"An error occured while saving the glucose sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(value)]);
+    }];
+}
+
+- (void)results_saveCarbohydratesSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *carbohydratesType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryCarbohydrates];
+
+    double value = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit gramUnit]];
+
+
+    HKQuantity *carbQuantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
+    HKQuantitySample *carbSample = [HKQuantitySample quantitySampleWithType:carbohydratesType quantity:carbQuantity startDate:sampleDate endDate:sampleDate];
+
+    [self.healthStore saveObject:carbSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured while saving the carbohydrate sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while saving the carbohydrate sample", error, nil)]);
             return;
         }
         callback(@[[NSNull null], @(value)]);

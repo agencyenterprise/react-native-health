@@ -280,6 +280,16 @@ RCT_EXPORT_METHOD(getBloodGlucoseSamples:(NSDictionary *)input callback:(RCTResp
     [self results_getBloodGlucoseSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getCarbohydratesSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self results_getCarbohydratesSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveCarbohydratesSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self results_saveCarbohydratesSample:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveBloodGlucoseSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self results_saveBloodGlucoseSample:input callback:callback];
