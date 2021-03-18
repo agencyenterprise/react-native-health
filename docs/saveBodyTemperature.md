@@ -13,7 +13,7 @@ let options = {
 ```javascript
 AppleHealthKit.saveBodyTemperature(
   (options: Object),
-  (err: Object, results: Object) => {
+  (err: Object, results: HealthValue) => {
     if (err) {
       return
     }
