@@ -304,6 +304,27 @@
 }
 
 
+- (void)body_saveBodyTemperature:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    double temperature = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit degreeFahrenheitUnit]];
+
+    HKQuantity *temperatureQuantity = [HKQuantity quantityWithUnit:unit doubleValue:temperature];
+    HKQuantityType *bodyTemperatureType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    HKQuantitySample *bodyTemperatureSample = [HKQuantitySample quantitySampleWithType:bodyTemperatureType quantity:temperatureQuantity startDate:sampleDate endDate:sampleDate];
+
+    [self.healthStore saveObject:bodyTemperatureSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"error saving body temperature sample: %@", error);
+            callback(@[RCTMakeError(@"error saving body temperature sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(temperature)]);
+    }];
+}
+
+
 - (void)body_getLatestLeanBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *leanBodyMassType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];

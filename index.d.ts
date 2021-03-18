@@ -281,6 +281,16 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    saveBodyFatPercent(
+      options: HealthValueOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
+    saveBodyTemperature(
+      options: HealthValueOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
     setObserver(options: HealthObserverOptions): void
 
     Constants: Constants
