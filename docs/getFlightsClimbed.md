@@ -1,19 +1,24 @@
 get the total flights climbed (1 flight is ~10ft of elevation) on a specific day.
 
-`getFlightsClimbed` accepts an options object containing optional *`date: ISO8601Timestamp`*. if `date` is not provided it will default to the current time.
+`getFlightsClimbed` accepts an options object containing optional _`date: ISO8601Timestamp`_. if `date` is not provided it will default to the current time.
+
 ```javascript
 let options = {
     date: (new Date(2016,5,1)).toISOString(), // optional; default now
+    includeManuallyAdded: false. // optional: default true
 };
 ```
 
 ```javascript
-AppleHealthKit.getFlightsClimbed(options: Object, (err: Object, results: Object) => {
-  if (err) {
-    return;
-  }
-  console.log(results)
-});
+AppleHealthKit.getFlightsClimbed(
+  (options: Object),
+  (err: Object, results: Object) => {
+    if (err) {
+      return
+    }
+    console.log(results)
+  },
+)
 ```
 
 ```javascript

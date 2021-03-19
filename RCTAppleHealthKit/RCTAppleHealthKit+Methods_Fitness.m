@@ -19,6 +19,8 @@
 - (void)fitness_getStepCountOnDay:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
+
 
     if(date == nil) {
         callback(@[RCTMakeError(@"could not parse date from options.date", nil, nil)]);
@@ -29,10 +31,11 @@
     HKUnit *stepsUnit = [HKUnit countUnit];
 
     [self fetchSumOfSamplesOnDayForType:stepCountType
-                                   unit:stepsUnit
+                                    unit:stepsUnit
+                                    includeManuallyAdded:includeManuallyAdded
                                     day:date
                              completion:^(double value, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!value) {
+        if (!value && value != 0) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -184,11 +187,13 @@
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit meterUnit]];
     NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
+
 
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
 
-    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!distance) {
+    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit includeManuallyAdded:includeManuallyAdded day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!distance && distance != 0) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -242,11 +247,12 @@
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit meterUnit]];
     NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
 
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceSwimming];
 
-    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!distance) {
+    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit includeManuallyAdded:includeManuallyAdded day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!distance && distance != 0) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -298,11 +304,12 @@
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit meterUnit]];
     NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
 
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
 
-    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!distance) {
+    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit includeManuallyAdded:includeManuallyAdded day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!distance && distance != 0) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -354,11 +361,12 @@
 {
     HKUnit *unit = [HKUnit countUnit];
     NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
 
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
 
-    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double count, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!count) {
+    [self fetchSumOfSamplesOnDayForType:quantityType unit:unit includeManuallyAdded:includeManuallyAdded day:date completion:^(double count, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!count && count != 0) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
