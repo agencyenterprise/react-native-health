@@ -273,7 +273,9 @@ initialized again.
 
 We appreciate any additional request and/or contribution to `react-native-health`.
 The [issues](https://github.com/agencyenterprise/react-native-health/issues) tracker
-is used to keep a list of features and bugs to be worked on.
+is used to keep a list of features and bugs to be worked on. Please see our
+[contributing documentation](CONTRIBUTING.MD)
+for some tips on getting started.
 
 ## References
 
