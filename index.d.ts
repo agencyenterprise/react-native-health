@@ -52,8 +52,8 @@ declare module 'react-native-health' {
     ): void
 
     getHeightSamples(
-      options: HealthUnitOptions,
-      callback: (err: string, results: HealthValue) => void,
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     saveHeight(
@@ -143,7 +143,7 @@ declare module 'react-native-health' {
 
     getHeartRateSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getRestingHeartRate(
@@ -178,42 +178,42 @@ declare module 'react-native-health' {
 
     getVo2MaxSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getBodyTemperatureSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getBloodPressureSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getRespiratoryRateSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getHeartRateVariabilitySamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getRestingHeartRateSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getBloodGlucoseSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getCarbohydratesSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     saveBloodGlucoseSample(
@@ -228,7 +228,7 @@ declare module 'react-native-health' {
 
     getSleepSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getInfo(
@@ -268,7 +268,7 @@ declare module 'react-native-health' {
 
     getBloodAlcoholContentSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     saveBloodAlcoholContent(
@@ -283,12 +283,12 @@ declare module 'react-native-health' {
 
     getDailyDistanceSwimmingSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     getOxygenSaturationSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     saveBodyFatPercent(
