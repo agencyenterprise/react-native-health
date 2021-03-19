@@ -15,7 +15,7 @@ The callback function will be called with a `samples` array containing objects w
 ```javascript
 AppleHealthKit.getCarbohydrateSamples(
   options,
-  (err: Object, results: Array<Object>) => {
+  (err: Object, results: Array<HealthValue>) => {
     if (err) {
       return
     }
