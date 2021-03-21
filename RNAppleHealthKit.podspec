@@ -27,10 +27,11 @@ A React Native package to interact with Apple HealthKit
   s.source           = { :git => 'https://github.com/agencyenterprise/react-native-healthkit.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
-  s.swift_version = '4.2'
+  s.swift_version = '4.0','5.0'
 
   s.source_files = 'RCTAppleHealthKit/**/*'
-
+  s.module_name = 'RCTAppleHealthKit'
+ 
   s.frameworks = ['HealthKit']
   s.dependency 'React'
 end
