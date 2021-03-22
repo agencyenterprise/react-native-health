@@ -11,8 +11,8 @@ export enum HealthStatusCode {
 
 export interface HealthStatusResult {
   permissions: {
-    read: HealthStatusCode[],
-    write: HealthStatusCode[],
+    read: HealthStatusCode[]
+    write: HealthStatusCode[]
   }
 }
 ```
@@ -22,13 +22,9 @@ Example:
 ```typescript
 const permissions = {
   permissions: {
-    read: [
-      AppleHealthKit.Constants.Permissions.StepCount,
-    ],
-    write: [
-      AppleHealthKit.Constants.Permissions.StepCount,
-    ],
-  }
+    read: [AppleHealthKit.Constants.Permissions.StepCount],
+    write: [AppleHealthKit.Constants.Permissions.StepCount],
+  },
 } as HealthKitPermissions
 
 AppleHealthKit.getAuthStatus(permissions, (err, results) => {

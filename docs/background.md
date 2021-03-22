@@ -69,13 +69,12 @@ intercept those, you should use the `NativeAppEventEmitter`.
 
 They follow events are triggered by the library
 
-|                   Event                    |                                 When is triggered?                              |
-|--------------------------------------------|---------------------------------------------------------------------------------|
-| `healthKit:<OBSERVER_TYPE>:setup:success`  | When the background observer for that type is successfuly setup                 |
-| `healthKit:<OBSERVER_TYPE>:setup:failure`  | When the background observer for that type is not successfuly setup             |
-| `healthKit:<OBSERVER_TYPE>:new`            | When the background observer received a new data sample for that type           |
-| `healthKit:<OBSERVER_TYPE>:failure`        | When the background observer received a new data sample, but an error was found |
-
+| Event                                     | When is triggered?                                                              |
+| ----------------------------------------- | ------------------------------------------------------------------------------- |
+| `healthKit:<OBSERVER_TYPE>:setup:success` | When the background observer for that type is successfuly setup                 |
+| `healthKit:<OBSERVER_TYPE>:setup:failure` | When the background observer for that type is not successfuly setup             |
+| `healthKit:<OBSERVER_TYPE>:new`           | When the background observer received a new data sample for that type           |
+| `healthKit:<OBSERVER_TYPE>:failure`       | When the background observer received a new data sample, but an error was found |
 
 Note that the `<OBSERVER_TYPE>` token should be replaced with one of
 the available types presented in the first section. As an example, if setting
@@ -89,15 +88,17 @@ up observers for workouts, the events would have the following names:
 ### Example
 
 ```typescript
-import { NativeAppEventEmitter } from 'react-native';
+import { NativeAppEventEmitter } from 'react-native'
 
-const callback = (): void => {/* Execute any data query */}
+const callback = (): void => {
+  /* Execute any data query */
+}
 
 /* Register native listener that will be triggered when successfuly enabled */
-NativeAppEventEmitter.addListener('healthKit:HeartRate:setup:success', callback);
+NativeAppEventEmitter.addListener('healthKit:HeartRate:setup:success', callback)
 
 /* Register native listener that will be triggered on each update */
-NativeAppEventEmitter.addListener('healthKit:HeartRate:new', callback);
+NativeAppEventEmitter.addListener('healthKit:HeartRate:new', callback)
 ```
 
 When a new sample appears, in order to get the information you need to call

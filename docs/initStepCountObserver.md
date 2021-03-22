@@ -1,6 +1,6 @@
 > DEPRECATED - This method has been depreacted in favor of background initializers
-and will be removed in the next major release. See the [background](background.md)
-page for more information.
+> and will be removed in the next major release. See the [background](background.md)
+> page for more information.
 
 Setup an HKObserverQuery for step count (HKQuantityTypeIdentifierStepCount) that will
 trigger an event listenable on react-native `NativeAppEventEmitter` when the
@@ -17,11 +17,7 @@ error).
 
 ```javascript
 // import NativeAppEventEmitter from react-native
-import {
-  Navigator,
-  View,
-  NativeAppEventEmitter,
-} from 'react-native';
+import { Navigator, View, NativeAppEventEmitter } from 'react-native'
 ```
 
 ```javascript
@@ -68,8 +64,8 @@ componentWillUnmount() {
 ```
 
 **Note** - Some data types, such as step counts, have a minimum frequency
- of HKUpdateFrequencyHourly. This frequency is enforced transparently.
+of HKUpdateFrequencyHourly. This frequency is enforced transparently.
 
 > DEPRECATED - This method has been depreacted in favor of background initializers
-and will be removed in the next major release. See the [background](background.md)
-page for more information.
+> and will be removed in the next major release. See the [background](background.md)
+> page for more information.

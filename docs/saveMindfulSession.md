@@ -3,10 +3,9 @@ the options must contain `startDate` and `endDate`
 
 ```javascript
 let options = {
-    startDate: (new Date(2016,10,1)).toISOString(), // required
-    endDate: (new Date()).toISOString(), // optional; default now
-};
-
+  startDate: new Date(2016, 10, 1).toISOString(), // required
+  endDate: new Date().toISOString(), // optional; default now
+}
 ```
 
 ```

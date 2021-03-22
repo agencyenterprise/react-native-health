@@ -1,21 +1,21 @@
 Get the most recent weight sample.
 
-On success, the callback function will be provided with a `weight` object containing the weight `value`, and the `startDate` and `endDate` of the weight sample. *Note: startDate and endDate will be the same as weight samples are saved at a specific point in time.*
+On success, the callback function will be provided with a `weight` object containing the weight `value`, and the `startDate` and `endDate` of the weight sample. _Note: startDate and endDate will be the same as weight samples are saved at a specific point in time._
 
 ```javascript
 let options = {
-  unit: 'pound'
-};
+  unit: 'pound',
+}
 ```
 
 ```javascript
 AppleHealthKit.getLatestWeight(options, (err: string, results: Object) => {
   if (err) {
-    console.log("error getting latest weight: ", err);
-    return;
+    console.log('error getting latest weight: ', err)
+    return
   }
   console.log(results)
-});
+})
 ```
 
 ```javascript

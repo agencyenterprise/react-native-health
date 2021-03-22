@@ -1,14 +1,17 @@
 Get the most recent body fat percentage. The percentage value is a number between 0 and 100.
 
-On success, the callback function will be provided with a `bodyFatPercentage` object containing the body fat percentage `value`, and the `startDate` and `endDate` of the sample. *Note: startDate and endDate will be the same as bodyFatPercentage samples are saved at a specific point in time.*
+On success, the callback function will be provided with a `bodyFatPercentage` object containing the body fat percentage `value`, and the `startDate` and `endDate` of the sample. _Note: startDate and endDate will be the same as bodyFatPercentage samples are saved at a specific point in time._
 
 ```javascript
-AppleHealthKit.getLatestBodyFatPercentage(null, (err: Object, results: Object) => {
-  if (err) {
-    return;
-  }
-  console.log(results)
-});
+AppleHealthKit.getLatestBodyFatPercentage(
+  null,
+  (err: Object, results: Object) => {
+    if (err) {
+      return
+    }
+    console.log(results)
+  },
+)
 ```
 
 ```javascript

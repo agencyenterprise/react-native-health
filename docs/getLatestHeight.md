@@ -1,15 +1,15 @@
 Get the most recent height value.
 
-On success, the callback function will be provided with a `height` object containing the height `value`, and the `startDate` and `endDate` of the height sample. *Note: startDate and endDate will be the same as height samples are saved at a specific point in time.*
+On success, the callback function will be provided with a `height` object containing the height `value`, and the `startDate` and `endDate` of the height sample. _Note: startDate and endDate will be the same as height samples are saved at a specific point in time._
 
 ```javascript
 AppleHealthKit.getLatestHeight(null, (err: string, results: Object) => {
-    if (err) {
-        console.log("error getting latest height: ", err);
-        return;
-    }
-    console.log(results)
-});
+  if (err) {
+    console.log('error getting latest height: ', err)
+    return
+  }
+  console.log(results)
+})
 ```
 
 ```javascript
