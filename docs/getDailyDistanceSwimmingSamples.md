@@ -10,10 +10,13 @@ let options = {
 ```
 
 ```javascript
-AppleHealthKit.getDailyDistanceSwimmingSamples(options, (err: Object, results: Array<Object>) => {
-  if (err) {
-    return;
-  }
-  console.log(results)
-});
+AppleHealthKit.getDailyDistanceSwimmingSamples(
+  options,
+  (err: Object, results: Array<HealthValue>) => {
+    if (err) {
+      return
+    }
+    console.log(results)
+  },
+)
 ```
