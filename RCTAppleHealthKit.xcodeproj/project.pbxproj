@@ -101,7 +101,7 @@
 		3774C88F1D2092F20000B3F3 /* RCTAppleHealthKit */ = {
 			isa = PBXGroup;
 			children = (
-				94839DF62606FABD006AE771 /* RCTAppleHealthKit.swift */,
+				9483E3322608035B000EAB68 /* Swift */,
 				4F8095C72523C39D00A84ADB /* RCTAppleHealthKit+Methods_LabTests.h */,
 				4F8095C82523C39D00A84ADB /* RCTAppleHealthKit+Methods_LabTests.m */,
 				58C81E6E1F84F6970005DD48 /* RCTAppleHealthKit+Methods_Activity.h */,
@@ -132,6 +132,14 @@
 				358330DE20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m */,
 			);
 			path = RCTAppleHealthKit;
+			sourceTree = "<group>";
+		};
+		9483E3322608035B000EAB68 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				94839DF62606FABD006AE771 /* RCTAppleHealthKit.swift */,
+			);
+			path = Swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

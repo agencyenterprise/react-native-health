@@ -332,18 +332,6 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
     [self labTests_saveBloodAlcoholContent:input callback:callback];
 }
 
-- (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback
-{
-    BOOL isAvailable = NO;
-
-    if ([HKHealthStore isHealthDataAvailable]) {
-        isAvailable = YES;
-    }
-
-    callback(@[[NSNull null], @(isAvailable)]);
-}
-
-
 - (void)initializeHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     self.healthStore = [[HKHealthStore alloc] init];

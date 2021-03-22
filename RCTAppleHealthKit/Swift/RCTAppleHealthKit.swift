@@ -9,7 +9,8 @@
 import Foundation
 
 @objc public extension RCTAppleHealthKit {
-    func test() {
-        print(123)
+    func isHealthKitAvailable(_ callback: RCTResponseSenderBlock) {
+        let isAvailable = HKHealthStore.isHealthDataAvailable()
+        callback([0, isAvailable])
     }
 }
