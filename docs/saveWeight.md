@@ -1,6 +1,10 @@
+# saveWeight
+
 save a numeric weight value to Healthkit
 
 `saveWeight` accepts an options object containing a numeric weight value:
+
+Example input options:
 
 ```javascript
 let options = {
@@ -8,12 +12,23 @@ let options = {
 }
 ```
 
+Call the method:
+
 ```javascript
-AppleHealthKit.saveWeight((options: Object), (err: Object, results: Object) => {
-  if (err) {
-    console.log('error saving weight to Healthkit: ', err)
-    return
-  }
-  // Done
-})
+AppleHealthKit.saveWeight(
+  (options: HealthInputOptions),
+  (err: Object, results: number) => {
+    if (err) {
+      console.log('error saving weight to Healthkit: ', err)
+      return
+    }
+    // weight successfully saved
+  },
+)
+```
+
+Example output:
+
+```json
+200
 ```

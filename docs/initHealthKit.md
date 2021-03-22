@@ -1,3 +1,5 @@
+# initHealthKit
+
 Initialize Healthkit. This will show the Healthkit permissions prompt for any read/write permissions set in the required `options` object.
 
 Due to Apple's privacy model if an app user has previously denied a specific permission then they can not be prompted again for that same permission. The app user would have to go into the Apple Health app and grant the permission to your react-native app under _sources_ tab.
@@ -10,6 +12,8 @@ If new read/write permissions are added to the options object then the app user 
 
 `initHealthKit` requires an options object with Healthkit permission settings
 
+Example input options:
+
 ```javascript
 let options = {
   permissions: {
@@ -19,10 +23,12 @@ let options = {
 }
 ```
 
+Call the method:
+
 ```javascript
 AppleHealthKit.initHealthKit(
-  (options: Object),
-  (err: string, results: Object) => {
+  (options: HealthInputOptions),
+  (err: string, results: boolean) => {
     if (err) {
       console.log('error initializing Healthkit: ', err)
       return
@@ -31,4 +37,10 @@ AppleHealthKit.initHealthKit(
     // now safe to read and write Healthkit data...
   },
 )
+```
+
+Example output:
+
+```json
+1
 ```

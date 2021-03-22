@@ -1,6 +1,10 @@
+# saveBodyTemperature
+
 save a body temperature value to Healthkit
 
 `saveBodyTemperature` accepts an options object containing a value:
+
+Example input options:
 
 ```javascript
 let options = {
@@ -10,14 +14,22 @@ let options = {
 }
 ```
 
+Call the method:
+
 ```javascript
 AppleHealthKit.saveBodyTemperature(
-  (options: Object),
-  (err: Object, results: HealthValue) => {
+  (options: HealthInputOptions),
+  (err: Object, results: number) => {
     if (err) {
       return
     }
     // body fat percentage successfully saved
   },
 )
+```
+
+Example output:
+
+```json
+96
 ```

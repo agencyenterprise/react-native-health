@@ -1,9 +1,13 @@
-Query for body temperature samples. the options object is used to setup a query to retrieve relevant samples.
+# getBodyTemperatureSamples
+
+Query for body temperature samples. The options object is used to setup a query to retrieve relevant samples.
+
+Example input options:
 
 ```javascript
 let options = {
   unit: 'celsius', // optional; default 'celsius'
-  startDate: new Date(2016, 4, 27).toISOString(), // required
+  startDate: new Date(2021, 0, 0).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
   limit: 10, // optional; default no limit
@@ -11,8 +15,6 @@ let options = {
 ```
 
 Available units are: `'fahrenheit'`, `'celsius'`.
-
-The callback function will be called with a `samples` array containing objects with _value_, _startDate_, and _endDate_ fields.
 
 ```javascript
 AppleHealthKit.getBodyTemperatureSamples(
@@ -26,17 +28,19 @@ AppleHealthKit.getBodyTemperatureSamples(
 )
 ```
 
-```javascript
-;[
+Example output:
+
+```json
+[
   {
-    value: 74.02,
-    startDate: '2016-06-29T17:55:00.000-0400',
-    endDate: '2016-06-29T17:55:00.000-0400',
+    "value": 74.02,
+    "startDate": "2016-06-29T17:55:00.000-0400",
+    "endDate": "2016-06-29T17:55:00.000-0400"
   },
   {
-    value: 74,
-    startDate: '2016-03-12T13:22:00.000-0400',
-    endDate: '2016-03-12T13:22:00.000-0400',
-  },
+    "value": 74,
+    "startDate": "2016-03-12T13:22:00.000-0400",
+    "endDate": "2016-03-12T13:22:00.000-0400"
+  }
 ]
 ```

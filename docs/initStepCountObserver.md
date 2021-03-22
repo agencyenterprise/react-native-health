@@ -1,3 +1,5 @@
+# initStepCountObserver
+
 > DEPRECATED - This method has been depreacted in favor of background initializers
 > and will be removed in the next major release. See the [background](background.md)
 > page for more information.
@@ -19,6 +21,8 @@ error).
 // import NativeAppEventEmitter from react-native
 import { Navigator, View, NativeAppEventEmitter } from 'react-native'
 ```
+
+Call the method:
 
 ```javascript
 AppleHealthKit.initHealthKit(HKOPTIONS, (err, res) => {

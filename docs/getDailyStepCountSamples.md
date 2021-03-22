@@ -1,6 +1,8 @@
-Get the total steps per day over a specified date range.
+# getDailyStepCountSamples
 
-`getDailyStepCountSamples` accepts an options object containing required _`startDate: ISO8601Timestamp`_ and optional _`endDate: ISO8601Timestamp`_. If `endDate` is not provided it will default to the current time
+Query for total steps per day over a specified date range. The options object is used to setup a query to retrieve relevant samples.
+
+Example input options:
 
 ```javascript
 let options = {
@@ -9,14 +11,28 @@ let options = {
 };
 ```
 
+Call the method:
+
 ```javascript
 AppleHealthKit.getDailyStepCountSamples(
-  (options: Object),
+  (options: HealthInputOptions),
   (err: Object, results: Array<Object>) => {
-    if (this._handleHealthkitError(err, 'getDailyStepCountSamples')) {
+    if (err) {
       return
     }
     console.log(results)
   },
 )
+```
+
+Example output, value is on count unit:
+
+```json
+[
+  {
+    "endDate": "2021-03-22T17:00:00.000-0300",
+    "startDate": "2021-03-22T16:00:00.000-0300",
+    "value": 3978
+  }
+]
 ```

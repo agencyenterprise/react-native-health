@@ -1,9 +1,13 @@
-Query for blood glucose samples. the options object is used to setup a query to retrieve relevant samples.
+# getBloodGlucoseSamples
+
+Query for blood glucose samples. The options object is used to setup a query to retrieve relevant samples.
+
+Example input options:
 
 ```javascript
 let options = {
   unit: 'mmolPerL', // optional; default 'mmolPerL'
-  startDate: new Date(2016, 4, 27).toISOString(), // required
+  startDate: new Date(2021, 0, 0).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
   limit: 10, // optional; default no limit
@@ -11,8 +15,6 @@ let options = {
 ```
 
 Available units are: `'mmolPerL'`, `'mgPerdL'`.
-
-The callback function will be called with a `samples` array containing objects with _value_, _sourceId_, _sourceName_, _startDate_, and _endDate_ fields
 
 ```javascript
 AppleHealthKit.getBloodGlucoseSamples(
@@ -24,4 +26,18 @@ AppleHealthKit.getBloodGlucoseSamples(
     console.log(results)
   },
 )
+```
+
+Example output:
+
+```json
+[
+  {
+    "endDate": "2021-03-22T16:19:00.000-0300",
+    "sourceId": "com.apple.Health",
+    "sourceName": "Health",
+    "startDate": "2021-03-22T16:19:00.000-0300",
+    "value": 90.07794000002704
+  }
+]
 ```
