@@ -1,6 +1,8 @@
+# getDistanceSwimming
+
 Get the total distance swimming on a specific day.
 
-`getDistanceSwimming` accepts an options object containing optional _`date: ISO8601Timestamp`_ and _`unit: string`_. If `date` is not provided it will default to the current time. `unit` defaults to `meter`
+Example input options:
 
 ```javascript
 let options = {
@@ -10,10 +12,12 @@ let options = {
 };
 ```
 
+Call the method:
+
 ```javascript
 AppleHealthKit.getDistanceSwimming(
-  (options: Object),
-  (err: Object, results: Object) => {
+  (options: HealthInputOptions),
+  (err: Object, results: HealthValue) => {
     if (err) {
       return
     }
@@ -22,10 +26,12 @@ AppleHealthKit.getDistanceSwimming(
 )
 ```
 
-```javascript
+Example output:
+
+```json
 {
-	value: 20.03,
-	startDate: '2016-07-08T12:00:00.000-0400',
-	endDate: '2016-07-08T12:00:00.000-0400'
+  "value": 20.03,
+  "startDate": "2016-07-08T12:00:00.000-0400",
+  "endDate": "2016-07-08T12:00:00.000-0400"
 }
 ```

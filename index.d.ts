@@ -61,6 +61,11 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
+    saveLeanBodyMass(
+      options: HealthValueOptions,
+      callback: (error: string, result: HealthValue) => void,
+    ): void
+
     getLatestBmi(
       options: HealthUnitOptions,
       callback: (err: string, results: HealthValue) => void,
@@ -132,7 +137,7 @@ declare module 'react-native-health' {
     ): void
 
     saveFood(
-      options: Object,
+      options: HealthInputOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 

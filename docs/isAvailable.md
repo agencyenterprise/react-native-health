@@ -1,3 +1,5 @@
+# isAvailable
+
 Check for Healthkit availability
 
 ```javascript
@@ -8,6 +10,11 @@ AppleHealthKit.isAvailable((err: Object, available: boolean) => {
     console.log('error initializing Healthkit: ', err)
     return
   }
-  // Healthkit is available
 })
+```
+
+Example output:
+
+```
+true
 ```

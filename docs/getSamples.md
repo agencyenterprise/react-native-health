@@ -1,8 +1,12 @@
+# getSamples
+
 Query to get all activities of given type with extended information about it.
 
-```javascript 1.7
+Example input options:
+
+```javascript
 let options = {
-  startDate: new Date(2016, 4, 27).toISOString(),
+  startDate: new Date(2021, 0, 0).toISOString(),
   endDate: new Date().toISOString(),
   type: 'Walking', // one of: ['Walking', 'StairClimbing', 'Running', 'Cycling', 'Workout']
 }
@@ -10,7 +14,7 @@ let options = {
 
 The callback function will be called with a `samples` array containing objects with _value_, _startDate_, and _endDate_ fields
 
-```javascript 1.7
+```javascript
 AppleHealthKit.getSamples(options, (err: Object, results: Array<Object>) => {
   if (err) {
     return

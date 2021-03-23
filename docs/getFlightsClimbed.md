@@ -1,6 +1,8 @@
-get the total flights climbed (1 flight is ~10ft of elevation) on a specific day.
+# getFlightsClimbed
 
-`getFlightsClimbed` accepts an options object containing optional _`date: ISO8601Timestamp`_. if `date` is not provided it will default to the current time.
+Get the total flights climbed (1 flight is ~10ft of elevation) on a specific day.
+
+Example input options:
 
 ```javascript
 let options = {
@@ -9,10 +11,12 @@ let options = {
 };
 ```
 
+Call the method:
+
 ```javascript
 AppleHealthKit.getFlightsClimbed(
-  (options: Object),
-  (err: Object, results: Object) => {
+  (options: HealthInputOptions),
+  (err: Object, results: HealthValue) => {
     if (err) {
       return
     }
@@ -21,10 +25,12 @@ AppleHealthKit.getFlightsClimbed(
 )
 ```
 
-```javascript
+Example output:
+
+```json
 {
-	value: 15,
-	startDate: '2016-07-08T12:00:00.000-0400',
-	endDate: '2016-07-08T12:00:00.000-0400'
+  "value": 15,
+  "startDate": "2016-07-08T12:00:00.000-0400",
+  "endDate": "2016-07-08T12:00:00.000-0400"
 }
 ```

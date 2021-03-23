@@ -1,8 +1,10 @@
-# Save Workout
+# saveWorkout
 
 Save workout to Healthkit
 
 `saveWorkout` accepts an options object containing type, startDate, endDate, energyBurned and distance
+
+Example input options:
 
 ```javascript
 let options = {
@@ -14,15 +16,23 @@ let options = {
 }
 ```
 
+Call the method:
+
 ```javascript
 AppleHealthKit.saveWorkout(
-  (options: Object),
-  (err: Object, results: Object) => {
+  (options: HealthInputOptions),
+  (err: Object, results: string) => {
     if (err) {
       console.log('error saving workout to Healthkit: ', err)
       return
     }
-    // Done
+    // workout successfully saved
   },
 )
+```
+
+Example output, UUIDString:
+
+```json
+ A7D8E94A-5544-4533-869F-7566AAB81252
 ```

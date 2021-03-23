@@ -1,8 +1,10 @@
-# Save Food
+# saveFood.md
 
 Add food consumed to Healthkit
 
 `saveFood` accepts an options object containing name, type, date and other data about the food.
+
+Example input options:
 
 ```javascript
 let options = {
@@ -49,12 +51,20 @@ let options = {
 }
 ```
 
+Call the method:
+
 ```javascript
-AppleHealthKit.saveFood((options: Object), (err: Object, results: Object) => {
+AppleHealthKit.saveFood((options: Object), (err: Object, results: number) => {
   if (err) {
     console.log('Error saving food to Healthkit: ', err)
     return
   }
-  // Done
+  // food saved successfully
 })
+```
+
+Example output:
+
+```json
+16.7
 ```

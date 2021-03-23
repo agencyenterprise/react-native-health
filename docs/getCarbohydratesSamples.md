@@ -1,19 +1,21 @@
-Query for carbohydrate samples. the options object is used to setup a query to retrieve relevant samples.
+# getCarbohydratesSamples
+
+Query for carbohydrate samples. The options object is used to setup a query to retrieve relevant samples.
+
+Example input options:
 
 ```javascript
 let options = {
   unit: 'gramUnit', // optional; default 'gram'
-  startDate: new Date(2016, 4, 27).toISOString(), // required
+  startDate: new Date(2021, 0, 0).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
   limit: 10, // optional; default no limit
 }
 ```
 
-The callback function will be called with a `samples` array containing objects with _value_, _startDate_, and _endDate_ fields.
-
 ```javascript
-AppleHealthKit.getCarbohydrateSamples(
+AppleHealthKit.getCarbohydratesSamples(
   options,
   (err: Object, results: Array<HealthValue>) => {
     if (err) {
@@ -22,4 +24,18 @@ AppleHealthKit.getCarbohydrateSamples(
     console.log(results)
   },
 )
+```
+
+Example output:
+
+```json
+[
+  {
+    "endDate": "2021-03-22T16:21:00.000-0300",
+    "sourceId": "com.apple.Health",
+    "sourceName": "Health",
+    "startDate": "2021-03-22T16:21:00.000-0300",
+    "value": 8
+  }
+]
 ```

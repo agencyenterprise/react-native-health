@@ -1,6 +1,10 @@
+# saveBloodGlucoseSample
+
 save a blood glucose value to Healthkit
 
 `saveBloodGlucoseSample` accepts an options object containing a percent value:
+
+Example input options:
 
 ```javascript
 let options = {
@@ -10,14 +14,22 @@ let options = {
 }
 ```
 
+Call the method:
+
 ```javascript
 AppleHealthKit.saveBloodGlucoseSample(
-  (options: Object),
-  (err: Object, results: Object) => {
+  (options: HealthInputOptions),
+  (err: Object, results: number) => {
     if (err) {
       return
     }
     // blood glucose successfully saved
   },
 )
+```
+
+Example output:
+
+```json
+16.7
 ```

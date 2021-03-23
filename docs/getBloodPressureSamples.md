@@ -1,16 +1,18 @@
-Query for blood pressure samples. the options object is used to setup a query to retrieve relevant samples.
+# getBloodPressureSamples
+
+Query for blood pressure samples. The options object is used to setup a query to retrieve relevant samples.
+
+Example input options:
 
 ```javascript
 let options = {
   unit: 'mmhg', // optional; default 'mmhg'
-  startDate: new Date(2016, 4, 27).toISOString(), // required
+  startDate: new Date(2021, 0, 0).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
   limit: 10, // optional; default no limit
 }
 ```
-
-The callback function will be called with a `samples` array containing objects with _bloodPressureSystolicValue_, _bloodPressureDiastolicValue_, _startDate_, and _endDate_ fields
 
 ```javascript
 AppleHealthKit.getBloodPressureSamples(
@@ -24,19 +26,21 @@ AppleHealthKit.getBloodPressureSamples(
 )
 ```
 
-```javascript
-;[
+Example output:
+
+```json
+[
   {
-    bloodPressureSystolicValue: 120,
-    bloodPressureDiastolicValue: 81,
-    startDate: '2016-06-29T17:55:00.000-0400',
-    endDate: '2016-06-29T17:55:00.000-0400',
+    "bloodPressureSystolicValue": 120,
+    "bloodPressureDiastolicValue": 81,
+    "startDate": "2016-06-29T17:55:00.000-0400",
+    "endDate": "2016-06-29T17:55:00.000-0400"
   },
   {
-    bloodPressureSystolicValue: 119,
-    bloodPressureDiastolicValue: 77,
-    startDate: '2016-03-12T13:22:00.000-0400',
-    endDate: '2016-03-12T13:22:00.000-0400',
-  },
+    "bloodPressureSystolicValue": 119,
+    "bloodPressureDiastolicValue": 77,
+    "startDate": "2016-03-12T13:22:00.000-0400",
+    "endDate": "2016-03-12T13:22:00.000-0400"
+  }
 ]
 ```

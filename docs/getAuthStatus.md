@@ -1,3 +1,5 @@
+# getAuthStatus
+
 Check the authorization status for sharing (writing) the specified data type.
 
 Status will be a HealthStatusResult[]. From index.d.ts:
