@@ -199,7 +199,7 @@ they are splitted in the following categories
 ### Lab Tests Methods
 
 - [getBloodAlcoholContentSamples](/docs/getBloodAlcoholContentSamples.md)
-- [getBloodGlucoseSamples](/docs/getBloodglucoseSamples.md)
+- [getBloodGlucoseSamples](/docs/getBloodGlucoseSamples.md)
 - [getLatestBloodAlcoholContent](/docs/getLatestBloodAlcoholContent.md)
 - [saveBloodAlcoholContent](/docs/saveBloodAlcoholContent.md)
 - [saveBloodGlucoseSample](/docs/saveBloodGlucoseSample.md)
@@ -274,7 +274,7 @@ initialized again.
 We appreciate any additional request and/or contribution to `react-native-health`.
 The [issues](https://github.com/agencyenterprise/react-native-health/issues) tracker
 is used to keep a list of features and bugs to be worked on. Please see our
-[contributing documentation](CONTRIBUTING.MD)
+[contributing documentation](https://github.com/agencyenterprise/react-native-health/blob/master/CONTRIBUTING.md)
 for some tips on getting started.
 
 ## References

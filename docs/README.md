@@ -69,7 +69,7 @@
 ### Lab Tests Methods
 
 - [getBloodAlcoholContentSamples](getBloodAlcoholContentSamples.md)
-- [getBloodGlucoseSamples](getBloodglucoseSamples.md)
+- [getBloodGlucoseSamples](getBloodGlucoseSamples.md)
 - [getLatestBloodAlcoholContent](getLatestBloodAlcoholContent.md)
 - [saveBloodAlcoholContent](saveBloodAlcoholContent.md)
 - [saveBloodGlucoseSample](saveBloodGlucoseSample.md)
