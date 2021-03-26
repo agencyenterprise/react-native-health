@@ -21,7 +21,7 @@
 #import "RCTAppleHealthKit+Methods_Workout.h"
 #import "RCTAppleHealthKit+Methods_LabTests.h"
 
-#import "RCTAppleHealthKit-Swift.h"
+#import "RNAppleHealthKit-Swift.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -34,7 +34,7 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
 {
-    [self isHealthKitAvailable:callback];
+    [RNAppleHealthKit isHealthKitAvailable:callback];
 }
 
 RCT_EXPORT_METHOD(initHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)

@@ -30,7 +30,6 @@ A React Native package to interact with Apple HealthKit
   s.swift_version = '4.0','5.0'
 
   s.source_files = 'RCTAppleHealthKit/**/*'
-  s.module_name = 'RCTAppleHealthKit'
  
   s.frameworks = ['HealthKit']
   s.dependency 'React'

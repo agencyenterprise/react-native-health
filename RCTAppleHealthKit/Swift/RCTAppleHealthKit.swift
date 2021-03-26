@@ -8,8 +8,8 @@
 
 import Foundation
 
-@objc public extension RCTAppleHealthKit {
-    func isHealthKitAvailable(_ callback: RCTResponseSenderBlock) {
+@objc public class RNAppleHealthKit: NSObject {
+    @objc static public func isHealthKitAvailable(_ callback: RCTResponseSenderBlock) {
         let isAvailable = HKHealthStore.isHealthDataAvailable()
         callback([0, isAvailable])
     }
