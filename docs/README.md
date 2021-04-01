@@ -44,6 +44,7 @@
 ### Characteristic Methods
 
 - [getBiologicalSex](getBiologicalSex.md)
+- [getBloodType](getBloodType.md)
 - [getDateOfBirth](getDateOfBirth.md)
 
 ### Dietary Methods

@@ -9,6 +9,7 @@ export const Permissions = {
   AppleStandTime: 'AppleStandTime',
   BasalEnergyBurned: 'BasalEnergyBurned',
   BiologicalSex: 'BiologicalSex',
+  BloodType: 'BloodType',
   BloodAlcoholContent: 'BloodAlcoholContent',
   BloodGlucose: 'BloodGlucose',
   BloodPressureDiastolic: 'BloodPressureDiastolic',

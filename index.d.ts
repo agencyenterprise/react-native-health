@@ -26,6 +26,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getBloodType(
+      options: HealthUnitOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
     getDateOfBirth(
       options: any,
       callback: (err: string, results: HealthDateOfBirth) => void,
@@ -443,6 +448,7 @@ declare module 'react-native-health' {
     AppleStandTime = 'AppleStandTime',
     BasalEnergyBurned = 'BasalEnergyBurned',
     BiologicalSex = 'BiologicalSex',
+    BloodType = 'BloodType',
     BloodAlcoholContent = 'BloodAlcoholContent',
     BloodGlucose = 'BloodGlucose',
     BloodPressureDiastolic = 'BloodPressureDiastolic',
