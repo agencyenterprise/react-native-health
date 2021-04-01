@@ -12,5 +12,6 @@
 
 - (void)characteristic_getBiologicalSex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)characteristic_getDateOfBirth:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)characteristic_getBloodType:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
 @end

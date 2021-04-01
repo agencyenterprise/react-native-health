@@ -50,6 +50,11 @@ RCT_EXPORT_METHOD(getBiologicalSex:(NSDictionary *)input callback:(RCTResponseSe
     [self characteristic_getBiologicalSex:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getBloodType:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self characteristic_getBloodType:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getDateOfBirth:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self characteristic_getDateOfBirth:input callback:callback];

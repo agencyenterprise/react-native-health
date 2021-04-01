@@ -25,6 +25,8 @@
         return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth];
     } else if ([@"BiologicalSex" isEqualToString: key]) {
         return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex];
+    } else if ([@"BloodType" isEqualToString: key]) {
+        return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
     }
 
     // Body Measurements
