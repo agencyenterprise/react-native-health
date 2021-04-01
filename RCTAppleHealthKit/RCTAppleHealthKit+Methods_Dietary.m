@@ -15,6 +15,68 @@
 
 @implementation RCTAppleHealthKit (Methods_Dietary)
 
+- (void)dietary_getEnergyConsumedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *energyConsumedType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryEnergyConsumed];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit kilocalorieUnit]];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchQuantitySamplesOfType:energyConsumedType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+        if(results){
+            callback(@[[NSNull null], results]);
+            return;
+        } else {
+            NSLog(@"An error occured while retrieving the energy consumed sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while retrieving the energy consumed sample", error, nil)]);
+            return;
+        }
+    }];
+}
+
+- (void)dietary_getProteinSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *proteinType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryProtein];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit gramUnit]];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchQuantitySamplesOfType:proteinType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+        if(results){
+            callback(@[[NSNull null], results]);
+            return;
+        } else {
+            NSLog(@"An error occured while retrieving the protein sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while retrieving the protein sample", error, nil)]);
+            return;
+        }
+    }];
+}
+
 - (void)saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSString *foodNameValue = [RCTAppleHealthKit stringFromOptions:input key:@"foodName" withDefault:nil];
@@ -57,13 +119,13 @@
     double vitaminEValue = [RCTAppleHealthKit doubleFromOptions:input key:@"vitaminE" withDefault:(double)0];
     double vitaminKValue = [RCTAppleHealthKit doubleFromOptions:input key:@"vitaminK" withDefault:(double)0];
     double zincValue = [RCTAppleHealthKit doubleFromOptions:input key:@"zinc" withDefault:(double)0];
-    
+
     // Metadata including some new food-related keys //
     NSDictionary *metadata = @{
             HKMetadataKeyFoodType:foodNameValue,
             //@"HKFoodBrandName":@"FoodBrandName", // Restaurant name or packaged food brand name
             //@"HKFoodTypeUUID":@"FoodTypeUUID", // Identifier for this food
-            @"HKFoodMeal":mealNameValue//, // Breakfast, Lunch, Dinner, or Snacks 
+            @"HKFoodMeal":mealNameValue//, // Breakfast, Lunch, Dinner, or Snacks
             //@"HKFoodImageName":@"FoodImageName" // Food icon name
     };
 
@@ -348,7 +410,7 @@
                                                                     startDate:timeFoodWasConsumed
                                                                         endDate:timeFoodWasConsumed
                                                                     metadata:metadata];
-    
+
         [mySet addObject:vitaminE];
     }
     if (vitaminKValue > 0){
