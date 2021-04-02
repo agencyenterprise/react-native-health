@@ -1,5 +1,7 @@
 # Documentation
 
+There is a gitbook version for the documentation on this [link](https://vinicius-macelai.gitbook.io/react-native-health/docs).
+
 ### Constants
 
 - [Activities](activities.md)
