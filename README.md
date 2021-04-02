@@ -180,6 +180,7 @@ they are splitted in the following categories
 
 - [saveFood](/docs/saveFood.md)
 - [saveWater](/docs/saveWater.md)
+- [getWater](/docs/getWater.md)
 
 ### Fitness Methods
 
