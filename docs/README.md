@@ -51,6 +51,7 @@
 
 - [saveFood](saveFood.md)
 - [saveWater](saveWater.md)
+- [getWater](getWater.md)
 
 ### Fitness Methods
 
