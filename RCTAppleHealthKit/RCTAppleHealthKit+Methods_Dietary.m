@@ -387,7 +387,7 @@
 - (void)saveWater:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDate *timeWaterWasConsumed = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
-    double waterValue = [RCTAppleHealthKit doubleFromOptions:input key:@"water" withDefault:(double)0];
+    double waterValue = [RCTAppleHealthKit doubleFromOptions:input key:@"value" withDefault:(double)0];
 
     HKQuantitySample* water = [HKQuantitySample quantitySampleWithType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryWater]
                                                                 quantity:[HKQuantity quantityWithUnit:[HKUnit literUnit] doubleValue:waterValue]
@@ -403,6 +403,40 @@
             return;
         }
         callback(@[[NSNull null], @true]);
+    }];
+}
+
+- (void)getWater:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    NSDate *date = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
+
+
+    if(date == nil) {
+        callback(@[RCTMakeError(@"could not parse date from options.date", nil, nil)]);
+        return;
+    }
+
+    HKQuantityType *dietaryWaterType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryWater];
+    HKUnit *literUnit = [HKUnit literUnit];
+
+    [self fetchSumOfSamplesOnDayForType:dietaryWaterType
+                                    unit:literUnit
+                                    includeManuallyAdded:includeManuallyAdded
+                                    day:date
+                             completion:^(double value, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!value && value != 0) {
+            callback(@[RCTJSErrorFromNSError(error)]);
+            return;
+        }
+
+         NSDictionary *response = @{
+                 @"value" : @(value),
+                 @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                 @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+         };
+
+        callback(@[[NSNull null], response]);
     }];
 }
 
