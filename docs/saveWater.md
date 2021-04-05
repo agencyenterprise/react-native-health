@@ -9,7 +9,7 @@ Example input options:
 
 ```javascript
 let options = {
-  water: 0.2 // Amount in liters
+  value: 0.2, // Amount in liters
   date: (new Date(2018,10,1)).toISOString(), // Optional, time when the water amount was consumed
 }
 ```
