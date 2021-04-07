@@ -6,7 +6,7 @@ Example input options:
 
 ```javascript
 let options = {
-  unit: 'bpm', // optional; default 'bpm'
+  unit: 'second', // optional; default 'second'
   startDate: new Date(2021, 0, 0).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
