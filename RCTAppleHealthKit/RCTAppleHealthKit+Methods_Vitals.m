@@ -42,7 +42,7 @@
                                   return;
                               } else {
                                   NSLog(@"error getting heart rate samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting heart rate samples", nil, nil)]);
+                                  callback(@[RCTMakeError(@"error getting heart rate samples:", error, nil)]);
                                   return;
                               }
                           }];
@@ -78,7 +78,7 @@
                                   return;
                               } else {
                                   NSLog(@"error getting heart rate samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting heart rate samples", nil, nil)]);
+                                  callback(@[RCTMakeError(@"error getting heart rate samples:", error, nil)]);
                                   return;
                               }
                           }];
@@ -113,7 +113,7 @@
                                   return;
                               } else {
                                   NSLog(@"error getting heart rate samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting heart rate samples", nil, nil)]);
+                                  callback(@[RCTMakeError(@"error getting heart rate samples:", error, nil)]);
                                   return;
                               }
                           }];
@@ -145,7 +145,7 @@
                                   return;
                               } else {
                                   NSLog(@"error getting heart rate variability samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting heart rate variability samples", nil, nil)]);
+                                  callback(@[RCTMakeError(@"error getting heart rate variability samples:", error, nil)]);
                                   return;
                               }
                           }];
@@ -211,7 +211,7 @@
             return;
         } else {
             NSLog(@"error getting body temperature samples: %@", error);
-            callback(@[RCTMakeError(@"error getting body temperature samples", nil, nil)]);
+            callback(@[RCTMakeError(@"error getting body temperature samples:", error, nil)]);
             return;
         }
     }];
@@ -265,7 +265,7 @@
             return;
         } else {
             NSLog(@"error getting blood pressure samples: %@", error);
-            callback(@[RCTMakeError(@"error getting blood pressure samples", nil, nil)]);
+            callback(@[RCTMakeError(@"error getting blood pressure samples:", error, nil)]);
             return;
         }
     }];
@@ -301,7 +301,7 @@
             return;
         } else {
             NSLog(@"error getting respiratory rate samples: %@", error);
-            callback(@[RCTMakeError(@"error getting respiratory rate samples", nil, nil)]);
+            callback(@[RCTMakeError(@"error getting respiratory rate samples:", error, nil)]);
             return;
         }
     }];
@@ -369,7 +369,7 @@
             return;
         } else {
             NSLog(@"error getting oxygen saturation: %@", error);
-            callback(@[RCTMakeError(@"error getting oxygen saturation", nil, nil)]);
+            callback(@[RCTMakeError(@"error getting oxygen saturation:", error, nil)]);
             return;
         }
     }];
