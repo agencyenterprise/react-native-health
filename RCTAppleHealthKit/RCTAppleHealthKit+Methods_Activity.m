@@ -40,7 +40,7 @@
                                               return;
                                           } else {
                                               NSLog(@"error getting active energy burned samples: %@", error);
-                                              callback(@[RCTMakeError(@"error getting active energy burned samples", nil, nil)]);
+                                              callback(@[RCTMakeError(@"error getting active energy burned samples:", error, nil)]);
                                               return;
                                           }
                                       }];
@@ -75,7 +75,7 @@
                                               return;
                                           } else {
                                               NSLog(@"error getting basal energy burned samples: %@", error);
-                                              callback(@[RCTMakeError(@"error getting basal energy burned samples", nil, nil)]);
+                                              callback(@[RCTMakeError(@"error getting basal energy burned samples:", error, nil)]);
                                               return;
                                           }
                                       }];
@@ -111,7 +111,7 @@
                                               return;
                                           } else {
                                               NSLog(@"error getting exercise time: %@", error);
-                                              callback(@[RCTMakeError(@"error  getting exercise time", nil, nil)]);
+                                              callback(@[RCTMakeError(@"error getting exercise time:", error, nil)]);
                                               return;
                                           }
                                       }];
@@ -146,7 +146,7 @@
                                               return;
                                           } else {
                                               NSLog(@"error getting stand time: %@", error);
-                                              callback(@[RCTMakeError(@"error getting stand time", nil, nil)]);
+                                              callback(@[RCTMakeError(@"error getting stand time:", error, nil)]);
                                               return;
                                           }
                                       }];

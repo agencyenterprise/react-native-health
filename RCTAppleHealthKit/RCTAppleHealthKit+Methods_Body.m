@@ -274,7 +274,7 @@
                                   return;
                               } else {
                                   NSLog(@"error getting body fat percentage samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting body fat percentage samples", nil, nil)]);
+                                  callback(@[RCTMakeError(@"error getting body fat percentage samples:", error, nil)]);
                                   return;
                               }
                           }];
@@ -377,7 +377,7 @@
                                   return;
                               } else {
                                   NSLog(@"error getting lean body mass samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting lean body mass samples", nil, nil)]);
+                                  callback(@[RCTMakeError(@"error getting lean body mass samples:", error, nil)]);
                                   return;
                               }
                           }];
