@@ -126,7 +126,7 @@ client. For more information, see [background observers](/docs/background.md).
 
 ## Documentation
 
-There is a gitbook version for the documentation on this [link](https://vinicius-macelai.gitbook.io/react-native-health/docs).
+There is a gitbook version for the documentation on this [link](https://docs.react-native-health.com/).
 
 All the documentation is under the [docs](/docs) folder. Additionally,
 they are splitted in the following categories
