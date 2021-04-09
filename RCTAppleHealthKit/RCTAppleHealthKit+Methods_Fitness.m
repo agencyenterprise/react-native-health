@@ -10,6 +10,8 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
+#import "RNAppleHealthKit-Swift.h"
+
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
 
@@ -143,7 +145,7 @@
     HKQuantityType *type = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     HKQuantitySample *sample = [HKQuantitySample quantitySampleWithType:type quantity:quantity startDate:startDate endDate:endDate];
 
-    [self.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
@@ -179,7 +181,7 @@
 
      }];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 

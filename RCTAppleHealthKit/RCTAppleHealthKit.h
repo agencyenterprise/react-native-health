@@ -14,9 +14,10 @@
 #import <React/RCTLog.h>
 #import <React/RCTEventDispatcher.h>
 
+@class RNAppleHealthKit;
 @interface RCTAppleHealthKit : NSObject <RCTBridgeModule>
 
-@property (nonatomic) HKHealthStore *healthStore;
+@property (nonatomic) RNAppleHealthKit *rnAppleHealthKit;
 
 - (HKHealthStore *)_initializeHealthStore;
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback;

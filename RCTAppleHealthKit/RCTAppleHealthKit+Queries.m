@@ -10,6 +10,8 @@
 #import "RCTAppleHealthKit+Utils.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
+#import "RNAppleHealthKit-Swift.h"
+
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
 
@@ -48,7 +50,7 @@
                       }
                 }
     ];
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
@@ -106,7 +108,7 @@
                                                      sortDescriptors:@[timeSortDescriptor]
                                                       resultsHandler:handlerBlock];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchSamplesOfType:(HKSampleType *)type
@@ -227,7 +229,7 @@
                                                      sortDescriptors:@[timeSortDescriptor]
                                                       resultsHandler:handlerBlock];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
@@ -299,7 +301,7 @@
                                                     sortDescriptors:@[timeSortDescriptor]
                                                      resultsHandler:handlerBlock];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchCorrelationSamplesOfType:(HKQuantityType *)quantityType
@@ -351,7 +353,7 @@
                                                      sortDescriptors:@[timeSortDescriptor]
                                                       resultsHandler:handlerBlock];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchSumOfSamplesTodayForType:(HKQuantityType *)quantityType
@@ -370,7 +372,7 @@
                                                                 }
                                                           }];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchSumOfSamplesOnDayForType:(HKQuantityType *)quantityType
@@ -399,7 +401,7 @@
                                                               }
                                                           }];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
@@ -451,7 +453,7 @@
         completionHandler(data, err);
     };
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
@@ -523,7 +525,7 @@
         }
     };
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
@@ -600,7 +602,7 @@
         }
     };
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
  - (void)fetchWorkoutForPredicate:(NSPredicate *)predicate
@@ -649,7 +651,7 @@
 
     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:[HKObjectType workoutType] predicate:predicate limit:limit sortDescriptors:@[endDateSortDescriptor] resultsHandler:handlerBlock];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 /*!
@@ -690,7 +692,7 @@
     }];
 
 
-    [self.healthStore enableBackgroundDeliveryForType:sampleType
+    [self.rnAppleHealthKit.healthStore enableBackgroundDeliveryForType:sampleType
                                             frequency:HKUpdateFrequencyImmediate
                                        withCompletion:^(BOOL success, NSError * _Nullable error) {
         NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:enabled", type];
@@ -701,7 +703,7 @@
             return;
         }
 
-        [self.healthStore executeQuery:query];
+        [self.rnAppleHealthKit.healthStore executeQuery:query];
 
         [self.bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
     }];
@@ -748,7 +750,7 @@
     }];
 
 
-    [self.healthStore enableBackgroundDeliveryForType:sampleType
+    [self.rnAppleHealthKit.healthStore enableBackgroundDeliveryForType:sampleType
                                             frequency:HKUpdateFrequencyImmediate
                                        withCompletion:^(BOOL success, NSError * _Nullable error) {
         NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:setup:success", type];
@@ -762,7 +764,7 @@
             return;
         }
 
-        [self.healthStore executeQuery:query];
+        [self.rnAppleHealthKit.healthStore executeQuery:query];
 
         [bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
     }];

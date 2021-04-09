@@ -10,6 +10,8 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
+#import "RNAppleHealthKit-Swift.h"
+
 @implementation RCTAppleHealthKit (Methods_Body)
 
 
@@ -82,7 +84,7 @@
     HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
     HKQuantitySample *weightSample = [HKQuantitySample quantitySampleWithType:weightType quantity:weightQuantity startDate:sampleDate endDate:sampleDate];
 
-    [self.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
@@ -129,7 +131,7 @@
     HKQuantityType *bmiType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
     HKQuantitySample *bmiSample = [HKQuantitySample quantitySampleWithType:bmiType quantity:bmiQuantity startDate:sampleDate endDate:sampleDate];
 
-    [self.healthStore saveObject:bmiSample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:bmiSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
@@ -209,7 +211,7 @@
     HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
     HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:heightType quantity:heightQuantity startDate:sampleDate endDate:sampleDate];
 
-    [self.healthStore saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
@@ -293,7 +295,7 @@
     HKQuantityType *bodyFatPercentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];
     HKQuantitySample *bodyFatPercentSample = [HKQuantitySample quantitySampleWithType:bodyFatPercentType quantity:bodyFatPercentQuantity startDate:sampleDate endDate:sampleDate];
     
-    [self.healthStore saveObject:bodyFatPercentSample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:bodyFatPercentSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             NSLog(@"error saving body fat percent sample: %@", error);
             callback(@[RCTMakeError(@"error saving body fat percent sample", error, nil)]);
@@ -314,7 +316,7 @@
     HKQuantityType *bodyTemperatureType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
     HKQuantitySample *bodyTemperatureSample = [HKQuantitySample quantitySampleWithType:bodyTemperatureType quantity:temperatureQuantity startDate:sampleDate endDate:sampleDate];
 
-    [self.healthStore saveObject:bodyTemperatureSample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:bodyTemperatureSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             NSLog(@"error saving body temperature sample: %@", error);
             callback(@[RCTMakeError(@"error saving body temperature sample", error, nil)]);
@@ -394,7 +396,7 @@
     HKQuantityType *massType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
     HKQuantitySample *massSample = [HKQuantitySample quantitySampleWithType:massType quantity:massQuantity startDate:sampleDate endDate:sampleDate];
     
-    [self.healthStore saveObject:massSample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:massSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             NSLog(@"error saving lean body mass sample: %@", error);
             callback(@[RCTMakeError(@"error saving lean body mass sample", error, nil)]);

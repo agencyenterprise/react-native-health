@@ -11,6 +11,8 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
+#import "RNAppleHealthKit-Swift.h"
+
 @implementation RCTAppleHealthKit (Methods_LabTests)
 
 
@@ -82,7 +84,7 @@
     HKQuantityType *bloodAlcoholContentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
     HKQuantitySample *bloodAcloholContentSample = [HKQuantitySample quantitySampleWithType:bloodAlcoholContentType quantity:bloodAlcoholContentQuantity startDate:sampleDate endDate:sampleDate];
 
-    [self.healthStore saveObject:bloodAcloholContentSample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:bloodAcloholContentSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;

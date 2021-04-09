@@ -9,6 +9,8 @@
 #import "RCTAppleHealthKit+Queries.h"
 #import "RCTAppleHealthKit+Utils.h"
 
+#import "RNAppleHealthKit-Swift.h"
+
 @implementation RCTAppleHealthKit (Methods_Sleep)
 
 
@@ -55,7 +57,7 @@
         callback(@[[NSNull null], data]);
      }
     ];
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)mindfulness_saveMindfulSession:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -73,7 +75,7 @@
     HKCategorySample *sample = [HKCategorySample categorySampleWithType:type value:value startDate:startDate endDate:endDate];
 
 
-    [self.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
+    [self.rnAppleHealthKit.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
