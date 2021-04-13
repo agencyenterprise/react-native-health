@@ -1,5 +1,7 @@
 # Documentation
 
+There is a gitbook version for the documentation on this [link](https://vinicius-macelai.gitbook.io/react-native-health/docs).
+
 ### Constants
 
 - [Activities](activities.md)
@@ -44,12 +46,14 @@
 ### Characteristic Methods
 
 - [getBiologicalSex](getBiologicalSex.md)
+- [getBloodType](getBloodType.md)
 - [getDateOfBirth](getDateOfBirth.md)
 
 ### Dietary Methods
 
 - [saveFood](saveFood.md)
 - [saveWater](saveWater.md)
+- [getWater](getWater.md)
 
 ### Fitness Methods
 

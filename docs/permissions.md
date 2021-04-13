@@ -30,6 +30,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   AppleStandTime
   BasalEnergyBurned
   BiologicalSex
+  BloodType
   BloodAlcoholContent
   BloodGlucose
   BloodPressureDiastolic
@@ -106,6 +107,7 @@ The available Healthkit identifiers are supported
 | ActiveEnergyBurned     | [HKQuantityTypeIdentifierActiveEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615771-activeenergyburned?language=objc) | ✓    |       |
 | BasalEnergyBurned      | [HKQuantityTypeIdentifierBasalEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615512-basalenergyburned?language=objc)   | ✓    |       |
 | BiologicalSex          | [HKCharacteristicTypeIdentifierBiologicalSex](https://developer.apple.com/reference/Healthkit/hkcharacteristictypeidentifierbiologicalsex?language=objc)            | ✓    |       |
+| BloodType    | [HKCharacteristicTypeIdentifierBloodType](https://developer.apple.com/documentation/healthkit/hkcharacteristictypeidentifierbloodtype?language=objc)            | ✓    |     |
 | BloodAlcoholContent    | [HKQuantityTypeIdentifierBloodAlcoholContent](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbloodalcoholcontent?language=objc)            | ✓    | ✓     |
 | BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                          | ✓    |       |
 | BloodPressureDiastolic | [HKQuantityTypeIdentifierBloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierbloodpressurediastolic?language=objc)  | ✓    | ✓     |

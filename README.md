@@ -126,6 +126,8 @@ client. For more information, see [background observers](/docs/background.md).
 
 ## Documentation
 
+There is a gitbook version for the documentation on this [link](https://docs.react-native-health.com/).
+
 All the documentation is under the [docs](/docs) folder. Additionally,
 they are splitted in the following categories
 
@@ -182,6 +184,7 @@ they are splitted in the following categories
 - [getProteinSamples](/docs/getProteinSamples.md)
 - [saveFood](/docs/saveFood.md)
 - [saveWater](/docs/saveWater.md)
+- [getWater](/docs/getWater.md)
 
 ### Fitness Methods
 

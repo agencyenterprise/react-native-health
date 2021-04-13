@@ -72,7 +72,7 @@
             return;
         } else {
             NSLog(@"error getting samples: %@", error);
-            callback(@[RCTMakeError(@"error getting samples", nil, nil)]);
+            callback(@[RCTMakeError(@"error getting samples:", error, nil)]);
 
             return;
         }

@@ -76,4 +76,51 @@
     callback(@[[NSNull null], response]);
 }
 
+- (void)characteristic_getBloodType:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback {
+    NSError *error;
+    HKBloodTypeObject *bioBlood = [self.healthStore bloodTypeWithError:&error];
+    NSString *value;
+
+    switch (bioBlood.bloodType) {
+        case HKBloodTypeNotSet:
+            value = @"unknown";
+            break;
+        case HKBloodTypeAPositive:
+            value = @"A+";
+            break;
+        case HKBloodTypeANegative:
+            value = @"A-";
+            break;
+        case HKBloodTypeBPositive:
+            value = @"B+";
+            break;
+        case HKBloodTypeBNegative:
+            value = @"B-";
+            break;
+        case HKBloodTypeABPositive:
+            value = @"AB+";
+            break;
+        case HKBloodTypeABNegative:
+            value = @"AB-";
+            break;
+        case HKBloodTypeOPositive:
+            value = @"O+";
+            break;
+        case HKBloodTypeONegative:
+            value = @"O-";
+            break;
+    }
+
+    if(value == nil){
+        callback(@[RCTJSErrorFromNSError(error)]);
+        return;
+    }
+
+    NSDictionary *response = @{
+            @"value" : value,
+    };
+
+    callback(@[[NSNull null], response]);
+}
+
 @end
