@@ -1,3 +1,5 @@
+import { HealthInputOptions } from "react-native-health"
+
 declare module 'react-native-health' {
   export interface HealthKitPermissions {
     permissions: {
@@ -137,6 +139,16 @@ declare module 'react-native-health' {
     ): void
 
     getDailyFlightsClimbedSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getEnergyConsumedSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getProteinSamples(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
