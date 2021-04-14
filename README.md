@@ -238,6 +238,7 @@ they are splitted in the following categories
 #### Workout Methods
 
 - [getSamples](docs/getSamples.md)
+- [getAnchoredWorkouts](/docs/getAnchoredWorkouts.md)
 - [saveWorkout](/docs/saveWorkout.md)
 
 ## Additional Information
