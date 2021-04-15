@@ -15,21 +15,31 @@
 
 + (NSDate *)parseISO8601DateFromString:(NSString *)date
 {
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.locale = posix;
-    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
-    return [dateFormatter dateFromString:date];
+    @try {
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter.locale = posix;
+        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
+        return [dateFormatter dateFromString:date];
+    } @catch (NSException *exception) {
+        NSLog(@"RNHealth: An error occured while trying parse ISO8601 date from string");
+        return nil;
+    }
 }
 
 
 + (NSString *)buildISO8601StringFromDate:(NSDate *)date
 {
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.locale = posix;
-    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
-    return [dateFormatter stringFromDate:date];
+    @try {
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter.locale = posix;
+        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
+        return [dateFormatter stringFromDate:date];
+    } @catch (NSException *exception) {
+        NSLog(@"RNHealth: An error occured while trying parse ISO8601 string from date");
+        return nil;
+    }   
 }
 
 
@@ -57,6 +67,14 @@
     return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
 }
 
++ (NSPredicate *)predicateForAnchoredQueries:(HKQueryAnchor *)anchor startDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    if (startDate == nil) {
+        return nil;
+    } else {
+        return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
+    }
+
+}
 
 + (double)doubleValueFromOptions:(NSDictionary *)options {
     double value = [[options objectForKey:@"value"] doubleValue];
@@ -158,6 +176,17 @@
     }
 
     return [HKObjectType workoutType];
+}
+
++ (HKQueryAnchor *)hkAnchorFromOptions:(NSDictionary *)options {
+    NSString *anchorString = [options objectForKey:@"anchor"];
+    if (!anchorString.length) return nil;
+    NSData* anchorData = [[NSData alloc] initWithBase64EncodedString:anchorString options:0];
+    HKQueryAnchor *anchor = [NSKeyedUnarchiver unarchiveObjectWithData:anchorData];
+    if(anchor == nil){
+        return nil;
+    }
+    return anchor;
 }
 
 

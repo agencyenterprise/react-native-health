@@ -1,3 +1,5 @@
+import { HealthInputOptions } from "react-native-health"
+
 declare module 'react-native-health' {
   export interface HealthKitPermissions {
     permissions: {
@@ -101,6 +103,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
+    getAnchoredWorkouts(
+      options: HealthInputOptions,
+      callback: (err: string, results: AnchoredQueryResults) => void,
+    ): void
+
     getDailyStepCountSamples(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
@@ -137,6 +144,16 @@ declare module 'react-native-health' {
     ): void
 
     getDailyFlightsClimbedSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getEnergyConsumedSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getProteinSamples(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
@@ -347,8 +364,24 @@ declare module 'react-native-health' {
     date?: string
     includeManuallyAdded?: boolean
     period?: number
+    anchor?: string;
   }
 
+  export interface HKWorkoutQueriedSampleType {
+    activityId: number
+    activityName: string
+    calories: number
+    device: string
+    id: string
+    tracked: string
+    metadata: any
+    sourceName: string
+    sourceId: string
+    distance: number
+    start: string
+    end: string
+  }
+  
   export interface HealthValueOptions extends HealthUnitOptions {
     value: number
     startDate?: string
@@ -557,6 +590,11 @@ declare module 'react-native-health' {
       read: HealthStatusCode[]
       write: HealthStatusCode[]
     }
+  }
+
+  export interface AnchoredQueryResults {
+    anchor: string,
+    data: Array<HKWorkoutQueriedSampleType>,
   }
 
   export enum HealthObserver {

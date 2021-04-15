@@ -168,6 +168,12 @@ RCT_EXPORT_METHOD(getSamples:(NSDictionary *)input callback:(RCTResponseSenderBl
     [self fitness_getSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getAnchoredWorkouts:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self workout_getAnchoredQuery:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(setObserver:(NSDictionary *)input)
 {
     [self _initializeHealthStore];
@@ -233,6 +239,17 @@ RCT_EXPORT_METHOD(getDailyFlightsClimbedSamples:(NSDictionary *)input callback:(
     [self _initializeHealthStore];
     [self fitness_getDailyFlightsClimbedSamples:input callback:callback];
 }
+
+RCT_EXPORT_METHOD(getEnergyConsumedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getEnergyConsumedSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getProteinSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getProteinSamples:input callback:callback];
+}
+
 
 RCT_EXPORT_METHOD(saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {

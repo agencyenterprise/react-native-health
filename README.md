@@ -180,6 +180,8 @@ they are splitted in the following categories
 
 ### Dietary Methods
 
+- [getEnergyConsumedSamples](/docs/getEnergyConsumedSamples.md)
+- [getProteinSamples](/docs/getProteinSamples.md)
 - [saveFood](/docs/saveFood.md)
 - [saveWater](/docs/saveWater.md)
 - [getWater](/docs/getWater.md)
@@ -236,6 +238,7 @@ they are splitted in the following categories
 #### Workout Methods
 
 - [getSamples](docs/getSamples.md)
+- [getAnchoredWorkouts](/docs/getAnchoredWorkouts.md)
 - [saveWorkout](/docs/saveWorkout.md)
 
 ## Additional Information

@@ -137,6 +137,134 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (type == [HKObjectType workoutType]) {
                     for (HKWorkout *sample in results) {
+                        @try {
+                            double energy =  [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                            double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
+                            NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
+
+                            NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                            NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+
+                            bool isTracked = true;
+                            if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
+                                isTracked = false;
+                            }
+
+                            NSString* device = @"";
+                            if (@available(iOS 11.0, *)) {
+                                device = [[sample sourceRevision] productType];
+                            } else {
+                                device = [[sample device] name];
+                                if (!device) {
+                                    device = @"iPhone";
+                                }
+                            }
+
+                            NSDictionary *elem = @{
+                                                   @"activityId" : [NSNumber numberWithInt:[sample workoutActivityType]],
+                                                   @"id" : [[sample UUID] UUIDString],
+                                                   @"activityName" : type,
+                                                   @"calories" : @(energy),
+                                                   @"tracked" : @(isTracked),
+                                                   @"metadata" : [sample metadata],
+                                                   @"sourceName" : [[[sample sourceRevision] source] name],
+                                                   @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                                   @"device": device,
+                                                   @"distance" : @(distance),
+                                                   @"start" : startDateString,
+                                                   @"end" : endDateString
+                                                   };
+
+                            [data addObject:elem];
+                        } @catch (NSException *exception) {
+                            NSLog(@"RNHealth: An error occured while trying to add sample from: %@ ", [[[sample sourceRevision] source] bundleIdentifier]);
+                        }
+                    }
+                } else {
+                    for (HKQuantitySample *sample in results) {
+                        @try {
+                            HKQuantity *quantity = sample.quantity;
+                            double value = [quantity doubleValueForUnit:unit];
+
+                            NSString * valueType = @"quantity";
+                            if (unit == [HKUnit mileUnit]) {
+                                valueType = @"distance";
+                            }
+
+                            NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                            NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+
+                            bool isTracked = true;
+                            if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
+                                isTracked = false;
+                            }
+
+                            NSString* device = @"";
+                            if (@available(iOS 11.0, *)) {
+                                device = [[sample sourceRevision] productType];
+                            } else {
+                                device = [[sample device] name];
+                                if (!device) {
+                                    device = @"iPhone";
+                                }
+                            }
+
+                            NSDictionary *elem = @{
+                                                   valueType : @(value),
+                                                   @"tracked" : @(isTracked),
+                                                   @"sourceName" : [[[sample sourceRevision] source] name],
+                                                   @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                                   @"device": device,
+                                                   @"start" : startDateString,
+                                                   @"end" : endDateString
+                                                   };
+
+                            [data addObject:elem];
+                        } @catch (NSException *exception) {
+                            NSLog(@"RNHealth: An error occured while trying to add sample from: %@ ", [[[sample sourceRevision] source] bundleIdentifier]);
+                        }
+                    }
+                }
+
+                completion(data, error);
+            });
+        }
+    };
+
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:type
+                                                           predicate:predicate
+                                                               limit:lim
+                                                     sortDescriptors:@[timeSortDescriptor]
+                                                      resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+}
+
+- (void)fetchAnchoredWorkouts:(HKSampleType *)type
+                    predicate:(NSPredicate *)predicate
+                       anchor:(HKQueryAnchor *)anchor
+                        limit:(NSUInteger)lim
+                   completion:(void (^)(NSDictionary *, NSError *))completion {
+
+    // declare the block
+    void (^handlerBlock)(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error);
+
+    // create and assign the block
+    handlerBlock = ^(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error) {
+
+        if (!sampleObjects) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+
+        if (completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (HKWorkout *sample in sampleObjects) {
+                    @try {
                         double energy =  [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
                         double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
                         NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
@@ -161,9 +289,11 @@
 
                         NSDictionary *elem = @{
                                                @"activityId" : [NSNumber numberWithInt:[sample workoutActivityType]],
+                                               @"id" : [[sample UUID] UUIDString],
                                                @"activityName" : type,
                                                @"calories" : @(energy),
                                                @"tracked" : @(isTracked),
+                                               @"metadata" : [sample metadata],
                                                @"sourceName" : [[[sample sourceRevision] source] name],
                                                @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
                                                @"device": device,
@@ -173,59 +303,26 @@
                                                };
 
                         [data addObject:elem];
-                    }
-                } else {
-                    for (HKQuantitySample *sample in results) {
-                        HKQuantity *quantity = sample.quantity;
-                        double value = [quantity doubleValueForUnit:unit];
-
-                        NSString * valueType = @"quantity";
-                        if (unit == [HKUnit mileUnit]) {
-                            valueType = @"distance";
-                        }
-
-                        NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                        NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
-
-                        bool isTracked = true;
-                        if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
-                            isTracked = false;
-                        }
-
-                        NSString* device = @"";
-                        if (@available(iOS 11.0, *)) {
-                            device = [[sample sourceRevision] productType];
-                        } else {
-                            device = [[sample device] name];
-                            if (!device) {
-                                device = @"iPhone";
-                            }
-                        }
-
-                        NSDictionary *elem = @{
-                                               valueType : @(value),
-                                               @"tracked" : @(isTracked),
-                                               @"sourceName" : [[[sample sourceRevision] source] name],
-                                               @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
-                                               @"device": device,
-                                               @"start" : startDateString,
-                                               @"end" : endDateString
-                                               };
-
-                        [data addObject:elem];
+                    } @catch (NSException *exception) {
+                        NSLog(@"RNHealth: An error occured while trying to add workout sample from: %@ ", [[[sample sourceRevision] source] bundleIdentifier]);
                     }
                 }
-
-                completion(data, error);
+                
+                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
+                NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
+                completion(@{
+                            @"anchor": anchorString,
+                            @"data": data,
+                        }, error);
             });
         }
     };
 
-    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:type
-                                                           predicate:predicate
-                                                               limit:lim
-                                                     sortDescriptors:@[timeSortDescriptor]
-                                                      resultsHandler:handlerBlock];
+    HKAnchoredObjectQuery *query = [[HKAnchoredObjectQuery alloc] initWithType:type
+                                                                     predicate:predicate
+                                                                        anchor:anchor
+                                                                         limit:lim
+                                                                resultsHandler:handlerBlock];
 
     [self.healthStore executeQuery:query];
 }
