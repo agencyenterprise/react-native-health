@@ -15,21 +15,31 @@
 
 + (NSDate *)parseISO8601DateFromString:(NSString *)date
 {
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.locale = posix;
-    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
-    return [dateFormatter dateFromString:date];
+    @try {
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter.locale = posix;
+        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
+        return [dateFormatter dateFromString:date];
+    } @catch (NSException *exception) {
+        NSLog(@"RNHealth: An error occured while trying parse ISO8601 date from string");
+        return nil;
+    }
 }
 
 
 + (NSString *)buildISO8601StringFromDate:(NSDate *)date
 {
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.locale = posix;
-    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
-    return [dateFormatter stringFromDate:date];
+    @try {
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter.locale = posix;
+        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
+        return [dateFormatter stringFromDate:date];
+    } @catch (NSException *exception) {
+        NSLog(@"RNHealth: An error occured while trying parse ISO8601 string from date");
+        return nil;
+    }   
 }
 
 
