@@ -373,7 +373,7 @@ declare module 'react-native-health' {
     calories: number
     device: string
     id: string
-    tracked: string
+    tracked: boolean
     metadata: any
     sourceName: string
     sourceId: string
