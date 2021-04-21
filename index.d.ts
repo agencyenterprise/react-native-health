@@ -7,6 +7,10 @@ declare module 'react-native-health' {
       write: HealthPermission[]
     }
   }
+  export interface BloodPressureSamples extends HealthValue {
+    bloodPressureSystolicValue: number
+    bloodPressureDiastolicValue: number,
+  }
 
   export interface Constants {
     Activities: Record<HealthActivity, HealthActivity>
@@ -220,7 +224,7 @@ declare module 'react-native-health' {
 
     getBloodPressureSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthValue>) => void,
+      callback: (err: string, results: Array<BloodPressureSamples>) => void,
     ): void
 
     getRespiratoryRateSamples(
