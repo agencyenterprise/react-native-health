@@ -431,10 +431,10 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 }
 
 - (HKHealthStore *)_initializeHealthStore {
-  if(![self healthStore]) {
-    self.healthStore = [[HKHealthStore alloc] init];
+  if(![self rnAppleHealthKit]) {
+      self.rnAppleHealthKit = [[RNAppleHealthKit alloc] init];
   }
-  return [self healthStore];
+  return [self rnAppleHealthKit];
 }
 
 
@@ -482,7 +482,7 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
             return;
         }
 
-        [self.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
+        [self.rnAppleHealthKit.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
             if (!success) {
                 NSString *errMsg = [NSString stringWithFormat:@"Error with HealthKit authorization: %@", error];
                 NSLog(errMsg);
@@ -533,11 +533,11 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 
         NSMutableArray * read = [NSMutableArray arrayWithCapacity: 1];
         for(HKObjectType * perm in readPermsArray) {
-            [read  addObject:[NSNumber numberWithInt:[self.healthStore authorizationStatusForType: perm]]];
+            [read  addObject:[NSNumber numberWithInt:[self.rnAppleHealthKit.healthStore authorizationStatusForType: perm]]];
         }
         NSMutableArray * write = [NSMutableArray arrayWithCapacity: 1];
         for(HKObjectType * perm in writePermsArray) {
-            [write  addObject:[NSNumber numberWithInt:[self.healthStore authorizationStatusForType: perm]]];
+            [write  addObject:[NSNumber numberWithInt:[self.rnAppleHealthKit.healthStore authorizationStatusForType: perm]]];
         }
         callback(@[[NSNull null], @{
                        @"permissions":
@@ -560,7 +560,6 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 - (void)initializeBackgroundObservers:(RCTBridge *)bridge
 {
     NSLog(@"[HealthKit] Background observers will be added to the app");
-
     [self _initializeHealthStore];
 
     if ([HKHealthStore isHealthDataAvailable]) {

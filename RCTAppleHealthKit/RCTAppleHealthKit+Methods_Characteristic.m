@@ -9,12 +9,14 @@
 #import "RCTAppleHealthKit+Methods_Characteristic.h"
 #import "RCTAppleHealthKit+Utils.h"
 
+#import "RNAppleHealthKit-Swift.h"
+
 @implementation RCTAppleHealthKit (Methods_Characteristic)
 
 
 - (void)characteristic_getBiologicalSex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback {
     NSError *error;
-    HKBiologicalSexObject *bioSex = [self.healthStore biologicalSexWithError:&error];
+    HKBiologicalSexObject *bioSex = [self.rnAppleHealthKit.healthStore biologicalSexWithError:&error];
     NSString *value;
 
     switch (bioSex.biologicalSex) {
@@ -47,7 +49,7 @@
 
 - (void)characteristic_getDateOfBirth:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback {
     NSError *error;
-    NSDate *dob = [self.healthStore dateOfBirthWithError:&error];
+    NSDate *dob = [self.rnAppleHealthKit.healthStore dateOfBirthWithError:&error];
 
     if(error != nil){
         callback(@[RCTJSErrorFromNSError(error)]);
@@ -78,7 +80,7 @@
 
 - (void)characteristic_getBloodType:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback {
     NSError *error;
-    HKBloodTypeObject *bioBlood = [self.healthStore bloodTypeWithError:&error];
+    HKBloodTypeObject *bioBlood = [self.rnAppleHealthKit.healthStore bloodTypeWithError:&error];
     NSString *value;
 
     switch (bioBlood.bloodType) {
