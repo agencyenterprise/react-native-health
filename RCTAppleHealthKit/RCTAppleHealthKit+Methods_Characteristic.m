@@ -64,7 +64,7 @@
         return;
     }
 
-    NSString *dobString = [RCTAppleHealthKit buildISO8601StringFromDate:dob];
+    NSString *dobString = [self.rnAppleHealthKit buildISO8601StringFrom:dob];
 
     NSDate *now = [NSDate date];
     NSDateComponents *ageComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:dob toDate:now options:NSCalendarWrapComponents];

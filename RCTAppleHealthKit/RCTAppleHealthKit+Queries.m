@@ -83,8 +83,8 @@
                     HKQuantity *quantity = sample.quantity;
                     double value = [quantity doubleValueForUnit:unit];
 
-                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                    NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
+                    NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
 
                     NSDictionary *elem = @{
                             @"value" : @(value),
@@ -144,8 +144,8 @@
                             double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
                             NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
 
-                            NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                            NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                            NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
+                            NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
 
                             bool isTracked = true;
                             if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
@@ -193,8 +193,8 @@
                                 valueType = @"distance";
                             }
 
-                            NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                            NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                            NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
+                            NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
 
                             bool isTracked = true;
                             if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
@@ -239,7 +239,7 @@
                                                      sortDescriptors:@[timeSortDescriptor]
                                                       resultsHandler:handlerBlock];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchAnchoredWorkouts:(HKSampleType *)type
@@ -271,8 +271,8 @@
                         double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
                         NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
 
-                        NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                        NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                        NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
+                        NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
 
                         bool isTracked = true;
                         if ([[sample metadata][HKMetadataKeyWasUserEntered] intValue] == 1) {
@@ -356,8 +356,8 @@
                 for (HKCategorySample *sample in results) {
                     NSInteger val = sample.value;
 
-                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                    NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
+                    NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
 
                     NSString *valueString;
 
@@ -428,8 +428,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
 
                 for (HKCorrelation *sample in results) {
-                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                    NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
+                    NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
 
                     NSDictionary *elem = @{
                       @"correlation" : sample,
@@ -457,7 +457,7 @@
                                  unit:(HKUnit *)unit
                            completion:(void (^)(double, NSError *))completionHandler {
 
-    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesToday];
+    NSPredicate *predicate = [self.rnAppleHealthKit predicateForSamplesOnDay:[NSDate date]];
     HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType
                                                           quantitySamplePredicate:predicate
                                                           options:HKStatisticsOptionCumulativeSum
@@ -477,7 +477,7 @@
                                  includeManuallyAdded:(BOOL)includeManuallyAdded
                                   day:(NSDate *)day
                            completion:(void (^)(double, NSDate *, NSDate *, NSError *))completionHandler {
-    NSPredicate *dayPredicate = [RCTAppleHealthKit predicateForSamplesOnDay:day];
+    NSPredicate *dayPredicate = [self.rnAppleHealthKit predicateForSamplesOnDay:day];
     NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[dayPredicate]];
     if (includeManuallyAdded == false) {
         NSPredicate *manualDataPredicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
@@ -541,7 +541,7 @@
                                            double value = [quantity doubleValueForUnit:[HKUnit countUnit]];
                                            NSLog(@"%@: %f", date, value);
 
-                                           NSString *dateString = [RCTAppleHealthKit buildISO8601StringFromDate:date];
+                                           NSString *dateString = [self.rnAppleHealthKit buildISO8601StringFrom:date];
                                            NSArray *elem = @[dateString, @(value)];
                                            [data addObject:elem];
                                        }
@@ -596,8 +596,8 @@
                                            NSDate *endDate = result.endDate;
                                            double value = [quantity doubleValueForUnit:unit];
 
-                                           NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:startDate];
-                                           NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:endDate];
+                                           NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:startDate];
+                                           NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:endDate];
 
                                            NSDictionary *elem = @{
                                                    @"value" : @(value),
@@ -673,8 +673,8 @@
                                            NSDate *endDate = result.endDate;
                                            double value = [quantity doubleValueForUnit:unit];
 
-                                           NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:startDate];
-                                           NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:endDate];
+                                           NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:startDate];
+                                           NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:endDate];
 
                                            NSDictionary *elem = @{
                                                    @"value" : @(value),
@@ -734,8 +734,8 @@
                             @"activityName" : activityName,
                             @"calories" : @(energy),
                             @"distance" : @(distance),
-                            @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
-                            @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate]
+                            @"startDate" : [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate],
+                            @"endDate" : [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate]
                         };
                         [data addObject:elem];
                     }

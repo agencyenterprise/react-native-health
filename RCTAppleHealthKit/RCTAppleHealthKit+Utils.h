@@ -10,19 +10,6 @@
 
 @interface RCTAppleHealthKit (Utils)
 
-+ (NSDate *)parseISO8601DateFromString:(NSString *)date;
-+ (NSString *)buildISO8601StringFromDate:(NSDate *)date;
-+ (NSPredicate *)predicateForSamplesToday;
-+ (NSPredicate *)predicateForSamplesOnDay:(NSDate *)date;
-+ (NSPredicate *)predicateForSamplesBetweenDates:(NSDate *)startDate endDate:(NSDate *)endDate;
-+ (NSPredicate *)predicateForSamplesOnDayFromTimestamp:(NSString *)timestamp;
-+ (NSPredicate *)predicateForAnchoredQueries:(HKQueryAnchor *)anchor startDate:(NSDate *)startDate endDate:(NSDate *)endDate;
-+ (double)doubleValueFromOptions:(NSDictionary *)options;
-+ (NSDate *)dateFromOptions:(NSDictionary *)options;
-+ (NSDate *)dateFromOptionsDefaultNow:(NSDictionary *)options;
-+ (NSDate *)startDateFromOptions:(NSDictionary *)options;
-+ (NSDate *)endDateFromOptions:(NSDictionary *)options;
-+ (NSDate *)endDateFromOptionsDefaultNow:(NSDictionary *)options;
 + (HKSampleType *)quantityTypeFromName:(NSString *)type;
 + (HKQueryAnchor *)hkAnchorFromOptions:(NSDictionary *)options;
 + (HKUnit *)hkUnitFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKUnit *)defaultValue;

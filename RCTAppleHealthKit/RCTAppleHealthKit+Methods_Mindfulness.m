@@ -16,8 +16,8 @@
 
 - (void)mindfulness_getMindfulSession:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
-    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    NSDate *startDate = [self.rnAppleHealthKit dateFrom:input key:@"startDate" defaultDate:nil];
+    NSDate *endDate = [self.rnAppleHealthKit dateFrom:input key:@"endDate" defaultDate:[NSDate date]];
     double limit = [RCTAppleHealthKit doubleFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
 
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc]
@@ -26,7 +26,7 @@
     ];
 
     HKCategoryType *type = [HKCategoryType categoryTypeForIdentifier: HKCategoryTypeIdentifierMindfulSession];
-    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+    NSPredicate *predicate = [self.rnAppleHealthKit predicateForSamplesBetweenWithStartDate:startDate endDate:endDate];
 
     HKSampleQuery *query = [[HKSampleQuery alloc]
         initWithSampleType:type
@@ -44,8 +44,8 @@
 
             for (HKQuantitySample *sample in results) {
             NSLog(@"sample for mindfulsession %@", sample);
-            NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
-            NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+            NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
+            NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
 
             NSDictionary *elem = @{
                     @"startDate" : startDateString,
@@ -63,8 +63,8 @@
 - (void)mindfulness_saveMindfulSession:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     double value = [RCTAppleHealthKit doubleFromOptions:input key:@"value" withDefault:(double)0];
-    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
-    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    NSDate *startDate = [self.rnAppleHealthKit dateFrom:input key:@"startDate" defaultDate:nil];
+    NSDate *endDate = [self.rnAppleHealthKit dateFrom:input key:@"endDate" defaultDate:[NSDate date]];
 
     if(startDate == nil || endDate == nil){
         callback(@[RCTMakeError(@"startDate and endDate are required in options", nil, nil)]);
