@@ -20,7 +20,7 @@
     
     HKQuantityType *bloodAlcoholContentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
     
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit percentUnit]];
+    HKUnit *unit = [self.rnAppleHealthKit hkUnitFrom:input with:@"unit" defaultValue:[HKUnit percentUnit]];
     
     [self fetchMostRecentQuantitySampleOfType:bloodAlcoholContentType
                                     predicate:nil
@@ -46,7 +46,7 @@
     
     HKQuantityType *bloodAlcoholContentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
 
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit percentUnit]];
+    HKUnit *unit = [self.rnAppleHealthKit hkUnitFrom:input with:@"unit" defaultValue:[HKUnit percentUnit]];
     NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
     NSDate *startDate = [self.rnAppleHealthKit dateFrom:input key:@"startDate" defaultDate:nil];
@@ -78,7 +78,7 @@
 {
     double bloodAlcoholContent = [[input objectForKey:@"value"] doubleValue];
     NSDate *sampleDate = [self.rnAppleHealthKit dateFrom:input key:@"startDate" defaultDate:[NSDate date]];
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit percentUnit]];
+    HKUnit *unit = [self.rnAppleHealthKit hkUnitFrom:input with:@"unit" defaultValue:[HKUnit percentUnit]];
 
     HKQuantity *bloodAlcoholContentQuantity = [HKQuantity quantityWithUnit:unit doubleValue:bloodAlcoholContent];
     HKQuantityType *bloodAlcoholContentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];

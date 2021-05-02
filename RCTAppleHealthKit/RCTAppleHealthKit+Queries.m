@@ -142,7 +142,7 @@
                         @try {
                             double energy =  [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
                             double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
-                            NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
+                            NSString *type = [self.rnAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
 
                             NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
                             NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
@@ -269,7 +269,7 @@
                     @try {
                         double energy =  [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
                         double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
-                        NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
+                        NSString *type = [self.rnAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
 
                         NSString *startDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.startDate];
                         NSString *endDateString = [self.rnAppleHealthKit buildISO8601StringFrom:sample.endDate];
