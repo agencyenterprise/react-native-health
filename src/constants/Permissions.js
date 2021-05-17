@@ -76,4 +76,15 @@ export const Permissions = {
   Vo2Max: 'Vo2Max',
   Weight: 'Weight',
   Workout: 'Workout',
+
+  // Reproductive Health
+  BasalBodyTemperature: 'BasalBodyTemperature',
+  CervicalMucusQuality: 'CervicalMucusQuality',
+  Contraceptive: 'Contraceptive',
+  IntermenstrualBleeding: 'IntermenstrualBleeding',
+  Lactation: 'Lactation',
+  OvulationTestResult: 'OvulationTestResult',
+  Pregnancy: 'Pregnancy',
+  SexualActivity: 'SexualActivity',
+  MenstrualFlow: 'MenstrualFlow',
 }

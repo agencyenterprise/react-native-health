@@ -20,6 +20,7 @@
 #import "RCTAppleHealthKit+Methods_Mindfulness.h"
 #import "RCTAppleHealthKit+Methods_Workout.h"
 #import "RCTAppleHealthKit+Methods_LabTests.h"
+#import "RCTAppleHealthKit+Methods_ReproductiveHealth.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -512,7 +513,7 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 
 - (void)getAuthorizationStatus:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-  
+
     [self _initializeHealthStore];
     if ([HKHealthStore isHealthDataAvailable]) {
 
