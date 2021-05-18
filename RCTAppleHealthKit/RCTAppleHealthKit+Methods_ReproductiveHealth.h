@@ -8,5 +8,5 @@
 #import "RCTAppleHealthKit.h"
 
 @interface RCTAppleHealthKit (Methods_ReproductiveHealth)
-
+- (void)reproductiveHealth_getBasalBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 @end

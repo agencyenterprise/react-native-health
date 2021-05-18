@@ -249,6 +249,11 @@ RCT_EXPORT_METHOD(getProteinSamples:(NSDictionary *)input callback:(RCTResponseS
    [self dietary_getProteinSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getBasalBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self reproductiveHealth_getBasalBodyTemperatureSamples:input callback:callback];
+}
+
 
 RCT_EXPORT_METHOD(saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
