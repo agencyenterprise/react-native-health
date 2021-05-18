@@ -9,4 +9,5 @@
 
 @interface RCTAppleHealthKit (Methods_ReproductiveHealth)
 - (void)reproductiveHealth_getBasalBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)reproductiveHealth_getMenstrualFlowSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 @end

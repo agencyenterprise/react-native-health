@@ -57,6 +57,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 
 ### Reproductive Health Methods
 - [getBasalBodyTemperatureSamples](getBasalBodyTemperatureSamples.md)
+- [getMenstrualFlowSamples](getMenstrualFlowSamples.md)
 
 ### Fitness Methods
 
