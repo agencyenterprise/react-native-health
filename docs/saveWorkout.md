@@ -11,8 +11,10 @@ let options = {
   type: 'AmericanFootball', // See HealthActivity Enum
   startDate: new Date(2016, 6, 2, 6, 0, 0).toISOString(),
   endDate: new Date(2020, 6, 2, 6, 30, 0).toISOString(),
-  energyBurned: 50, // In Energy burned unit
+  energyBurned: 50, // In Energy burned unit,
+  energyBurnedUnit: 'calorie', 
   distance: 50, // In Distance unit
+  distanceUnit: 'meter'
 }
 ```
 
