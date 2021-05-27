@@ -42,6 +42,8 @@ To add Healthkit support to your application's `Capabilities`
 - Select the project name in the left sidebar
 - In the main view select '+ Capability' and double click 'HealthKit'
 
+> 🚨 Expo: This package is not available in the [Expo Go](https://expo.io/client) app. Learn how you can use it with [custom dev clients](/docs/Expo.md).
+
 ## Usage
 
 In order to start collecting or saving data to HealthKit, you need to request
