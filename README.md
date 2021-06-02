@@ -6,6 +6,8 @@ A React Native package to interact with Apple HealthKit for iOS.
 
 ## Getting Started
 
+> 🚨 Expo: This package is not available in the [Expo Go](https://expo.io/client) app. Learn how you can use it with [custom dev clients](/docs/Expo.md).
+
 ### Automatic Installation
 
 1. Install the react-native-health package from [npm](https://www.npmjs.com/package/react-native-health)
