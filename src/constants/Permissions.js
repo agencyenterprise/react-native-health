@@ -74,6 +74,7 @@ export const Permissions = {
   StepCount: 'StepCount',
   Steps: 'Steps',
   Vo2Max: 'Vo2Max',
+  WaistCircumference: 'WaistCircumference',
   Weight: 'Weight',
   Workout: 'Workout',
 }

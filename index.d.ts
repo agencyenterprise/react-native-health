@@ -67,6 +67,21 @@ declare module 'react-native-health' {
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
+    
+    getLatestWaistCircumference(
+      options: HealthUnitOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
+    getWaistCircumferenceSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    saveWaistCircumference(
+      options: HealthValueOptions,
+      callback: (error: string, result: HealthValue) => void,
+    ): void
 
     saveLeanBodyMass(
       options: HealthValueOptions,
@@ -559,6 +574,7 @@ declare module 'react-native-health' {
     Vo2Max = 'Vo2Max',
     Weight = 'Weight',
     Workout = 'Workout',
+    WaistCircumference = 'WaistCircumference'
   }
 
   export enum HealthUnit {
