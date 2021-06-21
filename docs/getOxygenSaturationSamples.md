@@ -32,6 +32,7 @@ Example output:
 ```json
 [
   {
+    "id": "5013eca7-4aee-45af-83c1-dbe3696b2e51", // The universally unique identifier (UUID) for this HealthKit object.
     "endDate": "2021-03-04T10:56:00.000-0500",
     "sourceId": "com.apple.Health",
     "sourceName": "Health",
@@ -39,6 +40,7 @@ Example output:
     "value": 0.98
   },
   {
+    "id": "86ff59e7-f393-4f32-95fb-b0bf7027374d",
     "endDate": "2021-03-04T09:55:00.000-0500",
     "sourceId": "com.apple.Health",
     "sourceName": "Health",
@@ -46,6 +48,7 @@ Example output:
     "value": 0.97
   },
   {
+    "id": "b8239909-e519-4e33-af3e-d87db605ae97",
     "endDate": "2021-03-04T08:00:00.000-0500",
     "sourceId": "com.apple.Health",
     "sourceName": "Health",
@@ -53,6 +56,7 @@ Example output:
     "value": 0.95
   },
   {
+    "id": "349fb170-86db-4857-9ffb-c70fb4510bac",
     "endDate": "2021-03-03T21:43:00.000-0500",
     "sourceId": "com.apple.Health",
     "sourceName": "Health",
