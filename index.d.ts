@@ -67,7 +67,7 @@ declare module 'react-native-health' {
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
-    
+
     saveLeanBodyMass(
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
