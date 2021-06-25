@@ -513,7 +513,10 @@
                                                      fromDate:[NSDate date]];
     anchorComponents.hour = 0;
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES AND %K >= %@ AND %K <= %@",
+                              HKMetadataKeyWasUserEntered,
+                              HKPredicateKeyPathEndDate, startDate,
+                              HKPredicateKeyPathStartDate, endDate];
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
                                                                            quantitySamplePredicate:predicate
@@ -567,7 +570,10 @@
                                                      fromDate:[NSDate date]];
     anchorComponents.hour = 0;
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES AND %K >= %@ AND %K <= %@",
+                              HKMetadataKeyWasUserEntered,
+                              HKPredicateKeyPathEndDate, startDate,
+                              HKPredicateKeyPathStartDate, endDate];
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
                                                                            quantitySamplePredicate:predicate
@@ -643,7 +649,14 @@
     NSDate *anchorDate = [calendar dateFromComponents:anchorComponents];
     NSPredicate *predicate = nil;
     if (includeManuallyAdded == false) {
-        predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES", HKMetadataKeyWasUserEntered];
+        predicate = [NSPredicate predicateWithFormat:@"metadata.%K != YES AND %K >= %@ AND %K <= %@",
+                                  HKMetadataKeyWasUserEntered,
+                                  HKPredicateKeyPathEndDate, startDate,
+                                  HKPredicateKeyPathStartDate, endDate];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:@"%K >= %@ AND %K <= %@",
+                                  HKPredicateKeyPathEndDate, startDate,
+                                  HKPredicateKeyPathStartDate, endDate];
     }
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
