@@ -1,4 +1,4 @@
-import { HealthInputOptions } from "react-native-health"
+import { HealthInputOptions } from 'react-native-health'
 
 declare module 'react-native-health' {
   export interface HealthKitPermissions {
@@ -323,7 +323,7 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
-    saveBodyFatPercent(
+    saveBodyFatPercentage(
       options: HealthValueOptions,
       callback: (err: string, results: HealthValue) => void,
     ): void
@@ -370,7 +370,7 @@ declare module 'react-native-health' {
     date?: string
     includeManuallyAdded?: boolean
     period?: number
-    anchor?: string;
+    anchor?: string
   }
 
   export interface HKWorkoutQueriedSampleType {
@@ -387,7 +387,7 @@ declare module 'react-native-health' {
     start: string
     end: string
   }
-  
+
   export interface HealthValueOptions extends HealthUnitOptions {
     value: number
     startDate?: string
@@ -599,8 +599,8 @@ declare module 'react-native-health' {
   }
 
   export interface AnchoredQueryResults {
-    anchor: string,
-    data: Array<HKWorkoutQueriedSampleType>,
+    anchor: string
+    data: Array<HKWorkoutQueriedSampleType>
   }
 
   export enum HealthObserver {
