@@ -345,6 +345,7 @@ declare module 'react-native-health' {
     age: number
   }
   interface BaseValue {
+    id?: string
     startDate: string
     endDate: string
   }

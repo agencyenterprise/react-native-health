@@ -86,6 +86,7 @@
 
                     NSDictionary *elem = @{
                             @"value" : @(value),
+                            @"id" : [[sample UUID] UUIDString],
                             @"sourceName" : [[[sample sourceRevision] source] name],
                             @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
                             @"startDate" : startDateString,
