@@ -30,7 +30,9 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 
 - [getLatestHeight](getLatestHeight.md)
 - [getLatestWeight](getLatestWeight.md)
+- [getLatestWaistCircumference](getLatestWaistCircumference.md)
 - [getHeightSamples](getHeightSamples.md)
+- [getWaistCircumferenceSamples](getWaistCircumferenceSamples.md)
 - [getWeightSamples](getWeightSamples.md)
 - [getBodyTemperatureSamples](getBodyTemperatureSamples.md)
 - [getLatestBodyFatPercentage](getLatestBodyFatPercentage.md)
@@ -38,6 +40,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getLatestLeanBodyMass](getLatestLeanBodyMass.md)
 - [getLeanBodyMassSamples](getLeanBodyMassSamples.md)
 - [saveHeight](saveHeight.md)
+- [saveWaistCircumference](saveWaistCircumference.md)
 - [saveWeight](saveWeight.md)
 - [saveBodyFatPercentage](saveBodyFatPercentage.md)
 - [saveBodyTemperature](/docs/saveBodyTemperature.md)
