@@ -20,6 +20,7 @@
 #import "RCTAppleHealthKit+Methods_Mindfulness.h"
 #import "RCTAppleHealthKit+Methods_Workout.h"
 #import "RCTAppleHealthKit+Methods_LabTests.h"
+#import "RCTAppleHealthKit+Methods_ClinicalRecords.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -444,6 +445,54 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 {
     [self _initializeHealthStore];
     [self labTests_saveBloodAlcoholContent:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getAllergyRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getAllergyRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getConditionRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getConditionRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getCoverageRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getCoverageRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getImmunizationRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getImmunizationRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getLabResultRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getLabResultRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getMedicationRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getMedicationRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getProcedureRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getProcedureRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getVitalSignRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getVitalSignRecords:input callback:callback];
 }
 
 

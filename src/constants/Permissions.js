@@ -77,4 +77,13 @@ export const Permissions = {
   WaistCircumference: 'WaistCircumference',
   Weight: 'Weight',
   Workout: 'Workout',
+  // Clinical Record Permissions
+  AllergyRecord: 'AllergyRecord',
+  ConditionRecord: 'ConditionRecord',
+  CoverageRecord: 'CoverageRecord',
+  ImmunizationRecord: 'ImmunizationRecord',
+  LabResultRecord: 'LabResultRecord',
+  MedicationRecord: 'MedicationRecord',
+  ProcedureRecord: 'ProcedureRecord',
+  VitalSignRecord: 'VitalSignRecord',
 }

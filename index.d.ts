@@ -348,6 +348,47 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    // TODO: KL Array?
+    getAllergyRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
+    getConditionRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
+    getCoverageRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
+    getImmunizationRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
+    getLabResultRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
+    getMedicationRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
+    getProcedureRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
+    getVitalSignRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
     setObserver(options: HealthObserverOptions): void
 
     Constants: Constants
@@ -417,6 +458,10 @@ declare module 'react-native-health' {
 
   export interface HealthObserverOptions {
     type: HealthObserver
+  }
+
+  export interface HealthClinicalRecord {
+    // TODO: KL Implement
   }
 
   /* Health Constants */
@@ -575,7 +620,16 @@ declare module 'react-native-health' {
     Vo2Max = 'Vo2Max',
     Weight = 'Weight',
     Workout = 'Workout',
-    WaistCircumference = 'WaistCircumference'
+    WaistCircumference = 'WaistCircumference',
+    // Clinical Record Permissions
+    AllergyRecord = 'AllergyRecord',
+    ConditionRecord = 'ConditionRecord',
+    CoverageRecord = 'CoverageRecord',
+    ImmunizationRecord = 'ImmunizationRecord',
+    LabResultRecord = 'LabResultRecord',
+    MedicationRecord = 'MedicationRecord',
+    ProcedureRecord = 'ProcedureRecord',
+    VitalSignRecord = 'VitalSignRecord',
   }
 
   export enum HealthUnit {

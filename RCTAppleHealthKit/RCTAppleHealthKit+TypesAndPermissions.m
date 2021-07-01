@@ -189,6 +189,25 @@
     if ([@"BloodAlcoholContent" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
     }
+    
+    // Clinical Records
+    if ([@"AllergyRecord" isEqualToString:key]) {
+        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierAllergyRecord];
+    } else if ([@"ConditionRecord" isEqualToString:key]) {
+        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierConditionRecord];
+    } else if ([@"CoverageRecord" isEqualToString:key]) {
+        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierCoverageRecord];
+    } else if ([@"ImmunizationRecord" isEqualToString:key]) {
+        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierImmunizationRecord];
+    } else if ([@"LabResultRecord" isEqualToString:key]) {
+        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierLabResultRecord];
+    } else if ([@"MedicationRecord" isEqualToString:key]) {
+        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierMedicationRecord];
+    } else if ([@"ProcedureRecord" isEqualToString:key]) {
+        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierProcedureRecord];
+    } else if ([@"VitalSignRecord" isEqualToString:key]) {
+        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord];
+    }
 
     return nil;
 }
