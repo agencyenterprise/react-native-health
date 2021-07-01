@@ -241,6 +241,57 @@
     [self.healthStore executeQuery:query];
 }
 
+- (void)fetchClinicalRecordsOfType:(HKClinicalType *)type
+                 predicate:(NSPredicate *)predicate
+                 ascending:(BOOL)asc
+                     limit:(NSUInteger)lim
+                completion:(void (^)(NSArray *, NSError *))completion {
+    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:asc];
+    
+    void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+
+    handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if (!results) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+        if (completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (HKClinicalRecord *record in results) {
+                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:record.startDate];
+                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:record.endDate];
+                    
+                    NSError *jsonE = nil;
+                    NSArray *fhirData = [NSJSONSerialization JSONObjectWithData:record.FHIRResource.data options: NSJSONReadingMutableContainers error: &jsonE];
+
+                    if (!fhirData) {
+                      completion(nil, jsonE);
+                    }
+                    
+                    NSDictionary *elem = @{
+                            @"id" : [[record UUID] UUIDString],
+                            @"sourceName" : [[[record sourceRevision] source] name],
+                            @"sourceId" : [[[record sourceRevision] source] bundleIdentifier],
+                            @"startDate" : startDateString,
+                            @"endDate" : endDateString,
+                            @"displayName" : record.displayName,
+                            @"fhirData": fhirData
+                    };
+                    [data addObject:elem];
+                }
+                completion(data, error);
+            });
+        }
+    };
+    
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:type predicate:predicate limit:lim sortDescriptors:@[timeSortDescriptor] resultsHandler:handlerBlock];
+    [self.healthStore executeQuery:query];
+}
+
 - (void)fetchAnchoredWorkouts:(HKSampleType *)type
                     predicate:(NSPredicate *)predicate
                        anchor:(HKQueryAnchor *)anchor
