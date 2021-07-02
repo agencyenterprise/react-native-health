@@ -47,6 +47,17 @@
 * [getBiologicalSex](/docs/getBiologicalSex.md)
 * [getDateOfBirth](/docs/getDateOfBirth.md)
 
+## Clinical Records Methods
+
+* [getAllergyRecords](/docs/getAllergyRecords.md)
+* [getConditionRecords](/docs/getConditionRecords.md)
+* [getCoverageRecords](/docs/getCoverageRecords.md)
+* [getImmunizationRecords](/docs/getImmunizationRecords.md)
+* [getLabResultRecords](/docs/getLabResultRecords.md)
+* [getMedicationRecords](/docs/getMedicationRecords.md)
+* [getProcedureRecords](/docs/getProcedureRecords.md)
+* [getVitalSignRecords](/docs/getVitalSignRecords.md)
+
 ## Dietary Methods
 
 * [saveFood](/docs/saveFood.md)
