@@ -28,6 +28,7 @@ export const Permissions = {
   Cholesterol: 'Cholesterol',
   ConditionRecord: 'ConditionRecord',
   Copper: 'Copper',
+  CoverageRecord: 'CoverageRecord',
   EnergyConsumed: 'EnergyConsumed',
   FatMonounsaturated: 'FatMonounsaturated',
   FatPolyunsaturated: 'FatPolyunsaturated',
