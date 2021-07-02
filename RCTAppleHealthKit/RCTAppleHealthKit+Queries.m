@@ -242,10 +242,10 @@
 }
 
 - (void)fetchClinicalRecordsOfType:(HKClinicalType *)type
-                 predicate:(NSPredicate *)predicate
-                 ascending:(BOOL)asc
-                     limit:(NSUInteger)lim
-                completion:(void (^)(NSArray *, NSError *))completion {
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+                        completion:(void (^)(NSArray *, NSError *))completion {
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:asc];
     
     void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);

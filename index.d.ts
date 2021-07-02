@@ -348,7 +348,6 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
-    // TODO: KL Array?
     getAllergyRecords(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthClinicalRecord>) => void,

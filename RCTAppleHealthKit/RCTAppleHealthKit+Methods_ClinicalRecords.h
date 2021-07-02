@@ -9,6 +9,7 @@
 
 @interface RCTAppleHealthKit (Methods_ClinicalRecords)
 
+- (void)clinicalRecords_getClinicalRecords:(HKClinicalType *)recordType input(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)clinicalRecords_getAllergyRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)clinicalRecords_getConditionRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)clinicalRecords_getCoverageRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
