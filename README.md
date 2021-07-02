@@ -180,6 +180,17 @@ they are splitted in the following categories
 - [getBiologicalSex](/docs/getBiologicalSex.md)
 - [getDateOfBirth](/docs/getDateOfBirth.md)
 
+#### Clinical Records Methods
+
+- [getAllergyRecords](getAllergyRecords.md)
+- [getConditionRecords](getConditionRecords.md)
+- [getCoverageRecords](getCoverageRecords.md)
+- [getImmunizationRecords](getImmunizationRecords.md)
+- [getLabResultRecords](getLabResultRecords.md)
+- [getMedicationRecords](getMedicationRecords.md)
+- [getProcedureRecords](getProcedureRecords.md)
+- [getVitalSignRecords](getVitalSignRecords.md)
+
 ### Dietary Methods
 
 - [getEnergyConsumedSamples](/docs/getEnergyConsumedSamples.md)

@@ -52,6 +52,17 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getBloodType](getBloodType.md)
 - [getDateOfBirth](getDateOfBirth.md)
 
+#### Clinical Records Methods
+
+- [getAllergyRecords](getAllergyRecords.md)
+- [getConditionRecords](getConditionRecords.md)
+- [getCoverageRecords](getCoverageRecords.md)
+- [getImmunizationRecords](getImmunizationRecords.md)
+- [getLabResultRecords](getLabResultRecords.md)
+- [getMedicationRecords](getMedicationRecords.md)
+- [getProcedureRecords](getProcedureRecords.md)
+- [getVitalSignRecords](getVitalSignRecords.md)
+
 ### Dietary Methods
 
 - [saveFood](saveFood.md)
