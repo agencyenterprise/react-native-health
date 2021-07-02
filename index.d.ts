@@ -459,8 +459,11 @@ declare module 'react-native-health' {
     type: HealthObserver
   }
 
-  export interface HealthClinicalRecord {
-    // TODO: KL Implement
+  export interface HealthClinicalRecord extends BaseValue {
+    sourceName: string,
+    sourceId: string,
+    displayName: string,
+    fhirData: any,
   }
 
   /* Health Constants */
