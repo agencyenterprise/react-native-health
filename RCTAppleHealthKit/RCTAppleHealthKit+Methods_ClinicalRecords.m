@@ -11,18 +11,35 @@
 
 @implementation RCTAppleHealthKit (Methods_ClinicalRecords)
 
-- (void)clinicalRecords_getClinicalRecords:(HKClinicalType *)recordType
-                     input:(NSDictionary *)input
-                  callback:(RCTResponseSenderBlock)callback
+- (void)clinicalRecords_getClinicalRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
+    NSString *type = [RCTAppleHealthKit stringFromOptions:input key:@"type" withDefault:nil];
+    if(type == nil){
+     callback(@[RCTMakeError(@"type is required in options", nil, nil)]);
+     return;
+    }
+    
+    [self clinicalRecords_getClinicalRecordsOfType:type input:input callback:callback];
+}
+
+- (void)clinicalRecords_getClinicalRecordsOfType:(NSString *)type input:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKClinicalType *recordType = [RCTAppleHealthKit clinicalTypeFromName:type];
+    if (recordType == nil) {
+        callback(@[RCTMakeError(@"invalid type", nil, nil)]);
+        return;
+    }
+    
     NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
-    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
     if(startDate == nil){
      callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
      return;
     }
+    
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
     
     [self fetchClinicalRecordsOfType:recordType predicate:predicate ascending:ascending limit:limit completion:^(NSArray *results, NSError *error) {
@@ -38,50 +55,48 @@
 
 - (void)clinicalRecords_getAllergyRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKClinicalType *allergyRecordType = [HKClinicalType clinicalTypeForIdentifier:HKClinicalTypeIdentifierAllergyRecord];    
-    [self clinicalRecords_getClinicalRecords:allergyRecordType input:input callback:callback];
+    [self clinicalRecords_getClinicalRecordsOfType:@"AllergyRecord" input:input callback:callback];
 }
 
 - (void)clinicalRecords_getConditionRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKClinicalType *conditionRecordType = [HKClinicalType clinicalTypeForIdentifier:HKClinicalTypeIdentifierConditionRecord];
-    [self clinicalRecords_getClinicalRecords:conditionRecordType input:input callback:callback];
+    [self clinicalRecords_getClinicalRecordsOfType:@"ConditionRecord" input:input callback:callback];
 }
 
 - (void)clinicalRecords_getCoverageRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKClinicalType *coverageRecordType = [HKClinicalType clinicalTypeForIdentifier:HKClinicalTypeIdentifierCoverageRecord];
-    [self clinicalRecords_getClinicalRecords:coverageRecordType input:input callback:callback];
+    [self clinicalRecords_getClinicalRecordsOfType:@"CoverageRecord" input:input callback:callback];
 }
 
 - (void)clinicalRecords_getImmunizationRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKClinicalType *immunizationRecordType = [HKClinicalType clinicalTypeForIdentifier:HKClinicalTypeIdentifierImmunizationRecord];
-    [self clinicalRecords_getClinicalRecords:immunizationRecordType input:input callback:callback];
+    [self clinicalRecords_getClinicalRecordsOfType:@"ImmunizationRecord" input:input callback:callback];
 }
 
 - (void)clinicalRecords_getLabResultRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKClinicalType *labResultRecordType = [HKClinicalType clinicalTypeForIdentifier:HKClinicalTypeIdentifierLabResultRecord];
-    [self clinicalRecords_getClinicalRecords:labResultRecordType input:input callback:callback];
+    [self clinicalRecords_getClinicalRecordsOfType:@"LabResultRecord" input:input callback:callback];
 }
 
 - (void)clinicalRecords_getMedicationRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKClinicalType *medicationRecordType = [HKClinicalType clinicalTypeForIdentifier:HKClinicalTypeIdentifierMedicationRecord];
-    [self clinicalRecords_getClinicalRecords:medicationRecordType input:input callback:callback];
+    [self clinicalRecords_getClinicalRecordsOfType:@"MedicationRecord" input:input callback:callback];
 }
 
 - (void)clinicalRecords_getProcedureRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKClinicalType *procedureRecordType = [HKClinicalType clinicalTypeForIdentifier:HKClinicalTypeIdentifierProcedureRecord];
-    [self clinicalRecords_getClinicalRecords:procedureRecordType input:input callback:callback];
+    [self clinicalRecords_getClinicalRecordsOfType:@"ProcedureRecord" input:input callback:callback];
 }
 
 - (void)clinicalRecords_getVitalSignRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKClinicalType *vitalSignRecordType = [HKClinicalType clinicalTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord];
-    [self clinicalRecords_getClinicalRecords:vitalSignRecordType input:input callback:callback];
+    [self clinicalRecords_getClinicalRecordsOfType:@"VitalSignRecord" input:input callback:callback];
+}
+
+- (void)clinical_registerObserver:(NSString *)type bridge:(RCTBridge *)bridge
+{
+    HKClinicalType *sampleType = [RCTAppleHealthKit clinicalTypeFromName:type];
+    [self setObserverForType:sampleType type:type bridge:bridge];
 }
 
 @end

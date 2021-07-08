@@ -348,6 +348,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getClinicalRecords(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
     getAllergyRecords(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthClinicalRecord>) => void,
@@ -676,11 +681,19 @@ declare module 'react-native-health' {
   }
 
   export enum HealthObserver {
+    AllergyRecord = 'AllergyRecord',
+    ConditionRecord = 'ConditionRecord',
+    CoverageRecord = 'CoverageRecord',
     Cycling = 'Cycling',
     HeartRate = 'HeartRate',
+    ImmunizationRecord = 'ImmunizationRecord',
+    LabResultRecord = 'LabResultRecord',
+    MedicationRecord = 'MedicationRecord',
+    ProcedureRecord = 'ProcedureRecord',
     RestingHeartRate = 'RestingHeartRate',
     Running = 'Running',
     StairClimbing = 'StairClimbing',
+    VitalSignRecord = 'VitalSignRecord',
     Walking = 'Walking',
     Workout = 'Workout',
   }

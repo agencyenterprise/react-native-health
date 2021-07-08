@@ -185,8 +185,9 @@ they are splitted in the following categories
 - [getBiologicalSex](/docs/getBiologicalSex.md)
 - [getDateOfBirth](/docs/getDateOfBirth.md)
 
-#### Clinical Records Methods
+### Clinical Records Methods
 
+- [getClinicalRecords](/docs/getClinicalRecords.md)
 - [getAllergyRecords](/docs/getAllergyRecords.md)
 - [getConditionRecords](/docs/getConditionRecords.md)
 - [getCoverageRecords](/docs/getCoverageRecords.md)

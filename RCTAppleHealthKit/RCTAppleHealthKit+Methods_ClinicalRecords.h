@@ -9,7 +9,8 @@
 
 @interface RCTAppleHealthKit (Methods_ClinicalRecords)
 
-- (void)clinicalRecords_getClinicalRecords:(HKClinicalType *)recordType input:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)clinicalRecords_getClinicalRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)clinicalRecords_getClinicalRecordsOfType:(NSString *)type input:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)clinicalRecords_getAllergyRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)clinicalRecords_getConditionRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)clinicalRecords_getCoverageRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
@@ -18,5 +19,6 @@
 - (void)clinicalRecords_getMedicationRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)clinicalRecords_getProcedureRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)clinicalRecords_getVitalSignRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)clinical_registerObserver:(NSString *)type bridge:(RCTBridge *)bridge;
 
 @end

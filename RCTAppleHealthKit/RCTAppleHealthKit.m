@@ -447,6 +447,12 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
     [self labTests_saveBloodAlcoholContent:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getClinicalRecords:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getAllergyRecords: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
@@ -631,7 +637,7 @@ RCT_EXPORT_METHOD(getVitalSignRecords: (NSDictionary *)input callback:(RCTRespon
     [self _initializeHealthStore];
 
     if ([HKHealthStore isHealthDataAvailable]) {
-        NSArray *observers = @[
+        NSArray *fitnessObservers = @[
             @"ActiveEnergyBurned",
             @"BasalEnergyBurned",
             @"Cycling",
@@ -647,8 +653,23 @@ RCT_EXPORT_METHOD(getVitalSignRecords: (NSDictionary *)input callback:(RCTRespon
             @"Workout"
         ];
 
-        for(NSString * type in observers) {
+        for(NSString * type in fitnessObservers) {
             [self fitness_registerObserver:type bridge:bridge];
+        }
+        
+        NSArray *clinicalObservers = @[
+            @"AllergyRecord",
+            @"ConditionRecord",
+            @"CoverageRecord",
+            @"ImmunizationRecord",
+            @"LabResultRecord",
+            @"MedicationRecord",
+            @"ProcedureRecord",
+            @"VitalSignRecord"
+        ];
+        
+        for(NSString * type in clinicalObservers) {
+            [self clinical_registerObserver:type bridge:bridge];
         }
 
         NSLog(@"[HealthKit] Background observers added to the app");

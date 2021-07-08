@@ -54,6 +54,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 
 #### Clinical Records Methods
 
+- [getClinicalRecords](docs/getClinicalRecords.md)
 - [getAllergyRecords](getAllergyRecords.md)
 - [getConditionRecords](getConditionRecords.md)
 - [getCoverageRecords](getCoverageRecords.md)
