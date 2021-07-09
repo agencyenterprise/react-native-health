@@ -7,6 +7,7 @@
 //
 
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
+#import "RCTAppleHealthKit+Utils.h"
 
 @implementation RCTAppleHealthKit (TypesAndPermissions)
 
@@ -192,21 +193,21 @@
     
     // Clinical Records
     if ([@"AllergyRecord" isEqualToString:key]) {
-        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierAllergyRecord];
+        return [RCTAppleHealthKit clinicalTypeFromName:@"AllergyRecord"];
     } else if ([@"ConditionRecord" isEqualToString:key]) {
-        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierConditionRecord];
+        return [RCTAppleHealthKit clinicalTypeFromName:@"ConditionRecord"];
     } else if ([@"CoverageRecord" isEqualToString:key]) {
-        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierCoverageRecord];
+        return [RCTAppleHealthKit clinicalTypeFromName:@"CoverageRecord"];
     } else if ([@"ImmunizationRecord" isEqualToString:key]) {
-        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierImmunizationRecord];
+        return [RCTAppleHealthKit clinicalTypeFromName:@"ImmunizationRecord"];
     } else if ([@"LabResultRecord" isEqualToString:key]) {
-        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierLabResultRecord];
+        return [RCTAppleHealthKit clinicalTypeFromName:@"LabResultRecord"];
     } else if ([@"MedicationRecord" isEqualToString:key]) {
-        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierMedicationRecord];
+        return [RCTAppleHealthKit clinicalTypeFromName:@"MedicationRecord"];
     } else if ([@"ProcedureRecord" isEqualToString:key]) {
-        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierProcedureRecord];
+        return [RCTAppleHealthKit clinicalTypeFromName:@"ProcedureRecord"];
     } else if ([@"VitalSignRecord" isEqualToString:key]) {
-        return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord];
+        return [RCTAppleHealthKit clinicalTypeFromName:@"VitalSignRecord"];
     }
 
     return nil;
