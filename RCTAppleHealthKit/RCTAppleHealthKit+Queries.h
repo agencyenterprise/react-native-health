@@ -37,7 +37,7 @@
                              limit:(NSUInteger)lim
                         completion:(void (^)(NSArray *, NSError *))completion;
 
-- (void)fetchClinicalRecordsOfType:(HKSampleType *)type
+- (void)fetchClinicalRecordsOfType:(HKClinicalType *)type
                          predicate:(NSPredicate *)predicate
                          ascending:(BOOL)asc
                              limit:(NSUInteger)lim
