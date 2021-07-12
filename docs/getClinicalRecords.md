@@ -1,6 +1,6 @@
 # getClinicalRecords
 
-Query to get records for a given clinical type. Equivalent to calling `getAllergyRecords`, `getConditionRecords`, etc. directly. 
+Query to get records for a given clinical type.
 
 Example input options:
 
@@ -27,7 +27,7 @@ AppleHealthKit.getClinicalRecords(options, (err: Object, results: HealthClinical
 
 Example output:
 
-```json
+```javascript
 [
   {
     "displayName": "", // Short name for the record
@@ -36,6 +36,8 @@ Example output:
     "endDate": "2021-07-01T15:11:09.041-0400",
     "sourceId": "com.apple.public.health.clinical.B0734C79-CD39-D049-84F6-CBE9A5629AB8",
     "fhirData": {} // FHIR record for the requested data type
+    "fhirRelease": "DSTU2", // HKFHIRRelease
+    "fhirVersion": "1.0.2", // HKFHIRVersion.stringRepresentation
   }
 ]
 ```

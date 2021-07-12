@@ -349,47 +349,7 @@ declare module 'react-native-health' {
     ): void
 
     getClinicalRecords(
-      options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
-    ): void
-
-    getAllergyRecords(
-      options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
-    ): void
-
-    getConditionRecords(
-      options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
-    ): void
-
-    getCoverageRecords(
-      options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
-    ): void
-
-    getImmunizationRecords(
-      options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
-    ): void
-
-    getLabResultRecords(
-      options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
-    ): void
-
-    getMedicationRecords(
-      options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
-    ): void
-
-    getProcedureRecords(
-      options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
-    ): void
-
-    getVitalSignRecords(
-      options: HealthInputOptions,
+      options: HealthClinicalRecordOptions,
       callback: (err: string, results: Array<HealthClinicalRecord>) => void,
     ): void
 
@@ -462,6 +422,25 @@ declare module 'react-native-health' {
 
   export interface HealthObserverOptions {
     type: HealthObserver
+  }
+
+  export interface HealthClinicalRecordOptions {
+    startDate: string
+    endDate?: string
+    limit?: number
+    ascending?: boolean
+    type: ClinicalRecordType
+  }
+
+  export enum ClinicalRecordType {
+    AllergyRecord = 'AllergyRecord',
+    ConditionRecord = 'ConditionRecord',
+    CoverageRecord = 'CoverageRecord',
+    ImmunizationRecord = 'ImmunizationRecord',
+    LabResultRecord = 'LabResultRecord',
+    MedicationRecord = 'MedicationRecord',
+    ProcedureRecord = 'ProcedureRecord',
+    VitalSignRecord = 'VitalSignRecord'
   }
 
   export interface HealthClinicalRecord extends BaseValue {

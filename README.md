@@ -188,14 +188,6 @@ they are splitted in the following categories
 ### Clinical Records Methods
 
 - [getClinicalRecords](/docs/getClinicalRecords.md)
-- [getAllergyRecords](/docs/getAllergyRecords.md)
-- [getConditionRecords](/docs/getConditionRecords.md)
-- [getCoverageRecords](/docs/getCoverageRecords.md)
-- [getImmunizationRecords](/docs/getImmunizationRecords.md)
-- [getLabResultRecords](/docs/getLabResultRecords.md)
-- [getMedicationRecords](/docs/getMedicationRecords.md)
-- [getProcedureRecords](/docs/getProcedureRecords.md)
-- [getVitalSignRecords](/docs/getVitalSignRecords.md)
 
 ### Dietary Methods
 

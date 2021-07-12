@@ -272,6 +272,8 @@
                       completion(nil, jsonE);
                     }
                     
+                    HKFHIRVersion *fhirVersion = record.FHIRResource.FHIRVersion;
+                    
                     NSDictionary *elem = @{
                             @"id" : [[record UUID] UUIDString],
                             @"sourceName" : [[[record sourceRevision] source] name],
@@ -279,7 +281,9 @@
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,
                             @"displayName" : record.displayName,
-                            @"fhirData": fhirData
+                            @"fhirData": fhirData,
+                            @"fhirRelease": fhirVersion.FHIRRelease,
+                            @"fhirVersion": fhirVersion.stringRepresentation,
                     };
                     [data addObject:elem];
                 }

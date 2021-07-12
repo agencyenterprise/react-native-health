@@ -19,14 +19,9 @@
      return;
     }
     
-    [self clinicalRecords_getClinicalRecordsOfType:type input:input callback:callback];
-}
-
-- (void)clinicalRecords_getClinicalRecordsOfType:(NSString *)type input:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
     HKClinicalType *recordType = [RCTAppleHealthKit clinicalTypeFromName:type];
     if (recordType == nil) {
-        callback(@[RCTMakeError(@"invalid type", nil, nil)]);
+        callback(@[RCTMakeError(@"invalid type, type must be one of 'AllergyRecord'|'ConditionRecord'|'CoverageRecord'|'ImmunizationRecord'|'LabResultRecord'|'MedicationRecord'|'ProcedureRecord'|'VitalSignRecord'", nil, nil)]);
         return;
     }
     
@@ -51,46 +46,6 @@
             return;
         }
     }];
-}
-
-- (void)clinicalRecords_getAllergyRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    [self clinicalRecords_getClinicalRecordsOfType:@"AllergyRecord" input:input callback:callback];
-}
-
-- (void)clinicalRecords_getConditionRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    [self clinicalRecords_getClinicalRecordsOfType:@"ConditionRecord" input:input callback:callback];
-}
-
-- (void)clinicalRecords_getCoverageRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    [self clinicalRecords_getClinicalRecordsOfType:@"CoverageRecord" input:input callback:callback];
-}
-
-- (void)clinicalRecords_getImmunizationRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    [self clinicalRecords_getClinicalRecordsOfType:@"ImmunizationRecord" input:input callback:callback];
-}
-
-- (void)clinicalRecords_getLabResultRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    [self clinicalRecords_getClinicalRecordsOfType:@"LabResultRecord" input:input callback:callback];
-}
-
-- (void)clinicalRecords_getMedicationRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    [self clinicalRecords_getClinicalRecordsOfType:@"MedicationRecord" input:input callback:callback];
-}
-
-- (void)clinicalRecords_getProcedureRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    [self clinicalRecords_getClinicalRecordsOfType:@"ProcedureRecord" input:input callback:callback];
-}
-
-- (void)clinicalRecords_getVitalSignRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    [self clinicalRecords_getClinicalRecordsOfType:@"VitalSignRecord" input:input callback:callback];
 }
 
 - (void)clinical_registerObserver:(NSString *)type bridge:(RCTBridge *)bridge
