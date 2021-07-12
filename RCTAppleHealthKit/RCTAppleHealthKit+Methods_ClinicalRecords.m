@@ -19,9 +19,25 @@
      return;
     }
     
-    HKClinicalType *recordType = [RCTAppleHealthKit clinicalTypeFromName:type];
-    if (recordType == nil) {
+    if (
+        ![type isEqual:@"AllergyRecord"] &&
+        ![type isEqual:@"ConditionRecord"] &&
+        ![type isEqual:@"CoverageRecord"] &&
+        ![type isEqual:@"ImmunizationRecord"] &&
+        ![type isEqual:@"LabResultRecord"] &&
+        ![type isEqual:@"MedicationRecord"] &&
+        ![type isEqual:@"ProcedureRecord"] &&
+        ![type isEqual:@"VitalSignRecord"]
+        ) {
         callback(@[RCTMakeError(@"invalid type, type must be one of 'AllergyRecord'|'ConditionRecord'|'CoverageRecord'|'ImmunizationRecord'|'LabResultRecord'|'MedicationRecord'|'ProcedureRecord'|'VitalSignRecord'", nil, nil)]);
+        return;
+    }
+    
+    
+    
+    HKObjectType *recordType = [RCTAppleHealthKit clinicalTypeFromName:type];
+    if (recordType == nil) {
+        callback(@[RCTMakeError(@"the requested clinical record type is not available for this iOS version", nil, nil)]);
         return;
     }
     
@@ -50,8 +66,10 @@
 
 - (void)clinical_registerObserver:(NSString *)type bridge:(RCTBridge *)bridge
 {
-    HKClinicalType *sampleType = [RCTAppleHealthKit clinicalTypeFromName:type];
-    [self setObserverForType:sampleType type:type bridge:bridge];
+    HKSampleType *recordType = [RCTAppleHealthKit clinicalTypeFromName:type];
+    if (recordType != nil) {
+        [self setObserverForType:recordType type:type bridge:bridge];
+    }
 }
 
 @end

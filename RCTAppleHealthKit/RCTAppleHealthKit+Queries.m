@@ -272,18 +272,28 @@
                       completion(nil, jsonE);
                     }
                     
-                    HKFHIRVersion *fhirVersion = record.FHIRResource.FHIRVersion;
-                    
+                    NSString *fhirRelease;
+                    NSString *fhirVersion;
+                    if (@available(iOS 14.0, *)) {
+                        HKFHIRVersion *fhirResourceVersion = record.FHIRResource.FHIRVersion;
+                        fhirRelease = fhirResourceVersion.FHIRRelease;
+                        fhirVersion = fhirResourceVersion.stringRepresentation;
+                    } else {
+                        // iOS < 14 uses DSTU2
+                        fhirRelease = @"DSTU2";
+                        fhirVersion = @"1.0.2";
+                    }
+                        
                     NSDictionary *elem = @{
-                            @"id" : [[record UUID] UUIDString],
-                            @"sourceName" : [[[record sourceRevision] source] name],
-                            @"sourceId" : [[[record sourceRevision] source] bundleIdentifier],
-                            @"startDate" : startDateString,
-                            @"endDate" : endDateString,
-                            @"displayName" : record.displayName,
-                            @"fhirData": fhirData,
-                            @"fhirRelease": fhirVersion.FHIRRelease,
-                            @"fhirVersion": fhirVersion.stringRepresentation,
+                        @"id" : [[record UUID] UUIDString],
+                        @"sourceName" : [[[record sourceRevision] source] name],
+                        @"sourceId" : [[[record sourceRevision] source] bundleIdentifier],
+                        @"startDate" : startDateString,
+                        @"endDate" : endDateString,
+                        @"displayName" : record.displayName,
+                        @"fhirData": fhirData,
+                        @"fhirRelease": fhirRelease,
+                        @"fhirVersion": fhirVersion,
                     };
                     [data addObject:elem];
                 }
