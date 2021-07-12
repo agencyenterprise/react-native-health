@@ -33,8 +33,6 @@
         return;
     }
     
-    
-    
     HKObjectType *recordType = [RCTAppleHealthKit clinicalTypeFromName:type];
     if (recordType == nil) {
         callback(@[RCTMakeError(@"the requested clinical record type is not available for this iOS version", nil, nil)]);
