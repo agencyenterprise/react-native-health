@@ -73,6 +73,11 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getFlightsClimbed](getFlightsClimbed.md)
 - [saveSteps](saveSteps.md)
 
+### Hearing Methods
+
+- [getEnvironmentalAudioExposure](getEnvironmentalAudioExposure.md)
+- [getHeadphoneAudioExposure](getHeadphoneAudioExposure.md)
+
 ### Lab Tests Methods
 
 - [getBloodAlcoholContentSamples](getBloodAlcoholContentSamples.md)
