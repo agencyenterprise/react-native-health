@@ -890,7 +890,7 @@
     startComponent.calendar = calendar;
     
     NSDateComponents *endComponent = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitEra
-                                                     fromDate:startDate];
+                                                     fromDate:endDate];
     endComponent.calendar = calendar;
     
     NSPredicate *predicate = [HKQuery predicateForActivitySummariesBetweenStartDateComponents:startComponent endDateComponents:endComponent];
@@ -910,20 +910,14 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            for (HKActivitySummary *sample in results) {
-                HKQuantity *aeb = sample.activeEnergyBurned;
-                HKQuantity *aebg = sample.activeEnergyBurnedGoal;
-                HKQuantity *aet = sample.appleExerciseTime;
-                HKQuantity *aetg = sample.appleExerciseTimeGoal;
-                HKQuantity *ash = sample.appleStandHours;
-                HKQuantity *ashg = sample.appleStandHoursGoal;
+            for (HKActivitySummary *summary in results) {
                 
-                int aebVal = [aeb doubleValueForUnit:[HKUnit kilocalorieUnit]];
-                int aebgVal = [aebg doubleValueForUnit:[HKUnit kilocalorieUnit]];
-                int aetVal = [aet doubleValueForUnit:[HKUnit minuteUnit]];
-                int aetgVal = [aetg doubleValueForUnit:[HKUnit minuteUnit]];
-                int ashVal = [ash doubleValueForUnit:[HKUnit countUnit]];
-                int ashgVal = [ashg doubleValueForUnit:[HKUnit countUnit]];
+                int aebVal = [summary.activeEnergyBurned doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                int aebgVal = [summary.activeEnergyBurnedGoal doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                int aetVal = [summary.appleExerciseTime doubleValueForUnit:[HKUnit minuteUnit]];
+                int aetgVal = [summary.appleExerciseTimeGoal doubleValueForUnit:[HKUnit minuteUnit]];
+                int ashVal = [summary.appleStandHours doubleValueForUnit:[HKUnit countUnit]];
+                int ashgVal = [summary.appleStandHoursGoal doubleValueForUnit:[HKUnit countUnit]];
 
                 NSDictionary *elem = @{
                         @"activeEnergyBurned" : @(aebVal),
