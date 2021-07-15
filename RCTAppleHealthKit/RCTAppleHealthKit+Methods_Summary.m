@@ -27,8 +27,8 @@
 
             return;
         } else {
-            NSLog(@"error getting goals: %@", error);
-            callback(@[RCTMakeError(@"error getting goals", error, nil)]);
+            NSLog(@"error getting summary: %@", error);
+            callback(@[RCTMakeError(@"error getting summary", error, nil)]);
 
             return;
         }
