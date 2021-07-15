@@ -350,6 +350,11 @@ declare module 'react-native-health' {
 
     setObserver(options: HealthObserverOptions): void
 
+    getActivitySummary(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthActivitySummary>) => void,
+    ): void
+
     Constants: Constants
   }
 
@@ -417,6 +422,15 @@ declare module 'react-native-health' {
 
   export interface HealthObserverOptions {
     type: HealthObserver
+  }
+
+  export interface HealthActivitySummary {
+    activeEnergyBurned: number
+    activeEnergyBurnedGoal: number
+    appleExerciseTime: number
+    appleExerciseTimeGoal: number
+    appleStandHours: number
+    appleStandHoursGoal: number
   }
 
   /* Health Constants */
@@ -575,7 +589,8 @@ declare module 'react-native-health' {
     Vo2Max = 'Vo2Max',
     Weight = 'Weight',
     Workout = 'Workout',
-    WaistCircumference = 'WaistCircumference'
+    WaistCircumference = 'WaistCircumference',
+    Summary = "Summary"
   }
 
   export enum HealthUnit {

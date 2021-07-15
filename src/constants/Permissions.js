@@ -77,4 +77,5 @@ export const Permissions = {
   WaistCircumference: 'WaistCircumference',
   Weight: 'Weight',
   Workout: 'Workout',
+  Summary: "Summary"
 }

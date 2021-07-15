@@ -38,6 +38,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27B60163269770030034AB4E /* RCTAppleHealthKit+Methods_Summary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Summary.h"; sourceTree = "<group>"; };
+		27B60164269770850034AB4E /* RCTAppleHealthKit+Methods_Summary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Summary.m"; sourceTree = "<group>"; };
 		358330DD20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Workout.h"; sourceTree = "<group>"; };
 		358330DE20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Workout.m"; sourceTree = "<group>"; };
 		3774C88D1D2092F20000B3F3 /* libRCTAppleHealthKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTAppleHealthKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,8 @@
 				37837E7C1DCFE270000201A0 /* RCTAppleHealthKit+Methods_Sleep.m */,
 				358330DD20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.h */,
 				358330DE20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m */,
+				27B60163269770030034AB4E /* RCTAppleHealthKit+Methods_Summary.h */,
+				27B60164269770850034AB4E /* RCTAppleHealthKit+Methods_Summary.m */,
 			);
 			path = RCTAppleHealthKit;
 			sourceTree = "<group>";
