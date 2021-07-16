@@ -95,6 +95,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getBloodPressureSamples](getBloodPressureSamples.md)
 - [getHeartRateSamples](getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](getHeartRateVariabilitySamples.md)
+- [getHeartbeatSeriesSamples](getHeartbeatSeriesSamples.md)
 - [getRestingHeartRateSamples](getRestingHeartRateSamples.md)
 - [getVo2MaxSamples](getVo2MaxSamples.md)
 - [getLatestBmi](getLatestBmi.md)

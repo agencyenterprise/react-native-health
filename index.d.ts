@@ -248,6 +248,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
+    getHeartbeatSeriesSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: HeartbeatSeriesSampleValue[]) => void,
+    ): void
+
     getRestingHeartRateSamples(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
@@ -371,6 +376,13 @@ declare module 'react-native-health' {
   export interface BloodPressureSampleValue extends BaseValue {
     bloodPressureSystolicValue: number
     bloodPressureDiastolicValue: number
+  }
+
+  export interface HeartbeatSeriesSampleValue extends BaseValue {
+    heartbeatSeries: ({
+      timeSinceSeriesStart: number
+      precededByGap: boolean
+    })[]
   }
 
   export interface HealthUnitOptions {
@@ -561,6 +573,7 @@ declare module 'react-native-health' {
     DistanceSwimming = 'DistanceSwimming',
     DistanceWalkingRunning = 'DistanceWalkingRunning',
     FlightsClimbed = 'FlightsClimbed',
+    HeartbeatSeries = 'HeartbeatSeries',
     HeartRate = 'HeartRate',
     RestingHeartRate = 'RestingHeartRate',
     HeartRateVariability = 'HeartRateVariability',

@@ -95,6 +95,7 @@
 * [getBloodPressureSamples](/docs/getBloodPressureSamples.md)
 * [getHeartRateSamples](/docs/getHeartRateSamples.md)
 * [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples.md)
+* [getHeartbeatSeriesSamples](/docs/getHeartbeatSeriesSamples.md)
 * [getOxygenSaturationSamples](/docs/getOxygenSaturationSamples.md)
 * [getRestingHeartRateSamples](/docs/getRestingHeartRateSamples.md)
 * [getVo2MaxSamples](/docs/getVo2MaxSamples.md)
