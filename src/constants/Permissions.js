@@ -5,6 +5,7 @@
  */
 export const Permissions = {
   ActiveEnergyBurned: 'ActiveEnergyBurned',
+  ActivitySummary: "ActivitySummary",
   AppleExerciseTime: 'AppleExerciseTime',
   AppleStandTime: 'AppleStandTime',
   BasalEnergyBurned: 'BasalEnergyBurned',
@@ -76,6 +77,5 @@ export const Permissions = {
   Vo2Max: 'Vo2Max',
   WaistCircumference: 'WaistCircumference',
   Weight: 'Weight',
-  Workout: 'Workout',
-  Summary: "Summary"
+  Workout: 'Workout'
 }

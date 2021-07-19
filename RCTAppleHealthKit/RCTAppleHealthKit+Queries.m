@@ -884,17 +884,13 @@
                   completion:(void (^)(NSArray *, NSError *))completionHandler
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-
     NSDateComponents *startComponent = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitEra
                                                      fromDate:startDate];
     startComponent.calendar = calendar;
-    
     NSDateComponents *endComponent = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitEra
                                                      fromDate:endDate];
     endComponent.calendar = calendar;
-    
     NSPredicate *predicate = [HKQuery predicateForActivitySummariesBetweenStartDateComponents:startComponent endDateComponents:endComponent];
-    
     
     HKActivitySummaryQuery *query = [[HKActivitySummaryQuery alloc] initWithPredicate:predicate
                                         resultsHandler:^(HKActivitySummaryQuery *query, NSArray *results, NSError *error) {
@@ -909,9 +905,7 @@
         NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-
             for (HKActivitySummary *summary in results) {
-                
                 int aebVal = [summary.activeEnergyBurned doubleValueForUnit:[HKUnit kilocalorieUnit]];
                 int aebgVal = [summary.activeEnergyBurnedGoal doubleValueForUnit:[HKUnit kilocalorieUnit]];
                 int aetVal = [summary.appleExerciseTime doubleValueForUnit:[HKUnit minuteUnit]];

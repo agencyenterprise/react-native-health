@@ -22,14 +22,11 @@
 
     completion = ^(NSArray *results, NSError *error) {
         if (results){
-            
             callback(@[[NSNull null], results]);
-
             return;
         } else {
             NSLog(@"error getting summary: %@", error);
             callback(@[RCTMakeError(@"error getting summary", error, nil)]);
-
             return;
         }
     };

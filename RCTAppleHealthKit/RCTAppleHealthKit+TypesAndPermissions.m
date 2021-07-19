@@ -191,7 +191,7 @@
     }
     
     // Activity Summary
-    if ([@"Summary" isEqualToString:key]){
+    if ([@"ActivitySummary" isEqualToString:key]){
         return [HKObjectType activitySummaryType];
     }
 

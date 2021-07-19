@@ -518,6 +518,7 @@ declare module 'react-native-health' {
 
   export enum HealthPermission {
     ActiveEnergyBurned = 'ActiveEnergyBurned',
+    ActivitySummary = 'ActivitySummary',
     AppleExerciseTime = 'AppleExerciseTime',
     AppleStandTime = 'AppleStandTime',
     BasalEnergyBurned = 'BasalEnergyBurned',
@@ -589,8 +590,7 @@ declare module 'react-native-health' {
     Vo2Max = 'Vo2Max',
     Weight = 'Weight',
     Workout = 'Workout',
-    WaistCircumference = 'WaistCircumference',
-    Summary = "Summary"
+    WaistCircumference = 'WaistCircumference'
   }
 
   export enum HealthUnit {
