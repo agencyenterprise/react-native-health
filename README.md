@@ -235,6 +235,7 @@ they are splitted in the following categories
 - [getVo2MaxSamples](/docs/getVo2MaxSamples.md)
 - [getLatestBmi](/docs/getLatestBmi.md)
 - [getRespiratoryRateSamples](/docs/getRespiratoryRateSamples.md)
+- [getWalkingHeartRateAverage](/docs/getWalkingHeartRateAverage.md)
 - [saveBmi](/docs/saveBmi.md)
 
 #### Workout Methods
