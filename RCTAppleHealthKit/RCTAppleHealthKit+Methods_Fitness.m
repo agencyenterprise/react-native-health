@@ -171,8 +171,7 @@
              return;
          }
 
-          [self.bridge.eventDispatcher sendAppEventWithName:@"change:steps"
-                                                       body:@{@"name": @"change:steps"}];
+          [self sendEventWithName:@"change:steps" body:@{@"name": @"change:steps"}];
 
          // If you have subscribed for background updates you must call the completion handler here.
          // completionHandler();

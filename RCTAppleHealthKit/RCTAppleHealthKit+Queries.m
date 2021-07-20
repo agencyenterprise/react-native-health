@@ -793,7 +793,7 @@
             return;
         }
 
-        [self.bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
+        [self sendEventWithName:successEvent body:@{}];
 
         completionHandler();
 
@@ -814,7 +814,7 @@
 
         [self.healthStore executeQuery:query];
 
-        [self.bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
+        [self sendEventWithName:successEvent body:@{}];
     }];
 }
 
@@ -846,12 +846,12 @@
 
             NSLog(@"[HealthKit] An error happened when receiving a new sample - %@", error.localizedDescription);
 
-            [bridge.eventDispatcher sendAppEventWithName:failureEvent body:@{}];
+            [self sendEventWithName:failureEvent body:@{}];
 
             return;
         }
 
-        [bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
+        [self sendEventWithName:successEvent body:@{}];
 
         completionHandler();
 
@@ -868,14 +868,14 @@
         if (error) {
             NSLog(@"[HealthKit] An error happened when setting up background observer - %@", error.localizedDescription);
 
-            [bridge.eventDispatcher sendAppEventWithName:failureEvent body:@{}];
+            [self sendEventWithName:failureEvent body:@{}];
 
             return;
         }
 
         [self.healthStore executeQuery:query];
 
-        [bridge.eventDispatcher sendAppEventWithName:successEvent body:@{}];
+        [self sendEventWithName:successEvent body:@{}];
     }];
 }
 

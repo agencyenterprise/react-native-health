@@ -517,6 +517,37 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
     }
 }
 
+- (NSArray<NSString *> *)supportedEvents {
+    NSArray *types = @[
+        @"ActiveEnergyBurned",
+        @"BasalEnergyBurned",
+        @"Cycling",
+        @"HeartRate",
+        @"HeartRateVariabilitySDNN",
+        @"RestingHeartRate",
+        @"Running",
+        @"StairClimbing",
+        @"StepCount",
+        @"Swimming",
+        @"Vo2Max",
+        @"Walking",
+        @"Workout"
+    ];
+    
+    NSArray *templates = @[@"healthKit:%@:new", @"healthKit:%@:failure", @"healthKit:%@:enabled", @"healthKit:%@:sample", @"healthKit:%@:setup:success", @"healthKit:%@:setup:failure"];
+    
+    NSMutableArray *supportedEvents = [[NSMutableArray alloc] init];
+
+    for(NSString * type in types) {
+        for(NSString * template in templates) {
+            NSString *successEvent = [NSString stringWithFormat:template, type];
+            [supportedEvents addObject: successEvent];
+        }
+    }
+    [supportedEvents addObject: @"change:steps"];
+  return supportedEvents;
+}
+
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDictionary *info = @{
@@ -580,6 +611,8 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
     NSLog(@"[HealthKit] Background observers will be added to the app");
 
     [self _initializeHealthStore];
+
+    self.bridge = bridge;
 
     if ([HKHealthStore isHealthDataAvailable]) {
         NSArray *observers = @[
