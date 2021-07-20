@@ -200,7 +200,7 @@ declare module 'react-native-health' {
 
     getWalkingHeartRateAverage(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: HealthValue[]) => void,
     ): void
 
     getActiveEnergyBurned(
@@ -612,9 +612,10 @@ declare module 'react-native-health' {
     StepCount = 'StepCount',
     Steps = 'Steps',
     Vo2Max = 'Vo2Max',
+    WaistCircumference = 'WaistCircumference',
+    WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
-    WaistCircumference = 'WaistCircumference'
   }
 
   export enum HealthUnit {

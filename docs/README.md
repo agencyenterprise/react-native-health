@@ -104,6 +104,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getLatestBmi](getLatestBmi.md)
 - [getRespiratoryRateSamples](getRespiratoryRateSamples.md)
 - [getOxygenSaturationSamples](getOxygenSaturationSamples.md)
+- [getWalkingHeartRateAverage](getWalkingHeartRateAverage.md)
 - [saveBmi](saveBmi.md)
 
 #### Workout Methods

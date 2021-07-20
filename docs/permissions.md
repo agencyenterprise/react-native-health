@@ -102,6 +102,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   Steps
   VitalSignRecord
   Vo2Max
+  WalkingHeartRateAverage
   Weight
   Workout
 ```
@@ -144,3 +145,5 @@ The available Healthkit identifiers are supported
 | Steps                  | [HKQuantityTypeIdentifierSteps](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifiersteps?language=objc)                                        | ✓    | ✓     |
 | VitalSignRecord        | [HKClinicalTypeIdentifierVitalSignRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifiervitalsignrecord?language=objc) | ✓    |       |
 | Weight                 | [HKQuantityTypeIdentifierBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodymass?language=objc)                                  | ✓    | ✓     |
+| BodyFatPercentage      | [HKQuantityTypeIdentifierBodyFatPercentage](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodyfatpercentage?language=objc)                | ✓    | ✓     |
+| WalkingHeartRateAverage | [HKQuantityTypeIdentifierWalkingHeartRateAverage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierwalkingheartrateaverage?language=objc)                | ✓    |      |
