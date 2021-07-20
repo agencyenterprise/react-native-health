@@ -93,6 +93,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 #### Vitals Methods
 
 - [getBloodPressureSamples](getBloodPressureSamples.md)
+- [getElectrocardiogramSamples](getElectrocardiogramSamples.md)
 - [getHeartRateSamples](getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](getHeartRateVariabilitySamples.md)
 - [getRestingHeartRateSamples](getRestingHeartRateSamples.md)

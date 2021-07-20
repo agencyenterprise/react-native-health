@@ -338,6 +338,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
+    getElectrocardiogramSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: ElectrocardiogramSampleValue[]) => void,
+    ): void
+
     saveBodyFatPercentage(
       options: HealthValueOptions,
       callback: (err: string, results: HealthValue) => void,
@@ -402,6 +407,15 @@ declare module 'react-native-health' {
     distance: number
     start: string
     end: string
+  }
+
+  export interface ElectrocardiogramSampleValue extends BaseValue {
+    classification: ElectrocardiogramClassification,
+    averageHeartRate: number,
+    samplingFrequency: number,
+    device: string,
+    algorithmVersion: number,
+    voltageMeasurements: (number[])[]
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {
@@ -560,6 +574,7 @@ declare module 'react-native-health' {
     DistanceCycling = 'DistanceCycling',
     DistanceSwimming = 'DistanceSwimming',
     DistanceWalkingRunning = 'DistanceWalkingRunning',
+    Electrocardiogram = 'Electrocardiogram',
     FlightsClimbed = 'FlightsClimbed',
     HeartRate = 'HeartRate',
     RestingHeartRate = 'RestingHeartRate',
@@ -629,6 +644,17 @@ declare module 'react-native-health' {
     Walking = 'Walking',
     Workout = 'Workout',
   }
+
+  export enum ElectrocardiogramClassification {
+    NotSet = 'NotSet',
+    SinusRhythm = 'SinusRhythm',
+    AtrialFibrillation = 'AtrialFibrillation',
+    InconclusiveLowHeartRate = 'InconclusiveLowHeartRate',
+    InconclusiveHighHeartRate = 'InconclusiveHighHeartRate',
+    InconclusivePoorReading = 'InconclusivePoorReading',
+    InconclusiveOther = 'InconclusiveOther',
+    Unrecognized = 'Unrecognized',
+  }  
 
   const appleHealthKit: AppleHealthKit
 

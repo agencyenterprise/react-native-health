@@ -93,6 +93,7 @@
 ## Vitals Methods
 
 * [getBloodPressureSamples](/docs/getBloodPressureSamples.md)
+* [getElectrocardiogramSamples](/docs/getElectrocardiogramSamples.md)
 * [getHeartRateSamples](/docs/getHeartRateSamples.md)
 * [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples.md)
 * [getOxygenSaturationSamples](/docs/getOxygenSaturationSamples.md)
