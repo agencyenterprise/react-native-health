@@ -213,7 +213,7 @@
                 // create an array to hold the series data which will be fetched asynchronously from healthkit
                 NSMutableArray *seriesData = [NSMutableArray arrayWithCapacity:sample.count];
                 
-                // mow define the data handler for the HeartbeatSeriesQuery
+                // now define the data handler for the HeartbeatSeriesQuery
                 void (^dataHandler)(HKHeartbeatSeriesQuery *hrSeriesQuery, NSTimeInterval timeSinceSeriesStart, BOOL precededByGap, BOOL done, NSError *error);
                 dataHandler = ^(HKHeartbeatSeriesQuery *hrSeriesQuery, NSTimeInterval timeSinceSeriesStart, BOOL precededByGap, BOOL done, NSError *error) {
                     if (error == nil) {
