@@ -69,6 +69,7 @@ export const Permissions = {
   LeanBodyMass: 'LeanBodyMass',
   MindfulSession: 'MindfulSession',
   NikeFuel: 'NikeFuel',
+  PeakFlow: 'PeakFlow',
   RespiratoryRate: 'RespiratoryRate',
   SleepAnalysis: 'SleepAnalysis',
   StepCount: 'StepCount',

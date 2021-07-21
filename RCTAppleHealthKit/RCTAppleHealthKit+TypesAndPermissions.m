@@ -27,6 +27,8 @@
         return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex];
     } else if ([@"BloodType" isEqualToString: key]) {
         return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
+    } else if ([@"PeakFlow" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierPeakExpiratoryFlowRate];
     } else if ([@"WaistCircumference" isEqualToString: key] && systemVersion >= 11.0) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
     }
@@ -197,6 +199,8 @@
     // Body Measurements
     if ([@"Height" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    } else if ([@"PeakFlow" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierPeakExpiratoryFlowRate];
     } else if ([@"WaistCircumference" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
     } else if ([@"Weight" isEqualToString:key]) {
