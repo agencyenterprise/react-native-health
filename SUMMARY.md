@@ -47,6 +47,10 @@
 * [getBiologicalSex](/docs/getBiologicalSex.md)
 * [getDateOfBirth](/docs/getDateOfBirth.md)
 
+## Clinical Records Methods
+
+* [getClinicalRecords](docs/getClinicalRecords.md)
+
 ## Dietary Methods
 
 * [saveFood](/docs/saveFood.md)
