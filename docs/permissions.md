@@ -89,6 +89,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   DistanceSwimming
   DistanceWalkingRunning
   FlightsClimbed
+  HeartbeatSeries
   HeartRate
   RestingHeartRate
   HeartRateVariability
@@ -131,6 +132,7 @@ The available Healthkit identifiers are supported
 | DistanceCycling        | [HKQuantityTypeIdentifierDistanceCycling](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierdistancecycling?language=objc)                    | ✓    | ✓     |
 | DistanceWalkingRunning | [HKQuantityTypeIdentifierDistanceWalkingRunning](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierdistancewalkingrunning?language=objc)      | ✓    | ✓     |
 | FlightsClimbed         | [HKQuantityTypeIdentifierFlightsClimbed](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierflightsclimbed?language=objc)                      | ✓    | ✓     |
+| HeartbeatSeries        | [HKDataTypeIdentifierHeartbeatSeries](https://developer.apple.com/documentation/healthkit/hkdatatypeidentifierheartbeatseries?language=objc) | ✓    |       |
 | HeartRate              | [HKQuantityTypeIdentifierHeartRate](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierheartrate?language=objc)                                | ✓    |       |
 | Height                 | [HKQuantityTypeIdentifierHeight](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierheight?language=objc)                                      | ✓    | ✓     |
 | ImmunizationRecord     | [HKClinicalTypeIdentifierImmunizationRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifierimmunizationrecord?language=objc) | ✓    |       |
