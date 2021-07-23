@@ -27,6 +27,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
 ```
   ActiveEnergyBurned
   ActivitySummary
+  AllergyRecord
   AppleExerciseTime
   AppleStandTime
   BasalEnergyBurned
@@ -47,7 +48,9 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   Carbohydrates
   Chloride
   Cholesterol
+  ConditionRecord
   Copper
+  CoverageRecord
   EnergyConsumed
   FatMonounsaturated
   FatPolyunsaturated
@@ -55,15 +58,19 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   FatTotal
   Fiber
   Folate
+  ImmunizationRecord
   Iodine
   Iron
+  LabResultRecord
   Magnesium
   Manganese
+  MedicationRecord
   Molybdenum
   Niacin
   PantothenicAcid
   Phosphorus
   Potassium
+  ProcedureRecord
   Protein
   Riboflavin
   Selenium
@@ -83,6 +90,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   DistanceSwimming
   DistanceWalkingRunning
   FlightsClimbed
+  HeartbeatSeries
   HeartRate
   RestingHeartRate
   HeartRateVariability
@@ -94,7 +102,9 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   SleepAnalysis
   StepCount
   Steps
+  VitalSignRecord
   Vo2Max
+  WalkingHeartRateAverage
   Weight
   Workout
 ```
@@ -107,6 +117,7 @@ The available Healthkit identifiers are supported
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ----- |
 | ActiveEnergyBurned     | [HKQuantityTypeIdentifierActiveEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615771-activeenergyburned?language=objc) | ✓    |       |
 | ActivitySummary        | [HKActivitySummaryType](https://developer.apple.com/documentation/healthkit/hkactivitysummarytype?language=objc) | ✓    |       |
+| AllergyRecord          | [HKClinicalTypeIdentifierAllergyRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifierallergyrecord?language=objc) | ✓    |       |
 | BasalEnergyBurned      | [HKQuantityTypeIdentifierBasalEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615512-basalenergyburned?language=objc)   | ✓    |       |
 | BiologicalSex          | [HKCharacteristicTypeIdentifierBiologicalSex](https://developer.apple.com/reference/Healthkit/hkcharacteristictypeidentifierbiologicalsex?language=objc)            | ✓    |       |
 | BloodType    | [HKCharacteristicTypeIdentifierBloodType](https://developer.apple.com/documentation/healthkit/hkcharacteristictypeidentifierbloodtype?language=objc)            | ✓    |     |
@@ -114,19 +125,29 @@ The available Healthkit identifiers are supported
 | BloodGlucose           | [HKQuantityTypeIdentifierBloodGlucose](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbloodglucose?language=objc)                          | ✓    |       |
 | BloodPressureDiastolic | [HKQuantityTypeIdentifierBloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierbloodpressurediastolic?language=objc)  | ✓    | ✓     |
 | BloodPressureSystolic  | [HKQuantityTypeIdentifierBloodPressureSystolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierbloodpressuresystolic?language=objc)    | ✓    | ✓     |
+| BodyFatPercentage      | [HKQuantityTypeIdentifierBodyFatPercentage](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodyfatpercentage?language=objc)                | ✓    | ✓     |
 | BodyMassIndex          | [HKQuantityTypeIdentifierBodyMassIndex](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodymassindex?language=objc)                        | ✓    | ✓     |
 | BodyTemperature        | [HKQuantityTypeIdentifierBodyTemperature](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodytemperature?language=objc)                    | ✓    |       |
+| ConditionRecord        | [HKClinicalTypeIdentifierConditionRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifierconditionrecord?language=objc) | ✓    |       |
+| CoverageRecord         | [HKClinicalTypeIdentifierCoverageRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifiercoveragerecord?language=objc) | ✓    |       |
 | DateOfBirth            | [HKCharacteristicTypeIdentifierDateOfBirth](https://developer.apple.com/reference/Healthkit/hkcharacteristictypeidentifierdateofbirth?language=objc)                | ✓    |       |
 | DistanceCycling        | [HKQuantityTypeIdentifierDistanceCycling](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierdistancecycling?language=objc)                    | ✓    | ✓     |
 | DistanceWalkingRunning | [HKQuantityTypeIdentifierDistanceWalkingRunning](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierdistancewalkingrunning?language=objc)      | ✓    | ✓     |
 | FlightsClimbed         | [HKQuantityTypeIdentifierFlightsClimbed](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierflightsclimbed?language=objc)                      | ✓    | ✓     |
+| HeartbeatSeries        | [HKDataTypeIdentifierHeartbeatSeries](https://developer.apple.com/documentation/healthkit/hkdatatypeidentifierheartbeatseries?language=objc) | ✓    |       |
 | HeartRate              | [HKQuantityTypeIdentifierHeartRate](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierheartrate?language=objc)                                | ✓    |       |
 | Height                 | [HKQuantityTypeIdentifierHeight](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierheight?language=objc)                                      | ✓    | ✓     |
+| ImmunizationRecord     | [HKClinicalTypeIdentifierImmunizationRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifierimmunizationrecord?language=objc) | ✓    |       |
+| LabResultRecord        | [HKClinicalTypeIdentifierLabResultRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifierlabresultrecord?language=objc) | ✓    |       |
 | LeanBodyMass           | [HKQuantityTypeIdentifierLeanBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierleanbodymass?language=objc)                          | ✓    | ✓     |
 | MindfulSession         | [HKCategoryTypeIdentifierMindfulSession](https://developer.apple.com/reference/healthkit/hkcategorytypeidentifiermindfulsession?language=objc)                      |      | ✓     |
+| MedicationRecord       | [HKClinicalTypeIdentifierMedicationRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifiermedicationrecord?language=objc) | ✓    |       |
+| ProcedureRecord        | [HKClinicalTypeIdentifierProcedureRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifierprocedurerecord?language=objc) | ✓    |       |
 | RespiratoryRate        | [HKQuantityTypeIdentifierRespiratoryRate](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierrespiratoryrate?language=objc)                    | ✓    |       |
 | SleepAnalysis          | [HKCategoryTypeIdentifierSleepAnalysis](https://developer.apple.com/reference/Healthkit/hkcategorytypeidentifiersleepanalysis?language=objc)                        | ✓    |       |
 | StepCount              | [HKQuantityTypeIdentifierStepCount](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierstepcount?language=objc)                                | ✓    | ✓     |
 | Steps                  | [HKQuantityTypeIdentifierSteps](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifiersteps?language=objc)                                        | ✓    | ✓     |
+| VitalSignRecord        | [HKClinicalTypeIdentifierVitalSignRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifiervitalsignrecord?language=objc) | ✓    |       |
 | Weight                 | [HKQuantityTypeIdentifierBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodymass?language=objc)                                  | ✓    | ✓     |
 | BodyFatPercentage      | [HKQuantityTypeIdentifierBodyFatPercentage](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodyfatpercentage?language=objc)                | ✓    | ✓     |
+| WalkingHeartRateAverage | [HKQuantityTypeIdentifierWalkingHeartRateAverage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierwalkingheartrateaverage?language=objc)                | ✓    |      |

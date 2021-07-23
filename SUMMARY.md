@@ -47,6 +47,10 @@
 * [getBiologicalSex](/docs/getBiologicalSex.md)
 * [getDateOfBirth](/docs/getDateOfBirth.md)
 
+## Clinical Records Methods
+
+* [getClinicalRecords](docs/getClinicalRecords.md)
+
 ## Dietary Methods
 
 * [saveFood](/docs/saveFood.md)
@@ -95,11 +99,13 @@
 * [getBloodPressureSamples](/docs/getBloodPressureSamples.md)
 * [getHeartRateSamples](/docs/getHeartRateSamples.md)
 * [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples.md)
+* [getHeartbeatSeriesSamples](/docs/getHeartbeatSeriesSamples.md)
 * [getOxygenSaturationSamples](/docs/getOxygenSaturationSamples.md)
 * [getRestingHeartRateSamples](/docs/getRestingHeartRateSamples.md)
 * [getVo2MaxSamples](/docs/getVo2MaxSamples.md)
 * [getLatestBmi](/docs/getLatestBmi.md)
 * [getRespiratoryRateSamples](/docs/getRespiratoryRateSamples.md)
+* [getWalkingHeartRateAverage](/docs/getWalkingHeartRateAverage.md)
 * [saveBmi](/docs/saveBmi.md)
 
 ## Workout Methods
