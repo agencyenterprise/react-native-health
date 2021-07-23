@@ -25,6 +25,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getActiveEnergyBurned](getActiveEnergyBurned.md)
 - [getBasalEnergyBurned](getBasalEnergyBurned.md)
 - [getAppleStandTime](getAppleStandTime.md)
+- [getActivitySummary](getActivitySummary.md)
 
 ### Body Methods
 
