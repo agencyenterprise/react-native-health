@@ -23,6 +23,7 @@
 		64C42D4A1D351A8800A0A8F7 /* RCTAppleHealthKit+Methods_Vitals.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C42D491D351A8800A0A8F7 /* RCTAppleHealthKit+Methods_Vitals.m */; };
 		64E0E73F1D37947B00EAB905 /* RCTAppleHealthKit+Methods_Results.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E0E73E1D37947B00EAB905 /* RCTAppleHealthKit+Methods_Results.m */; };
 		8C640F40269DF69C004CAFED /* RCTAppleHealthKit+Methods_Hearing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C640F3F269DF69C004CAFED /* RCTAppleHealthKit+Methods_Hearing.m */; };
+		8C79D960268E081A00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C79D95F268E081A00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27B60163269770030034AB4E /* RCTAppleHealthKit+Methods_Summary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Summary.h"; sourceTree = "<group>"; };
+		27B60164269770850034AB4E /* RCTAppleHealthKit+Methods_Summary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Summary.m"; sourceTree = "<group>"; };
 		358330DD20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Workout.h"; sourceTree = "<group>"; };
 		358330DE20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Workout.m"; sourceTree = "<group>"; };
 		3774C88D1D2092F20000B3F3 /* libRCTAppleHealthKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTAppleHealthKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +73,8 @@
 		64E0E73E1D37947B00EAB905 /* RCTAppleHealthKit+Methods_Results.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Results.m"; sourceTree = "<group>"; };
 		8C640F3E269DF680004CAFED /* RCTAppleHealthKit+Methods_Hearing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Hearing.h"; sourceTree = "<group>"; };
 		8C640F3F269DF69C004CAFED /* RCTAppleHealthKit+Methods_Hearing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Hearing.m"; sourceTree = "<group>"; };
+		8C79D95E268E07DB00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_ClinicalRecords.h"; sourceTree = "<group>"; };
+		8C79D95F268E081A00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_ClinicalRecords.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +137,10 @@
 				358330DE20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m */,
 				8C640F3E269DF680004CAFED /* RCTAppleHealthKit+Methods_Hearing.h */,
 				8C640F3F269DF69C004CAFED /* RCTAppleHealthKit+Methods_Hearing.m */,
+				27B60163269770030034AB4E /* RCTAppleHealthKit+Methods_Summary.h */,
+				27B60164269770850034AB4E /* RCTAppleHealthKit+Methods_Summary.m */,
+				8C79D95E268E07DB00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.h */,
+				8C79D95F268E081A00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.m */,
 			);
 			path = RCTAppleHealthKit;
 			sourceTree = "<group>";
@@ -202,6 +211,7 @@
 				64E0E73F1D37947B00EAB905 /* RCTAppleHealthKit+Methods_Results.m in Sources */,
 				358330DF20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m in Sources */,
 				64C42D4A1D351A8800A0A8F7 /* RCTAppleHealthKit+Methods_Vitals.m in Sources */,
+				8C79D960268E081A00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.m in Sources */,
 				3774C8931D2092F20000B3F3 /* RCTAppleHealthKit.m in Sources */,
 				377D44F31D247D0A004E35CB /* RCTAppleHealthKit+Methods_Characteristic.m in Sources */,
 				4F8095C92523C39D00A84ADB /* RCTAppleHealthKit+Methods_LabTests.m in Sources */,
