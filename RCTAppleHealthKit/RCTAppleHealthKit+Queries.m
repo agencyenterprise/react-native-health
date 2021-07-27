@@ -241,6 +241,71 @@
     [self.healthStore executeQuery:query];
 }
 
+- (void)fetchClinicalRecordsOfType:(HKClinicalType *)type
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+                        completion:(void (^)(NSArray *, NSError *))completion {
+    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:asc];
+    
+    void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+
+    handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if (!results) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+        if (completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (HKClinicalRecord *record in results) {
+                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:record.startDate];
+                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:record.endDate];
+                    
+                    NSError *jsonE = nil;
+                    NSArray *fhirData = [NSJSONSerialization JSONObjectWithData:record.FHIRResource.data options: NSJSONReadingMutableContainers error: &jsonE];
+
+                    if (!fhirData) {
+                      completion(nil, jsonE);
+                    }
+                    
+                    NSString *fhirRelease;
+                    NSString *fhirVersion;
+                    if (@available(iOS 14.0, *)) {
+                        HKFHIRVersion *fhirResourceVersion = record.FHIRResource.FHIRVersion;
+                        fhirRelease = fhirResourceVersion.FHIRRelease;
+                        fhirVersion = fhirResourceVersion.stringRepresentation;
+                    } else {
+                        // iOS < 14 uses DSTU2
+                        fhirRelease = @"DSTU2";
+                        fhirVersion = @"1.0.2";
+                    }
+                        
+                    NSDictionary *elem = @{
+                        @"id" : [[record UUID] UUIDString],
+                        @"sourceName" : [[[record sourceRevision] source] name],
+                        @"sourceId" : [[[record sourceRevision] source] bundleIdentifier],
+                        @"startDate" : startDateString,
+                        @"endDate" : endDateString,
+                        @"displayName" : record.displayName,
+                        @"fhirData": fhirData,
+                        @"fhirRelease": fhirRelease,
+                        @"fhirVersion": fhirVersion,
+                    };
+                    [data addObject:elem];
+                }
+                completion(data, error);
+            });
+        }
+    };
+    
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:type predicate:predicate limit:lim sortDescriptors:@[timeSortDescriptor] resultsHandler:handlerBlock];
+    [self.healthStore executeQuery:query];
+}
+
 - (void)fetchAnchoredWorkouts:(HKSampleType *)type
                     predicate:(NSPredicate *)predicate
                        anchor:(HKQueryAnchor *)anchor
@@ -877,6 +942,60 @@
 
         [self sendEventWithName:successEvent body:@{}];
     }];
+}
+
+- (void)fetchActivitySummary:(NSDate *)startDate
+                     endDate:(NSDate *)endDate
+                  completion:(void (^)(NSArray *, NSError *))completionHandler
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *startComponent = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitEra
+                                                     fromDate:startDate];
+    startComponent.calendar = calendar;
+    NSDateComponents *endComponent = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitEra
+                                                     fromDate:endDate];
+    endComponent.calendar = calendar;
+    NSPredicate *predicate = [HKQuery predicateForActivitySummariesBetweenStartDateComponents:startComponent endDateComponents:endComponent];
+    
+    HKActivitySummaryQuery *query = [[HKActivitySummaryQuery alloc] initWithPredicate:predicate
+                                        resultsHandler:^(HKActivitySummaryQuery *query, NSArray *results, NSError *error) {
+        
+        if (error) {
+            // Perform proper error handling here
+            NSLog(@"*** An error occurred while fetching the summary: %@ ***",error.localizedDescription);
+            completionHandler(nil, error);
+            return;
+        }
+        
+        NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (HKActivitySummary *summary in results) {
+                int aebVal = [summary.activeEnergyBurned doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                int aebgVal = [summary.activeEnergyBurnedGoal doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                int aetVal = [summary.appleExerciseTime doubleValueForUnit:[HKUnit minuteUnit]];
+                int aetgVal = [summary.appleExerciseTimeGoal doubleValueForUnit:[HKUnit minuteUnit]];
+                int ashVal = [summary.appleStandHours doubleValueForUnit:[HKUnit countUnit]];
+                int ashgVal = [summary.appleStandHoursGoal doubleValueForUnit:[HKUnit countUnit]];
+
+                NSDictionary *elem = @{
+                        @"activeEnergyBurned" : @(aebVal),
+                        @"activeEnergyBurnedGoal" : @(aebgVal),
+                        @"appleExerciseTime" : @(aetVal),
+                        @"appleExerciseTimeGoal" : @(aetgVal),
+                        @"appleStandHours" : @(ashVal),
+                        @"appleStandHoursGoal" : @(ashgVal),
+                };
+
+                [data addObject:elem];
+            }
+
+            completionHandler(data, error);
+        });
+    }];
+
+    [self.healthStore executeQuery:query];
+    
 }
 
 @end

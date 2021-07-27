@@ -47,6 +47,10 @@
 * [getBiologicalSex](/docs/getBiologicalSex.md)
 * [getDateOfBirth](/docs/getDateOfBirth.md)
 
+## Clinical Records Methods
+
+* [getClinicalRecords](docs/getClinicalRecords.md)
+
 ## Dietary Methods
 
 * [saveFood](/docs/saveFood.md)
@@ -67,6 +71,11 @@
 * [getDailyFlightsClimbedSamples](/docs/getDailyFlightsClimbedSamples.md)
 * [getFlightsClimbed](/docs/getFlightsClimbed.md)
 * [saveSteps](/docs/saveSteps.md)
+
+## Hearing Methods
+
+* [getEnvironmentalAudioExposure](/docs/getEnvironmentalAudioExposure.md)
+* [getHeadphoneAudioExposure](/docs/getHeadphoneAudioExposure.md)
 
 ## Lab Tests Methods
 
@@ -93,8 +102,10 @@
 ## Vitals Methods
 
 * [getBloodPressureSamples](/docs/getBloodPressureSamples.md)
+* [getElectrocardiogramSamples](/docs/getElectrocardiogramSamples.md)
 * [getHeartRateSamples](/docs/getHeartRateSamples.md)
 * [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples.md)
+* [getHeartbeatSeriesSamples](/docs/getHeartbeatSeriesSamples.md)
 * [getOxygenSaturationSamples](/docs/getOxygenSaturationSamples.md)
 * [getRestingHeartRateSamples](/docs/getRestingHeartRateSamples.md)
 * [getVo2MaxSamples](/docs/getVo2MaxSamples.md)

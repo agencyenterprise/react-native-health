@@ -37,6 +37,12 @@
                              limit:(NSUInteger)lim
                         completion:(void (^)(NSArray *, NSError *))completion;
 
+- (void)fetchClinicalRecordsOfType:(HKClinicalType *)type
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+                        completion:(void (^)(NSArray *, NSError *))completion;
+
 - (void)fetchAnchoredWorkouts:(HKSampleType *)type
                     predicate:(NSPredicate *)predicate
                        anchor:(HKQueryAnchor *)anchor
@@ -90,5 +96,9 @@
 - (void)setObserverForType:(HKSampleType *)quantityType
                       type:(NSString *)type
                     bridge:(RCTBridge *)bridge;
+
+- (void)fetchActivitySummary:(NSDate *)startDate
+                     endDate:(NSDate *)endDate
+                  completion:(void (^)(NSArray *, NSError *))completionHandler;
 
 @end
