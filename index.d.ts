@@ -357,6 +357,16 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getEnvironmentalAudioExposure(
+      options: HealthInputOptions,
+      callback: (err: string, results: HealthValue[]) => void,
+    ): void
+
+    getHeadphoneAudioExposure(
+      options: HealthInputOptions,
+      callback: (err: string, results: HealthValue[]) => void,
+    ):void
+    
     getClinicalRecords(
       options: HealthClinicalRecordOptions,
       callback: (err: string, results: Array<HealthClinicalRecord>) => void,
@@ -591,12 +601,14 @@ declare module 'react-native-health' {
     Copper = 'Copper',
     CoverageRecord = 'CoverageRecord',
     EnergyConsumed = 'EnergyConsumed',
+    EnvironmentalAudioExposure = 'EnvironmentalAudioExposure',
     FatMonounsaturated = 'FatMonounsaturated',
     FatPolyunsaturated = 'FatPolyunsaturated',
     FatSaturated = 'FatSaturated',
     FatTotal = 'FatTotal',
     Fiber = 'Fiber',
     Folate = 'Folate',
+    HeadphoneAudioExposure = 'HeadphoneAudioExposure',
     ImmunizationRecord = 'ImmunizationRecord',
     Iodine = 'Iodine',
     Iron = 'Iron',

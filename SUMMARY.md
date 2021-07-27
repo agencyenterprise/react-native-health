@@ -72,6 +72,11 @@
 * [getFlightsClimbed](/docs/getFlightsClimbed.md)
 * [saveSteps](/docs/saveSteps.md)
 
+## Hearing Methods
+
+* [getEnvironmentalAudioExposure](/docs/getEnvironmentalAudioExposure.md)
+* [getHeadphoneAudioExposure](/docs/getHeadphoneAudioExposure.md)
+
 ## Lab Tests Methods
 
 * [getBloodAlcoholContentSamples](/docs/getBloodAlcoholContentSamples.md)

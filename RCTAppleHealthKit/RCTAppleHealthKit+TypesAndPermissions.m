@@ -43,6 +43,15 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
     }
 
+    // Hearing Identifiers
+    if (@available(iOS 13.0, *)) {
+        if ([@"EnvironmentalAudioExposure" isEqualToString:key]) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierEnvironmentalAudioExposure];
+        } else if ([@"HeadphoneAudioExposure" isEqualToString:key]) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeadphoneAudioExposure];
+        }
+    }
+
     // Fitness Identifiers
     if ([@"Steps" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
