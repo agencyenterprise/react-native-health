@@ -894,6 +894,7 @@
 - (void)setObserverForType:(HKSampleType *)sampleType
                       type:(NSString *)type
                     bridge:(RCTBridge *)bridge
+                    hasListeners:(bool)hasListeners
 {
     HKObserverQuery* query = [
         [HKObserverQuery alloc] initWithSampleType:sampleType
@@ -910,14 +911,14 @@
             completionHandler();
 
             NSLog(@"[HealthKit] An error happened when receiving a new sample - %@", error.localizedDescription);
-
-            [self sendEventWithName:failureEvent body:@{}];
-
+            if(hasListeners) {
+                [self sendEventWithName:failureEvent body:@{}];
+            }
             return;
         }
-
-        [self sendEventWithName:successEvent body:@{}];
-
+        if(hasListeners) {
+            [self sendEventWithName:successEvent body:@{}];
+        }
         completionHandler();
 
         NSLog(@"[HealthKit] New sample from Apple HealthKit processed - %@", type);
@@ -932,16 +933,17 @@
 
         if (error) {
             NSLog(@"[HealthKit] An error happened when setting up background observer - %@", error.localizedDescription);
-
-            [self sendEventWithName:failureEvent body:@{}];
-
+            if(hasListeners) {
+                [self sendEventWithName:failureEvent body:@{}];
+            }
             return;
         }
 
         [self.healthStore executeQuery:query];
-
-        [self sendEventWithName:successEvent body:@{}];
-    }];
+        if(hasListeners) {
+            [self sendEventWithName:successEvent body:@{}];
+        }
+        }];
 }
 
 - (void)fetchActivitySummary:(NSDate *)startDate
