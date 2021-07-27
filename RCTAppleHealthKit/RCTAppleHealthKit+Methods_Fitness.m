@@ -435,10 +435,11 @@
  */
 - (void)fitness_registerObserver:(NSString *)type
                           bridge:(RCTBridge *)bridge
+                    hasListeners:(bool)hasListeners
 {
     HKSampleType *sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
 
-    [self setObserverForType:sampleType type:type bridge:bridge];
+    [self setObserverForType:sampleType type:type bridge:bridge hasListeners:hasListeners];
 }
 
 @end
