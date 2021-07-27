@@ -15,6 +15,10 @@ declare module 'react-native-health' {
     Units: Record<HealthUnit, HealthUnit>
   }
 
+  export interface HKErrorResponse {
+    message?: string;
+  }
+
   export interface AppleHealthKit {
     initHealthKit(
       permissions: HealthKitPermissions,
@@ -120,7 +124,7 @@ declare module 'react-native-health' {
 
     getAnchoredWorkouts(
       options: HealthInputOptions,
-      callback: (err: string, results: AnchoredQueryResults) => void,
+      callback: (err: HKErrorResponse, results: AnchoredQueryResults) => void,
     ): void
 
     getDailyStepCountSamples(
@@ -200,7 +204,7 @@ declare module 'react-native-health' {
 
     getWalkingHeartRateAverage(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: HealthValue[]) => void,
     ): void
 
     getActiveEnergyBurned(
@@ -246,6 +250,11 @@ declare module 'react-native-health' {
     getHeartRateVariabilitySamples(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getHeartbeatSeriesSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: HeartbeatSeriesSampleValue[]) => void,
     ): void
 
     getRestingHeartRateSamples(
@@ -353,7 +362,17 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getClinicalRecords(
+      options: HealthClinicalRecordOptions,
+      callback: (err: string, results: Array<HealthClinicalRecord>) => void,
+    ): void
+
     setObserver(options: HealthObserverOptions): void
+
+    getActivitySummary(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthActivitySummary>) => void,
+    ): void
 
     Constants: Constants
   }
@@ -376,6 +395,13 @@ declare module 'react-native-health' {
   export interface BloodPressureSampleValue extends BaseValue {
     bloodPressureSystolicValue: number
     bloodPressureDiastolicValue: number
+  }
+
+  export interface HeartbeatSeriesSampleValue extends BaseValue {
+    heartbeatSeries: ({
+      timeSinceSeriesStart: number
+      precededByGap: boolean
+    })[]
   }
 
   export interface HealthUnitOptions {
@@ -431,6 +457,41 @@ declare module 'react-native-health' {
 
   export interface HealthObserverOptions {
     type: HealthObserver
+  }
+
+  export interface HealthActivitySummary {
+    activeEnergyBurned: number
+    activeEnergyBurnedGoal: number
+    appleExerciseTime: number
+    appleExerciseTimeGoal: number
+    appleStandHours: number
+    appleStandHoursGoal: number
+  }
+
+  export interface HealthClinicalRecordOptions {
+    startDate: string
+    endDate?: string
+    limit?: number
+    ascending?: boolean
+    type: ClinicalRecordType
+  }
+
+  export enum ClinicalRecordType {
+    AllergyRecord = 'AllergyRecord',
+    ConditionRecord = 'ConditionRecord',
+    CoverageRecord = 'CoverageRecord',
+    ImmunizationRecord = 'ImmunizationRecord',
+    LabResultRecord = 'LabResultRecord',
+    MedicationRecord = 'MedicationRecord',
+    ProcedureRecord = 'ProcedureRecord',
+    VitalSignRecord = 'VitalSignRecord'
+  }
+
+  export interface HealthClinicalRecord extends BaseValue {
+    sourceName: string,
+    sourceId: string,
+    displayName: string,
+    fhirData: any,
   }
 
   /* Health Constants */
@@ -518,6 +579,8 @@ declare module 'react-native-health' {
 
   export enum HealthPermission {
     ActiveEnergyBurned = 'ActiveEnergyBurned',
+    ActivitySummary = 'ActivitySummary',
+    AllergyRecord = 'AllergyRecord',
     AppleExerciseTime = 'AppleExerciseTime',
     AppleStandTime = 'AppleStandTime',
     BasalEnergyBurned = 'BasalEnergyBurned',
@@ -538,7 +601,9 @@ declare module 'react-native-health' {
     Carbohydrates = 'Carbohydrates',
     Chloride = 'Chloride',
     Cholesterol = 'Cholesterol',
+    ConditionRecord = 'ConditionRecord',
     Copper = 'Copper',
+    CoverageRecord = 'CoverageRecord',
     EnergyConsumed = 'EnergyConsumed',
     FatMonounsaturated = 'FatMonounsaturated',
     FatPolyunsaturated = 'FatPolyunsaturated',
@@ -546,22 +611,27 @@ declare module 'react-native-health' {
     FatTotal = 'FatTotal',
     Fiber = 'Fiber',
     Folate = 'Folate',
+    ImmunizationRecord = 'ImmunizationRecord',
     Iodine = 'Iodine',
     Iron = 'Iron',
+    LabResultRecord = 'LabResultRecord',
     Magnesium = 'Magnesium',
     Manganese = 'Manganese',
+    MedicationRecord = 'MedicationRecord',
     Molybdenum = 'Molybdenum',
     Niacin = 'Niacin',
     OxygenSaturation = 'OxygenSaturation',
     PantothenicAcid = 'PantothenicAcid',
     Phosphorus = 'Phosphorus',
     Potassium = 'Potassium',
+    ProcedureRecord = 'ProcedureRecord',
     Protein = 'Protein',
     Riboflavin = 'Riboflavin',
     Selenium = 'Selenium',
     Sodium = 'Sodium',
     Sugar = 'Sugar',
     Thiamin = 'Thiamin',
+    VitalSignRecord = 'VitalSignRecord',
     VitaminA = 'VitaminA',
     VitaminB12 = 'VitaminB12',
     VitaminB6 = 'VitaminB6',
@@ -576,6 +646,7 @@ declare module 'react-native-health' {
     DistanceWalkingRunning = 'DistanceWalkingRunning',
     Electrocardiogram = 'Electrocardiogram',
     FlightsClimbed = 'FlightsClimbed',
+    HeartbeatSeries = 'HeartbeatSeries',
     HeartRate = 'HeartRate',
     RestingHeartRate = 'RestingHeartRate',
     HeartRateVariability = 'HeartRateVariability',
@@ -588,9 +659,10 @@ declare module 'react-native-health' {
     StepCount = 'StepCount',
     Steps = 'Steps',
     Vo2Max = 'Vo2Max',
+    WaistCircumference = 'WaistCircumference',
+    WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
-    WaistCircumference = 'WaistCircumference'
   }
 
   export enum HealthUnit {
@@ -636,11 +708,19 @@ declare module 'react-native-health' {
   }
 
   export enum HealthObserver {
+    AllergyRecord = 'AllergyRecord',
+    ConditionRecord = 'ConditionRecord',
+    CoverageRecord = 'CoverageRecord',
     Cycling = 'Cycling',
     HeartRate = 'HeartRate',
+    ImmunizationRecord = 'ImmunizationRecord',
+    LabResultRecord = 'LabResultRecord',
+    MedicationRecord = 'MedicationRecord',
+    ProcedureRecord = 'ProcedureRecord',
     RestingHeartRate = 'RestingHeartRate',
     Running = 'Running',
     StairClimbing = 'StairClimbing',
+    VitalSignRecord = 'VitalSignRecord',
     Walking = 'Walking',
     Workout = 'Workout',
   }

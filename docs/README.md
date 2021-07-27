@@ -25,6 +25,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getActiveEnergyBurned](getActiveEnergyBurned.md)
 - [getBasalEnergyBurned](getBasalEnergyBurned.md)
 - [getAppleStandTime](getAppleStandTime.md)
+- [getActivitySummary](getActivitySummary.md)
 
 ### Body Methods
 
@@ -51,6 +52,10 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getBiologicalSex](getBiologicalSex.md)
 - [getBloodType](getBloodType.md)
 - [getDateOfBirth](getDateOfBirth.md)
+
+#### Clinical Records Methods
+
+- [getClinicalRecords](docs/getClinicalRecords.md)
 
 ### Dietary Methods
 
@@ -96,11 +101,13 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getElectrocardiogramSamples](getElectrocardiogramSamples.md)
 - [getHeartRateSamples](getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](getHeartRateVariabilitySamples.md)
+- [getHeartbeatSeriesSamples](getHeartbeatSeriesSamples.md)
 - [getRestingHeartRateSamples](getRestingHeartRateSamples.md)
 - [getVo2MaxSamples](getVo2MaxSamples.md)
 - [getLatestBmi](getLatestBmi.md)
 - [getRespiratoryRateSamples](getRespiratoryRateSamples.md)
 - [getOxygenSaturationSamples](getOxygenSaturationSamples.md)
+- [getWalkingHeartRateAverage](getWalkingHeartRateAverage.md)
 - [saveBmi](saveBmi.md)
 
 #### Workout Methods

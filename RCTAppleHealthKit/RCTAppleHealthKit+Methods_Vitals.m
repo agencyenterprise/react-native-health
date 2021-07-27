@@ -151,6 +151,108 @@
                           }];
 }
 
+- (void)vitals_getHeartbeatSeriesSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    if (@available(iOS 13.0, *)) {
+        HKSeriesType *heartbeatSeriesType = [HKSeriesType seriesTypeForIdentifier:HKDataTypeIdentifierHeartbeatSeries];
+        
+        NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+        BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+        NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+        NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+        if(startDate == nil){
+            callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+            return;
+        }
+        NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+        NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:ascending];
+        
+        
+        // Define the results handler for the SampleQuery.
+        void (^resultsHandler)(HKSampleQuery *query, NSArray *results, NSError *error);
+        resultsHandler = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+            if (error != nil) {
+                callback(@[RCTJSErrorFromNSError(error)]);
+                return;
+            }
+            
+            // explicity send back an empty array for no results
+            if (results.count == 0) {
+                callback(@[[NSNull null], @[]]);
+                return;
+            }
+            
+            __block NSUInteger samplesProcessed = 0;
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+            
+            // create a function that check the progress of processing the samples
+            // and executes the callback with the data whan done
+            void (^maybeFinish)(void);
+            maybeFinish =  ^() {
+                // check to see if we've processed all of the returned samples, and return if so
+                if (samplesProcessed == results.count) {
+                    callback(@[[NSNull null], data]);
+                }
+            };
+            
+            for (HKHeartbeatSeriesSample *sample in results) {
+                NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                
+                NSDictionary *elem = @{
+                     @"id" : [[sample UUID] UUIDString],
+                     @"sourceName" : [[[sample sourceRevision] source] name],
+                     @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                     @"startDate" : startDateString,
+                     @"endDate" : endDateString,
+                     @"heartbeatSeries": @[]
+                 };
+                NSMutableDictionary *mutableElem = [elem mutableCopy];
+                [data addObject:mutableElem];
+                
+                // create an array to hold the series data which will be fetched asynchronously from healthkit
+                NSMutableArray *seriesData = [NSMutableArray arrayWithCapacity:sample.count];
+                
+                // now define the data handler for the HeartbeatSeriesQuery
+                void (^dataHandler)(HKHeartbeatSeriesQuery *hrSeriesQuery, NSTimeInterval timeSinceSeriesStart, BOOL precededByGap, BOOL done, NSError *error);
+                dataHandler = ^(HKHeartbeatSeriesQuery *hrSeriesQuery, NSTimeInterval timeSinceSeriesStart, BOOL precededByGap, BOOL done, NSError *error) {
+                    if (error == nil) {
+                        // If no error exists for this data point, add the value to the heartbeatSeries array.
+                        // I'm not sure if this technique of error handling is what we want. It could lead
+                        // to holes in the data. The alternative is to not write any of the series data to
+                        // the elem dictionary if an error occurs. I think holes are *probably* better?
+                        NSDictionary *el = @{
+                            @"timeSinceSeriesStart": @(timeSinceSeriesStart),
+                            @"precededByGap": @(precededByGap)
+                        };
+                        [seriesData addObject:el];
+                    }
+                    
+                    if (done) {
+                        [mutableElem setObject:seriesData forKey:@"heartbeatSeries"];
+                        samplesProcessed += 1;
+                        maybeFinish();
+                    }
+                };
+                // Query the heartbeat series for this sample.
+                HKHeartbeatSeriesQuery *hrSeriesQuery = [[HKHeartbeatSeriesQuery alloc] initWithHeartbeatSeries:sample
+                                                                                                    dataHandler:dataHandler];
+                [self.healthStore executeQuery:hrSeriesQuery];
+            }
+        };
+        
+        // Define and execute the HKSampleQuery
+        HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:heartbeatSeriesType
+                                                               predicate:predicate
+                                                                   limit:limit
+                                                         sortDescriptors:@[timeSortDescriptor]
+                                                          resultsHandler:resultsHandler];
+        [self.healthStore executeQuery:query];
+    } else {
+        callback(@[RCTMakeError(@"HeartbeatSeries is not available for this iOS version", nil, nil)]);
+    }
+}
+
 - (void)vitals_getRestingHeartRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *restingHeartRateType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
