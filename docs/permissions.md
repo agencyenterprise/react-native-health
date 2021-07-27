@@ -51,6 +51,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   ConditionRecord
   Copper
   CoverageRecord
+  Electrocardiogram
   EnergyConsumed
   EnvironmentalAudioExposure
   FatMonounsaturated
@@ -135,6 +136,7 @@ The available Healthkit identifiers are supported
 | DateOfBirth            | [HKCharacteristicTypeIdentifierDateOfBirth](https://developer.apple.com/reference/Healthkit/hkcharacteristictypeidentifierdateofbirth?language=objc)                | ✓    |       |
 | DistanceCycling        | [HKQuantityTypeIdentifierDistanceCycling](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierdistancecycling?language=objc)                    | ✓    | ✓     |
 | DistanceWalkingRunning | [HKQuantityTypeIdentifierDistanceWalkingRunning](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierdistancewalkingrunning?language=objc)      | ✓    | ✓     |
+| Electrocardiogram | [HKObjectType.electrocardiogramType](https://developer.apple.com/documentation/healthkit/hkobjecttype/3552035-electrocardiogramtype?language=objc)      | ✓    |      |
 | EnvironmentalAudioExposure | [HKQuantityTypeIdentifierEnvironmentalAudioExposure](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierenvironmentalaudioexposure?language=objc)                | ✓    |      |
 | FlightsClimbed         | [HKQuantityTypeIdentifierFlightsClimbed](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierflightsclimbed?language=objc)                      | ✓    | ✓     |
 | HeadphoneAudioExposure | [HKQuantityTypeIdentifierHeadphoneAudioExposure](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierheadphoneaudioexposure?language=objc)                | ✓    |      |

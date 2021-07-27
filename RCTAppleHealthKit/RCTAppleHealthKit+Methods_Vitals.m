@@ -477,5 +477,142 @@
     }];
 }
 
+- (void)vitals_getElectrocardiogramSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+ {
+     if (@available(iOS 14.0, *)) {
+         NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+         BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+         NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+         NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+         if(startDate == nil){
+             callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+             return;
+         }
+         NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+         NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:ascending];
+
+         // Define the results handler for the SampleQuery.
+         void (^resultsHandler)(HKSampleQuery *query, NSArray *results, NSError *error);
+         resultsHandler = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+             if (error != nil) {
+                 callback(@[RCTJSErrorFromNSError(error)]);
+                 return;
+             }
+
+             // explicity send back an empty array for no results
+             if (results.count == 0) {
+                 callback(@[[NSNull null], @[]]);
+                 return;
+             }
+
+             __block NSUInteger samplesProcessed = 0;
+             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+
+             // create a function that check the progress of processing the samples
+             // and executes the callback with the data whan done
+             void (^maybeFinish)(void);
+             maybeFinish =  ^() {
+                 // check to see if we've processed all of the returned samples, and return if so
+                 if (samplesProcessed == results.count) {
+                     callback(@[[NSNull null], data]);
+                 }
+             };
+
+             for (HKElectrocardiogram *sample in results) {
+                 NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                 NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                 
+                 NSString *classification;
+                 switch(sample.classification) {
+                     case(HKElectrocardiogramClassificationNotSet):
+                         classification = @"NotSet";
+                         break;
+                     case(HKElectrocardiogramClassificationSinusRhythm):
+                         classification = @"SinusRhythm";
+                         break;
+                     case(HKElectrocardiogramClassificationAtrialFibrillation):
+                         classification = @"AtrialFibrillation";
+                         break;
+                     case(HKElectrocardiogramClassificationInconclusiveLowHeartRate):
+                         classification = @"InconclusiveLowHeartRate";
+                         break;
+                     case(HKElectrocardiogramClassificationInconclusiveHighHeartRate):
+                         classification = @"InconclusiveHighHeartRate";
+                         break;
+                     case(HKElectrocardiogramClassificationInconclusivePoorReading):
+                         classification = @"InconclusivePoorReading";
+                         break;
+                     case(HKElectrocardiogramClassificationInconclusiveOther):
+                         classification = @"InconclusiveOther";
+                         break;
+                     default:
+                         classification = @"Unrecognized";
+                 }
+                 
+                 HKUnit *count = [HKUnit countUnit];
+                 HKUnit *minute = [HKUnit minuteUnit];
+                 HKUnit *bpmUnit = [count unitDividedByUnit:minute];
+                 double averageHeartRate = [sample.averageHeartRate doubleValueForUnit:bpmUnit];
+                 
+                 NSDictionary *elem = @{
+                      @"id" : [[sample UUID] UUIDString],
+                      @"sourceName" : [[[sample sourceRevision] source] name],
+                      @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                      @"startDate" : startDateString,
+                      @"endDate" : endDateString,
+                      @"classification": classification,
+                      @"averageHeartRate": @(averageHeartRate),
+                      @"samplingFrequency": @([sample.samplingFrequency doubleValueForUnit:HKUnit.hertzUnit]),
+                      @"device": [[sample sourceRevision] productType],
+                      @"algorithmVersion": @([[sample metadata][HKMetadataKeyAppleECGAlgorithmVersion] intValue]),
+                      @"voltageMeasurements": @[]
+                  };
+                 NSMutableDictionary *mutableElem = [elem mutableCopy];
+                 [data addObject:mutableElem];
+
+                 // create an array to hold the ecg voltage data which will be fetched asynchronously from healthkit
+                 NSMutableArray *voltageMeasurements = [NSMutableArray arrayWithCapacity:sample.numberOfVoltageMeasurements];
+
+                 // now define the data handler for the HKElectrocardiogramQuery
+                 void (^dataHandler)(HKElectrocardiogramQuery *voltageQuery, HKElectrocardiogramVoltageMeasurement *voltageMeasurement, BOOL done, NSError *error);
+
+                 dataHandler = ^(HKElectrocardiogramQuery *voltageQuery, HKElectrocardiogramVoltageMeasurement *voltageMeasurement, BOOL done, NSError *error) {
+                     if (error == nil) {
+                         // If no error exists for this data point, add the voltage measurement to the array.
+                         // I'm not sure if this technique of error handling is what we want. It could lead
+                         // to holes in the data. The alternative is to not write any of the voltage data to
+                         // the elem dictionary if an error occurs. I think holes are *probably* better?
+                         HKQuantity *voltageQuantity = [voltageMeasurement quantityForLead:HKElectrocardiogramLeadAppleWatchSimilarToLeadI];
+                         NSArray *measurement = @[
+                             @(voltageMeasurement.timeSinceSampleStart),
+                             @([voltageQuantity doubleValueForUnit:HKUnit.voltUnit])
+                         ];
+                         [voltageMeasurements addObject:measurement];
+                     }
+
+                     if (done) {
+                         [mutableElem setObject:voltageMeasurements forKey:@"voltageMeasurements"];
+                         samplesProcessed += 1;
+                         maybeFinish();
+                     }
+                 };
+                 // query the voltages for this ecg
+                 HKElectrocardiogramQuery *voltageQuery = [[HKElectrocardiogramQuery alloc] initWithElectrocardiogram:sample
+                                                                                                        dataHandler:dataHandler];
+                 [self.healthStore executeQuery:voltageQuery];
+             }
+         };
+
+         // Define and execute the HKSampleQuery
+         HKSampleQuery *ecgQuery = [[HKSampleQuery alloc] initWithSampleType:HKObjectType.electrocardiogramType
+                                                                   predicate:predicate
+                                                                       limit:limit
+                                                             sortDescriptors:@[timeSortDescriptor]
+                                                              resultsHandler:resultsHandler];
+         [self.healthStore executeQuery:ecgQuery];
+     } else {
+         callback(@[RCTMakeError(@"Electrocardiogram is not available for this iOS version", nil, nil)]);
+     }
+ }
 
 @end

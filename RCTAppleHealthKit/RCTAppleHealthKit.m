@@ -377,6 +377,12 @@ RCT_EXPORT_METHOD(getOxygenSaturationSamples:(NSDictionary *)input callback:(RCT
     [self vitals_getOxygenSaturationSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getElectrocardiogramSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self vitals_getElectrocardiogramSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getBloodGlucoseSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];

@@ -181,6 +181,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRespiratoryRate];
     } else if ([@"OxygenSaturation" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation];
+    } else if ([@"Electrocardiogram" isEqualToString:key] && systemVersion >= 14.0) {
+        return HKObjectType.electrocardiogramType;
     }
 
     // Sleep

@@ -72,6 +72,7 @@ export const Permissions = {
   DistanceCycling: 'DistanceCycling',
   DistanceSwimming: 'DistanceSwimming',
   DistanceWalkingRunning: 'DistanceWalkingRunning',
+  Electrocardiogram: 'Electrocardiogram',
   FlightsClimbed: 'FlightsClimbed',
   HeartbeatSeries: 'HeartbeatSeries',
   HeartRate: 'HeartRate',
