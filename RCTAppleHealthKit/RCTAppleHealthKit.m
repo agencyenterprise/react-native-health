@@ -695,7 +695,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         ];
         
         for(NSString * type in clinicalObservers) {
-            [self clinical_registerObserver:type bridge:bridge];
+            [self clinical_registerObserver:type bridge:bridge hasListeners:hasListeners];
         }
 
         NSLog(@"[HealthKit] Background observers added to the app");

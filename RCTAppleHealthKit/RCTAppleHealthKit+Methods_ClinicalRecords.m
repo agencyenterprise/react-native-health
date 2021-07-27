@@ -66,7 +66,7 @@
 {
     HKSampleType *recordType = [RCTAppleHealthKit clinicalTypeFromName:type];
     if (recordType != nil) {
-        [self setObserverForType:recordType type:type bridge:bridge];
+        [self setObserverForType:recordType type:type bridge:bridge hasListeners:hasListeners];
     }
 }
 
