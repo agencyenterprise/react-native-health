@@ -62,11 +62,11 @@
     }];
 }
 
-- (void)clinical_registerObserver:(NSString *)type bridge:(RCTBridge *)bridge
+- (void)clinical_registerObserver:(NSString *)type bridge:(RCTBridge *)bridge hasListeners:(bool)hasListeners
 {
     HKSampleType *recordType = [RCTAppleHealthKit clinicalTypeFromName:type];
     if (recordType != nil) {
-        [self setObserverForType:recordType type:type bridge:bridge];
+        [self setObserverForType:recordType type:type bridge:bridge hasListeners:hasListeners];
     }
 }
 

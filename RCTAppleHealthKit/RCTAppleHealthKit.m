@@ -31,6 +31,8 @@
 
 @synthesize bridge = _bridge;
 
+bool hasListeners;
+
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
@@ -46,7 +48,7 @@ RCT_EXPORT_METHOD(initHealthKit:(NSDictionary *)input callback:(RCTResponseSende
 RCT_EXPORT_METHOD(initStepCountObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
-    [self fitness_initializeStepEventObserver:input callback:callback];
+    [self fitness_initializeStepEventObserver:input hasListeners:hasListeners callback:callback];
 }
 
 RCT_EXPORT_METHOD(getBiologicalSex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -555,6 +557,45 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
     }
 }
 
+- (NSArray<NSString *> *)supportedEvents {
+    NSArray *types = @[
+        @"ActiveEnergyBurned",
+        @"BasalEnergyBurned",
+        @"Cycling",
+        @"HeartRate",
+        @"HeartRateVariabilitySDNN",
+        @"RestingHeartRate",
+        @"Running",
+        @"StairClimbing",
+        @"StepCount",
+        @"Swimming",
+        @"Vo2Max",
+        @"Walking",
+        @"Workout",
+        @"AllergyRecord",
+        @"ConditionRecord",
+        @"CoverageRecord",
+        @"ImmunizationRecord",
+        @"LabResultRecord",
+        @"MedicationRecord",
+        @"ProcedureRecord",
+        @"VitalSignRecord"
+    ];
+    
+    NSArray *templates = @[@"healthKit:%@:new", @"healthKit:%@:failure", @"healthKit:%@:enabled", @"healthKit:%@:sample", @"healthKit:%@:setup:success", @"healthKit:%@:setup:failure"];
+    
+    NSMutableArray *supportedEvents = [[NSMutableArray alloc] init];
+
+    for(NSString * type in types) {
+        for(NSString * template in templates) {
+            NSString *successEvent = [NSString stringWithFormat:template, type];
+            [supportedEvents addObject: successEvent];
+        }
+    }
+    [supportedEvents addObject: @"change:steps"];
+  return supportedEvents;
+}
+
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDictionary *info = @{
@@ -619,6 +660,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 
     [self _initializeHealthStore];
 
+    self.bridge = bridge;
+
     if ([HKHealthStore isHealthDataAvailable]) {
         NSArray *fitnessObservers = @[
             @"ActiveEnergyBurned",
@@ -637,7 +680,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         ];
 
         for(NSString * type in fitnessObservers) {
-            [self fitness_registerObserver:type bridge:bridge];
+            [self fitness_registerObserver:type bridge:bridge hasListeners:hasListeners];
         }
         
         NSArray *clinicalObservers = @[
@@ -652,13 +695,26 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         ];
         
         for(NSString * type in clinicalObservers) {
-            [self clinical_registerObserver:type bridge:bridge];
+            [self clinical_registerObserver:type bridge:bridge hasListeners:hasListeners];
         }
 
         NSLog(@"[HealthKit] Background observers added to the app");
+        [self startObserving];
     } else {
-        NSLog(@"[HealthKit] Apple HealthKit is not availabe in this platform");
+        NSLog(@"[HealthKit] Apple HealthKit is not available in this platform");
     }
+}
+
+// Will be called when this module's first listener is added.
+-(void)startObserving {
+    hasListeners = YES;
+    // Set up any upstream listeners or background tasks as necessary
+}
+
+// Will be called when this module's last listener is removed, or on dealloc.
+-(void)stopObserving {
+    hasListeners = NO;
+    // Remove upstream listeners, stop unnecessary background tasks
 }
 
 @end

@@ -95,7 +95,8 @@
 
 - (void)setObserverForType:(HKSampleType *)quantityType
                       type:(NSString *)type
-                    bridge:(RCTBridge *)bridge;
+                    bridge:(RCTBridge *)bridge
+                    hasListeners:(bool)hasListeners;
 
 - (void)fetchActivitySummary:(NSDate *)startDate
                      endDate:(NSDate *)endDate

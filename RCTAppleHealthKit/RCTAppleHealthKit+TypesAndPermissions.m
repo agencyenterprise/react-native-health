@@ -208,6 +208,7 @@
     if ([@"ActivitySummary" isEqualToString:key]){
         return [HKObjectType activitySummaryType];
     }
+    
     // Clinical Records
     if ([@"AllergyRecord" isEqualToString:key]) {
         return [RCTAppleHealthKit clinicalTypeFromName:@"AllergyRecord"];
