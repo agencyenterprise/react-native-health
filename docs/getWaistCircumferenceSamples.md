@@ -1,12 +1,12 @@
-# getHeartRateVariabilitySamples
+# getWaistCircumferenceSamples
 
-Query for resting SDNN Heart Rate Variability samples. The options object is used to setup a query to retrieve relevant samples.
+Query for waist circumference samples. The options object is used to setup a query to retrieve relevant samples. Waist circumference is available in iOS 11.0+.
 
 Example input options:
 
 ```javascript
 let options = {
-  unit: 'second', // optional; default 'second'
+  unit: 'inch', // optional; default 'inch'
   startDate: new Date(2021, 0, 0).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   ascending: false, // optional; default false
@@ -14,8 +14,10 @@ let options = {
 }
 ```
 
+Call the method:
+
 ```javascript
-AppleHealthKit.getHeartRateVariabilitySamples(
+AppleHealthKit.getWaistCircumferenceSamples(
   options,
   (err: Object, results: Array<HealthValue>) => {
     if (err) {
@@ -31,8 +33,12 @@ Example output:
 ```json
 [
   {
-    "id": "5013eca7-4aee-45af-83c1-dbe3696b2e51", // The universally unique identifier (UUID) for this HealthKit object.
-    "value": 0.4223,
+    "value": 39.02,
+    "startDate": "2016-06-29T17:55:00.000-0400",
+    "endDate": "2016-06-29T17:55:00.000-0400"
+  },
+  {
+    "value": 39,
     "startDate": "2016-03-12T13:22:00.000-0400",
     "endDate": "2016-03-12T13:22:00.000-0400"
   }

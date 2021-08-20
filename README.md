@@ -36,6 +36,9 @@ react-native link react-native-health
 <string>Read and understand health data.</string>
 <key>NSHealthUpdateUsageDescription</key>
 <string>Share workout data with other apps.</string>
+<!-- Below is only required if requesting clinical health data -->
+<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+<string>Read and understand clinical health data.</string>
 ```
 
 To add Healthkit support to your application's `Capabilities`
@@ -43,6 +46,8 @@ To add Healthkit support to your application's `Capabilities`
 - Open the `ios/` folder of your project in Xcode
 - Select the project name in the left sidebar
 - In the main view select '+ Capability' and double click 'HealthKit'
+
+To enable access to clinical data types, check the `Clinical Health Records` box.
 
 ## Usage
 
@@ -180,6 +185,10 @@ they are splitted in the following categories
 - [getBiologicalSex](/docs/getBiologicalSex.md)
 - [getDateOfBirth](/docs/getDateOfBirth.md)
 
+### Clinical Records Methods
+
+- [getClinicalRecords](/docs/getClinicalRecords.md)
+
 ### Dietary Methods
 
 - [getEnergyConsumedSamples](/docs/getEnergyConsumedSamples.md)
@@ -203,6 +212,11 @@ they are splitted in the following categories
 - [getDailyFlightsClimbedSamples](/docs/getDailyFlightsClimbedSamples.md)
 - [getFlightsClimbed](/docs/getFlightsClimbed.md)
 - [saveSteps](/docs/saveSteps.md)
+
+### Hearing Methods
+
+- [getEnvironmentalAudioExposure](/docs/getEnvironmentalAudioExposure.md)
+- [getHeadphoneAudioExposure](/docs/getHeadphoneAudioExposure.md)
 
 ### Lab Tests Methods
 
@@ -229,13 +243,16 @@ they are splitted in the following categories
 #### Vitals Methods
 
 - [getBloodPressureSamples](/docs/getBloodPressureSamples.md)
+- [getElectrocardiogramSamples](/docs/getElectrocardiogramSamples.md)
 - [getHeartRateSamples](/docs/getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples.md)
+- [getHeartbeatSeriesSamples](/docs/getHeartbeatSeriesSamples.md)
 - [getOxygenSaturationSamples](/docs/getOxygenSaturationSamples.md)
 - [getRestingHeartRateSamples](/docs/getRestingHeartRateSamples.md)
 - [getVo2MaxSamples](/docs/getVo2MaxSamples.md)
 - [getLatestBmi](/docs/getLatestBmi.md)
 - [getRespiratoryRateSamples](/docs/getRespiratoryRateSamples.md)
+- [getWalkingHeartRateAverage](/docs/getWalkingHeartRateAverage.md)
 - [saveBmi](/docs/saveBmi.md)
 
 #### Workout Methods

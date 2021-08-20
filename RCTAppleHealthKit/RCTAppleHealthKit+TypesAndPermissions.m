@@ -7,6 +7,7 @@
 //
 
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
+#import "RCTAppleHealthKit+Utils.h"
 
 @implementation RCTAppleHealthKit (TypesAndPermissions)
 
@@ -27,6 +28,8 @@
         return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex];
     } else if ([@"BloodType" isEqualToString: key]) {
         return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
+    } else if ([@"WaistCircumference" isEqualToString: key] && systemVersion >= 11.0) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
     }
 
     // Body Measurements
@@ -38,6 +41,15 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
     } else if ([@"LeanBodyMass" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
+    }
+
+    // Hearing Identifiers
+    if (@available(iOS 13.0, *)) {
+        if ([@"EnvironmentalAudioExposure" isEqualToString:key]) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierEnvironmentalAudioExposure];
+        } else if ([@"HeadphoneAudioExposure" isEqualToString:key]) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeadphoneAudioExposure];
+        }
     }
 
     // Fitness Identifiers
@@ -155,6 +167,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
     } else if ([@"HeartRateVariability" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRateVariabilitySDNN];
+    }  else if ([@"HeartbeatSeries" isEqualToString: key] && systemVersion >= 13.0) {
+        return [HKObjectType seriesTypeForIdentifier:HKDataTypeIdentifierHeartbeatSeries];
     } else if ([@"Vo2Max" isEqualToString: key] && systemVersion >= 11.0) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierVO2Max];
     } else if ([@"BodyTemperature" isEqualToString: key]) {
@@ -167,6 +181,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRespiratoryRate];
     } else if ([@"OxygenSaturation" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation];
+    } else if ([@"Electrocardiogram" isEqualToString:key] && systemVersion >= 14.0) {
+        return HKObjectType.electrocardiogramType;
     }
 
     // Sleep
@@ -187,6 +203,30 @@
     if ([@"BloodAlcoholContent" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
     }
+    
+    // Activity Summary
+    if ([@"ActivitySummary" isEqualToString:key]){
+        return [HKObjectType activitySummaryType];
+    }
+    
+    // Clinical Records
+    if ([@"AllergyRecord" isEqualToString:key]) {
+        return [RCTAppleHealthKit clinicalTypeFromName:@"AllergyRecord"];
+    } else if ([@"ConditionRecord" isEqualToString:key]) {
+        return [RCTAppleHealthKit clinicalTypeFromName:@"ConditionRecord"];
+    } else if ([@"CoverageRecord" isEqualToString:key]) {
+        return [RCTAppleHealthKit clinicalTypeFromName:@"CoverageRecord"];
+    } else if ([@"ImmunizationRecord" isEqualToString:key]) {
+        return [RCTAppleHealthKit clinicalTypeFromName:@"ImmunizationRecord"];
+    } else if ([@"LabResultRecord" isEqualToString:key]) {
+        return [RCTAppleHealthKit clinicalTypeFromName:@"LabResultRecord"];
+    } else if ([@"MedicationRecord" isEqualToString:key]) {
+        return [RCTAppleHealthKit clinicalTypeFromName:@"MedicationRecord"];
+    } else if ([@"ProcedureRecord" isEqualToString:key]) {
+        return [RCTAppleHealthKit clinicalTypeFromName:@"ProcedureRecord"];
+    } else if ([@"VitalSignRecord" isEqualToString:key]) {
+        return [RCTAppleHealthKit clinicalTypeFromName:@"VitalSignRecord"];
+    }
 
     return nil;
 }
@@ -195,6 +235,8 @@
     // Body Measurements
     if ([@"Height" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    } else if ([@"WaistCircumference" isEqualToString:key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
     } else if ([@"Weight" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
     } else if ([@"BodyMass" isEqualToString:key]) {
