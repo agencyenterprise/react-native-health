@@ -54,6 +54,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [saveFood](saveFood.md)
 - [saveWater](saveWater.md)
 - [getWater](getWater.md)
+- [getTotalFatSamples](getTotalFatSamples.md)
 
 ### Fitness Methods
 
