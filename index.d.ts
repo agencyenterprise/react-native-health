@@ -450,6 +450,15 @@ declare module 'react-native-health' {
     end: string
   }
 
+  export interface ElectrocardiogramSampleValue extends BaseValue {
+    classification: ElectrocardiogramClassification,
+    averageHeartRate: number,
+    samplingFrequency: number,
+    device: string,
+    algorithmVersion: number,
+    voltageMeasurements: (number[])[]
+  }
+
   export interface HealthValueOptions extends HealthUnitOptions {
     value: number
     startDate?: string
