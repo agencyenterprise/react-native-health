@@ -177,6 +177,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
+    getTotalFatSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
     saveFood(
       options: HealthInputOptions,
       callback: (error: string, result: HealthValue) => void,
