@@ -594,6 +594,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         @"Vo2Max",
         @"Walking",
         @"Workout",
+        @"MindfulSession",
         @"AllergyRecord",
         @"ConditionRecord",
         @"CoverageRecord",
@@ -698,7 +699,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             @"Swimming",
             @"Vo2Max",
             @"Walking",
-            @"Workout"
+            @"Workout",
+            @"MindfulSession"
         ];
 
         for(NSString * type in fitnessObservers) {
