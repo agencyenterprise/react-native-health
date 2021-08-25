@@ -602,7 +602,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         @"LabResultRecord",
         @"MedicationRecord",
         @"ProcedureRecord",
-        @"VitalSignRecord"
+        @"VitalSignRecord",
+        @"SleepAnalysis"
     ];
     
     NSArray *templates = @[@"healthKit:%@:new", @"healthKit:%@:failure", @"healthKit:%@:enabled", @"healthKit:%@:sample", @"healthKit:%@:setup:success", @"healthKit:%@:setup:failure"];
@@ -700,7 +701,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             @"Vo2Max",
             @"Walking",
             @"Workout",
-            @"MindfulSession"
+            @"MindfulSession",
+            @"SleepAnalysis",
         ];
 
         for(NSString * type in fitnessObservers) {
