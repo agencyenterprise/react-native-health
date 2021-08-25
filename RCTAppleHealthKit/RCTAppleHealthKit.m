@@ -27,6 +27,8 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
 
+RCTAppleHealthKit *shared;
+
 @implementation RCTAppleHealthKit
 
 @synthesize bridge = _bridge;
@@ -34,6 +36,22 @@
 bool hasListeners;
 
 RCT_EXPORT_MODULE();
+
+- (id) init
+{
+    if (shared != nil) {
+        return shared;
+    }
+
+    self = [super init];
+    shared = self;
+    return self;
+}
+
++ (BOOL)requiresMainQueueSetup
+{
+    return NO;
+}
 
 RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
 {
@@ -711,13 +729,13 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 
 // Will be called when this module's first listener is added.
 -(void)startObserving {
-    hasListeners = YES;
+    self.hasListeners = YES;
     // Set up any upstream listeners or background tasks as necessary
 }
 
 // Will be called when this module's last listener is removed, or on dealloc.
 -(void)stopObserving {
-    hasListeners = NO;
+    self.hasListeners = NO;
     // Remove upstream listeners, stop unnecessary background tasks
 }
 
