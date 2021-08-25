@@ -911,12 +911,12 @@
             completionHandler();
 
             NSLog(@"[HealthKit] An error happened when receiving a new sample - %@", error.localizedDescription);
-            if(hasListeners) {
+            if(self.hasListeners) {
                 [self sendEventWithName:failureEvent body:@{}];
             }
             return;
         }
-        if(hasListeners) {
+        if(self.hasListeners) {
             [self sendEventWithName:successEvent body:@{}];
         }
         completionHandler();
@@ -933,14 +933,14 @@
 
         if (error) {
             NSLog(@"[HealthKit] An error happened when setting up background observer - %@", error.localizedDescription);
-            if(hasListeners) {
+            if(self.hasListeners) {
                 [self sendEventWithName:failureEvent body:@{}];
             }
             return;
         }
 
         [self.healthStore executeQuery:query];
-        if(hasListeners) {
+        if(self.hasListeners) {
             [self sendEventWithName:successEvent body:@{}];
         }
         }];
