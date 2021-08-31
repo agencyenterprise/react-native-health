@@ -239,7 +239,7 @@
                                                      sortDescriptors:@[timeSortDescriptor]
                                                       resultsHandler:handlerBlock];
 
-    [self.healthStore executeQuery:query];
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
 }
 
 - (void)fetchAnchoredWorkouts:(HKSampleType *)type
