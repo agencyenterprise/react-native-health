@@ -244,6 +244,7 @@ they are splitted in the following categories
 
 - [getBloodPressureSamples](/docs/getBloodPressureSamples.md)
 - [getElectrocardiogramSamples](/docs/getElectrocardiogramSamples.md)
+- [saveHeartRateSample](/docs/saveHeartRateSample.md)
 - [getHeartRateSamples](/docs/getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples.md)
 - [getHeartbeatSeriesSamples](/docs/getHeartbeatSeriesSamples.md)
