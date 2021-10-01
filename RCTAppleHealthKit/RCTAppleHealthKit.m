@@ -431,6 +431,12 @@ RCT_EXPORT_METHOD(saveBloodGlucoseSample:(NSDictionary *)input callback:(RCTResp
     [self results_saveBloodGlucoseSample:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(deleteBloodGlucoseSample:(NSString *)oid callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_deleteBloodGlucoseSample:oid callback:callback];
+}
+
 RCT_EXPORT_METHOD(getSleepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];

@@ -100,7 +100,7 @@
             callback(@[RCTMakeError(@"An error occured while saving the glucose sample", error, nil)]);
             return;
         }
-        callback(@[[NSNull null], @(value)]);
+        callback(@[[NSNull null], [glucoseSample.UUID UUIDString]]);
     }];
 }
 
@@ -122,7 +122,22 @@
             callback(@[RCTMakeError(@"An error occured while saving the carbohydrate sample", error, nil)]);
             return;
         }
-        callback(@[[NSNull null], @(value)]);
+        callback(@[[NSNull null], [carbSample.UUID UUIDString]]);
+    }];
+}
+
+- (void)results_deleteBloodGlucoseSample:(NSString *)oid callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *bloodGlucoseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
+    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:oid];
+    NSPredicate *uuidPredicate = [HKQuery predicateForObjectWithUUID:uuid];
+    [self.healthStore deleteObjectsOfType:bloodGlucoseType predicate:uuidPredicate withCompletion:^(BOOL success, NSUInteger deletedObjectCount, NSError * _Nullable error) {
+        if (!success) {
+            NSLog(@"An error occured while deleting the glucose sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while deleting the glucose sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(deletedObjectCount)]);
     }];
 }
 
