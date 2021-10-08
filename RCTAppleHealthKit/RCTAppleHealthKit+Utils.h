@@ -34,6 +34,7 @@
 + (bool)boolFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(bool)defaultValue;
 + (HKWorkoutActivityType)hkWorkoutActivityTypeFromOptions: (NSDictionary *)options key: (NSString *)key withDefault: (HKWorkoutActivityType)defaultValue;
 + (HKQuantity *)hkQuantityFromOptions:(NSDictionary *)options valueKey: (NSString *)valueKey unitKey: (NSString *)unitKey;
++ (HKBloodGlucoseMealTime)hkBloodGlucoseMealTimeFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKBloodGlucoseMealTime)defaultValue;
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
 + (NSString*) stringForHKWorkoutActivityType:(int) enumValue;

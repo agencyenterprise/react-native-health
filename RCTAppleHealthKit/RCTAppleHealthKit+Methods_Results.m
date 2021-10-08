@@ -89,10 +89,21 @@
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:sampleDate];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:startDate];
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:mmolPerL];
-
+    
+    NSMutableDictionary *metadata = [NSMutableDictionary new];
+    if (@available(iOS 11.0, *)) {
+        HKBloodGlucoseMealTime mealTime = [RCTAppleHealthKit hkBloodGlucoseMealTimeFromOptions:input key:@"mealTime" withDefault:0];
+    if (mealTime) {
+            [metadata setValue:@(mealTime) forKey:HKMetadataKeyBloodGlucoseMealTime];
+        }
+    }
 
     HKQuantity *glucoseQuantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
-    HKQuantitySample *glucoseSample = [HKQuantitySample quantitySampleWithType:bloodGlucoseType quantity:glucoseQuantity startDate:startDate endDate:endDate];
+    HKQuantitySample *glucoseSample = [HKQuantitySample quantitySampleWithType:bloodGlucoseType
+                                                                      quantity:glucoseQuantity
+                                                                     startDate:startDate
+                                                                       endDate:endDate
+                                                                      metadata:metadata];
 
     [self.healthStore saveObject:glucoseSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {

@@ -399,6 +399,19 @@
     return nil;
 }
 
++ (HKBloodGlucoseMealTime)hkBloodGlucoseMealTimeFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKBloodGlucoseMealTime)defaultValue {
+    NSString *unitString = [options objectForKey:key];
+    HKBloodGlucoseMealTime mealTime = defaultValue;
+    
+    if ([unitString isEqualToString:@"preprandial"]) {
+        mealTime = HKBloodGlucoseMealTimePreprandial;
+    }
+    if ([unitString isEqualToString:@"postprandial"]) {
+        mealTime = HKBloodGlucoseMealTimePostprandial;
+    }
+    return mealTime;
+}
+
 + (NSString*)stringForHKWorkoutActivityType:(int) enumValue{
     switch( enumValue ){
         case HKWorkoutActivityTypeAmericanFootball:
