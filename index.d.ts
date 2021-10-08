@@ -422,7 +422,14 @@ declare module 'react-native-health' {
     id?: string
     startDate: string
     endDate: string
+    metadata?: Metadata
   }
+
+  export interface Metadata {
+    HKBloodGlucoseMealTime?: BloodGlucoseMealTime
+    HKWasUserEntered?: number
+  }
+
   export interface HealthValue extends BaseValue {
     value: number
   }
@@ -772,6 +779,11 @@ declare module 'react-native-health' {
     InconclusiveOther = 'InconclusiveOther',
     Unrecognized = 'Unrecognized',
   }  
+
+  export enum BloodGlucoseMealTime {
+    Preprandial = 1,
+    Postprandial = 2,
+  }
 
   const appleHealthKit: AppleHealthKit
 

@@ -84,14 +84,19 @@
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
 
-                    NSDictionary *elem = @{
+                    NSMutableDictionary *elem = [NSMutableDictionary dictionaryWithDictionary:@{
                             @"value" : @(value),
                             @"id" : [[sample UUID] UUIDString],
                             @"sourceName" : [[[sample sourceRevision] source] name],
                             @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,
-                    };
+                    }];
+                    
+                    NSDictionary *metadata = [sample metadata];
+                    if (metadata) {
+                        [elem setValue:metadata forKey:@"metadata"];
+                    }
 
                     [data addObject:elem];
                 }
