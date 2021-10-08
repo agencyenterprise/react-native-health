@@ -22,7 +22,7 @@ Example usage:
 ```javascript
 AppleHealthKit.saveBloodGlucoseSample(
   input,
-  (err: Object, result: number) => {
+  (err: Object, result: string) => {
     if (err) {
       return
     }
@@ -32,8 +32,8 @@ AppleHealthKit.saveBloodGlucoseSample(
 )
 ```
 
-Example output:
+Example output (record's UUID):
 
 ```json
-6.1
+"ba13089a-a311-4ffe-9352-f5c568936f16"
 ```

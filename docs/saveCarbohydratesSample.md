@@ -19,7 +19,7 @@ Call the method:
 ```javascript
 AppleHealthKit.saveFood(
   (options: HealthInputOptions),
-  (err: Object, results: number) => {
+  (err: Object, results: string) => {
     if (err) {
       return
     }
@@ -28,8 +28,8 @@ AppleHealthKit.saveFood(
 )
 ```
 
-Example output:
+Example output (record's UUID):
 
 ```json
-16.7
+"ba13089a-a311-4ffe-9352-f5c568936f16"
 ```
