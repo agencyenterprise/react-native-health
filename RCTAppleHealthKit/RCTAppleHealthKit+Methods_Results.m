@@ -89,14 +89,7 @@
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:sampleDate];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:startDate];
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:mmolPerL];
-    
-    NSMutableDictionary *metadata = [NSMutableDictionary new];
-    if (@available(iOS 11.0, *)) {
-        HKBloodGlucoseMealTime mealTime = [RCTAppleHealthKit hkBloodGlucoseMealTimeFromOptions:input key:@"mealTime" withDefault:0];
-    if (mealTime) {
-            [metadata setValue:@(mealTime) forKey:HKMetadataKeyBloodGlucoseMealTime];
-        }
-    }
+    NSDictionary *metadata = [RCTAppleHealthKit metadataFromOptions:input withDefault:nil];
 
     HKQuantity *glucoseQuantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
     HKQuantitySample *glucoseSample = [HKQuantitySample quantitySampleWithType:bloodGlucoseType
@@ -122,10 +115,14 @@
     double value = [RCTAppleHealthKit doubleValueFromOptions:input];
     NSDate *sampleDate = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit gramUnit]];
-
+    NSDictionary *metadata = [RCTAppleHealthKit metadataFromOptions:input withDefault:nil];
 
     HKQuantity *carbQuantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
-    HKQuantitySample *carbSample = [HKQuantitySample quantitySampleWithType:carbohydratesType quantity:carbQuantity startDate:sampleDate endDate:sampleDate];
+    HKQuantitySample *carbSample = [HKQuantitySample quantitySampleWithType:carbohydratesType
+                                                                   quantity:carbQuantity
+                                                                  startDate:sampleDate
+                                                                    endDate:sampleDate
+                                                                   metadata:metadata];
 
     [self.healthStore saveObject:carbSample withCompletion:^(BOOL success, NSError *error) {
         if (!success) {

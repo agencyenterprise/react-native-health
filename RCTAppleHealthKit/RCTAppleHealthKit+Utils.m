@@ -9,6 +9,8 @@
 #import "RCTAppleHealthKit+Utils.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
+const NSString *kMetadataKey = @"metadata";
+
 @implementation RCTAppleHealthKit (Utils)
 
 #pragma mark - Utilities
@@ -362,6 +364,13 @@
     return [num boolValue];
 }
 
++ (NSDictionary *)metadataFromOptions:(NSDictionary *)options withDefault:(NSDictionary *)defaultValue {
+    NSDictionary *metadata = [options objectForKey:kMetadataKey];
+    if(metadata == nil){
+        return defaultValue;
+    }
+    return metadata;
+}
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array {
     if ([array count] <= 1)
@@ -397,19 +406,6 @@
         return [HKQuantity quantityWithUnit:unit doubleValue:value];
     }
     return nil;
-}
-
-+ (HKBloodGlucoseMealTime)hkBloodGlucoseMealTimeFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKBloodGlucoseMealTime)defaultValue {
-    NSString *unitString = [options objectForKey:key];
-    HKBloodGlucoseMealTime mealTime = defaultValue;
-    
-    if ([unitString isEqualToString:@"preprandial"]) {
-        mealTime = HKBloodGlucoseMealTimePreprandial;
-    }
-    if ([unitString isEqualToString:@"postprandial"]) {
-        mealTime = HKBloodGlucoseMealTimePostprandial;
-    }
-    return mealTime;
 }
 
 + (NSString*)stringForHKWorkoutActivityType:(int) enumValue{

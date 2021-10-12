@@ -422,12 +422,13 @@ declare module 'react-native-health' {
     id?: string
     startDate: string
     endDate: string
-    metadata?: Metadata
+    metadata?: RecordMetadata
   }
 
-  export interface Metadata {
+  export interface RecordMetadata {
     HKBloodGlucoseMealTime?: BloodGlucoseMealTime
-    HKWasUserEntered?: number
+    HKWasUserEntered?: boolean
+    [key: string]: any
   }
 
   export interface HealthValue extends BaseValue {
@@ -490,6 +491,7 @@ declare module 'react-native-health' {
     value: number
     startDate?: string
     endDate?: string
+    metadata?: RecordMetadata
   }
 
   export interface HealthActivityOptions
