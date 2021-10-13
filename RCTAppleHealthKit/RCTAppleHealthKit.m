@@ -425,10 +425,22 @@ RCT_EXPORT_METHOD(saveCarbohydratesSample:(NSDictionary *)input callback:(RCTRes
     [self results_saveCarbohydratesSample:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(deleteCarbohydratesSample:(NSString *)oid callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_deleteCarbohydratesSample:oid callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveBloodGlucoseSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
     [self results_saveBloodGlucoseSample:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(deleteBloodGlucoseSample:(NSString *)oid callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_deleteBloodGlucoseSample:oid callback:callback];
 }
 
 RCT_EXPORT_METHOD(getSleepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
