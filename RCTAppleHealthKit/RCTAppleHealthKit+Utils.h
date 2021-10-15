@@ -8,6 +8,8 @@
 
 #import "RCTAppleHealthKit.h"
 
+extern NSString * const kMetadataKey;
+
 @interface RCTAppleHealthKit (Utils)
 
 + (NSDate *)parseISO8601DateFromString:(NSString *)date;

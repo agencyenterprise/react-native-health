@@ -9,7 +9,7 @@
 #import "RCTAppleHealthKit+Utils.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
-const NSString *kMetadataKey = @"metadata";
+NSString * const kMetadataKey = @"metadata";
 
 @implementation RCTAppleHealthKit (Utils)
 

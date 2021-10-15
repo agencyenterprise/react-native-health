@@ -95,7 +95,7 @@
                     
                     NSDictionary *metadata = [sample metadata];
                     if (metadata) {
-                        [elem setValue:metadata forKey:@"metadata"];
+                        [elem setValue:metadata forKey:kMetadataKey];
                     }
 
                     [data addObject:elem];
