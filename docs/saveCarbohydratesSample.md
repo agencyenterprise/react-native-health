@@ -13,6 +13,7 @@ let options = {
   unit: 'gramUnit', // Optional, default is gram
   metadata: {
     HKWasUserEntered: true,
+    anyOtherKey: 'some data', // supports string, number, boolean
   }
 }
 ```

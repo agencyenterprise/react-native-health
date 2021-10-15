@@ -428,7 +428,7 @@ declare module 'react-native-health' {
   export interface RecordMetadata {
     HKBloodGlucoseMealTime?: BloodGlucoseMealTime
     HKWasUserEntered?: boolean
-    [key: string]: any
+    [key: string]: string | number | boolean
   }
 
   export interface HealthValue extends BaseValue {

@@ -15,6 +15,7 @@ let input = {
     metadata: {
       HKWasUserEntered: true,
       HKBloodGlucoseMealTime: 1, // Preprandial = 1, Postprandial = 2
+      anyOtherKey: 'some data', // supports string, number, boolean
     }
 }
 ```
