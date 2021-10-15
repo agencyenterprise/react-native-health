@@ -36,7 +36,10 @@ Example output:
   {
     "endDate": "2021-04-01T22:00:00.000+0300", 
     "startDate": "2021-04-01T22:00:00.000+0300", 
-    "value": 204.5
+    "value": 204.5,
+    "metadata": {
+      "HKWasUserEntered": true,
+    }
   }
 ]
 ```
