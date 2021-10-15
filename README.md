@@ -225,11 +225,13 @@ they are splitted in the following categories
 - [getLatestBloodAlcoholContent](/docs/getLatestBloodAlcoholContent.md)
 - [saveBloodAlcoholContent](/docs/saveBloodAlcoholContent.md)
 - [saveBloodGlucoseSample](/docs/saveBloodGlucoseSample.md)
+- [deleteBloodGlucoseSample](/docs/deleteBloodGlucoseSample.md)
 
 ### Nutrition
 
 - [getCarbohydratesSamples](/docs/getCarbohydratesSamples.md)
 - [saveCarbohydratesSample](/docs/saveCarbohydratesSample.md)
+- [deleteCarbohydratesSample](/docs/deleteCarbohydratesSample.md)
 
 ### Mindfulness Methods
 
