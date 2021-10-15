@@ -37,7 +37,10 @@ Example output:
     "sourceId": "com.example.app",
     "sourceName": "app",
     "startDate": "2020-09-29T22:09:35.527+0200",
-    "value": 0.003
+    "value": 0.003,
+    "metadata": {
+      "HKWasUserEntered": true,
+    }
   },
   {
     "id": "30977632-ba69-4405-8e91-63dc882e8a45",
@@ -45,7 +48,10 @@ Example output:
     "sourceId": "com.apple.Health",
     "sourceName": "Helse",
     "startDate": "2020-09-29T21:52:00.000+0200",
-    "value": 0.001
+    "value": 0.001,
+    "metadata": {
+      "HKWasUserEntered": true,
+    }
   },
   {
     "id": "be028840-3e08-4532-8e57-145637affd2b",
@@ -53,7 +59,10 @@ Example output:
     "sourceId": "com.apple.Health",
     "sourceName": "Helse",
     "startDate": "2020-09-28T22:46:00.000+0200",
-    "value": 0.00015
+    "value": 0.00015,
+    "metadata": {
+      "HKWasUserEntered": true,
+    }
   }
 ]
 ```

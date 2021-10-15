@@ -35,12 +35,18 @@ Example output:
   {
     "value": 39.02,
     "startDate": "2016-06-29T17:55:00.000-0400",
-    "endDate": "2016-06-29T17:55:00.000-0400"
+    "endDate": "2016-06-29T17:55:00.000-0400",
+    "metadata": {
+      "HKWasUserEntered": true,
+    }
   },
   {
     "value": 39,
     "startDate": "2016-03-12T13:22:00.000-0400",
-    "endDate": "2016-03-12T13:22:00.000-0400"
+    "endDate": "2016-03-12T13:22:00.000-0400",
+    "metadata": {
+      "HKWasUserEntered": true,
+    }
   }
 ]
 ```
