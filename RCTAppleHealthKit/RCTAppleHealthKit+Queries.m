@@ -92,7 +92,7 @@
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,
                     }];
-                    
+
                     NSDictionary *metadata = [sample metadata];
                     if (metadata) {
                         [elem setValue:metadata forKey:kMetadataKey];
@@ -252,7 +252,7 @@
                              limit:(NSUInteger)lim
                         completion:(void (^)(NSArray *, NSError *))completion {
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:asc];
-    
+
     void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
 
     handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
@@ -264,19 +264,19 @@
         }
         if (completion) {
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
-            
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 for (HKClinicalRecord *record in results) {
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:record.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:record.endDate];
-                    
+
                     NSError *jsonE = nil;
                     NSArray *fhirData = [NSJSONSerialization JSONObjectWithData:record.FHIRResource.data options: NSJSONReadingMutableContainers error: &jsonE];
 
                     if (!fhirData) {
                       completion(nil, jsonE);
                     }
-                    
+
                     NSString *fhirRelease;
                     NSString *fhirVersion;
                     if (@available(iOS 14.0, *)) {
@@ -288,7 +288,7 @@
                         fhirRelease = @"DSTU2";
                         fhirVersion = @"1.0.2";
                     }
-                        
+
                     NSDictionary *elem = @{
                         @"id" : [[record UUID] UUIDString],
                         @"sourceName" : [[[record sourceRevision] source] name],
@@ -306,7 +306,7 @@
             });
         }
     };
-    
+
     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:type predicate:predicate limit:lim sortDescriptors:@[timeSortDescriptor] resultsHandler:handlerBlock];
     [self.healthStore executeQuery:query];
 }
@@ -378,7 +378,7 @@
                         NSLog(@"RNHealth: An error occured while trying to add workout sample from: %@ ", [[[sample sourceRevision] source] bundleIdentifier]);
                     }
                 }
-                
+
                 NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
                 NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
                 completion(@{
@@ -400,10 +400,11 @@
 
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
                                         limit:(NSUInteger)lim
+                                    ascending:(BOOL)asc
                                    completion:(void (^)(NSArray *, NSError *))completion {
 
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
-                                                                       ascending:false];
+                                                                       ascending:asc];
 
 
     // declare the block
@@ -963,17 +964,17 @@
                                                      fromDate:endDate];
     endComponent.calendar = calendar;
     NSPredicate *predicate = [HKQuery predicateForActivitySummariesBetweenStartDateComponents:startComponent endDateComponents:endComponent];
-    
+
     HKActivitySummaryQuery *query = [[HKActivitySummaryQuery alloc] initWithPredicate:predicate
                                         resultsHandler:^(HKActivitySummaryQuery *query, NSArray *results, NSError *error) {
-        
+
         if (error) {
             // Perform proper error handling here
             NSLog(@"*** An error occurred while fetching the summary: %@ ***",error.localizedDescription);
             completionHandler(nil, error);
             return;
         }
-        
+
         NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1002,7 +1003,7 @@
     }];
 
     [self.healthStore executeQuery:query];
-    
+
 }
 
 @end
