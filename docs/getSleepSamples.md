@@ -8,8 +8,7 @@ meaning that two (or more) samples represent a single nights sleep activity. see
 [Healthkit SleepAnalysis] reference documentation
 
 The options object is used to setup a query to retrieve relevant samples.
-The options must contain `startDate` and may also optionally include `endDate`
-and `limit` options
+The options must contain `startDate` and may also optionally include `endDate`, `ascending`, or `limit` options
 
 Example input options:
 
@@ -18,6 +17,7 @@ let options = {
   startDate: new Date(2021, 0, 0).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
   limit: 10, // optional; default no limit
+  ascending: true, // optional; default false
 }
 ```
 
