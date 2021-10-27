@@ -443,6 +443,7 @@
                   }
 
                     NSDictionary *elem = @{
+                            @"id" : [[sample UUID] UUIDString],
                             @"value" : valueString,
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,
