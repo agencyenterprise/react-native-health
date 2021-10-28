@@ -35,6 +35,7 @@ Example output:
 ```json
 [
   {
+    "id": "3d366e60-4f7c-4f72-b0ce-479ea19279b8", // The universally unique identifier (UUID) for this HealthKit object.
     "endDate": "2021-03-22T16:34:00.000-0300",
     "sourceId": "com.apple.Health",
     "sourceName": "Health",
