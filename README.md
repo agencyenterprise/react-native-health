@@ -253,6 +253,7 @@ they are splitted in the following categories
 - [getRestingHeartRateSamples](/docs/getRestingHeartRateSamples.md)
 - [getVo2MaxSamples](/docs/getVo2MaxSamples.md)
 - [getLatestBmi](/docs/getLatestBmi.md)
+- [getBmiSamples](/docs/getBmiSamples.md)
 - [getRespiratoryRateSamples](/docs/getRespiratoryRateSamples.md)
 - [getWalkingHeartRateAverage](/docs/getWalkingHeartRateAverage.md)
 - [saveBmi](/docs/saveBmi.md)
