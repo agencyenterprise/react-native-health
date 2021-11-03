@@ -414,6 +414,61 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthActivitySummary>) => void,
     ): void
 
+    getStatisticBodyMass(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticBloodPressureSystolic(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticBloodPressureDiastolic(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticBloodGlucose(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticBodyMassIndex(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticHeight(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticStepCount(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticHeartRate(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticBodyTemperature(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticOxygenSaturation(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticRestingHeartRate(
+      options: HealthStatisticsCommonInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
     Constants: Constants
   }
 
@@ -467,7 +522,44 @@ declare module 'react-native-health' {
     period?: number
     anchor?: string
   }
+  
+  enum GenericAggregatorsType {
+    MIN = 0,
+    MAX = 1,
+    FIRST = 4,
+    LAST = 5,
+  }
 
+  enum AverageAggregatorsType {
+    AVERAGE = 2,
+  }
+
+  enum CumulativeAggregatorsType {
+    CUMULATIVE_SUM = 3,
+  }
+
+  export type HealthStatisticsCommonAggregatorType = GenericAggregatorsType | AverageAggregatorsType;
+
+  export type HealthStatisticsStepsAggregatorType = GenericAggregatorsType | CumulativeAggregatorsType;
+ 
+  export enum HealthStatisticsIntervalType {
+    MONTH = 0,
+    DAY = 1,
+  }
+
+  export interface HealthStatisticsCommonInputOptions extends HealthUnitOptions {
+    aggregator: HealthStatisticsCommonAggregatorType
+    interval?: HealthStatisticsIntervalType
+    startDate?: string
+    endDate?: string
+  }
+
+  export interface HealthStatisticsStepsInputOptions extends HealthUnitOptions {
+    aggregator: HealthStatisticsStepsAggregatorType
+    interval?: HealthStatisticsIntervalType
+    startDate?: string
+    endDate?: string
+  }
   export interface HKWorkoutQueriedSampleType {
     activityId: number
     activityName: string
