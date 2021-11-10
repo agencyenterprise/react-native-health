@@ -75,7 +75,7 @@
         if (completion) {
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
                 for (HKQuantitySample *sample in results) {
                     HKQuantity *quantity = sample.quantity;
@@ -140,7 +140,7 @@
         if (completion) {
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (type == [HKObjectType workoutType]) {
                     for (HKWorkout *sample in results) {
                         @try {
@@ -265,7 +265,7 @@
         if (completion) {
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 for (HKClinicalRecord *record in results) {
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:record.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:record.endDate];
@@ -333,7 +333,7 @@
         if (completion) {
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 for (HKWorkout *sample in sampleObjects) {
                     @try {
                         double energy =  [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
@@ -421,7 +421,7 @@
         if (completion) {
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
                 for (HKCategorySample *sample in results) {
                     NSInteger val = sample.value;
@@ -496,7 +496,7 @@
         if (completion) {
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
                 for (HKCorrelation *sample in results) {
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
@@ -805,7 +805,7 @@
             NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
             NSDictionary *numberToWorkoutNameDictionary = [RCTAppleHealthKit getNumberToWorkoutNameDictionary];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 for (HKWorkout * sample in results) {
                     double energy = [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
                     double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
@@ -978,7 +978,7 @@
 
         NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             for (HKActivitySummary *summary in results) {
                 int aebVal = [summary.activeEnergyBurned doubleValueForUnit:[HKUnit kilocalorieUnit]];
                 int aebgVal = [summary.activeEnergyBurnedGoal doubleValueForUnit:[HKUnit kilocalorieUnit]];
