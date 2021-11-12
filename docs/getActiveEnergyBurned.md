@@ -1,18 +1,38 @@
+# getActiveEnergyBurned
+
 A quantity sample type that measures the amount of active energy the user has burned.
 
-```javascript
-let d = new Date(2016,1,1);
-let options = {
-    startDate: (new Date(2016,10,1)).toISOString(), // required
-    endDate: (new Date()).toISOString(), // optional; default now
-};
-```
+Example input options:
 
 ```javascript
-AppleHealthKit.getActiveEnergyBurned(options: Object, (err: Object, results: Object) => {
+let options = {
+  startDate: new Date(2021, 0, 0).toISOString(), // required
+  endDate: new Date().toISOString(), // optional; default now
+}
+```
+
+Call the method:
+
+```javascript
+AppleHealthKit.getActiveEnergyBurned(
+  (options: HealthInputOptions),
+  (err: Object, results: HealthValue) => {
     if (err) {
-        return;
+      return
     }
     console.log(results)
-});
+  },
+)
+```
+
+Example output:
+
+```json
+[
+  {
+    "endDate": "2021-03-22T16:00:00.000-0300",
+    "startDate": "2021-03-22T15:00:00.000-0300",
+    "value": 123
+  }
+]
 ```

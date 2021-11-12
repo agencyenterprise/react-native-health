@@ -1,18 +1,34 @@
+# saveLeanBodyMass
+
 save a numeric lean body mass value to Healthkit
 
 `saveLeanBodyMass` accepts an options object containing a numeric weight value:
+
+Example input options:
+
 ```javascript
 let options = {
-  value: 155.6 // lbs
+  value: 155.6, // lbs
 }
 ```
 
+Call the method:
+
 ```javascript
-AppleHealthKit.saveLeanBodyMass(options: Object, (err: Object, results: Object) => {
+AppleHealthKit.saveLeanBodyMass(
+  (options: HealthInputOptions),
+  (err: Object, results: number) => {
     if (err) {
-        console.log("error saving lean body mass to Healthkit: ", err);
-        return;
+      console.log('error saving lean body mass to Healthkit: ', err)
+      return
     }
-    // Done
-});
+    // lean body mass successfully saved
+  },
+)
+```
+
+Example output:
+
+```json
+155.6
 ```

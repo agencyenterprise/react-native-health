@@ -1,16 +1,38 @@
-```javascript
-let d = new Date(2016,1,1);
-let options = {
-    startDate: (new Date(2018,10,1)).toISOString(), // required
-    endDate: (new Date()).toISOString(), // optional; default now
-};
-```
+# getBasalEnergyBurned
+
+A quantity sample type that measures the amount of energy burned.
+
+Example input options:
 
 ```javascript
-AppleHealthKit.getBasalEnergyBurned(options: Object, (err: Object, results: Object) => {
+let options = {
+  startDate: new Date(2018, 10, 1).toISOString(), // required
+  endDate: new Date().toISOString(), // optional; default now
+}
+```
+
+Call the method:
+
+```javascript
+AppleHealthKit.getBasalEnergyBurned(
+  (options: HealthInputOptions),
+  (err: Object, results: HealthValue) => {
     if (err) {
-        return;
+      return
     }
     console.log(results)
-});
+  },
+)
+```
+
+Example output:
+
+```json
+[
+  {
+    "endDate": "2021-03-22T17:00:00.000-0300",
+    "startDate": "2021-03-22T16:00:00.000-0300",
+    "value": 42
+  }
+]
 ```

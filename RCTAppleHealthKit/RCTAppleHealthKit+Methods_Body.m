@@ -118,6 +118,37 @@
     }];
 }
 
+- (void)body_getBodyMassIndexSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *bmiType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+
+    HKUnit *countUnit = [HKUnit countUnit];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchQuantitySamplesOfType:bmiType
+                                unit:countUnit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+        if(results){
+          callback(@[[NSNull null], results]);
+          return;
+        } else {
+          callback(@[RCTJSErrorFromNSError(error)]);
+          return;
+        }
+    }];
+}
+
 
 - (void)body_saveBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
@@ -218,6 +249,85 @@
     }];
 }
 
+- (void)body_getLatestWaistCircumference:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *waistCircumferenceType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];;
+
+    [self fetchMostRecentQuantitySampleOfType:waistCircumferenceType
+                                    predicate:nil
+                                   completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (!mostRecentQuantity) {
+            NSLog(@"error getting latest waist circumference: %@", error);
+            callback(@[RCTMakeError(@"error getting latest wait circumference", error, nil)]);
+        }
+        else {
+            // Determine the waist circumference in the required unit.
+            double waistCircumference = [mostRecentQuantity doubleValueForUnit:unit];
+
+            NSDictionary *response = @{
+                    @"value" : @(waistCircumference),
+                    @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                    @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+            };
+
+            callback(@[[NSNull null], response]);
+        }
+    }];
+}
+
+
+- (void)body_getWaistCircumferenceSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *waistCircumferenceType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
+
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchQuantitySamplesOfType:waistCircumferenceType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+        if(results){
+          callback(@[[NSNull null], results]);
+          return;
+        } else {
+          callback(@[RCTJSErrorFromNSError(error)]);
+          return;
+        }
+    }];
+}
+
+
+- (void)body_saveWaistCircumference:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    double waistCircumference = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+    HKUnit *waistCircumferenceUnit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit inchUnit]];
+
+    HKQuantity *waistCircumferenceQuantity = [HKQuantity quantityWithUnit:waistCircumferenceUnit doubleValue:waistCircumference];
+    HKQuantityType *waistCircumferenceType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
+    HKQuantitySample *waistCircumferenceSample = [HKQuantitySample quantitySampleWithType:waistCircumferenceType quantity:waistCircumferenceQuantity startDate:sampleDate endDate:sampleDate];
+
+    [self.healthStore saveObject:waistCircumferenceSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            callback(@[RCTJSErrorFromNSError(error)]);
+            return;
+        }
+        callback(@[[NSNull null], @(waistCircumference)]);
+    }];
+}
+
 
 - (void)body_getLatestBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
@@ -274,7 +384,7 @@
                                   return;
                               } else {
                                   NSLog(@"error getting body fat percentage samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting body fat percentage samples", nil, nil)]);
+                                  callback(@[RCTMakeError(@"error getting body fat percentage samples:", error, nil)]);
                                   return;
                               }
                           }];
@@ -300,6 +410,27 @@
             return;
         }
         callback(@[[NSNull null], @(percentage)]);
+    }];
+}
+
+
+- (void)body_saveBodyTemperature:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    double temperature = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit degreeFahrenheitUnit]];
+
+    HKQuantity *temperatureQuantity = [HKQuantity quantityWithUnit:unit doubleValue:temperature];
+    HKQuantityType *bodyTemperatureType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    HKQuantitySample *bodyTemperatureSample = [HKQuantitySample quantitySampleWithType:bodyTemperatureType quantity:temperatureQuantity startDate:sampleDate endDate:sampleDate];
+
+    [self.healthStore saveObject:bodyTemperatureSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"error saving body temperature sample: %@", error);
+            callback(@[RCTMakeError(@"error saving body temperature sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(temperature)]);
     }];
 }
 
@@ -356,7 +487,7 @@
                                   return;
                               } else {
                                   NSLog(@"error getting lean body mass samples: %@", error);
-                                  callback(@[RCTMakeError(@"error getting lean body mass samples", nil, nil)]);
+                                  callback(@[RCTMakeError(@"error getting lean body mass samples:", error, nil)]);
                                   return;
                               }
                           }];

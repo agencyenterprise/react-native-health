@@ -9,27 +9,39 @@
 #import "RCTAppleHealthKit+Utils.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
+NSString * const kMetadataKey = @"metadata";
+
 @implementation RCTAppleHealthKit (Utils)
 
 #pragma mark - Utilities
 
 + (NSDate *)parseISO8601DateFromString:(NSString *)date
 {
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.locale = posix;
-    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
-    return [dateFormatter dateFromString:date];
+    @try {
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter.locale = posix;
+        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
+        return [dateFormatter dateFromString:date];
+    } @catch (NSException *exception) {
+        NSLog(@"RNHealth: An error occured while trying parse ISO8601 date from string");
+        return nil;
+    }
 }
 
 
 + (NSString *)buildISO8601StringFromDate:(NSDate *)date
 {
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.locale = posix;
-    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
-    return [dateFormatter stringFromDate:date];
+    @try {
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter.locale = posix;
+        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
+        return [dateFormatter stringFromDate:date];
+    } @catch (NSException *exception) {
+        NSLog(@"RNHealth: An error occured while trying parse ISO8601 string from date");
+        return nil;
+    }   
 }
 
 
@@ -57,6 +69,14 @@
     return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
 }
 
++ (NSPredicate *)predicateForAnchoredQueries:(HKQueryAnchor *)anchor startDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    if (startDate == nil) {
+        return nil;
+    } else {
+        return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
+    }
+
+}
 
 + (double)doubleValueFromOptions:(NSDictionary *)options {
     double value = [[options objectForKey:@"value"] doubleValue];
@@ -174,6 +194,45 @@
     }
 
     return [HKObjectType workoutType];
+}
+
++ (HKSampleType *)clinicalTypeFromName:(NSString *)type {
+    if (@available(iOS 12.0, *)) {
+        if ([type isEqual:@"AllergyRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierAllergyRecord];
+        } else if ([type isEqual:@"ConditionRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierConditionRecord];
+        } else if ([type isEqual:@"ImmunizationRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierImmunizationRecord];
+        } else if ([type isEqual:@"LabResultRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierLabResultRecord];
+        } else if ([type isEqual:@"MedicationRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierMedicationRecord];
+        } else if ([type isEqual:@"ProcedureRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierProcedureRecord];
+        } else if ([type isEqual:@"VitalSignRecord"]) {
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord];
+        }
+    }
+    
+    if (@available(iOS 14.0, *)) {
+         if ([type isEqual:@"CoverageRecord"]){
+             return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierCoverageRecord];
+         }
+    }
+    
+    return nil;
+}
+
++ (HKQueryAnchor *)hkAnchorFromOptions:(NSDictionary *)options {
+    NSString *anchorString = [options objectForKey:@"anchor"];
+    if (!anchorString.length) return nil;
+    NSData* anchorData = [[NSData alloc] initWithBase64EncodedString:anchorString options:0];
+    HKQueryAnchor *anchor = [NSKeyedUnarchiver unarchiveObjectWithData:anchorData];
+    if(anchor == nil){
+        return nil;
+    }
+    return anchor;
 }
 
 
@@ -321,6 +380,13 @@
     return [num boolValue];
 }
 
++ (NSDictionary *)metadataFromOptions:(NSDictionary *)options withDefault:(NSDictionary *)defaultValue {
+    NSDictionary *metadata = [options objectForKey:kMetadataKey];
+    if(metadata == nil){
+        return defaultValue;
+    }
+    return metadata;
+}
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array {
     if ([array count] <= 1)
@@ -376,8 +442,12 @@
             return @"Bowling";
         case HKWorkoutActivityTypeBoxing:
             return @"Boxing";
+        case HKWorkoutActivityTypeCardioDance:
+            return @"CardioDance";
         case HKWorkoutActivityTypeClimbing:
             return @"Climbing";
+        case HKWorkoutActivityTypeCooldown:
+            return @"Cooldown";
         case HKWorkoutActivityTypeCricket:
             return @"Cricket";
         case HKWorkoutActivityTypeCrossTraining:
@@ -390,12 +460,16 @@
             return @"Dance";
         case HKWorkoutActivityTypeDanceInspiredTraining:
             return @"DanceInspiredTraining";
+        case HKWorkoutActivityTypeDiscSports:
+            return @"DiscSports";
         case HKWorkoutActivityTypeElliptical:
             return @"Elliptical";
         case HKWorkoutActivityTypeEquestrianSports:
             return @"EquestrianSports";
         case HKWorkoutActivityTypeFencing:
             return @"Fencing";
+        case HKWorkoutActivityTypeFitnessGaming:
+            return @"FitnessGaming";
         case HKWorkoutActivityTypeFishing:
             return @"Fishing";
         case HKWorkoutActivityTypeFunctionalStrengthTraining:
@@ -424,6 +498,8 @@
             return @"PaddleSports";
         case HKWorkoutActivityTypePlay:
             return @"Play";
+        case HKWorkoutActivityTypePickleball:
+            return @"Pickleball";
         case HKWorkoutActivityTypePreparationAndRecovery:
             return @"PreparationAndRecovery";
         case HKWorkoutActivityTypeRacquetball:
@@ -442,6 +518,8 @@
             return @"SnowSports";
         case HKWorkoutActivityTypeSoccer:
             return @"Soccer";
+        case HKWorkoutActivityTypeSocialDance:
+            return @"SocialDance";
         case HKWorkoutActivityTypeSoftball:
             return @"Softball";
         case HKWorkoutActivityTypeSquash:

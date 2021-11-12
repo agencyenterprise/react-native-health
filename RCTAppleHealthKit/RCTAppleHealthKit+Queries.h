@@ -19,8 +19,9 @@
                            completion:(void (^)(double, NSError *))completionHandler;
 
 - (void)fetchSumOfSamplesOnDayForType:(HKQuantityType *)quantityType
-                                 unit:(HKUnit *)unit
-                                  day:(NSDate *)day
+                                   unit:(HKUnit *)unit
+                          includeManuallyAdded:(BOOL)includeManuallyAdded
+                                   day:(NSDate *)day
                            completion:(void (^)(double, NSDate *, NSDate *, NSError *))completionHandler;
 
 - (void)fetchCumulativeSumStatisticsCollection:(HKQuantityType *)quantityType
@@ -35,6 +36,18 @@
                          ascending:(BOOL)asc
                              limit:(NSUInteger)lim
                         completion:(void (^)(NSArray *, NSError *))completion;
+
+- (void)fetchClinicalRecordsOfType:(HKClinicalType *)type
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+                        completion:(void (^)(NSArray *, NSError *))completion;
+
+- (void)fetchAnchoredWorkouts:(HKSampleType *)type
+                    predicate:(NSPredicate *)predicate
+                       anchor:(HKQueryAnchor *)anchor
+                        limit:(NSUInteger)lim
+                   completion:(void (^)(NSDictionary *, NSError *))completion;
 
 - (void)fetchQuantitySamplesOfType:(HKQuantityType *)quantityType
                               unit:(HKUnit *)unit
@@ -70,6 +83,7 @@
 
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
                                    limit:(NSUInteger)lim
+                                   ascending:(BOOL)asc
                                    completion:(void (^)(NSArray *, NSError *))completion;
 
 - (void)fetchWorkoutForPredicate:(NSPredicate *)predicate
@@ -82,6 +96,11 @@
 
 - (void)setObserverForType:(HKSampleType *)quantityType
                       type:(NSString *)type
-                    bridge:(RCTBridge *)bridge;
+                    bridge:(RCTBridge *)bridge
+                    hasListeners:(bool)hasListeners;
+
+- (void)fetchActivitySummary:(NSDate *)startDate
+                     endDate:(NSDate *)endDate
+                  completion:(void (^)(NSArray *, NSError *))completionHandler;
 
 @end
