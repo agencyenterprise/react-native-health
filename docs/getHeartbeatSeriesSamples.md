@@ -1,7 +1,6 @@
 # getHeartbeatSeriesSamples
 
-Query for the beat-to-beat measurements used to compute the heart rate variability. Permission to HeartRateVariability is required to access this data.
-
+Query for the beat-to-beat measurements used to compute the heart rate variability. Permission to HeartRateVariability and HeartbeatSeries is required to access this data.
 
 Example input options:
 
