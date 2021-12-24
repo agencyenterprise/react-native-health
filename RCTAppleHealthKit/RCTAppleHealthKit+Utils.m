@@ -6,6 +6,7 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
+#import <CommonCrypto/CommonDigest.h>
 #import "RCTAppleHealthKit+Utils.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
@@ -41,9 +42,22 @@ NSString * const kMetadataKey = @"metadata";
     } @catch (NSException *exception) {
         NSLog(@"RNHealth: An error occured while trying parse ISO8601 string from date");
         return nil;
-    }   
+    }
 }
 
++ (NSString *)buildStringFromDateForStatistics:(NSDate *)date {
+    @try {
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter.locale = posix;
+        dateFormatter.timeZone = [[NSTimeZone alloc] initWithName:@"UTC"];
+        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
+        return [dateFormatter stringFromDate:date];
+    } @catch (NSException *exception) {
+        NSLog(@"RNHealth: An error occured while trying parse ISO8601 string from date");
+        return nil;
+    }
+}
 
 + (NSPredicate *)predicateForSamplesToday {
     NSDate *now = [NSDate date];
@@ -75,7 +89,17 @@ NSString * const kMetadataKey = @"metadata";
     } else {
         return [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
     }
+}
 
++ (NSPredicate *)predicateForStatisticsBetweenDates:(NSDate *)startDate endDate:(NSDate *)endDate {
+    if (startDate != nil) {
+        return [NSPredicate predicateWithFormat:@"%K >= %@ AND %K <= %@",
+                                                HKPredicateKeyPathStartDate, startDate,
+                                                HKPredicateKeyPathEndDate, endDate];
+    } else {
+        return [NSPredicate predicateWithFormat:@"%K <= %@",
+                                                HKPredicateKeyPathEndDate, endDate];
+    }
 }
 
 + (double)doubleValueFromOptions:(NSDictionary *)options {
@@ -143,10 +167,28 @@ NSString * const kMetadataKey = @"metadata";
     return date;
 }
 
-/*!
-    Convert Human Readable name for a HealthKit activity into a HKObjectType format
++ (RCTStatisticRequest *)statisticRequestFromOptions:(NSDictionary *)options quantity: (HKQuantityTypeIdentifier) quantity defaultUnit: (HKUnit*) defaultUnit {
+    HKQuantityType *quantityType = [HKQuantityType quantityTypeForIdentifier:quantity];
 
-    @param type The human readable format
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:options key:@"unit" withDefault:defaultUnit];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:options key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:options key:@"endDate" withDefault:nil];
+    RCTInterval intervalType = (RCTInterval) [RCTAppleHealthKit uintFromOptions:options key:@"interval" withDefault:RCTIntervalMonth];
+    RCTAggregatorType aggregatorType = (RCTAggregatorType) [RCTAppleHealthKit uintFromOptions:options key:@"aggregator" withDefault:-1];
+
+    return [RCTStatisticRequest requestWithQuantityType:quantityType
+                                               quantity: quantity
+                                                   unit:unit
+                                              startDate:startDate
+                                                endDate:endDate
+                                           intervalType:intervalType
+                                         aggregatorType:aggregatorType];
+}
+
+/*!
+	Convert Human Readable name for a HealthKit activity into a HKObjectType format
+
+	@param type The human readable format
  */
 + (HKSampleType *)quantityTypeFromName:(NSString *)type {
     if ([type isEqual:@"ActiveEnergyBurned"]){
@@ -198,13 +240,13 @@ NSString * const kMetadataKey = @"metadata";
             return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord];
         }
     }
-    
+
     if (@available(iOS 14.0, *)) {
-         if ([type isEqual:@"CoverageRecord"]){
-             return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierCoverageRecord];
-         }
+        if ([type isEqual:@"CoverageRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierCoverageRecord];
+        }
     }
-    
+
     return nil;
 }
 
@@ -225,82 +267,82 @@ NSString * const kMetadataKey = @"metadata";
     HKUnit *theUnit;
 
     if ([unitString isEqualToString:@"gram"]) {
-         theUnit = [HKUnit gramUnit];
+        theUnit = [HKUnit gramUnit];
     }
     if ([unitString isEqualToString:@"kg"]) {
-         theUnit = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
+        theUnit = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
     }
     if ([unitString isEqualToString:@"stone"]) {
-         theUnit = [HKUnit stoneUnit];
+        theUnit = [HKUnit stoneUnit];
     }
     if ([unitString isEqualToString:@"pound"]) {
-         theUnit = [HKUnit poundUnit];
+        theUnit = [HKUnit poundUnit];
     }
     if ([unitString isEqualToString:@"meter"]) {
-         theUnit = [HKUnit meterUnit];
+        theUnit = [HKUnit meterUnit];
     }
     if ([unitString isEqualToString:@"cm"]) {
-         theUnit = [HKUnit meterUnitWithMetricPrefix:HKMetricPrefixCenti];
+        theUnit = [HKUnit meterUnitWithMetricPrefix:HKMetricPrefixCenti];
     }
     if ([unitString isEqualToString:@"inch"]) {
-         theUnit = [HKUnit inchUnit];
+        theUnit = [HKUnit inchUnit];
     }
     if ([unitString isEqualToString:@"mile"]) {
-         theUnit = [HKUnit mileUnit];
+        theUnit = [HKUnit mileUnit];
     }
     if ([unitString isEqualToString:@"foot"]) {
-         theUnit = [HKUnit footUnit];
+        theUnit = [HKUnit footUnit];
     }
     if ([unitString isEqualToString:@"second"]) {
-         theUnit = [HKUnit secondUnit];
+        theUnit = [HKUnit secondUnit];
     }
     if ([unitString isEqualToString:@"minute"]) {
-         theUnit = [HKUnit minuteUnit];
+        theUnit = [HKUnit minuteUnit];
     }
     if ([unitString isEqualToString:@"hour"]) {
-         theUnit = [HKUnit hourUnit];
+        theUnit = [HKUnit hourUnit];
     }
     if ([unitString isEqualToString:@"day"]) {
-         theUnit = [HKUnit dayUnit];
+        theUnit = [HKUnit dayUnit];
     }
     if ([unitString isEqualToString:@"joule"]) {
-         theUnit = [HKUnit jouleUnit];
+        theUnit = [HKUnit jouleUnit];
     }
     if ([unitString isEqualToString:@"calorie"]) {
-         theUnit = [HKUnit calorieUnit];
+        theUnit = [HKUnit calorieUnit];
     }
     if ([unitString isEqualToString:@"count"]) {
-         theUnit = [HKUnit countUnit];
+        theUnit = [HKUnit countUnit];
     }
     if ([unitString isEqualToString:@"percent"]) {
-         theUnit = [HKUnit percentUnit];
+        theUnit = [HKUnit percentUnit];
     }
     if ([unitString isEqualToString:@"bpm"]) {
-         HKUnit *count = [HKUnit countUnit];
-         HKUnit *minute = [HKUnit minuteUnit];
+        HKUnit *count = [HKUnit countUnit];
+        HKUnit *minute = [HKUnit minuteUnit];
 
-         theUnit = [count unitDividedByUnit:minute];
+        theUnit = [count unitDividedByUnit:minute];
     }
     if ([unitString isEqualToString:@"fahrenheit"]) {
-         theUnit = [HKUnit degreeFahrenheitUnit];
+        theUnit = [HKUnit degreeFahrenheitUnit];
     }
     if ([unitString isEqualToString:@"celsius"]) {
-         theUnit = [HKUnit degreeCelsiusUnit];
+        theUnit = [HKUnit degreeCelsiusUnit];
     }
     if ([unitString isEqualToString:@"mmhg"]) {
-         theUnit = [HKUnit millimeterOfMercuryUnit];
+        theUnit = [HKUnit millimeterOfMercuryUnit];
     }
     if ([unitString isEqualToString:@"mmolPerL"]) {
-         theUnit = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
+        theUnit = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
     }
     if ([unitString isEqualToString:@"mgPerdL"]) {
-         theUnit = [HKUnit unitFromString:@"mg/dL"];
+        theUnit = [HKUnit unitFromString:@"mg/dL"];
     }
     if ([unitString isEqualToString:@"mlPerKgMin"]) {
-      HKUnit *ml = [HKUnit literUnitWithMetricPrefix:HKMetricPrefixMilli];
-      HKUnit *kg = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
-      HKUnit *min = [HKUnit minuteUnit];
-      theUnit = [ml unitDividedByUnit:[kg unitMultipliedByUnit:min]];
+        HKUnit *ml = [HKUnit literUnitWithMetricPrefix:HKMetricPrefixMilli];
+        HKUnit *kg = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
+        HKUnit *min = [HKUnit minuteUnit];
+        theUnit = [ml unitDividedByUnit:[kg unitMultipliedByUnit:min]];
     }
 
     if(theUnit == nil){
@@ -379,7 +421,7 @@ NSString * const kMetadataKey = @"metadata";
     NSUInteger j = [array count] - 1;
     while (i < j) {
         [array exchangeObjectAtIndex:i
-                  withObjectAtIndex:j];
+                   withObjectAtIndex:j];
         i++;
         j--;
     }
@@ -575,6 +617,45 @@ NSString * const kMetadataKey = @"metadata";
         default:
             return @"Other";
     }
+}
+
++ (NSString*) md5HashString:(NSString*) input {
+    const char* str = [input UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(str, strlen(str), result);
+
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_MD5_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
+
++ (NSString *) stringFromObject:(NSObject *)obj {
+    NSError *error = NULL;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if (error != nil) {
+        NSLog(@"Serialization Error: %@", error);
+        return nil;
+    }
+
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return jsonString;
+}
+
++ (NSString *)formattingStringHash:(NSString *)input {
+    if (input.length != 32) {
+        return nil;
+    }
+    NSString *result = [[NSString alloc] initWithFormat:@"%@-%@-%@-%@-%@",
+                                                        [input substringWithRange:NSMakeRange(0, 8)],
+                                                        [input substringWithRange:NSMakeRange(8, 4)],
+                                                        [input substringWithRange:NSMakeRange(12, 4)],
+                                                        [input substringWithRange:NSMakeRange(16, 4)],
+                                                        [input substringWithRange:NSMakeRange(20, 12)]];
+    return result.uppercaseString;
 }
 
 @end

@@ -23,6 +23,7 @@
 #import "RCTAppleHealthKit+Methods_Hearing.h"
 #import "RCTAppleHealthKit+Methods_Summary.h"
 #import "RCTAppleHealthKit+Methods_ClinicalRecords.h"
+#import "RTCAppleHealthKit+Methods_Statistics.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -525,6 +526,72 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 {
     [self _initializeHealthStore];
     [self clinicalRecords_getClinicalRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticBodyMass:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticBodyMass:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticBloodGlucose:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticBloodGlucose:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticBloodPressureSystolic:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticBloodPressureSystolic:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticBloodPressureDiastolic:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticBloodPressureDiastolic:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticBodyMassIndex:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticHeight:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticStepCount:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticStepCount:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticHeartRate:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticHeartRate:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticBodyTemperature:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticBodyTemperature:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticOxygenSaturation:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticOxygenSaturation:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticRestingHeartRate:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticRestingHeartRate:input callback:callback];
 }
 
 - (HKHealthStore *)_initializeHealthStore {

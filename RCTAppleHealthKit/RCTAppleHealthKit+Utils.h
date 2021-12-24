@@ -7,6 +7,7 @@
 //
 
 #import "RCTAppleHealthKit.h"
+#import "RCTTypes.h"
 
 extern NSString * const kMetadataKey;
 
@@ -14,17 +15,20 @@ extern NSString * const kMetadataKey;
 
 + (NSDate *)parseISO8601DateFromString:(NSString *)date;
 + (NSString *)buildISO8601StringFromDate:(NSDate *)date;
++ (NSString *)buildStringFromDateForStatistics:(NSDate *)date;
 + (NSPredicate *)predicateForSamplesToday;
 + (NSPredicate *)predicateForSamplesOnDay:(NSDate *)date;
 + (NSPredicate *)predicateForSamplesBetweenDates:(NSDate *)startDate endDate:(NSDate *)endDate;
 + (NSPredicate *)predicateForSamplesOnDayFromTimestamp:(NSString *)timestamp;
 + (NSPredicate *)predicateForAnchoredQueries:(HKQueryAnchor *)anchor startDate:(NSDate *)startDate endDate:(NSDate *)endDate;
++ (NSPredicate *)predicateForStatisticsBetweenDates:(NSDate *)startDate endDate:(NSDate *)endDate;
 + (double)doubleValueFromOptions:(NSDictionary *)options;
 + (NSDate *)dateFromOptions:(NSDictionary *)options;
 + (NSDate *)dateFromOptionsDefaultNow:(NSDictionary *)options;
 + (NSDate *)startDateFromOptions:(NSDictionary *)options;
 + (NSDate *)endDateFromOptions:(NSDictionary *)options;
 + (NSDate *)endDateFromOptionsDefaultNow:(NSDictionary *)options;
++ (RCTStatisticRequest *)statisticRequestFromOptions:(NSDictionary *)options quantity: (HKQuantityTypeIdentifier) quantity defaultUnit: (HKUnit*) defaultUnit;
 + (HKSampleType *)quantityTypeFromName:(NSString *)type;
 + (HKSampleType *)clinicalTypeFromName:(NSString *)type;
 + (HKQueryAnchor *)hkAnchorFromOptions:(NSDictionary *)options;
@@ -39,6 +43,9 @@ extern NSString * const kMetadataKey;
 + (NSDictionary *)metadataFromOptions:(NSDictionary *)options withDefault:(NSDictionary *)defaultValue;
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
-+ (NSString*) stringForHKWorkoutActivityType:(int) enumValue;
++ (NSString *) stringForHKWorkoutActivityType:(int) enumValue;
++ (NSString *) md5HashString:(NSString *) input;
++ (NSString *) stringFromObject:(NSObject *)obj;
++ (NSString *) formattingStringHash:(NSString *)input;
 
 @end
