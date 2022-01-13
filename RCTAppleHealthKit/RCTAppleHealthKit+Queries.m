@@ -13,6 +13,8 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
 
+#define kCountPerMinUnitStr @"count/min"
+
 @implementation RCTAppleHealthKit (Queries)
 
 - (void)fetchMostRecentQuantitySampleOfType:(HKQuantityType *)quantityType
