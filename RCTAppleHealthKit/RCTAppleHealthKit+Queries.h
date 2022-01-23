@@ -37,6 +37,12 @@
                              limit:(NSUInteger)lim
                         completion:(void (^)(NSArray *, NSError *))completion;
 
+- (void)fetchClinicalRecordsOfType:(HKClinicalType *)type
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+                        completion:(void (^)(NSArray *, NSError *))completion;
+
 - (void)fetchAnchoredWorkouts:(HKSampleType *)type
                     predicate:(NSPredicate *)predicate
                        anchor:(HKQueryAnchor *)anchor
@@ -77,6 +83,7 @@
 
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
                                    limit:(NSUInteger)lim
+                                   ascending:(BOOL)asc
                                    completion:(void (^)(NSArray *, NSError *))completion;
 - (void)fetchMenstrualFlowSamplesForPredicate:(NSPredicate *)predicate
                                    limit:(NSUInteger)lim
@@ -92,6 +99,11 @@
 
 - (void)setObserverForType:(HKSampleType *)quantityType
                       type:(NSString *)type
-                    bridge:(RCTBridge *)bridge;
+                    bridge:(RCTBridge *)bridge
+                    hasListeners:(bool)hasListeners;
+
+- (void)fetchActivitySummary:(NSDate *)startDate
+                     endDate:(NSDate *)endDate
+                  completion:(void (^)(NSArray *, NSError *))completionHandler;
 
 @end

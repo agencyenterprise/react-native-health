@@ -25,12 +25,15 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getActiveEnergyBurned](getActiveEnergyBurned.md)
 - [getBasalEnergyBurned](getBasalEnergyBurned.md)
 - [getAppleStandTime](getAppleStandTime.md)
+- [getActivitySummary](getActivitySummary.md)
 
 ### Body Methods
 
 - [getLatestHeight](getLatestHeight.md)
 - [getLatestWeight](getLatestWeight.md)
+- [getLatestWaistCircumference](getLatestWaistCircumference.md)
 - [getHeightSamples](getHeightSamples.md)
+- [getWaistCircumferenceSamples](getWaistCircumferenceSamples.md)
 - [getWeightSamples](getWeightSamples.md)
 - [getBodyTemperatureSamples](getBodyTemperatureSamples.md)
 - [getLatestBodyFatPercentage](getLatestBodyFatPercentage.md)
@@ -38,6 +41,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getLatestLeanBodyMass](getLatestLeanBodyMass.md)
 - [getLeanBodyMassSamples](getLeanBodyMassSamples.md)
 - [saveHeight](saveHeight.md)
+- [saveWaistCircumference](saveWaistCircumference.md)
 - [saveWeight](saveWeight.md)
 - [saveBodyFatPercentage](saveBodyFatPercentage.md)
 - [saveBodyTemperature](/docs/saveBodyTemperature.md)
@@ -49,11 +53,16 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getBloodType](getBloodType.md)
 - [getDateOfBirth](getDateOfBirth.md)
 
+#### Clinical Records Methods
+
+- [getClinicalRecords](docs/getClinicalRecords.md)
+
 ### Dietary Methods
 
 - [saveFood](saveFood.md)
 - [saveWater](saveWater.md)
 - [getWater](getWater.md)
+- [getTotalFatSamples](getTotalFatSamples.md)
 
 ### Reproductive Health Methods
 - [getBasalBodyTemperatureSamples](getBasalBodyTemperatureSamples.md)
@@ -73,6 +82,11 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getDailyFlightsClimbedSamples](getDailyFlightsClimbedSamples.md)
 - [getFlightsClimbed](getFlightsClimbed.md)
 - [saveSteps](saveSteps.md)
+
+### Hearing Methods
+
+- [getEnvironmentalAudioExposure](getEnvironmentalAudioExposure.md)
+- [getHeadphoneAudioExposure](getHeadphoneAudioExposure.md)
 
 ### Lab Tests Methods
 
@@ -94,13 +108,16 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 #### Vitals Methods
 
 - [getBloodPressureSamples](getBloodPressureSamples.md)
+- [getElectrocardiogramSamples](getElectrocardiogramSamples.md)
 - [getHeartRateSamples](getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](getHeartRateVariabilitySamples.md)
+- [getHeartbeatSeriesSamples](getHeartbeatSeriesSamples.md)
 - [getRestingHeartRateSamples](getRestingHeartRateSamples.md)
 - [getVo2MaxSamples](getVo2MaxSamples.md)
 - [getLatestBmi](getLatestBmi.md)
 - [getRespiratoryRateSamples](getRespiratoryRateSamples.md)
 - [getOxygenSaturationSamples](getOxygenSaturationSamples.md)
+- [getWalkingHeartRateAverage](getWalkingHeartRateAverage.md)
 - [saveBmi](saveBmi.md)
 
 #### Workout Methods

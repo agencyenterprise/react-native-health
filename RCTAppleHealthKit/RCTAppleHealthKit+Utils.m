@@ -9,6 +9,8 @@
 #import "RCTAppleHealthKit+Utils.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
+NSString * const kMetadataKey = @"metadata";
+
 @implementation RCTAppleHealthKit (Utils)
 
 #pragma mark - Utilities
@@ -178,6 +180,34 @@
     return [HKObjectType workoutType];
 }
 
++ (HKSampleType *)clinicalTypeFromName:(NSString *)type {
+    if (@available(iOS 12.0, *)) {
+        if ([type isEqual:@"AllergyRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierAllergyRecord];
+        } else if ([type isEqual:@"ConditionRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierConditionRecord];
+        } else if ([type isEqual:@"ImmunizationRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierImmunizationRecord];
+        } else if ([type isEqual:@"LabResultRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierLabResultRecord];
+        } else if ([type isEqual:@"MedicationRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierMedicationRecord];
+        } else if ([type isEqual:@"ProcedureRecord"]){
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierProcedureRecord];
+        } else if ([type isEqual:@"VitalSignRecord"]) {
+            return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierVitalSignRecord];
+        }
+    }
+    
+    if (@available(iOS 14.0, *)) {
+         if ([type isEqual:@"CoverageRecord"]){
+             return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierCoverageRecord];
+         }
+    }
+    
+    return nil;
+}
+
 + (HKQueryAnchor *)hkAnchorFromOptions:(NSDictionary *)options {
     NSString *anchorString = [options objectForKey:@"anchor"];
     if (!anchorString.length) return nil;
@@ -334,6 +364,13 @@
     return [num boolValue];
 }
 
++ (NSDictionary *)metadataFromOptions:(NSDictionary *)options withDefault:(NSDictionary *)defaultValue {
+    NSDictionary *metadata = [options objectForKey:kMetadataKey];
+    if(metadata == nil){
+        return defaultValue;
+    }
+    return metadata;
+}
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array {
     if ([array count] <= 1)
