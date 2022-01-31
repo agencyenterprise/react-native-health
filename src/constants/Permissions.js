@@ -90,5 +90,16 @@ export const Permissions = {
   WaistCircumference: 'WaistCircumference',
   WalkingHeartRateAverage: 'WalkingHeartRateAverage',
   Weight: 'Weight',
-  Workout: 'Workout'
+  Workout: 'Workout',
+
+  // Reproductive Health
+  BasalBodyTemperature: 'BasalBodyTemperature',
+  CervicalMucusQuality: 'CervicalMucusQuality',
+  Contraceptive: 'Contraceptive',
+  IntermenstrualBleeding: 'IntermenstrualBleeding',
+  Lactation: 'Lactation',
+  OvulationTestResult: 'OvulationTestResult',
+  Pregnancy: 'Pregnancy',
+  SexualActivity: 'SexualActivity',
+  MenstrualFlow: 'MenstrualFlow',
 }

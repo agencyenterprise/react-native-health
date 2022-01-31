@@ -198,6 +198,10 @@ they are splitted in the following categories
 - [saveWater](/docs/saveWater.md)
 - [getWater](/docs/getWater.md)
 
+### Reproductive Health Methods
+- [getBasalBodyTemperatureSamples](/docs/getBasalBodyTemperatureSamples.md)
+- [getMenstrualFlowSamples](/docs/getMenstrualFlowSamples.md)
+
 ### Fitness Methods
 
 - [getDailyStepCountSamples](/docs/getDailyStepCountSamples.md)

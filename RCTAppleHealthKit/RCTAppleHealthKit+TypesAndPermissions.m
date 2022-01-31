@@ -158,6 +158,27 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
     }
 
+    // Reproductive Health identifiers
+    if([@"BasalBodyTemperature" isEqualToString:key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBasalBodyTemperature];
+    } else if ([@"CervicalMucusQuality" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierCervicalMucusQuality];
+    } else if ([@"Contraceptive" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierContraceptive];
+    } else if ([@"IntermenstrualBleeding" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierIntermenstrualBleeding];
+    } else if ([@"Lactation" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLactation];
+    } else if ([@"OvulationTestResult" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierOvulationTestResult];
+    } else if ([@"Pregnancy" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierPregnancy];
+    } else if ([@"SexualActivity" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSexualActivity];
+    } else if ([@"MenstrualFlow" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMenstrualFlow];
+    }
+
     // Vital Signs Identifiers
     if ([@"HeartRate" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
@@ -349,6 +370,27 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryWater];
     } else if ([@"BloodGlucose" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
+    }
+
+    // Reproductive Health identifiers
+    if([@"BasalBodyTemperature" isEqualToString:key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBasalBodyTemperature];
+    } else if ([@"CervicalMucusQuality" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierCervicalMucusQuality];
+    } else if ([@"Contraceptive" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierContraceptive];
+    } else if ([@"IntermenstrualBleeding" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierIntermenstrualBleeding];
+    } else if ([@"Lactation" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLactation];
+    } else if ([@"OvulationTestResult" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierOvulationTestResult];
+    } else if ([@"Pregnancy" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierPregnancy];
+    } else if ([@"SexualActivity" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSexualActivity];
+    } else if ([@"MenstrualFlow" isEqualToString:key]) {
+         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMenstrualFlow];
     }
 
     // Sleep

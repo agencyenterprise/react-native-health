@@ -23,6 +23,7 @@
 #import "RCTAppleHealthKit+Methods_Hearing.h"
 #import "RCTAppleHealthKit+Methods_Summary.h"
 #import "RCTAppleHealthKit+Methods_ClinicalRecords.h"
+#import "RCTAppleHealthKit+Methods_ReproductiveHealth.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -299,6 +300,15 @@ RCT_EXPORT_METHOD(getTotalFatSamples:(NSDictionary *)input callback:(RCTResponse
 {
    [self dietary_getTotalFatSamples:input callback:callback];
 }
+RCT_EXPORT_METHOD(getBasalBodyTemperatureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self reproductiveHealth_getBasalBodyTemperatureSamples:input callback:callback];
+}
+RCT_EXPORT_METHOD(getMenstrualFlowSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self reproductiveHealth_getMenstrualFlowSamples:input callback:callback];
+}
+
 
 RCT_EXPORT_METHOD(saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
@@ -623,9 +633,9 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         @"VitalSignRecord",
         @"SleepAnalysis"
     ];
-    
+
     NSArray *templates = @[@"healthKit:%@:new", @"healthKit:%@:failure", @"healthKit:%@:enabled", @"healthKit:%@:sample", @"healthKit:%@:setup:success", @"healthKit:%@:setup:failure"];
-    
+
     NSMutableArray *supportedEvents = [[NSMutableArray alloc] init];
 
     for(NSString * type in types) {
@@ -651,7 +661,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 
 - (void)getAuthorizationStatus:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-  
+
     [self _initializeHealthStore];
     if ([HKHealthStore isHealthDataAvailable]) {
 
@@ -726,7 +736,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         for(NSString * type in fitnessObservers) {
             [self fitness_registerObserver:type bridge:bridge hasListeners:hasListeners];
         }
-        
+
         NSArray *clinicalObservers = @[
             @"AllergyRecord",
             @"ConditionRecord",
@@ -737,7 +747,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             @"ProcedureRecord",
             @"VitalSignRecord"
         ];
-        
+
         for(NSString * type in clinicalObservers) {
             [self clinical_registerObserver:type bridge:bridge hasListeners:hasListeners];
         }

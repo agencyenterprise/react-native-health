@@ -64,6 +64,10 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getWater](getWater.md)
 - [getTotalFatSamples](getTotalFatSamples.md)
 
+### Reproductive Health Methods
+- [getBasalBodyTemperatureSamples](getBasalBodyTemperatureSamples.md)
+- [getMenstrualFlowSamples](getMenstrualFlowSamples.md)
+
 ### Fitness Methods
 
 - [getDailyStepCountSamples](getDailyStepCountSamples.md)
