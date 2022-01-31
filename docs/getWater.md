@@ -9,7 +9,7 @@ Example input options:
 ```javascript
 let options = {
     date: new Date().toISOString(), // optional; default now
-    includeManuallyAdded: false. // optional: default true
+    includeManuallyAdded: false // optional: default true
 }
 ```
 
