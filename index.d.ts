@@ -71,7 +71,7 @@ declare module 'react-native-health' {
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
-    
+
     getLatestWaistCircumference(
       options: HealthUnitOptions,
       callback: (err: string, results: HealthValue) => void,
@@ -101,7 +101,7 @@ declare module 'react-native-health' {
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
-  
+
     saveBmi(
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
@@ -337,6 +337,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getWorkoutRoute(
+      options: { id: string },
+      callback: (err: string, results: WorkoutRouteQueryResults) => void,
+    ): void
+
     saveWorkout(
       options: HealthActivityOptions,
       callback: (error: string, result: HealthValue) => void,
@@ -400,8 +405,8 @@ declare module 'react-native-health' {
     getHeadphoneAudioExposure(
       options: HealthInputOptions,
       callback: (err: string, results: HealthValue[]) => void,
-    ):void
-    
+    ): void
+
     getClinicalRecords(
       options: HealthClinicalRecordOptions,
       callback: (err: string, results: Array<HealthClinicalRecord>) => void,
@@ -428,6 +433,13 @@ declare module 'react-native-health' {
     startDate: string
     endDate: string
     metadata?: RecordMetadata
+  }
+
+  interface LocationValue {
+    latitude: number
+    longitude: number
+    altitude: number
+    timestamp: string
   }
 
   export interface RecordMetadata {
@@ -468,6 +480,17 @@ declare module 'react-native-health' {
     anchor?: string
   }
 
+  export interface HKWorkoutRouteSampleType {
+    device: string
+    id: string
+    metadata: any
+    sourceName: string
+    sourceId: string
+    start: string
+    end: string
+    locations: LocationValue[]
+  }
+
   export interface HKWorkoutQueriedSampleType {
     activityId: number
     activityName: string
@@ -482,6 +505,8 @@ declare module 'react-native-health' {
     start: string
     end: string
   }
+
+
 
   export interface ElectrocardiogramSampleValue extends BaseValue {
     classification: ElectrocardiogramClassification,
@@ -714,6 +739,7 @@ declare module 'react-native-health' {
     WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
+    WorkoutRoute = 'WorkoutRoute'
   }
 
   export enum HealthUnit {
@@ -758,6 +784,11 @@ declare module 'react-native-health' {
     data: Array<HKWorkoutQueriedSampleType>
   }
 
+  export interface WorkoutRouteQueryResults {
+    anchor: string
+    data: HKWorkoutRouteSampleType
+  }
+
   export enum HealthObserver {
     AllergyRecord = 'AllergyRecord',
     ConditionRecord = 'ConditionRecord',
@@ -785,7 +816,7 @@ declare module 'react-native-health' {
     InconclusivePoorReading = 'InconclusivePoorReading',
     InconclusiveOther = 'InconclusiveOther',
     Unrecognized = 'Unrecognized',
-  }  
+  }
 
   export enum BloodGlucoseMealTime {
     Preprandial = 1,
