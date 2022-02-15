@@ -435,7 +435,7 @@ declare module 'react-native-health' {
     metadata?: RecordMetadata
   }
 
-  interface LocationValue {
+  export interface LocationValue {
     latitude: number
     longitude: number
     altitude: number
