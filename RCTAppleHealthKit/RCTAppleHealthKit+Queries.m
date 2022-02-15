@@ -15,6 +15,181 @@
 
 @implementation RCTAppleHealthKit (Queries)
 
+- (void)fetchWorkoutById:(HKSampleType *)type
+                      unit:(HKUnit *)unit
+                 predicate:(NSPredicate *)predicate
+                 ascending:(BOOL)asc
+                     limit:(NSUInteger)lim
+                completion:(void (^)(NSArray *, NSError *))completion {
+    
+    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
+                                                                       ascending:asc];
+    
+    // declare the block
+    void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+    
+    // create and assign the block
+    handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if (!results) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+        
+        if (completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                if (type == [HKObjectType workoutType]) {
+                    for (HKWorkout *sample in results) {
+                        @try {
+                            [data addObject:sample];
+                        } @catch (NSException *exception) {
+                            NSLog(@"RNHealth: An error occured while trying to add sample from: %@ ", [[[sample sourceRevision] source] bundleIdentifier]);
+                        }
+                    }
+                } else {
+                    NSLog(@"RNHealth: Must be workout type ");
+                }
+                
+                completion(data, error);
+            });
+        }
+    };
+    
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:type
+                                                           predicate:predicate
+                                                               limit:lim
+                                                     sortDescriptors:@[timeSortDescriptor]
+                                                      resultsHandler:handlerBlock];
+    
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
+}
+
+- (void)fetchWorkoutRoute:(HKSampleType *)type
+                predicate:(NSPredicate *)predicate
+                   anchor:(HKQueryAnchor *)anchor
+                    limit:(NSUInteger)lim
+               completion:(void (^)(NSDictionary *, NSError *))completion {
+    
+    // declare the block
+    void (^handlerBlock)(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error);
+    
+    // create and assign the block
+    handlerBlock = ^(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error) {
+        
+        if (!sampleObjects) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+        
+        if (completion) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                if (@available(iOS 11.0, *)) {
+                    
+                    //only one route should return in the samples
+                    for(HKWorkoutRoute*routeSample in sampleObjects){
+                        
+                        //create and assign the block
+                        void(^locationsHandlerBlock)(HKWorkoutRouteQuery* query, NSArray<CLLocation*>* routeData, BOOL done, NSError* error);
+                        
+                        locationsHandlerBlock = ^(HKWorkoutRouteQuery* query, NSArray<CLLocation*>* routeData, BOOL done, NSError* error)
+                        {
+                            if(!routeData){
+                                if(done){
+                                    completion(nil, error);
+                                }
+                                return;
+                            }
+                            
+                            if(done) {
+                                NSMutableArray *locations = [NSMutableArray arrayWithCapacity:1];
+                                
+                                for (CLLocation *sample in routeData) {
+                                    @try {
+                                        double lat = sample.coordinate.latitude;
+                                        double lng = sample.coordinate.longitude;
+                                        double alt = sample.altitude;
+                                        NSString*timestamp = [NSDateFormatter localizedStringFromDate:sample.timestamp
+                                                                                            dateStyle:NSDateFormatterShortStyle
+                                                                                            timeStyle:NSDateFormatterFullStyle];
+                                        
+                                        NSDictionary *elem = @{
+                                            @"latitude" :@(lat),
+                                            @"longitude": @(lng),
+                                            @"altitude": @(alt),
+                                            @"timestamp": timestamp
+                                        };
+                                        
+                                        [locations addObject:elem];
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"RNHealth: An error occured while trying to add route sample from: %@ ", [[[routeSample sourceRevision] source] bundleIdentifier]);
+                                    }
+                                    
+                                }
+                                
+                                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
+                                NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
+                                NSString *start = [RCTAppleHealthKit buildISO8601StringFromDate:routeSample.startDate];
+                                NSString *end = [RCTAppleHealthKit buildISO8601StringFromDate:routeSample.endDate];
+                                
+                                NSString* device = @"";
+                                if (@available(iOS 11.0, *)) {
+                                    device = [[routeSample sourceRevision] productType];
+                                } else {
+                                    device = [[routeSample device] name];
+                                    if (!device) {
+                                        device = @"iPhone";
+                                    }
+                                }
+                                
+                                NSDictionary *routeElem = @{
+                                    @"id" : [[routeSample UUID] UUIDString],
+                                    @"sourceId": [[[routeSample sourceRevision] source] bundleIdentifier],
+                                    @"sourceName" : [[[routeSample sourceRevision] source] name],
+                                    @"metadata" : [routeSample metadata],
+                                    @"device": device,
+                                    @"start": start,
+                                    @"end":end,
+                                    @"locations": locations
+                                };
+                                
+                                completion(@{
+                                    @"anchor": anchorString,
+                                    @"data": routeElem,
+                                }, error);
+                            }
+                            
+                        };
+                        
+                        
+                        HKWorkoutRouteQuery* routeQuery = [[HKWorkoutRouteQuery alloc] initWithRoute:routeSample
+                                                                                         dataHandler:locationsHandlerBlock];
+                        [self.rnAppleHealthKit.healthStore executeQuery:routeQuery];
+                        
+                        //break after first loop
+                        break;
+                    }
+                    
+                }
+                
+            });
+        }
+    };
+    
+    HKAnchoredObjectQuery *query = [[HKAnchoredObjectQuery alloc] initWithType:type
+                                                                     predicate:predicate
+                                                                        anchor:anchor
+                                                                         limit:lim
+                                                                resultsHandler:handlerBlock];
+    
+    [self.rnAppleHealthKit.healthStore executeQuery:query];
+}
+
 - (void)fetchMostRecentQuantitySampleOfType:(HKQuantityType *)quantityType
                                   predicate:(NSPredicate *)predicate
                                  completion:(void (^)(HKQuantity *, NSDate *, NSDate *, NSError *))completion {
