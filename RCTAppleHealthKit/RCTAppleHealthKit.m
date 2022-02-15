@@ -222,7 +222,7 @@ RCT_EXPORT_METHOD(getAnchoredWorkouts:(NSDictionary *)input callback:(RCTRespons
 RCT_EXPORT_METHOD(getWorkoutRoute:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
-    [self workout_getRoutes:input callback:callback];
+    [self workout_getRoute:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(setObserver:(NSDictionary *)input)
