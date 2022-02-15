@@ -34,7 +34,7 @@
 
     NSPredicate *predicate = [HKQuery predicateForObjectWithUUID:uuid];
 
-    HKSampleType *samplesType = [RCTAppleHealthKit quantityTypeFromName:@"workoutType"];
+    HKSampleType *samplesType = [HKSampleType workoutType];
 
     void (^completion)(NSArray *results, NSError *error);
 
@@ -67,7 +67,7 @@
                 [self fetchWorkoutRoute:type
                                   predicate:pre
                                      anchor:nil
-                                      limit:1
+                                      limit:HKObjectQueryNoLimit
                                  completion:routeCompletion];
                 
                 break;
@@ -86,7 +86,7 @@
                         unit:[HKUnit countUnit]
                    predicate:predicate
                    ascending:false
-                       limit:1
+                       limit:HKObjectQueryNoLimit
                   completion:completion];
 }
 
