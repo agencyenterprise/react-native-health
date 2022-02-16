@@ -440,6 +440,8 @@ declare module 'react-native-health' {
     longitude: number
     altitude: number
     timestamp: string
+    speed: number
+    speedAccuracy: number
   }
 
   export interface RecordMetadata {
