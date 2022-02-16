@@ -109,6 +109,31 @@
                     return;
                 }
                 
+                //process each batch and store
+                for (CLLocation *sample in routeData) {
+                    @try {
+                        double lat = sample.coordinate.latitude;
+                        double lng = sample.coordinate.longitude;
+                        double alt = sample.altitude;
+                        NSString*timestamp = [NSDateFormatter localizedStringFromDate:sample.timestamp
+                                                                            dateStyle:NSDateFormatterShortStyle
+                                                                            timeStyle:NSDateFormatterFullStyle];
+                        
+                        NSDictionary *elem = @{
+                            @"latitude" :@(lat),
+                            @"longitude": @(lng),
+                            @"altitude": @(alt),
+                            @"timestamp": timestamp,
+                            @"speed": @(sample.speed),
+                            @"speedAccuracy": @(sample.speedAccuracy)
+                        };
+                        
+                        [locations addObject:elem];
+                    } @catch (NSException *exception) {
+                        NSLog(@"RNHealth: An error occured while trying to add route sample from: %@ ", [[[routeSample sourceRevision] source] bundleIdentifier]);
+                    }
+                }
+                
                 if(done) {
                     //all batches successfully completed
                     NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
@@ -141,33 +166,6 @@
                             @"anchor": anchorString,
                             @"data": routeElem,
                         }, error);
-                    
-                    return;
-                }
-                
-                //process each batch and store
-                for (CLLocation *sample in routeData) {
-                    @try {
-                        double lat = sample.coordinate.latitude;
-                        double lng = sample.coordinate.longitude;
-                        double alt = sample.altitude;
-                        NSString*timestamp = [NSDateFormatter localizedStringFromDate:sample.timestamp
-                                                                            dateStyle:NSDateFormatterShortStyle
-                                                                            timeStyle:NSDateFormatterFullStyle];
-                        
-                        NSDictionary *elem = @{
-                            @"latitude" :@(lat),
-                            @"longitude": @(lng),
-                            @"altitude": @(alt),
-                            @"timestamp": timestamp,
-                            @"speed": @(sample.speed),
-                            @"speedAccuracy": @(sample.speedAccuracy)
-                        };
-                        
-                        [locations addObject:elem];
-                    } @catch (NSException *exception) {
-                        NSLog(@"RNHealth: An error occured while trying to add route sample from: %@ ", [[[routeSample sourceRevision] source] bundleIdentifier]);
-                    }
                 }
             
             };
