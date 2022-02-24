@@ -11,4 +11,5 @@ export const Observers = {
   StairClimbing: 'StairClimbing',
   Walking: 'Walking',
   Workout: 'Workout',
+  Electrocardiogram: 'Electrocardiogram',
 }

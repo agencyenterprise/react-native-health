@@ -157,6 +157,8 @@ NSString * const kMetadataKey = @"metadata";
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
     } else if ([type isEqual:@"HeartRate"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
+    } else if ([type isEqual:@"Electrocardiogram"]) {
+        return [HKObjectType electrocardiogramType];
     } else if ([type isEqual:@"HeartRateVariabilitySDNN"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRateVariabilitySDNN];
     } else if ([type isEqual:@"RestingHeartRate"]){

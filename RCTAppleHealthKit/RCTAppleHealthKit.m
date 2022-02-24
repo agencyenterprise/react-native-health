@@ -755,6 +755,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             @"BasalEnergyBurned",
             @"Cycling",
             @"HeartRate",
+            @"Electrocardiogram",
             @"HeartRateVariabilitySDNN",
             @"RestingHeartRate",
             @"Running",
