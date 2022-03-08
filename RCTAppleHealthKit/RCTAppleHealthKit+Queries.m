@@ -150,11 +150,15 @@
                             device = @"iPhone";
                         }
                     }
+                    
+                    
+                    NSObject*metaData = [routeSample metadata] ? [routeSample metadata] : @{};
+                    
                     NSDictionary *routeElem = @{
                         @"id" : [[routeSample UUID] UUIDString],
                         @"sourceId": [[[routeSample sourceRevision] source] bundleIdentifier],
                         @"sourceName" : [[[routeSample sourceRevision] source] name],
-                        @"metadata" : [routeSample metadata],
+                        @"metadata" : metaData,
                         @"device": device,
                         @"start": start,
                         @"end":end,
