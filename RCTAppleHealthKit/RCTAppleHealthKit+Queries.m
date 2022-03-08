@@ -115,9 +115,7 @@
                         double lat = sample.coordinate.latitude;
                         double lng = sample.coordinate.longitude;
                         double alt = sample.altitude;
-                        NSString*timestamp = [NSDateFormatter localizedStringFromDate:sample.timestamp
-                                                                            dateStyle:NSDateFormatterShortStyle
-                                                                            timeStyle:NSDateFormatterFullStyle];
+                        NSString*timestamp = [RCTAppleHealthKit buildISO8601StringFromDate:sample.timestamp];
                         
                         NSDictionary *elem = @{
                             @"latitude" :@(lat),
