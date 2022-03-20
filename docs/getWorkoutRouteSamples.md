@@ -26,22 +26,22 @@ Example output:
 
 ```json
   {
-    anchor: string
+    anchor: string,
     data: {
-      device: String
-      id: String
-      metadata: String
-      sourceName: String
-      sourceId: String
-      start: String
-      end: String
+      device: String,
+      id: String,
+      metadata: String,
+      sourceName: String,
+      sourceId: String,
+      start: String,
+      end: String,
       locations: [{
-        latitude: Number
-        longitude: Number
-        altitude: Number
-        timestamp: String
-        speed: Number
-        speedAccuracy: Number
+        latitude: Number,
+        longitude: Number,
+        altitude: Number,
+        timestamp: String,
+        speed: Number,
+        speedAccuracy: Number,
       }]
     }
   }
