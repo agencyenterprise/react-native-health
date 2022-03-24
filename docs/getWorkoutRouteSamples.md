@@ -26,7 +26,7 @@ Example output:
 
 ```json
   {
-    anchor: string,
+    anchor: String,
     data: {
       device: String,
       id: String,
