@@ -79,7 +79,7 @@
     // create and assign the block
     handlerBlock = ^(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error) {
         
-        if (!sampleObjects) {
+        if (!sampleObjects || sampleObjects == nil || [sampleObjects count] == 0) {
             if (completion) {
                 completion(nil, error);
             }

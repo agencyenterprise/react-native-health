@@ -57,8 +57,7 @@
                         return;
                     } else {
                         NSLog(@"error getting samples: %@", error);
-                        callback(@[RCTMakeError(@"error getting samples", error, nil)]);
-                        
+                        callback(@[RCTMakeError(@"error getting samples. Activity possibly does not have a route.", error, nil)]);
                         return;
                     }
                 };
