@@ -455,6 +455,12 @@ RCT_EXPORT_METHOD(getSleepSamples:(NSDictionary *)input callback:(RCTResponseSen
     [self sleep_getSleepSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(saveSleepSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self sleep_saveSleepSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
