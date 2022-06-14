@@ -367,6 +367,11 @@
     if ([@"Workout" isEqualToString:key]) {
         return [HKObjectType workoutType];
     }
+    
+    // Workout Route
+    if ([@"WorkoutRoute" isEqualToString:key]) {
+        return [HKSeriesType workoutRouteType];
+    }
 
     // Lab and tests
     if ([@"BloodAlcoholContent" isEqualToString: key]) {
