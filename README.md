@@ -263,6 +263,7 @@ they are splitted in the following categories
 - [getSamples](docs/getSamples.md)
 - [getAnchoredWorkouts](/docs/getAnchoredWorkouts.md)
 - [saveWorkout](/docs/saveWorkout.md)
+- [getWorkoutRouteSamples](/docs/getWorkoutRouteSamples.md)
 
 ## Additional Information
 
