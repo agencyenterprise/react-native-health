@@ -714,6 +714,7 @@ declare module 'react-native-health' {
     WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
+    WorkoutRoute = 'WorkoutRoute',
   }
 
   export enum HealthUnit {
