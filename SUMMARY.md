@@ -71,6 +71,7 @@
 * [getDailyFlightsClimbedSamples](/docs/getDailyFlightsClimbedSamples.md)
 * [getFlightsClimbed](/docs/getFlightsClimbed.md)
 * [saveSteps](/docs/saveSteps.md)
+- [saveWalkingRunningDistance](/docs/saveWalkingRunningDistance.md)
 
 ## Hearing Methods
 

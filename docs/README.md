@@ -78,6 +78,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getDailyFlightsClimbedSamples](getDailyFlightsClimbedSamples.md)
 - [getFlightsClimbed](getFlightsClimbed.md)
 - [saveSteps](saveSteps.md)
+- [saveWalkingRunningDistance](/docs/saveWalkingRunningDistance.md)
 
 ### Hearing Methods
 

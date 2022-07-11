@@ -152,6 +152,11 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
+    saveWalkingRunningDistance(
+      options: HealthValueOptions,
+      callback: (error: string, result: HealthValue) => void,
+    ): void
+
     getDistanceWalkingRunning(
       options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
