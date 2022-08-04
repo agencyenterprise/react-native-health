@@ -90,5 +90,6 @@ export const Permissions = {
   WaistCircumference: 'WaistCircumference',
   WalkingHeartRateAverage: 'WalkingHeartRateAverage',
   Weight: 'Weight',
-  Workout: 'Workout'
+  Workout: 'Workout',
+  WorkoutRoute: 'WorkoutRoute'
 }
