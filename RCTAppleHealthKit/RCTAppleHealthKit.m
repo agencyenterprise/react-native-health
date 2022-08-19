@@ -23,6 +23,8 @@
 #import "RCTAppleHealthKit+Methods_Hearing.h"
 #import "RCTAppleHealthKit+Methods_Summary.h"
 #import "RCTAppleHealthKit+Methods_ClinicalRecords.h"
+#import "RCTAppleHealthKit+Methods_Reproductive.h"
+#import "RCTAppleHealthKit+Methods_Mobility.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -537,6 +539,24 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 {
     [self _initializeHealthStore];
     [self clinicalRecords_getClinicalRecords:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getSexualActivity: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self reproductive_getSexualActivity:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveSexualActivity: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self reproductive_saveSexualActivity:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getDoubleSupportPercentage: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self mobility_getDoubleSupportPercentage:input callback:callback];
 }
 
 - (HKHealthStore *)_initializeHealthStore {
