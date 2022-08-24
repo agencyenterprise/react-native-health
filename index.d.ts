@@ -424,6 +424,21 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthActivitySummary>) => void,
     ): void
 
+    getSexualActivity(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<BaseValue>) => void,
+    ): void
+
+    saveSexualActivity(
+      options: HealthValueOptionsMental,
+      callback: (error: string, result: HealthValue) => void,
+    ): void
+
+    getDoubleSupportPercentage(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
     Constants: Constants
   }
 
@@ -450,9 +465,10 @@ declare module 'react-native-health' {
   }
 
   export interface RecordMetadata {
-    HKBloodGlucoseMealTime?: BloodGlucoseMealTime
-    HKWasUserEntered?: boolean
-    [key: string]: string | number | boolean
+    HKBloodGlucoseMealTime?: BloodGlucoseMealTime,
+    HKSexualActivityProtectionUsed?: SexualActivityProtectionUsed,
+    HKWasUserEntered?: boolean,
+    [key: string]: string | number | boolean | undefined,
   }
 
   export interface HealthValue extends BaseValue {
@@ -529,6 +545,12 @@ declare module 'react-native-health' {
     startDate?: string
     endDate?: string
     metadata?: RecordMetadata
+  }
+
+  export interface HealthValueOptionsMental {
+    startDate?: string;
+    endDate?: string;
+    metadata?: RecordMetadata;
   }
 
   export interface HealthActivityOptions
@@ -746,7 +768,9 @@ declare module 'react-native-health' {
     WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
-    WorkoutRoute = 'WorkoutRoute'
+    WorkoutRoute = 'WorkoutRoute',
+    SexualActivity = 'SexualActivity',
+    DoubleSupportPercentage = 'DoubleSupportPercentage',
   }
 
   export enum HealthUnit {
@@ -830,7 +854,13 @@ declare module 'react-native-health' {
     Postprandial = 2,
   }
 
-  const appleHealthKit: AppleHealthKit
+  export enum SexualActivityProtectionUsed {
+    Protected = 1,
+    Unprotected = 0,
+  }
 
-  export default appleHealthKit
+const AppleHealthKit: AppleHealthKit;
+
+export default AppleHealthKit;
 }
+
