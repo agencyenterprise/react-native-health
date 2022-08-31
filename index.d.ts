@@ -1,4 +1,4 @@
-import { HealthInputOptions } from 'react-native-health'
+import 'react-native-health';
 
 declare module 'react-native-health' {
   export interface HealthKitPermissions {
@@ -9,10 +9,10 @@ declare module 'react-native-health' {
   }
 
   export interface Constants {
-    Activities: Record<HealthActivity, HealthActivity>
-    Observers: Record<HealthObserver, HealthObserver>
-    Permissions: Record<HealthPermission, HealthPermission>
-    Units: Record<HealthUnit, HealthUnit>
+    Activities: HealthActivity;
+    Observers: HealthObserver;
+    Permissions: HealthPermission;
+    Units: HealthUnit;
   }
 
   export interface HKErrorResponse {
