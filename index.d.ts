@@ -9,11 +9,11 @@ declare module 'react-native-health' {
   }
 
   export interface Constants {
-    Activities: HealthActivity;
-    Observers: HealthObserver;
-    Permissions: HealthPermission;
-    Units: HealthUnit;
-  }
+    Activities: { [T in HealthActivity]: T };
+    Observers: { [T in HealthObserver]: T };
+    Permissions: { [T in HealthPermission]: T };
+    Units: { [T in HealthUnit]: T };
+}
 
   export interface HKErrorResponse {
     message?: string;
