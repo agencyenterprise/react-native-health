@@ -59,6 +59,12 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     } else if ([@"DistanceWalkingRunning" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+    } else if ([@"RunningSpeed" isEqualToString: key]) {
+        if (@available(iOS 16.0, *)) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRunningSpeed];
+        } else {
+            return nil;
+        }
     } else if ([@"DistanceCycling" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
     } else if ([@"DistanceSwimming" isEqualToString: key]) {
@@ -260,6 +266,12 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     } else if ([@"DistanceWalkingRunning" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+    } else if ([@"RunningSpeed" isEqualToString:key]) {
+        if (@available(iOS 16.0, *)) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRunningSpeed];
+        } else {
+            return nil;
+        }
     } else if ([@"DistanceCycling" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
     } else if ([@"DistanceSwimming" isEqualToString:key]) {
@@ -370,7 +382,11 @@
     
     // Workout Route
     if ([@"WorkoutRoute" isEqualToString:key]) {
-        return [HKSeriesType workoutRouteType];
+        if (@available(iOS 11.0, *)) {
+            return [HKSeriesType workoutRouteType];
+        } else {
+            return nil;
+        }
     }
 
     // Lab and tests
