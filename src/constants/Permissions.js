@@ -93,4 +93,8 @@ export const Permissions = {
   Workout: 'Workout',
   WorkoutRoute: 'WorkoutRoute',
   RunningSpeed: 'RunningSpeed',
+  RunningPower: 'RunningPower',
+  RunningStrideLength: 'RunningStrideLength',
+  RunningVerticalOscillation: 'RunningVerticalOscillation',
+  RunningGroundContactTime: 'RunningGroundContactTime',
 }
