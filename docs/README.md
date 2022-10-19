@@ -68,7 +68,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 
 - [getDailyStepCountSamples](getDailyStepCountSamples.md)
 - [getStepCount](getStepCount.md)
-- [getSamples](docs/getSamples.md)
+- [getSamples](getSamples.md)
 - [getDailyDistanceWalkingRunningSamples](getDailyDistanceWalkingRunningSamples.md)
 - [getDistanceWalkingRunning](getDistanceWalkingRunning.md)
 - [getDailyDistanceSwimmingSamples](getDailyDistanceSwimmingSamples.md)
