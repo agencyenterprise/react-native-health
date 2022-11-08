@@ -195,6 +195,8 @@ they are splitted in the following categories
 - [getProteinSamples](/docs/getProteinSamples.md)
 - [getTotalFatSamples](/docs/getTotalFatSamples.md)
 - [saveFood](/docs/saveFood.md)
+- [getFood](/docs/getFood.md)
+- [deleteFood](/docs/deleteFood.md)
 - [saveWater](/docs/saveWater.md)
 - [getWater](/docs/getWater.md)
 

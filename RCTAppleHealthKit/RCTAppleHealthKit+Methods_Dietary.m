@@ -477,6 +477,63 @@
     }];
 }
 
+- (void)getFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+
+
+    if(startDate == nil) {
+        callback(@[RCTMakeError(@"could not parse start date from options.startDate", nil, nil)]);
+        return;
+    }
+
+    HKCorrelationType *dietaryFoodType = [HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierFood];
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    
+    [self fetchFoodSamples: dietaryFoodType
+                           predicate:predicate
+                          completion:^(NSArray *results, NSError *error) {
+        if(results){
+            callback(@[[NSNull null], results]);
+            return;
+        } else {
+            callback(@[RCTJSErrorFromNSError(error)]);
+            return;
+        }
+    }];
+}
+
+- (void)deleteFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    NSString *objectId = [RCTAppleHealthKit stringFromOptions:input key:@"objectId" withDefault:nil];
+
+
+    if(startDate == nil) {
+        callback(@[RCTMakeError(@"could not parse start date from options.startDate", nil, nil)]);
+        return;
+    }
+    if(objectId == nil) {
+        callback(@[RCTMakeError(@"could not parse object id from options.objectId", nil, nil)]);
+        return;
+    }
+
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    
+    [self deleteHealthKitObject:objectId type:[HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierFood]
+                           predicate:predicate
+                          completion:^(BOOL success, NSError *error) {
+        callback(@[error == nil ? [NSNull null]: RCTJSErrorFromNSError(error), success ? @true : @false]);
+        return;
+    }];
+}
+
 - (void)saveWater:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDate *timeWaterWasConsumed = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];

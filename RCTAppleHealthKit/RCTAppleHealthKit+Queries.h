@@ -118,4 +118,14 @@
                      endDate:(NSDate *)endDate
                   completion:(void (^)(NSArray *, NSError *))completionHandler;
 
+
+- (void)fetchFoodSamples:(HKCorrelationType *)correlationType
+                         predicate:(NSPredicate *)predicate
+                        completion:(void (^)(NSArray *, NSError *))completion;
+
+- (void)deleteHealthKitObject:(NSString *)objectId
+                  type: (HKSampleType *)type
+                  predicate:(NSPredicate *)predicate
+                  completion:(void (^)(BOOL success, NSError *))completionHandler;
+
 @end

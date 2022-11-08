@@ -40,5 +40,6 @@ extern NSString * const kMetadataKey;
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
 + (NSString*) stringForHKWorkoutActivityType:(int) enumValue;
++ (NSString*) getSimpleNameForHKIdentifierType:(HKQuantityTypeIdentifier) type;
 
 @end
