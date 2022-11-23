@@ -22,7 +22,7 @@ declare module 'react-native-health' {
   export interface AppleHealthKit {
     initHealthKit(
       permissions: HealthKitPermissions,
-      callback: (error: string, result: HealthValue) => void,
+      callback: (error: string, result: HealthStatusCode) => void,
     ): void
 
     isAvailable(callback: (error: Object, results: boolean) => void): void
