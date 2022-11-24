@@ -28,6 +28,6 @@
     "react-native": ">=0.40.0"
   },
   "dependencies": {
-    "@expo/config-plugins": "^2.0.0"
+    "@expo/config-plugins": "^4.1.5"
   }
 }
