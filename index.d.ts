@@ -314,7 +314,7 @@ declare module 'react-native-health' {
 
     getSleepSamples(
       options: HealthInputOptions,
-      callback: (err: string, results: Array<HealthValue>) => void,
+      callback: (err: string, results: Array<SleepValue>) => void,
     ): void
 
     getInfo(
@@ -493,6 +493,12 @@ declare module 'react-native-health' {
 
   export interface HealthValue extends BaseValue {
     value: number
+  }
+
+  export interface SleepValue extends BaseValue {
+    value: 'INBED' | 'ASLEEP' | 'CORE' | 'DEEP' | 'REM' | 'AWAKE' | 'UNKNOWN'
+    sourceName: string
+    sourceId: string
   }
 
   export interface BloodPressureSampleValue extends BaseValue {
