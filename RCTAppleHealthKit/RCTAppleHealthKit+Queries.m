@@ -606,18 +606,46 @@
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
 
                     NSString *valueString;
-
-                    switch (val) {
-                      case HKCategoryValueSleepAnalysisInBed:
-                        valueString = @"INBED";
-                      break;
-                      case HKCategoryValueSleepAnalysisAsleep:
-                        valueString = @"ASLEEP";
-                      break;
-                     default:
-                        valueString = @"UNKNOWN";
-                     break;
-                  }
+                    if (@available(iOS 16.0, *)) {
+                        switch (val) {
+                            case HKCategoryValueSleepAnalysisInBed:
+                                valueString = @"INBED";
+                                break;
+                            case HKCategoryValueSleepAnalysisAwake:
+                                valueString = @"AWAKE";
+                                break;
+                            case HKCategoryValueSleepAnalysisAsleepCore:
+                                valueString = @"LIGHT_SLEEP";
+                                break;
+                            case HKCategoryValueSleepAnalysisAsleepDeep:
+                                valueString = @"DEEP_SLEEP";
+                                break;
+                            case HKCategoryValueSleepAnalysisAsleepREM:
+                                valueString = @"REM_SLEEP";
+                                break;
+                            case HKCategoryValueSleepAnalysisAsleepUnspecified:
+                                valueString = @"ASLEEP_UNSPECIFIED";
+                                break;
+                            default:
+                                valueString = @"UNKNOWN";
+                                break;
+                        }
+                    } else {
+                        switch (val) {
+                            case HKCategoryValueSleepAnalysisInBed:
+                                valueString = @"INBED";
+                                break;
+                            case HKCategoryValueSleepAnalysisAsleep:
+                                valueString = @"ASLEEP";
+                                break;
+                            case HKCategoryValueSleepAnalysisAwake:
+                                valueString = @"AWAKE";
+                                break;
+                            default:
+                                valueString = @"UNKNOWN";
+                                break;
+                        }
+                    }
 
                     NSDictionary *elem = @{
                             @"id" : [[sample UUID] UUIDString],

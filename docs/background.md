@@ -21,6 +21,7 @@ following:
 - `Vo2Max`
 - `Walking`
 - `Workout`
+- `SleepAnalysis`
 
 ### Initialization
 

@@ -463,8 +463,13 @@
                           bridge:(RCTBridge *)bridge
                     hasListeners:(bool)hasListeners
 {
-    HKSampleType *sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
-
+    HKSampleType *sampleType;
+    if ([type isEqual:@"SleepAnalysis"]){
+        sampleType = [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
+    } else {
+        sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
+    }
+    
     [self setObserverForType:sampleType type:type bridge:bridge hasListeners:hasListeners];
 }
 
