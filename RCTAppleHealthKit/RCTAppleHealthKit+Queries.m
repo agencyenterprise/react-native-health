@@ -438,6 +438,18 @@
 						case HKCategoryValueSleepAnalysisAsleep:
 							valueString = @"ASLEEP";
 							break;
+                        case HKCategoryValueSleepAnalysisAsleepCore:
+                            valueString = @"CORE";
+                            break;
+                        case HKCategoryValueSleepAnalysisAsleepDeep:
+                            valueString = @"DEEP";
+                            break;
+                        case HKCategoryValueSleepAnalysisAsleepREM:
+                            valueString = @"REM";
+                            break;
+                        case HKCategoryValueSleepAnalysisAwake:
+                            valueString = @"AWAKE";
+                            break;
 						default:
 							valueString = @"UNKNOWN";
 							break;

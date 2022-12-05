@@ -3,7 +3,7 @@
 Query for sleep samples.
 
 Each sleep sample represents a period of time with a startDate and an endDate.
-the sample's value will be either `INBED` or `ASLEEP`. these values should overlap,
+the sample's value will be one of available values: `INBED`, `ASLEEP`, `CORE`, `DEEP`, `REM`, `AWAKE`, `UNKNOWN`. these values should overlap,
 meaning that two (or more) samples represent a single nights sleep activity. see
 [Healthkit SleepAnalysis] reference documentation
 
@@ -22,11 +22,11 @@ let options = {
 ```
 
 ```javascript
-AppleHealthKit.getSleepSamples(options, (err: Object, results: Array<HealthValue>) => {
+AppleHealthKit.getSleepSamples(options, (err: Object, results: Array<SleepValue>) => {
   if (err) {
     return;
   }
-  console.log(results).
+  console.log(results)
 });
 ```
 
