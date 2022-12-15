@@ -3,9 +3,10 @@
 Query for sleep samples.
 
 Each sleep sample represents a period of time with a startDate and an endDate.
-the sample's value will be either `INBED` or `ASLEEP`. these values should overlap,
-meaning that two (or more) samples represent a single nights sleep activity. see
-[Healthkit SleepAnalysis] reference documentation
+the sample's value will be either `INBED`, `ASLEEP`, or a sleep stage (`DEEP`,
+`CORE`, `REM`). In bed and sleeping samples should overlap, meaning that two
+(or more) samples represent a single nights sleep activity. See
+[Healthkit SleepAnalysis] reference documentation.
 
 The options object is used to setup a query to retrieve relevant samples.
 The options must contain `startDate` and may also optionally include `endDate`, `ascending`, or `limit` options
