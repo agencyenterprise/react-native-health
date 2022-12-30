@@ -67,6 +67,124 @@
     [self.healthStore executeQuery:query];
 }
 
+- (void)fetchAllSources:(RCTResponseSenderBlock)callback {
+    
+    NSMutableDictionary *outputData=[[NSMutableDictionary alloc] initWithCapacity:1];
+    
+    NSMutableArray *sampleTypes = [NSMutableArray arrayWithCapacity:1];
+    [sampleTypes addObject:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]];
+    [sampleTypes addObject:[HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure]];
+    
+    dispatch_group_t collectSourceGroup = dispatch_group_create();
+    
+    for(HKSampleType *sampleType in sampleTypes) {
+        dispatch_group_enter(collectSourceGroup);
+        HKSourceQuery *sourceQuery = [[HKSourceQuery alloc] initWithSampleType:sampleType samplePredicate:nil completionHandler:^(HKSourceQuery *query, NSSet *sources, NSError *error) {
+            
+            
+            dispatch_group_t collectDeviceGroup = dispatch_group_create();
+            
+            for(HKSource * source in sources) {
+                NSString *bundleId = [source bundleIdentifier];
+                Boolean isThirdParty = NO;
+                NSString *productType = [source valueForKey:@"productType"];
+                if([productType length]>0) {
+                    
+                } else {
+                    if([bundleId hasPrefix:@"com.apple.Health"]){
+                        productType=@"iPhone Health App";
+                    } else if([bundleId hasPrefix:@"com.apple.health."]) {
+                        productType=@"Apple Health Device";
+                    } else if([bundleId hasPrefix:@"jp.co.omron.healthcare.omronconnect"]) {
+                        productType=@"Omron Device";
+                        isThirdParty=YES;
+                    } else
+                        isThirdParty=YES;
+                }
+                if(isThirdParty) {
+                    dispatch_group_enter(collectDeviceGroup);
+                    
+                    NSPredicate *sourcePredicate = [HKQuery predicateForObjectsFromSource:source];
+                    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierStartDate ascending:NO];
+                    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:sampleType
+                                                                           predicate:sourcePredicate
+                                                                               limit:HKObjectQueryNoLimit
+                                                                     sortDescriptors:@[timeSortDescriptor]
+                                                                      resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+                        //Get metadata (Device Name, OS version...)
+                        NSMutableDictionary *deviceList=[[NSMutableDictionary alloc] initWithCapacity:1];
+                        for(HKSample * sample in results) {
+                            if(sample){
+                                NSObject*metaData = [sample metadata] ? [sample metadata] : @{};
+                                NSString *deviceName = [sample metadata] ? [metaData valueForKey:@"HKDeviceName"] : @[[NSNull null]];
+                                NSString *manufacturer = [sample metadata] ? [metaData valueForKey:@"HKDeviceManufacturerName"] : @[[NSNull null]];
+                                NSString *serialNumber = [sample metadata] ? [metaData valueForKey:@"HKDeviceSerialNumber"] : @[[NSNull null]];
+                                //                                NSString *deviceType = [metaData valueForKey:@"HKDeviceName"];
+                                NSString *tempDeviceKey=[deviceName stringByAppendingFormat:@"/%@", serialNumber];
+                                if(serialNumber && deviceName && [deviceList objectForKey:tempDeviceKey]==nil){
+                                    NSDictionary *device = @{
+                                        @"name" : deviceName,
+                                        @"serialNumber" : serialNumber,
+                                        @"manufacturer":manufacturer,
+                                    };
+                                    
+                                    NSDictionary *elem = @{
+                                        @"sourceName" : [source name],
+                                        @"sourceId" : bundleId,
+                                        @"localDevice":[source valueForKey:@"localDevice"],
+                                        @"productType":productType,
+                                        @"metadata":metaData,
+                                        @"device":device,
+                                        @"deviceKey":tempDeviceKey,
+                                    };
+                                    [deviceList setObject:elem forKey:tempDeviceKey];
+                                }
+                            }
+                        }
+                        
+                        for(NSDictionary *deviceSource in [deviceList allValues]) {
+                            if(deviceSource){
+                                NSString *tempDeviceKey=[[deviceSource valueForKey:@"sourceId"] stringByAppendingFormat:@"/%@/%@", [deviceSource valueForKey:@"productType"], [deviceSource valueForKey:@"deviceKey"]];
+                                if([outputData objectForKey:tempDeviceKey]==nil) {
+                                    NSMutableDictionary *finalDeviceSource = [deviceSource mutableCopy];
+                                    [finalDeviceSource setObject:tempDeviceKey forKey:@"key"];
+                                    [outputData setObject:finalDeviceSource forKey:tempDeviceKey];
+                                }
+                            }
+                        }
+                        
+                        dispatch_group_leave(collectDeviceGroup);
+                    }];
+                    [self.healthStore executeQuery:query];
+                    
+                } else {
+                    NSString *tempDeviceKey=[bundleId stringByAppendingFormat:@"/%@", productType];
+                    NSDictionary *elem = @{
+                        @"sourceName" : [source name],
+                        @"sourceId" : bundleId,
+                        @"localDevice":[source valueForKey:@"localDevice"],
+                        @"productType":productType,
+                        @"key":tempDeviceKey,
+                    };
+                    
+                    [outputData setObject:elem forKey:tempDeviceKey];
+                }
+            }
+            
+            
+            dispatch_group_notify(collectDeviceGroup, dispatch_get_main_queue(), ^{
+                NSLog(@"DONE get DEVICE for %@", sampleType.identifier);
+                dispatch_group_leave(collectSourceGroup);
+            });
+        }];
+        [self.healthStore executeQuery:sourceQuery];
+    }
+    
+    dispatch_group_notify(collectSourceGroup, dispatch_get_main_queue(), ^{
+        callback(@[[NSNull null], [outputData allValues]]);
+    });
+}
+
 - (void)fetchWorkoutRoute:(HKSampleType *)type
                 predicate:(NSPredicate *)predicate
                    anchor:(HKQueryAnchor *)anchor

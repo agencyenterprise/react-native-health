@@ -12,6 +12,12 @@
 @interface RCTAppleHealthKit (Queries)
 @property(readonly, nonatomic) CLLocationCoordinate2D coordinate;
 
+- (void)fetchSourcesOfType:(HKSampleType *)type
+                    predicate:(NSPredicate *)predicate
+                   completion:(void (^)(NSDictionary *, NSError *))completion;
+
+- (void)fetchAllSources:(RCTResponseSenderBlock)callback;
+
 - (void)fetchWorkoutById:(HKSampleType *)quantityType
                               unit:(HKUnit *)unit
                          predicate:(NSPredicate *)predicate

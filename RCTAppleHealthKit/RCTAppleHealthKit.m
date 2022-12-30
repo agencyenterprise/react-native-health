@@ -24,6 +24,8 @@
 #import "RCTAppleHealthKit+Methods_Summary.h"
 #import "RCTAppleHealthKit+Methods_ClinicalRecords.h"
 
+#import "RCTAppleHealthKit+Queries.h"
+
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
 
@@ -333,6 +335,12 @@ RCT_EXPORT_METHOD(getHeartRateSamples:(NSDictionary *)input callback:(RCTRespons
 {
     [self _initializeHealthStore];
     [self vitals_getHeartRateSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getHealthDataSources:(NSArray *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self getDataSources:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getRestingHeartRate:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -659,6 +667,23 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             @"author": @"Greg Wilson",
     };
     callback(@[[NSNull null], info]);
+}
+
+- (void)getDataSources:(NSArray *)input callback:(RCTResponseSenderBlock)callback
+{
+    NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+    if(input) {
+        //Merge all sources of selected health type
+        for(NSString * healthType in input) {
+            NSMutableArray *sourceOfHealthType = [NSMutableArray arrayWithCapacity:1];
+//            [self fetchAllSources:(HKSampleType *) predicate:<#(NSPredicate *)#> anchor:<#(HKQueryAnchor *)#> limit:<#(NSUInteger)#> completion:<#^(NSDictionary *, NSError *)completion#>]
+//            [data addObjectsFromArray:sourceOfHealthType];
+        }
+    } else {
+        //Collect all data sources from all health sample
+        [self fetchAllSources:callback];
+    }
+//    callback(@[[NSNull null], data]);
 }
 
 - (void)getAuthorizationStatus:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
