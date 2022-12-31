@@ -70,26 +70,26 @@
 - (void)fetchAllSources:(RCTResponseSenderBlock)callback {
     
     NSMutableDictionary *outputData=[[NSMutableDictionary alloc] initWithCapacity:1];
-    
+
     NSMutableArray *sampleTypes = [NSMutableArray arrayWithCapacity:1];
     [sampleTypes addObject:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]];
     [sampleTypes addObject:[HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure]];
-    
+
     dispatch_group_t collectSourceGroup = dispatch_group_create();
-    
+
     for(HKSampleType *sampleType in sampleTypes) {
         dispatch_group_enter(collectSourceGroup);
         HKSourceQuery *sourceQuery = [[HKSourceQuery alloc] initWithSampleType:sampleType samplePredicate:nil completionHandler:^(HKSourceQuery *query, NSSet *sources, NSError *error) {
-            
-            
+
+
             dispatch_group_t collectDeviceGroup = dispatch_group_create();
-            
+
             for(HKSource * source in sources) {
                 NSString *bundleId = [source bundleIdentifier];
                 Boolean isThirdParty = NO;
                 NSString *productType = [source valueForKey:@"productType"];
                 if([productType length]>0) {
-                    
+
                 } else {
                     if([bundleId hasPrefix:@"com.apple.Health"]){
                         productType=@"iPhone Health App";
@@ -103,7 +103,7 @@
                 }
                 if(isThirdParty) {
                     dispatch_group_enter(collectDeviceGroup);
-                    
+
                     NSPredicate *sourcePredicate = [HKQuery predicateForObjectsFromSource:source];
                     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierStartDate ascending:NO];
                     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:sampleType
@@ -127,7 +127,7 @@
                                         @"serialNumber" : serialNumber,
                                         @"manufacturer":manufacturer,
                                     };
-                                    
+
                                     NSDictionary *elem = @{
                                         @"sourceName" : [source name],
                                         @"sourceId" : bundleId,
@@ -141,7 +141,7 @@
                                 }
                             }
                         }
-                        
+
                         for(NSDictionary *deviceSource in [deviceList allValues]) {
                             if(deviceSource){
                                 NSString *tempDeviceKey=[[deviceSource valueForKey:@"sourceId"] stringByAppendingFormat:@"/%@/%@", [deviceSource valueForKey:@"productType"], [deviceSource valueForKey:@"deviceKey"]];
@@ -152,11 +152,11 @@
                                 }
                             }
                         }
-                        
+
                         dispatch_group_leave(collectDeviceGroup);
                     }];
                     [self.healthStore executeQuery:query];
-                    
+
                 } else {
                     NSString *tempDeviceKey=[bundleId stringByAppendingFormat:@"/%@", productType];
                     NSDictionary *elem = @{
@@ -166,12 +166,12 @@
                         @"productType":productType,
                         @"key":tempDeviceKey,
                     };
-                    
+
                     [outputData setObject:elem forKey:tempDeviceKey];
                 }
             }
-            
-            
+
+
             dispatch_group_notify(collectDeviceGroup, dispatch_get_main_queue(), ^{
                 NSLog(@"DONE get DEVICE for %@", sampleType.identifier);
                 dispatch_group_leave(collectSourceGroup);
@@ -179,7 +179,7 @@
         }];
         [self.healthStore executeQuery:sourceQuery];
     }
-    
+
     dispatch_group_notify(collectSourceGroup, dispatch_get_main_queue(), ^{
         callback(@[[NSNull null], [outputData allValues]]);
     });

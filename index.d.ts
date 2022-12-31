@@ -1,6 +1,16 @@
+import React from 'react'
 import { HealthInputOptions } from 'react-native-health'
+// import { HealthKitContext, HealthKitProvider, useHealthKit } from './health.js'
+
+
+// export { default as HealthKitProvider } from './health.js';
+  // export interface HealthKitProviderProps {}
+  // export const HealthKitProvider:React.FC<HealthKitProviderProps>;
 
 declare module 'react-native-health' {
+  // export const HealthKitProvider:HealthKitProvider 
+  // HealthKitProvider: React.FC;
+
   export interface HealthKitPermissions {
     permissions: {
       read: HealthPermission[]
