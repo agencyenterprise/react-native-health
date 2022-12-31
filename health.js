@@ -164,44 +164,17 @@ export function HealthKitProvider(props) {
     )
 }
 
-export function HealthKitDataSource({onGetSourcesDone, patients, children, onConfiged}) {
+export function HealthKitDataSource({onGetSourcesDone, children}) {
     const { localDevices, syncedDevices } = useHealthKit();
-    const [patientDevices, setPatientDevices] = useState()
-    const [devices, setDevices] = useState()
 
     useEffect(()=>{
         if(localDevices && Array.isArray(localDevices)){
             onGetSourcesDone && onGetSourcesDone(localDevices)
-            setDevices(localDevices)
+            // setDevices(localDevices)
         }
     }, [localDevices])
 
-    useEffect(()=>{
-        if(patients && Array.isArray(patients)) {
-
-        }
-    }, [patients])
-
-    return <Fragment>
-        <View style={{ margin: 10, backgroundColor: 'red', height: "100%", position: 'relative', paddingTop: 100 }}>
-            {/* <LineGraph min={0} max={180} dangerousMin={30} dangerousMax={150} values={[40, 20, 10, 98, 18, 100, 50, 100, 168]} /> */}
-            <View>
-                {/* <Text>Heart rate: {heartRate} </Text> */}
-                {
-                    devices && Array.isArray(devices) ? devices.map((source, key) => {
-                        return (
-                            <View key={key} style={{ marginBottom: 20 }}>
-                                <Text>Key: {source.key}</Text>
-                                <Text>Name: {source.sourceName} ({source.productType})</Text>
-                                <Text>Source: {source.sourceId}</Text>
-                                <Text>Device 1: {JSON.stringify(source.device)}</Text>
-                            </View>
-                        )
-                    })
-                        : <Text>{JSON.stringify(devices)}</Text>
-                }
-            </View>
-        </View>
+    return <>
         {children}
-    </Fragment>
+    </>
 }

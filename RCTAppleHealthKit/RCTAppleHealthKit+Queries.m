@@ -185,6 +185,88 @@
     });
 }
 
+
+- (void)fetchSampleFromSource:(NSString *)sourceKey
+                     callback:(RCTResponseSenderBlock)callback {
+    
+    NSMutableDictionary *outputData=[[NSMutableDictionary alloc] initWithCapacity:1];
+
+    NSMutableArray *sampleTypes = [NSMutableArray arrayWithCapacity:1];
+    [sampleTypes addObject:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]];
+    [sampleTypes addObject:[HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure]];
+
+    dispatch_group_t collectSourceGroup = dispatch_group_create();
+
+    for(HKSampleType *sampleType in sampleTypes) {
+        dispatch_group_enter(collectSourceGroup);
+        HKSourceQuery *sourceQuery = [[HKSourceQuery alloc] initWithSampleType:sampleType samplePredicate:nil completionHandler:^(HKSourceQuery *query, NSSet *sources, NSError *error) {
+
+
+            dispatch_group_t collectDeviceGroup = dispatch_group_create();
+
+            for(HKSource * source in sources) {
+                NSString *bundleId = [source bundleIdentifier];
+                Boolean isThirdParty = NO;
+                NSString *productType = [source valueForKey:@"productType"];
+                if([productType length]>0) {
+                    
+                } else {
+                    if([bundleId hasPrefix:@"com.apple.Health"]){
+                        productType=@"iPhone Health App";
+                    } else if([bundleId hasPrefix:@"com.apple.health."]) {
+                        productType=@"Apple Health Device";
+                    } else if([bundleId hasPrefix:@"jp.co.omron.healthcare.omronconnect"]) {
+                        productType=@"Omron Device";
+                        isThirdParty=YES;
+                    } else
+                        isThirdParty=YES;
+                }
+                
+                NSString *tempSourceKey=[bundleId stringByAppendingFormat:@"/%@", productType];
+                
+                if([sourceKey hasPrefix:tempSourceKey]){
+                    dispatch_group_enter(collectDeviceGroup);
+                    
+                    NSPredicate *sourcePredicate = [HKQuery predicateForObjectsFromSource:source];
+                    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierStartDate ascending:NO];
+                    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:sampleType
+                                                                           predicate:sourcePredicate
+                                                                               limit:HKObjectQueryNoLimit
+                                                                     sortDescriptors:@[timeSortDescriptor]
+                                                                      resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+//                        NSMutableDictionary *deviceList=[[NSMutableDictionary alloc] initWithCapacity:1];
+                        for(HKSample * sample in results) {
+                            if(sample){
+                                NSObject*metaData = [sample metadata] ? [sample metadata] : @{};
+                                NSString *deviceName = [sample metadata] ? [metaData valueForKey:@"HKDeviceName"] : @[[NSNull null]];
+                                NSString *serialNumber = [sample metadata] ? [metaData valueForKey:@"HKDeviceSerialNumber"] : @[[NSNull null]];
+                                
+                                NSString *tempDeviceKey=[deviceName stringByAppendingFormat:@"/%@", serialNumber];
+                                
+                                if(!isThirdParty || (isThirdParty&&[sourceKey hasSuffix:tempDeviceKey])) {
+                                    [outputData setObject:sample forKey:[sample UUID]];
+                                    dispatch_group_leave(collectDeviceGroup);
+                                }
+                            }
+                        }
+                    }];
+                    [self.healthStore executeQuery:query];
+                        
+                }
+            }
+            dispatch_group_notify(collectDeviceGroup, dispatch_get_main_queue(), ^{
+                NSLog(@"DONE get SAMPLE from SOURCE %@", sampleType.identifier);
+                dispatch_group_leave(collectSourceGroup);
+            });
+        }];
+        [self.healthStore executeQuery:sourceQuery];
+    }
+
+    dispatch_group_notify(collectSourceGroup, dispatch_get_main_queue(), ^{
+        callback(@[[NSNull null], [outputData allValues]]);
+    });
+}
+
 - (void)fetchWorkoutRoute:(HKSampleType *)type
                 predicate:(NSPredicate *)predicate
                    anchor:(HKQueryAnchor *)anchor

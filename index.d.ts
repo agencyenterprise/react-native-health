@@ -237,6 +237,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthSource>) => void,
     ): void
 
+    getSamplesFromSource (
+      sourceKey: string,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
     getRestingHeartRate(
       options: HealthInputOptions,
       callback: (err: string, results: HealthValue) => void,
@@ -480,7 +485,9 @@ declare module 'react-native-health' {
     device?: HealthDevice
     isUserEnter?: boolean
     isPrivate?: boolean
-    usedFor?: string
+    usedFor?: any
+    icon?:string
+    key?:string
   }
   export interface HealthDevice {
     name?: string
