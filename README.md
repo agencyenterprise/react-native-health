@@ -4,6 +4,9 @@
 
 A React Native package to interact with Apple HealthKit for iOS.
 
+# Discord
+<a href="https://discord.gg/d24g5XDePr"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg" alt="React Native Health official Discord"></a>
+
 ## Getting Started
 
 > 🚨 Expo: This package is not available in the [Expo Go](https://expo.io/client) app. Learn how you can use it with [custom dev clients](/docs/Expo.md).
