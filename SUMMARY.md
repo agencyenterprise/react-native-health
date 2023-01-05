@@ -56,6 +56,7 @@
 * [saveFood](/docs/saveFood.md)
 * [saveWater](/docs/saveWater.md)
 * [getWater](/docs/getWater.md)
+* [getWaterSamples](/docs/getWaterSamples.md)
 
 ## Fitness Methods
 
