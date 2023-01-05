@@ -329,7 +329,7 @@ declare module 'react-native-health' {
 
     getMindfulSession(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     saveMindfulSession(
