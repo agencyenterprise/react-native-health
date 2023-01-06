@@ -498,6 +498,13 @@ declare module 'react-native-health' {
     locations: LocationValue[]
   }
 
+  export type HKWorkoutEventType = {
+    endDate: string
+    startDate: string
+    eventTypeInt: number
+    eventType: string
+  }
+
   export interface HKWorkoutQueriedSampleType {
     activityId: number
     activityName: string
@@ -511,6 +518,8 @@ declare module 'react-native-health' {
     distance: number
     start: string
     end: string
+    duration: number
+    workoutEvents: HKWorkoutEventType[]
   }
 
 
