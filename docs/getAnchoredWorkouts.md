@@ -59,5 +59,12 @@ The resulting workouts in the array will look as the following:
   distance: Number, // [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]]
   start: String, // [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
   end: String, // [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+  duration: Number, // NSTimeInterval (seconds)
+  workoutEvents: {
+    endDate: String, // [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+    startDate: String, // [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate]
+    eventTypeInt: Number,
+    eventType: String, // EventType enum
+  }[]
 }
 ```
