@@ -190,7 +190,8 @@
                      callback:(RCTResponseSenderBlock)callback {
     
     NSMutableDictionary *outputData=[[NSMutableDictionary alloc] initWithCapacity:1];
-
+    
+    HKUnit *unit = [HKUnit millimeterOfMercuryUnit];
     NSMutableArray *sampleTypes = [NSMutableArray arrayWithCapacity:1];
     [sampleTypes addObject:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]];
     [sampleTypes addObject:[HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure]];
@@ -270,10 +271,12 @@
                                             [elem setValue:metadata forKey:kMetadataKey];
                                         }
                                         if([sample sampleType]==[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]) {
-                                            [elem setValue:[sample valueForKey:@"quantity"] forKey:@"quantity"];
+                                            HKQuantity *quantity = [sample valueForKey:@"quantity"];
+                                            double value = [quantity doubleValueForUnit:unit];
+                                            [elem setValue:@(value) forKey:@"value"];
+                                            [elem setValue:@"HeartRate" forKey:@"sampleType"];
                                         } else if([sample sampleType]==[HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure]) {
                                             HKCorrelation *bloodPressureValues = (HKCorrelation *)sample;
-                                            HKUnit *unit = [HKUnit millimeterOfMercuryUnit];
                                             HKQuantityType *systolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
                                             HKQuantityType *diastolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
                                             
@@ -283,6 +286,7 @@
                                             [elem setValue:@([bloodPressureSystolicValue.quantity doubleValueForUnit:unit]) forKey:@"bloodPressureSystolicValue"];
                                             [elem setValue:@([bloodPressureDiastolicValue.quantity doubleValueForUnit:unit]) forKey:@"bloodPressureDiastolicValue"];
 //                                            [elem setValue:@(bloodPressureValues) forKey:@"correlation"];
+                                            [elem setValue:@"BloodPressure" forKey:@"sampleType"];
                                         }
                                         [outputData setObject:elem forKey: [[sample UUID] UUIDString]];
                                         NSLog(@"SAVE get SAMPLE from SOURCE %@", sample);

@@ -479,6 +479,7 @@ declare module 'react-native-health' {
     value: number
     bloodPressureSystolicValue?: number
     bloodPressureDiastolicValue?: number
+    sampleType?: string
   }
 
   export interface HealthSource {
