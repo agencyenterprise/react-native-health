@@ -477,6 +477,8 @@ declare module 'react-native-health' {
 
   export interface HealthValue extends BaseValue {
     value: number
+    bloodPressureSystolicValue?: number
+    bloodPressureDiastolicValue?: number
   }
 
   export interface HealthSource {

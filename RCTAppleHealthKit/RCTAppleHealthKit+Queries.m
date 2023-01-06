@@ -223,15 +223,19 @@
                 }
                 
                 NSString *tempSourceKey=[bundleId stringByAppendingFormat:@"/%@", productType];
+                NSLog(@"Exactly bundle Id %@", sourceKey);
                 
                 if([sourceKey hasPrefix:tempSourceKey]){
+                    
+                    NSLog(@"Exactly bundle Id and Productype %@", tempSourceKey);
                     dispatch_group_enter(collectDeviceGroup);
                     
                     NSPredicate *sourcePredicate = [HKQuery predicateForObjectsFromSource:source];
                     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierStartDate ascending:NO];
                     HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:sampleType
                                                                            predicate:sourcePredicate
-                                                                               limit:HKObjectQueryNoLimit
+//                                                                               limit:HKObjectQueryNoLimit
+                                                                               limit:100
                                                                      sortDescriptors:@[timeSortDescriptor]
                                                                       resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
 //                        NSMutableDictionary *deviceList=[[NSMutableDictionary alloc] initWithCapacity:1];
@@ -244,18 +248,58 @@
                                 NSString *tempDeviceKey=[deviceName stringByAppendingFormat:@"/%@", serialNumber];
                                 
                                 if(!isThirdParty || (isThirdParty&&[sourceKey hasSuffix:tempDeviceKey])) {
-                                    [outputData setObject:sample forKey:[sample UUID]];
-                                    dispatch_group_leave(collectDeviceGroup);
+                                    if([outputData objectForKey: [[sample UUID] UUIDString]]==nil) {
+                                        
+//                                            HKQuantity *quantity = sample.quantity;
+//                                            double value = [quantity doubleValueForUnit:unit];
+
+                                            NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                                            NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                                        
+                                        NSMutableDictionary *elem = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                @"value" : @0,
+                                                @"id" : [[sample UUID] UUIDString],
+                                                @"sourceName" : [[[sample sourceRevision] source] name],
+                                                @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                                @"startDate" : startDateString,
+                                                @"endDate" : endDateString,
+                                        }];
+
+                                        NSDictionary *metadata = [sample metadata];
+                                        if (metadata) {
+                                            [elem setValue:metadata forKey:kMetadataKey];
+                                        }
+                                        if([sample sampleType]==[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]) {
+                                            [elem setValue:[sample valueForKey:@"quantity"] forKey:@"quantity"];
+                                        } else if([sample sampleType]==[HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure]) {
+                                            HKCorrelation *bloodPressureValues = (HKCorrelation *)sample;
+                                            HKUnit *unit = [HKUnit millimeterOfMercuryUnit];
+                                            HKQuantityType *systolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+                                            HKQuantityType *diastolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+                                            
+                                            HKQuantitySample *bloodPressureSystolicValue = [bloodPressureValues objectsForType:systolicType].anyObject;
+                                            HKQuantitySample *bloodPressureDiastolicValue = [bloodPressureValues objectsForType:diastolicType].anyObject;
+
+                                            [elem setValue:@([bloodPressureSystolicValue.quantity doubleValueForUnit:unit]) forKey:@"bloodPressureSystolicValue"];
+                                            [elem setValue:@([bloodPressureDiastolicValue.quantity doubleValueForUnit:unit]) forKey:@"bloodPressureDiastolicValue"];
+//                                            [elem setValue:@(bloodPressureValues) forKey:@"correlation"];
+                                        }
+                                        [outputData setObject:elem forKey: [[sample UUID] UUIDString]];
+                                        NSLog(@"SAVE get SAMPLE from SOURCE %@", sample);
+                                        NSLog(@"SAVE get SAMPLE ID: %@", [sample UUID]);
+                                    }
                                 }
                             }
                         }
+                        
+                        dispatch_group_leave(collectDeviceGroup);
                     }];
                     [self.healthStore executeQuery:query];
                         
                 }
             }
             dispatch_group_notify(collectDeviceGroup, dispatch_get_main_queue(), ^{
-                NSLog(@"DONE get SAMPLE from SOURCE %@", sampleType.identifier);
+//                NSLog(@"DONE get SAMPLE from SOURCE %@", sampleType.identifier);
                 dispatch_group_leave(collectSourceGroup);
             });
         }];
@@ -263,6 +307,8 @@
     }
 
     dispatch_group_notify(collectSourceGroup, dispatch_get_main_queue(), ^{
+        
+            NSLog(@"===== DONE get SAMPLE from SOURCE %@", [outputData allValues]);
         callback(@[[NSNull null], [outputData allValues]]);
     });
 }
