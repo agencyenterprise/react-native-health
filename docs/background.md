@@ -27,8 +27,8 @@ following:
 If you followed the [Background Processing](https://github.com/agencyenterprise/react-native-health#background-processing)
 step in the README, you can skip this one.
 
-To setup that in your project, in XCode open your `ios/AppDelegate.m` file and uncomment the
-lines with a comment `Uncomment this line to use background observers`:
+To setup that in your project, in XCode open your `ios/AppDelegate.m` file and add the
+following statements:
 
 
 ```objective-c
@@ -36,7 +36,8 @@ lines with a comment `Uncomment this line to use background observers`:
 
 ...
 
-// #import "RCTAppleHealthKit.h" // <-- Uncomment this line to use background observers
+/* Add the library import at the top of AppDelegate.m */
+#import "RCTAppleHealthKit.h"
 
 ...
 
@@ -50,7 +51,8 @@ lines with a comment `Uncomment this line to use background observers`:
 
   ...
 
-  // [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge]; // <-- Uncomment this line to use background observers
+  /* Add Background initializer for HealthKit  */
+  [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge];
 
   ...
 
