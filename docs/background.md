@@ -27,16 +27,16 @@ following:
 If you followed the [Background Processing](https://github.com/agencyenterprise/react-native-health#background-processing)
 step in the README, you can skip this one.
 
-To setup that in your project, in XCode open your `ios/AppDelegate.m` file and add the
-following statements:
+To setup that in your project, in XCode open your `ios/AppDelegate.m` file and uncomment the
+lines with a comment `Uncomment this line to use background observers`:
+
 
 ```objective-c
 #import "AppDelegate.h"
 
 ...
 
-/* Add the library import at the top of AppDelegate.m */
-#import "RCTAppleHealthKit.h"
+// #import "RCTAppleHealthKit.h" // <-- Uncomment this line to use background observers
 
 ...
 
@@ -50,8 +50,7 @@ following statements:
 
   ...
 
-  /* Add Background initializer for HealthKit  */
-  [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge];
+  // [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge]; // <-- Uncomment this line to use background observers
 
   ...
 
@@ -88,17 +87,17 @@ up observers for workouts, the events would have the following names:
 ### Example
 
 ```typescript
-import { NativeAppEventEmitter } from 'react-native'
+import React, { useEffect } from 'react';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 
-const callback = (): void => {
-  /* Execute any data query */
-}
-
-/* Register native listener that will be triggered when successfuly enabled */
-NativeAppEventEmitter.addListener('healthKit:HeartRate:setup:success', callback)
-
-/* Register native listener that will be triggered on each update */
-NativeAppEventEmitter.addListener('healthKit:HeartRate:new', callback)
+useEffect(() => {
+    new NativeEventEmitter(NativeModules.AppleHealthKit).addListener(
+      'healthKit:HeartRate:new',
+      async () => {
+        console.log('--> observer triggered');
+      },
+    );
+  });
 ```
 
 When a new sample appears, in order to get the information you need to call
