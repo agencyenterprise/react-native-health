@@ -756,6 +756,12 @@
                                                                     NSDate *startDate = result.startDate;
                                                                     NSDate *endDate = result.endDate;
                                                                     double value = [sum doubleValueForUnit:unit];
+                                                                    if (startDate == nil || endDate == nil) {
+                                                                        error = [[NSError alloc] initWithDomain:@"AppleHealthKit"
+                                                                                                           code:0
+                                                                                                           userInfo:@{@"Error reason": @"Could not fetch statistics: Not authorized"}
+                                                                        ];
+                                                                    }
                                                                     completionHandler(value, startDate, endDate, error);
                                                               }
                                                           }];
