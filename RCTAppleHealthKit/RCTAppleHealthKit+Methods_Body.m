@@ -305,7 +305,7 @@
     [self fetchMostRecentQuantitySampleOfType:peakFlowType
                                     predicate:nil
                                    completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!mostRecentQuantity) {
+        if (error) {
             NSLog(@"error getting latest peak flow: %@", error);
             callback(@[RCTMakeError(@"error getting latest peak flow", error, nil)]);
         }
@@ -348,10 +348,8 @@
                           completion:^(NSArray *results, NSError *error) {
         if(results){
           callback(@[[NSNull null], results]);
-          return;
         } else {
           callback(@[RCTJSErrorFromNSError(error)]);
-          return;
         }
     }];
 }
