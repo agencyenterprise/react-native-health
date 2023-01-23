@@ -38,7 +38,11 @@ Example output:
     "sourceId": "com.apple.Health",
     "sourceName": "Health",
     "startDate": "2021-03-22T16:19:00.000-0300",
-    "value": 90.07794000002704
+    "value": 5.7,
+    "metadata": {
+      "HKWasUserEntered": true,
+      "HKBloodGlucoseMealTime": 1, // Preprandial = 1, Postprandial = 2
+    }
   }
 ]
 ```

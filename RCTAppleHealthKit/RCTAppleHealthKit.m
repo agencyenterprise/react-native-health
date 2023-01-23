@@ -20,15 +20,48 @@
 #import "RCTAppleHealthKit+Methods_Mindfulness.h"
 #import "RCTAppleHealthKit+Methods_Workout.h"
 #import "RCTAppleHealthKit+Methods_LabTests.h"
+#import "RCTAppleHealthKit+Methods_Hearing.h"
+#import "RCTAppleHealthKit+Methods_Summary.h"
+#import "RCTAppleHealthKit+Methods_ClinicalRecords.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
 
+
 @implementation RCTAppleHealthKit
 
-@synthesize bridge = _bridge;
+bool hasListeners;
 
 RCT_EXPORT_MODULE();
+
+
++ (id)allocWithZone:(NSZone *)zone {
+    static RCTAppleHealthKit *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [super allocWithZone:zone];
+    });
+    return sharedInstance;
+}
+
++ (RCTCallableJSModules *)sharedJsModule {
+    static RCTCallableJSModules *sharedJsModule = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedJsModule = [RCTCallableJSModules new];
+    });
+    return sharedJsModule;
+}
+
+- (id) init
+{
+    return [super init];
+}
+
++ (BOOL)requiresMainQueueSetup
+{
+    return NO;
+}
 
 RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
 {
@@ -43,7 +76,7 @@ RCT_EXPORT_METHOD(initHealthKit:(NSDictionary *)input callback:(RCTResponseSende
 RCT_EXPORT_METHOD(initStepCountObserver:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
-    [self fitness_initializeStepEventObserver:input callback:callback];
+    [self fitness_initializeStepEventObserver:input hasListeners:hasListeners callback:callback];
 }
 
 RCT_EXPORT_METHOD(getBiologicalSex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -142,6 +175,12 @@ RCT_EXPORT_METHOD(getLatestBmi:(NSDictionary *)input callback:(RCTResponseSender
     [self body_getLatestBodyMassIndex:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getBmiSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self body_getBodyMassIndexSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveBmi:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
@@ -208,6 +247,12 @@ RCT_EXPORT_METHOD(getAnchoredWorkouts:(NSDictionary *)input callback:(RCTRespons
     [self workout_getAnchoredQuery:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getWorkoutRouteSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self workout_getRoute:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(setObserver:(NSDictionary *)input)
 {
     [self _initializeHealthStore];
@@ -224,6 +269,12 @@ RCT_EXPORT_METHOD(saveSteps:(NSDictionary *)input callback:(RCTResponseSenderBlo
 {
     [self _initializeHealthStore];
     [self fitness_saveSteps:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveWalkingRunningDistance:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self fitness_saveWalkingRunningDistance:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getDistanceWalkingRunning:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -284,6 +335,10 @@ RCT_EXPORT_METHOD(getProteinSamples:(NSDictionary *)input callback:(RCTResponseS
    [self dietary_getProteinSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getTotalFatSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getTotalFatSamples:input callback:callback];
+}
 
 RCT_EXPORT_METHOD(saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
@@ -299,7 +354,14 @@ RCT_EXPORT_METHOD(saveWater:(NSDictionary *)input callback:(RCTResponseSenderBlo
 
 RCT_EXPORT_METHOD(getWater:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
+    [self _initializeHealthStore];
     [self getWater:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getWaterSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self getWaterSamples:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getHeartRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -374,6 +436,12 @@ RCT_EXPORT_METHOD(getHeartRateVariabilitySamples:(NSDictionary *)input callback:
     [self vitals_getHeartRateVariabilitySamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getHeartbeatSeriesSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self vitals_getHeartbeatSeriesSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getRestingHeartRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
@@ -384,6 +452,12 @@ RCT_EXPORT_METHOD(getOxygenSaturationSamples:(NSDictionary *)input callback:(RCT
 {
     [self _initializeHealthStore];
     [self vitals_getOxygenSaturationSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getElectrocardiogramSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self vitals_getElectrocardiogramSamples:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getBloodGlucoseSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -404,10 +478,22 @@ RCT_EXPORT_METHOD(saveCarbohydratesSample:(NSDictionary *)input callback:(RCTRes
     [self results_saveCarbohydratesSample:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(deleteCarbohydratesSample:(NSString *)oid callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_deleteCarbohydratesSample:oid callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveBloodGlucoseSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
     [self results_saveBloodGlucoseSample:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(deleteBloodGlucoseSample:(NSString *)oid callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_deleteBloodGlucoseSample:oid callback:callback];
 }
 
 RCT_EXPORT_METHOD(getSleepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -464,6 +550,29 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
     [self labTests_saveBloodAlcoholContent:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getEnvironmentalAudioExposure: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self hearing_getEnvironmentalAudioExposure:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getHeadphoneAudioExposure: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self hearing_getHeadphoneAudioExposure:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getActivitySummary: (NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self summary_getActivitySummary:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self clinicalRecords_getClinicalRecords:input callback:callback];
+}
 
 - (HKHealthStore *)_initializeHealthStore {
   if(![self healthStore]) {
@@ -521,7 +630,7 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
         [self.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
             if (!success) {
                 NSString *errMsg = [NSString stringWithFormat:@"Error with HealthKit authorization: %@", error];
-                NSLog(errMsg);
+                 NSLog(@"%@", errMsg);
                 callback(@[RCTMakeError(errMsg, nil, nil)]);
                 return;
             } else {
@@ -533,6 +642,47 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
     } else {
         callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
     }
+}
+
+- (NSArray<NSString *> *)supportedEvents {
+    NSArray *types = @[
+        @"ActiveEnergyBurned",
+        @"BasalEnergyBurned",
+        @"Cycling",
+        @"HeartRate",
+        @"HeartRateVariabilitySDNN",
+        @"RestingHeartRate",
+        @"Running",
+        @"StairClimbing",
+        @"StepCount",
+        @"Swimming",
+        @"Vo2Max",
+        @"Walking",
+        @"Workout",
+        @"MindfulSession",
+        @"AllergyRecord",
+        @"ConditionRecord",
+        @"CoverageRecord",
+        @"ImmunizationRecord",
+        @"LabResultRecord",
+        @"MedicationRecord",
+        @"ProcedureRecord",
+        @"VitalSignRecord",
+        @"SleepAnalysis"
+    ];
+    
+    NSArray *templates = @[@"healthKit:%@:new", @"healthKit:%@:failure", @"healthKit:%@:enabled", @"healthKit:%@:sample", @"healthKit:%@:setup:success", @"healthKit:%@:setup:failure"];
+    
+    NSMutableArray *supportedEvents = [[NSMutableArray alloc] init];
+
+    for(NSString * type in types) {
+        for(NSString * template in templates) {
+            NSString *successEvent = [NSString stringWithFormat:template, type];
+            [supportedEvents addObject: successEvent];
+        }
+    }
+    [supportedEvents addObject: @"change:steps"];
+  return supportedEvents;
 }
 
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
@@ -559,8 +709,8 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
         if(permissions != nil && [permissions objectForKey:@"read"] != nil && [permissions objectForKey:@"write"] != nil){
             NSArray* readPermsNamesArray = [permissions objectForKey:@"read"];
             NSArray* writePermsNamesArray = [permissions objectForKey:@"write"];
-            readPermsArray = [self getReadPermsFromOptions:readPermsNamesArray];
-            writePermsArray = [self getWritePermsFromOptions:writePermsNamesArray];
+            readPermsArray = [[self getReadPermsFromOptions:readPermsNamesArray] allObjects];
+            writePermsArray = [[self getWritePermsFromOptions:writePermsNamesArray] allObjects];
         } else {
             callback(@[RCTMakeError(@"permissions must be included in permissions object with read and write options", nil, nil)]);
             return;
@@ -593,14 +743,14 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 
     This method must be called at the application:didFinishLaunchingWithOptions: method, in AppDelegate.m
  */
-- (void)initializeBackgroundObservers:(RCTBridge *)bridge
+  - (void)initializeBackgroundObservers:(RCTBridge *)bridge
 {
-    NSLog(@"[HealthKit] Background observers will be added to the app");
-
     [self _initializeHealthStore];
 
+    self.bridge = bridge;
+
     if ([HKHealthStore isHealthDataAvailable]) {
-        NSArray *observers = @[
+        NSArray *fitnessObservers = @[
             @"ActiveEnergyBurned",
             @"BasalEnergyBurned",
             @"Cycling",
@@ -613,17 +763,68 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
             @"Swimming",
             @"Vo2Max",
             @"Walking",
-            @"Workout"
+            @"Workout",
+            @"MindfulSession",
+            @"SleepAnalysis",
         ];
 
-        for(NSString * type in observers) {
-            [self fitness_registerObserver:type bridge:bridge];
+        for(NSString * type in fitnessObservers) {
+            [self fitness_registerObserver:type bridge:bridge hasListeners:hasListeners];
+        }
+        
+        NSArray *clinicalObservers = @[
+            @"AllergyRecord",
+            @"ConditionRecord",
+            @"CoverageRecord",
+            @"ImmunizationRecord",
+            @"LabResultRecord",
+            @"MedicationRecord",
+            @"ProcedureRecord",
+            @"VitalSignRecord"
+        ];
+        
+        for(NSString * type in clinicalObservers) {
+            [self clinical_registerObserver:type bridge:bridge hasListeners:hasListeners];
         }
 
         NSLog(@"[HealthKit] Background observers added to the app");
+        [self startObserving];
     } else {
-        NSLog(@"[HealthKit] Apple HealthKit is not availabe in this platform");
+        NSLog(@"[HealthKit] Apple HealthKit is not available in this platform");
     }
+}
+
+// Will be called when this module's first listener is added.
+-(void)startObserving {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        for (NSString *notificationName in [self supportedEvents]) {
+            [center addObserver:self
+                   selector:@selector(emitEventInternal:)
+                       name:notificationName
+                     object:nil];
+        }
+    self.hasListeners = YES;
+}
+
+- (void)emitEventInternal:(NSNotification *)notification {
+  if (self.hasListeners) {
+    self.callableJSModules = [RCTAppleHealthKit sharedJsModule];
+    [self.callableJSModules setBridge:self.bridge];
+    [self sendEventWithName:notification.name
+                   body:notification.userInfo];
+  }
+}
+
+- (void)emitEventWithName:(NSString *)name andPayload:(NSDictionary *)payload {
+    [[NSNotificationCenter defaultCenter] postNotificationName:name
+                                                    object:self
+                                                  userInfo:payload];
+}
+
+// Will be called when this module's last listener is removed, or on dealloc.
+-(void)stopObserving {
+    self.hasListeners = NO;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

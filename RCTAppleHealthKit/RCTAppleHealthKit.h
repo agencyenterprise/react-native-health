@@ -10,21 +10,22 @@
 #import <HealthKit/HealthKit.h>
 
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 #import <React/RCTUtils.h>
 #import <React/RCTLog.h>
 #import <React/RCTEventDispatcher.h>
 
-@interface RCTAppleHealthKit : NSObject <RCTBridgeModule>
+@interface RCTAppleHealthKit : RCTEventEmitter <RCTBridgeModule>
 
 @property (nonatomic) HKHealthStore *healthStore;
+@property (nonatomic, assign) BOOL hasListeners;
 
 - (HKHealthStore *)_initializeHealthStore;
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback;
 - (void)initializeHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
-- (void)checkPermission:(NSString *)input callback:(RCTResponseSenderBlock)callback;
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)getAuthorizationStatus:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
-
 - (void)initializeBackgroundObservers:(RCTBridge *)bridge;
+- (void)emitEventWithName:(NSString *)name andPayload:(NSDictionary *)payload;
 
 @end

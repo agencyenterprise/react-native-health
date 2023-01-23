@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,6 +13,8 @@ import AppleHealthKit, {
   HealthValue,
   HealthKitPermissions,
 } from 'react-native-health';
+
+import {NativeEventEmitter, NativeModules} from 'react-native';
 
 /* Permission options */
 const permissions = {
@@ -45,6 +47,15 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
 
 export default function App() {
   const [authStatus, setAuthStatus] = useState<any>({});
+
+  useEffect(() => {
+    new NativeEventEmitter(NativeModules.AppleHealthKit).addListener(
+      'healthKit:HeartRate:new',
+      async () => {
+        console.log('--> observer triggered');
+      },
+    );
+  });
 
   const handlePressGetAuthStatus = () => {
     AppleHealthKit.getAuthStatus(permissions, (err, result) => {
