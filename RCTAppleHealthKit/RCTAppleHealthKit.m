@@ -151,6 +151,24 @@ RCT_EXPORT_METHOD(saveWaistCircumference:(NSDictionary *)input callback:(RCTResp
     [self body_saveWaistCircumference:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getLatestPeakFlow:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self body_getLatestPeakFlow:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getPeakFlowSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self body_getPeakFlowSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(savePeakFlow:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self body_savePeakFlow:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getLatestBmi:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
