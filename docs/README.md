@@ -102,6 +102,9 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getOxygenSaturationSamples](getOxygenSaturationSamples.md)
 - [getWalkingHeartRateAverage](getWalkingHeartRateAverage.md)
 - [saveBmi](saveBmi.md)
+- [getPeakFlowSamples](getPeakFlowSamples.md)
+- [getLatestPeakFlow](getLatestPeakFlow.md)
+- [savePeakFlow](savePeakFlow.md)
 
 #### Workout Methods
 
