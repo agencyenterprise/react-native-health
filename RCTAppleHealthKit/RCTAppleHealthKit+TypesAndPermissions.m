@@ -81,6 +81,87 @@
         return [HKObjectType quantityTypeForIdentifier:HKCategoryTypeIdentifierAppleStandHour];
     }
 
+    // Symptoms
+    if ([@"AbdominalCramps" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAbdominalCramps];
+    } else if ([@"Bloating" isEqualToString: key] && systemVersion >= 13.6){
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBloating];
+    } else if ([@"Constipation" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierConstipation];
+    } else if ([@"Diarrhea" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDiarrhea];
+    } else if ([@"Heartburn" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHeartburn];
+    } else if ([@"Nausea" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierNausea];
+    } else if ([@"Vomiting" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierVomiting];
+    } else if ([@"AppetiteChanges" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAppetiteChanges];
+    } else if ([@"Chills" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierChills];
+    } else if ([@"Dizziness" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDizziness];
+    } else if ([@"Fainting" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFainting];
+    } else if ([@"Fatigue" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFatigue];
+    } else if ([@"Fever" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFever];
+    } else if ([@"GeneralizedBodyAche" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierGeneralizedBodyAche];
+    } else if ([@"HotFlashes" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHotFlashes];
+    } else if ([@"ChestTightnessOrPain" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierChestTightnessOrPain];
+    } else if ([@"Coughing" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierCoughing];
+    } else if ([@"RapidPoundingOrFlutteringHeartbeat" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierRapidPoundingOrFlutteringHeartbeat];
+    } else if ([@"ShortnessOfBreath" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierShortnessOfBreath];
+    } else if ([@"SkippedHeartbeat" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSkippedHeartbeat];
+    } else if ([@"Wheezing" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierWheezing];
+    } else if ([@"LowerBackPain" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLowerBackPain];
+    } else if ([@"Headache" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHeadache];
+    } else if ([@"MemoryLapse" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMemoryLapse];
+    } else if ([@"MoodChanges" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMoodChanges];
+    } else if ([@"LossOfSmell" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLossOfSmell];
+    } else if ([@"LossOfTaste" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLossOfTaste];
+    } else if ([@"RunnyNose" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierRunnyNose];
+    } else if ([@"SoreThroat" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSoreThroat];
+    } else if ([@"SinusCongestion" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSinusCongestion];
+    } else if ([@"BreastPain" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBreastPain];
+    } else if ([@"PelvicPain" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierPelvicPain];
+    } else if ([@"VaginalDryness" isEqualToString: key] && systemVersion >= 14.0) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierVaginalDryness];
+    } else if ([@"Acne" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAcne];
+    } else if ([@"DrySkin" isEqualToString: key] && systemVersion >= 14.0) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDrySkin];
+    } else if ([@"HairLoss" isEqualToString: key] && systemVersion >= 14.0) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHairLoss];
+    } else if ([@"NightSweats" isEqualToString: key] && systemVersion >= 14.0) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierNightSweats];
+    } else if ([@"SleepChanges" isEqualToString: key] && systemVersion >= 13.6) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepChanges];
+    } else if ([@"BladderIncontinence" isEqualToString: key] && systemVersion >= 14.0) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBladderIncontinence];
+    }
+
     // Nutrition Identifiers
     if ([@"Biotin" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryBiotin];
@@ -335,87 +416,6 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
     } else if ([@"FlightsClimbed" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
-    }
-
-    // Symptoms
-    if ([@"AbdominalCramps" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAbdominalCramps];
-    } else if ([@"Bloating" isEqualToString: key] && systemVersion >= 13.6){
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBloating];
-    } else if ([@"Constipation" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierConstipation];
-    } else if ([@"Diarrhea" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDiarrhea];
-    } else if ([@"Heartburn" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHeartburn];
-    } else if ([@"Nausea" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierNausea];
-    } else if ([@"Vomiting" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierVomiting];
-    } else if ([@"AppetiteChanges" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAppetiteChanges];
-    } else if ([@"Chills" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierChills];
-    } else if ([@"Dizziness" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDizziness];
-    } else if ([@"Fainting" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFainting];
-    } else if ([@"Fatigue" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFatigue];
-    } else if ([@"Fever" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFever];
-    } else if ([@"GeneralizedBodyAche" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierGeneralizedBodyAche];
-    } else if ([@"HotFlashes" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHotFlashes];
-    } else if ([@"ChestTightnessOrPain" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierChestTightnessOrPain];
-    } else if ([@"Coughing" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierCoughing];
-    } else if ([@"RapidPoundingOrFlutteringHeartbeat" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierRapidPoundingOrFlutteringHeartbeat];
-    } else if ([@"ShortnessOfBreath" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierShortnessOfBreath];
-    } else if ([@"SkippedHeartbeat" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSkippedHeartbeat];
-    } else if ([@"Wheezing" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierWheezing];
-    } else if ([@"LowerBackPain" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLowerBackPain];
-    } else if ([@"Headache" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHeadache];
-    } else if ([@"MemoryLapse" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMemoryLapse];
-    } else if ([@"MoodChanges" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMoodChanges];
-    } else if ([@"LossOfSmell" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLossOfSmell];
-    } else if ([@"LossOfTaste" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLossOfTaste];
-    } else if ([@"RunnyNose" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierRunnyNose];
-    } else if ([@"SoreThroat" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSoreThroat];
-    } else if ([@"SinusCongestion" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSinusCongestion];
-    } else if ([@"BreastPain" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBreastPain];
-    } else if ([@"PelvicPain" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierPelvicPain];
-    } else if ([@"VaginalDryness" isEqualToString: key] && systemVersion >= 14.0) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierVaginalDryness];
-    } else if ([@"Acne" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAcne];
-    } else if ([@"DrySkin" isEqualToString: key] && systemVersion >= 14.0) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDrySkin];
-    } else if ([@"HairLoss" isEqualToString: key] && systemVersion >= 14.0) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHairLoss];
-    } else if ([@"NightSweats" isEqualToString: key] && systemVersion >= 14.0) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierNightSweats];
-    } else if ([@"SleepChanges" isEqualToString: key] && systemVersion >= 13.6) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepChanges];
-    } else if ([@"BladderIncontinence" isEqualToString: key] && systemVersion >= 14.0) {
-        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBladderIncontinence];
     }
 
     // Nutrition Identifiers
