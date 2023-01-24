@@ -19,7 +19,6 @@ export const Permissions = {
   BloodType: 'BloodType',
   BloodAlcoholContent: 'BloodAlcoholContent',
   BloodGlucose: 'BloodGlucose',
-  BloodPressure: 'BloodPressure',
   BloodPressureDiastolic: 'BloodPressureDiastolic',
   BloodPressureSystolic: 'BloodPressureSystolic',
   BodyFatPercentage: 'BodyFatPercentage',

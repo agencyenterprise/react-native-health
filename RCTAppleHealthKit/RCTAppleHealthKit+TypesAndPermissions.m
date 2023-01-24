@@ -280,8 +280,6 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierNumberOfAlcoholicBeverages];
     } else if ([@"BodyTemperature" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
-    } else if ([@"BloodPressure" isEqualToString: key]) {
-        return [HKObjectType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure];
     } else if ([@"BloodPressureSystolic" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
     } else if ([@"BloodPressureDiastolic" isEqualToString: key]) {

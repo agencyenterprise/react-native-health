@@ -740,7 +740,6 @@ declare module 'react-native-health' {
     BloodType = 'BloodType',
     BloodAlcoholContent = 'BloodAlcoholContent',
     BloodGlucose = 'BloodGlucose',
-    BloodPressure = 'BloodPressure',
     BloodPressureDiastolic = 'BloodPressureDiastolic',
     BloodPressureSystolic = 'BloodPressureSystolic',
     BodyFatPercentage = 'BodyFatPercentage',
