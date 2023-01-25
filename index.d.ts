@@ -1,4 +1,4 @@
-import { HealthInputOptions } from 'react-native-health'
+import 'react-native-health'
 
 declare module 'react-native-health' {
   export interface HealthKitPermissions {
@@ -9,14 +9,14 @@ declare module 'react-native-health' {
   }
 
   export interface Constants {
-    Activities: Record<HealthActivity, HealthActivity>
-    Observers: Record<HealthObserver, HealthObserver>
-    Permissions: Record<HealthPermission, HealthPermission>
-    Units: Record<HealthUnit, HealthUnit>
+    Activities: { [T in HealthActivity]: T }
+    Observers: { [T in HealthObserver]: T }
+    Permissions: { [T in HealthPermission]: T }
+    Units: { [T in HealthUnit]: T }
   }
 
   export interface HKErrorResponse {
-    message?: string;
+    message?: string
   }
 
   export interface AppleHealthKit {
@@ -444,6 +444,21 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthActivitySummary>) => void,
     ): void
 
+    getSexualActivity(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<BaseValue>) => void,
+    ): void
+
+    saveSexualActivity(
+      options: HealthValueOptionsMental,
+      callback: (error: string, result: HealthValue) => void,
+    ): void
+
+    getDoubleSupportPercentage(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
     Constants: Constants
   }
 
@@ -453,7 +468,8 @@ declare module 'react-native-health' {
     value: string
     age: number
   }
-  interface BaseValue {
+
+  export interface BaseValue {
     id?: string
     startDate: string
     endDate: string
@@ -471,8 +487,9 @@ declare module 'react-native-health' {
 
   export interface RecordMetadata {
     HKBloodGlucoseMealTime?: BloodGlucoseMealTime
+    HKSexualActivityProtectionUsed?: SexualActivityProtectionUsed
     HKWasUserEntered?: boolean
-    [key: string]: string | number | boolean
+    [key: string]: string | number | boolean | undefined
   }
 
   export interface HealthValue extends BaseValue {
@@ -485,10 +502,10 @@ declare module 'react-native-health' {
   }
 
   export interface HeartbeatSeriesSampleValue extends BaseValue {
-    heartbeatSeries: ({
+    heartbeatSeries: {
       timeSinceSeriesStart: number
       precededByGap: boolean
-    })[]
+    }[]
   }
 
   export interface HealthUnitOptions {
@@ -533,19 +550,23 @@ declare module 'react-native-health' {
     end: string
   }
 
-
-
   export interface ElectrocardiogramSampleValue extends BaseValue {
-    classification: ElectrocardiogramClassification,
-    averageHeartRate: number,
-    samplingFrequency: number,
-    device: string,
-    algorithmVersion: number,
-    voltageMeasurements: (number[])[]
+    classification: ElectrocardiogramClassification
+    averageHeartRate: number
+    samplingFrequency: number
+    device: string
+    algorithmVersion: number
+    voltageMeasurements: number[][]
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {
     value: number
+    startDate?: string
+    endDate?: string
+    metadata?: RecordMetadata
+  }
+
+  export interface HealthValueOptionsMental {
     startDate?: string
     endDate?: string
     metadata?: RecordMetadata
@@ -585,14 +606,14 @@ declare module 'react-native-health' {
     LabResultRecord = 'LabResultRecord',
     MedicationRecord = 'MedicationRecord',
     ProcedureRecord = 'ProcedureRecord',
-    VitalSignRecord = 'VitalSignRecord'
+    VitalSignRecord = 'VitalSignRecord',
   }
 
   export interface HealthClinicalRecord extends BaseValue {
-    sourceName: string,
-    sourceId: string,
-    displayName: string,
-    fhirData: any,
+    sourceName: string
+    sourceId: string
+    displayName: string
+    fhirData: any
   }
 
   /* Health Constants */
@@ -767,7 +788,9 @@ declare module 'react-native-health' {
     WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
-    WorkoutRoute = 'WorkoutRoute'
+    WorkoutRoute = 'WorkoutRoute',
+    SexualActivity = 'SexualActivity',
+    DoubleSupportPercentage = 'DoubleSupportPercentage',
   }
 
   export enum HealthUnit {
@@ -852,7 +875,12 @@ declare module 'react-native-health' {
     Postprandial = 2,
   }
 
-  const appleHealthKit: AppleHealthKit
+  export enum SexualActivityProtectionUsed {
+    Protected = 1,
+    Unprotected = 0,
+  }
 
-  export default appleHealthKit
+  const AppleHealthKit: AppleHealthKit
+
+  export default AppleHealthKit
 }
