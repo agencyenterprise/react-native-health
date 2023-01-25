@@ -124,6 +124,11 @@ following statements:
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self
                                             launchOptions:launchOptions];
+                                            
+                                            
+  /* If using @wix/react-native-navigtion you will need to replace your ReactNativeNavigation invokation as follows */
+  [ReactNativeNavigation bootstrapWithBridge:bridge];
+  
 
   ...
 
