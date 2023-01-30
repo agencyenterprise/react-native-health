@@ -16,7 +16,7 @@ declare module 'react-native-health' {
   }
 
   export interface HKErrorResponse {
-    message?: string;
+    message?: string
   }
 
   export interface AppleHealthKit {
@@ -71,7 +71,7 @@ declare module 'react-native-health' {
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
-    
+
     getLatestWaistCircumference(
       options: HealthUnitOptions,
       callback: (err: string, results: HealthValue) => void,
@@ -101,7 +101,7 @@ declare module 'react-native-health' {
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
-  
+
     saveBmi(
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
@@ -400,8 +400,8 @@ declare module 'react-native-health' {
     getHeadphoneAudioExposure(
       options: HealthInputOptions,
       callback: (err: string, results: HealthValue[]) => void,
-    ):void
-    
+    ): void
+
     getClinicalRecords(
       options: HealthClinicalRecordOptions,
       callback: (err: string, results: Array<HealthClinicalRecord>) => void,
@@ -528,7 +528,7 @@ declare module 'react-native-health' {
     period?: number
     anchor?: string
   }
-  
+
   enum GenericAggregatorsType {
     MIN = 0,
     MAX = 1,
@@ -547,7 +547,7 @@ declare module 'react-native-health' {
   export type HealthStatisticsCommonAggregatorType = GenericAggregatorsType | AverageAggregatorsType;
 
   export type HealthStatisticsStepsAggregatorType = GenericAggregatorsType | CumulativeAggregatorsType;
- 
+
   export enum HealthStatisticsIntervalType {
     MONTH = 0,
     DAY = 1,
@@ -631,7 +631,7 @@ declare module 'react-native-health' {
     LabResultRecord = 'LabResultRecord',
     MedicationRecord = 'MedicationRecord',
     ProcedureRecord = 'ProcedureRecord',
-    VitalSignRecord = 'VitalSignRecord'
+    VitalSignRecord = 'VitalSignRecord',
   }
 
   export interface HealthClinicalRecord extends BaseValue {
@@ -729,7 +729,12 @@ declare module 'react-native-health' {
     ActivitySummary = 'ActivitySummary',
     AllergyRecord = 'AllergyRecord',
     AppleExerciseTime = 'AppleExerciseTime',
+    AppleMoveTime = 'AppleMoveTime',
+    AppleStandHour = 'AppleStandHour',
     AppleStandTime = 'AppleStandTime',
+    AppleWalkingSteadiness = 'AppleWalkingSteadiness',
+    AppleWalkingSteadinessEvent = 'AppleWalkingSteadinessEvent',
+    BasalBodyTemperature = 'BasalBodyTemperature',
     BasalEnergyBurned = 'BasalEnergyBurned',
     BiologicalSex = 'BiologicalSex',
     BloodType = 'BloodType',
@@ -746,11 +751,15 @@ declare module 'react-native-health' {
     Caffeine = 'Caffeine',
     Calcium = 'Calcium',
     Carbohydrates = 'Carbohydrates',
+    CervicalMucusQuality = 'CervicalMucusQuality',
     Chloride = 'Chloride',
     Cholesterol = 'Cholesterol',
+    Chromium = 'Chromium',
+    Contraceptive = 'Contraceptive',
     ConditionRecord = 'ConditionRecord',
     Copper = 'Copper',
     CoverageRecord = 'CoverageRecord',
+    ElectrodermalActivity = 'ElectrodermalActivity',
     EnergyConsumed = 'EnergyConsumed',
     EnvironmentalAudioExposure = 'EnvironmentalAudioExposure',
     FatMonounsaturated = 'FatMonounsaturated',
@@ -759,24 +768,39 @@ declare module 'react-native-health' {
     FatTotal = 'FatTotal',
     Fiber = 'Fiber',
     Folate = 'Folate',
+    ForcedExpiratoryVolume1 = 'ForcedExpiratoryVolume1',
+    ForcedVitalCapacity = 'ForcedVitalCapacity',
     HeadphoneAudioExposure = 'HeadphoneAudioExposure',
     ImmunizationRecord = 'ImmunizationRecord',
+    InhalerUsage = 'InhalerUsage',
+    InsulinDelivery = 'InsulinDelivery',
+    IntermenstrualBleeding = 'IntermenstrualBleeding',
     Iodine = 'Iodine',
     Iron = 'Iron',
     LabResultRecord = 'LabResultRecord',
+    Lactation = 'Lactation',
+    LowCardioFitnessEvent = 'LowCardioFitnessEvent',
     Magnesium = 'Magnesium',
     Manganese = 'Manganese',
     MedicationRecord = 'MedicationRecord',
+    MenstrualFlow = 'MenstrualFlow',
     Molybdenum = 'Molybdenum',
     Niacin = 'Niacin',
+    NumberOfAlcoholicBeverages = 'NumberOfAlcoholicBeverages',
+    OvulationTestResult = 'OvulationTestResult',
     OxygenSaturation = 'OxygenSaturation',
     PantothenicAcid = 'PantothenicAcid',
     Phosphorus = 'Phosphorus',
     Potassium = 'Potassium',
+    Pregnancy = 'Pregnancy',
+    PregnancyTestResult = 'PregnancyTestResult',
     ProcedureRecord = 'ProcedureRecord',
+    ProgesteroneTestResult = 'ProgesteroneTestResult',
     Protein = 'Protein',
     Riboflavin = 'Riboflavin',
     Selenium = 'Selenium',
+    SexualActivity = 'SexualActivity',
+    SixMinuteWalkTestDistance = 'SixMinuteWalkTestDistance',
     Sodium = 'Sodium',
     Sugar = 'Sugar',
     Thiamin = 'Thiamin',
@@ -800,18 +824,63 @@ declare module 'react-native-health' {
     RestingHeartRate = 'RestingHeartRate',
     HeartRateVariability = 'HeartRateVariability',
     Height = 'Height',
+    HighHeartRateEvent = 'HighHeartRateEvent',
+    IrregularHeartRhythmEvent = 'IrregularHeartRhythmEvent',
     LeanBodyMass = 'LeanBodyMass',
+    LowHeartRateEvent = 'LowHeartRateEvent',
     MindfulSession = 'MindfulSession',
     NikeFuel = 'NikeFuel',
     RespiratoryRate = 'RespiratoryRate',
     SleepAnalysis = 'SleepAnalysis',
     StepCount = 'StepCount',
     Steps = 'Steps',
+    UvExposure = 'UvExposure',
     Vo2Max = 'Vo2Max',
     WaistCircumference = 'WaistCircumference',
     WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
+
+    // Symptoms
+    AbdominalCramps = 'AbdominalCramps',
+    Bloating = 'Bloating',
+    Constipation = 'Constipation',
+    Diarrhea = 'Diarrhea',
+    Heartburn = 'Heartburn',
+    Nausea = 'Nausea',
+    Vomiting = 'Vomiting',
+    AppetiteChanges = 'AppetiteChanges',
+    Chills = 'Chills',
+    Dizziness = 'Dizziness',
+    Fainting = 'Fainting',
+    Fatigue = 'Fatigue',
+    Fever = 'Fever',
+    GeneralizedBodyAche = 'GeneralizedBodyAche',
+    HotFlashes = 'HotFlashes',
+    ChestTightnessOrPain = 'ChestTightnessOrPain',
+    Coughing = 'Coughing',
+    RapidPoundingOrFlutteringHeartbeat = 'RapidPoundingOrFlutteringHeartbeat',
+    ShortnessOfBreath = 'ShortnessOfBreath',
+    SkippedHeartbeat = 'SkippedHeartbeat',
+    Wheezing = 'Wheezing',
+    LowerBackPain = 'LowerBackPain',
+    Headache = 'Headache',
+    MemoryLapse = 'MemoryLapse',
+    MoodChanges = 'MoodChanges',
+    LossOfSmell = 'LossOfSmell',
+    LossOfTaste = 'LossOfTaste',
+    RunnyNose = 'RunnyNose',
+    SoreThroat = 'SoreThroat',
+    SinusCongestion = 'SinusCongestion',
+    BreastPain = 'BreastPain',
+    PelvicPain = 'PelvicPain',
+    VaginalDryness = 'VaginalDryness',
+    Acne = 'Acne',
+    DrySkin = 'DrySkin',
+    HairLoss = 'HairLoss',
+    NightSweats = 'NightSweats',
+    SleepChanges = 'SleepChanges',
+    BladderIncontinence = 'BladderIncontinence',
   }
 
   export enum HealthUnit {
@@ -883,7 +952,7 @@ declare module 'react-native-health' {
     InconclusivePoorReading = 'InconclusivePoorReading',
     InconclusiveOther = 'InconclusiveOther',
     Unrecognized = 'Unrecognized',
-  }  
+  }
 
   export enum BloodGlucoseMealTime {
     Preprandial = 1,
