@@ -16,7 +16,7 @@
 - (nullable HKObjectType *)getReadPermFromText:(nonnull NSString*)key {
     UIDevice *deviceInfo = [UIDevice currentDevice];
     float systemVersion = deviceInfo.systemVersion.floatValue;
-
+    
     // Characteristic Identifiers
     if ([@"Height" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
@@ -33,7 +33,7 @@
     } else if ([@"WaistCircumference" isEqualToString: key] && systemVersion >= 11.0) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
     }
-
+    
     // Body Measurements
     if ([@"BodyMass" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
@@ -44,7 +44,7 @@
     } else if ([@"LeanBodyMass" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierLeanBodyMass];
     }
-
+    
     // Hearing Identifiers
     if (@available(iOS 13.0, *)) {
         if ([@"EnvironmentalAudioExposure" isEqualToString:key]) {
@@ -53,7 +53,7 @@
             return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeadphoneAudioExposure];
         }
     }
-
+    
     // Fitness Identifiers
     if ([@"Steps" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
@@ -78,7 +78,7 @@
     } else if ([@"AppleExerciseTime" isEqualToString: key] && systemVersion >= 9.3) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleExerciseTime];
     }
-
+    
     // Nutrition Identifiers
     if ([@"Biotin" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryBiotin];
@@ -159,7 +159,7 @@
     } else if ([@"BloodGlucose" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
     }
-
+    
     // Vital Signs Identifiers
     if ([@"HeartRate" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
@@ -186,12 +186,95 @@
     } else if ([@"Electrocardiogram" isEqualToString:key] && systemVersion >= 14.0) {
         return HKObjectType.electrocardiogramType;
     }
-
+    
+    // Symptoms
+    if (systemVersion >= 14.0) {
+        if ([@"AbdominalCramps" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAbdominalCramps];
+        } else if ([@"Bloating" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBloating];
+        } else if ([@"Constipation" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierConstipation];
+        } else if ([@"Diarrhea" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDiarrhea];
+        } else if ([@"Heartburn" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHeartburn];
+        } else if ([@"Nausea" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierNausea];
+        } else if ([@"Vomiting" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierVomiting];
+        } else if ([@"AppetiteChanges" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAppetiteChanges];
+        } else if ([@"Chills" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierChills];
+        } else if ([@"Dizziness" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDizziness];
+        } else if ([@"Fainting" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFainting];
+        } else if ([@"Fatigue" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFatigue];
+        } else if ([@"Fever" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierFever];
+        } else if ([@"GeneralizedBodyAche" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierGeneralizedBodyAche];
+        } else if ([@"HotFlashes" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHotFlashes];
+        } else if ([@"ChestTightnessOrPain" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierChestTightnessOrPain];
+        } else if ([@"Coughing" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierCoughing];
+        } else if ([@"RapidPoundingOrFlutteringHeartbeat" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierRapidPoundingOrFlutteringHeartbeat];
+        } else if ([@"ShortnessOfBreath" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierShortnessOfBreath];
+        } else if ([@"SkippedHeartbeat" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSkippedHeartbeat];
+        } else if ([@"Wheezing" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierWheezing];
+        } else if ([@"LowerBackPain" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLowerBackPain];
+        } else if ([@"Headache" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHeadache];
+        } else if ([@"MemoryLapse" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMemoryLapse];
+        } else if ([@"MoodChanges" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMoodChanges];
+        } else if ([@"LossOfSmell" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLossOfSmell];
+        } else if ([@"LossOfTaste" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierLossOfTaste];
+        } else if ([@"RunnyNose" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierRunnyNose];
+        } else if ([@"SoreThroat" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSoreThroat];
+        } else if ([@"SinusCongestion" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSinusCongestion];
+        } else if ([@"BreastPain" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBreastPain];
+        } else if ([@"PelvicPain" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierPelvicPain];
+        } else if ([@"VaginalDryness" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierVaginalDryness];
+        } else if ([@"Acne" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAcne];
+        } else if ([@"DrySkin" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierDrySkin];
+        } else if ([@"HairLoss" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierHairLoss];
+        } else if ([@"NightSweats" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierNightSweats];
+        } else if ([@"SleepChanges" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepChanges];
+        } else if ([@"BladderIncontinence" isEqualToString:key]) {
+            return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierBladderIncontinence];
+        }
+    }
+    
     // Sleep
     if ([@"SleepAnalysis" isEqualToString: key]) {
         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
     }
-
+    
     // workouts
     if ([@"MindfulSession" isEqualToString: key] && systemVersion >= 10.0) {
         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession];
@@ -202,7 +285,7 @@
     }else if ([@"WorkoutRoute" isEqualToString:key]){
         return [HKSeriesType workoutRouteType];
     }
-
+    
     // Lab and tests
     if ([@"BloodAlcoholContent" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
@@ -231,7 +314,7 @@
     } else if ([@"VitalSignRecord" isEqualToString:key]) {
         return [RCTAppleHealthKit clinicalTypeFromName:@"VitalSignRecord"];
     }
-
+    
     return nil;
 }
 
@@ -256,7 +339,7 @@
     } else if ([@"BodyTemperature" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
     }
-
+    
     // Fitness Identifiers
     if ([@"Steps" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
@@ -275,7 +358,7 @@
     } else if ([@"FlightsClimbed" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
     }
-
+    
     // Nutrition Identifiers
     if ([@"Biotin" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryBiotin];
@@ -356,17 +439,17 @@
     } else if ([@"BloodGlucose" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
     }
-
+    
     // Sleep
     if ([@"SleepAnalysis" isEqualToString:key]) {
         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
     }
-
+    
     // Mindfulness
     if ([@"MindfulSession" isEqualToString:key]) {
         return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession];
     }
-
+    
     // Workout
     if ([@"Workout" isEqualToString:key]) {
         return [HKObjectType workoutType];
@@ -381,14 +464,14 @@
     if ([@"BloodAlcoholContent" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
     }
-
+    
     return nil;
 }
 
 // Returns HealthKit read permissions from options array
 - (NSSet *)getReadPermsFromOptions:(NSArray *)options {
     NSMutableSet *readPermSet = [NSMutableSet setWithCapacity:1];
-
+    
     for(int i=0; i<[options count]; i++) {
         NSString *optionKey = options[i];
         if (optionKey != nil){
@@ -405,7 +488,7 @@
 // Returns HealthKit write permissions from options array
 - (NSSet *)getWritePermsFromOptions:(NSArray *)options {
     NSMutableSet *writePermSet = [NSMutableSet setWithCapacity:1];
-
+    
     for(int i=0; i<[options count]; i++) {
         NSString *optionKey = options[i];
         if (optionKey != nil){

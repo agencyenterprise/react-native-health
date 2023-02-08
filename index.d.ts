@@ -14,7 +14,7 @@ declare module 'react-native-health' {
   }
 
   export interface HKErrorResponse {
-    message?: string;
+    message?: string
   }
 
   export interface AppleHealthKit {
@@ -23,7 +23,9 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
-    registerHKitObservers(callback: (error: Object, results: boolean) => void): void
+    registerHKitObservers(
+      callback: (error: Object, results: boolean) => void,
+    ): void
 
     isAvailable(callback: (error: Object, results: boolean) => void): void
 
@@ -480,10 +482,10 @@ declare module 'react-native-health' {
   }
 
   export interface HeartbeatSeriesSampleValue extends BaseValue {
-    heartbeatSeries: ({
+    heartbeatSeries: {
       timeSinceSeriesStart: number
       precededByGap: boolean
-    })[]
+    }[]
   }
 
   export interface HealthUnitOptions {
@@ -531,12 +533,13 @@ declare module 'react-native-health' {
 
 
   export interface ElectrocardiogramSampleValue extends BaseValue {
-    classification: ElectrocardiogramClassification,
-    averageHeartRate: number,
-    samplingFrequency: number,
-    device: string,
-    algorithmVersion: number,
-    voltageMeasurements: (number[])[]
+    classification: ElectrocardiogramClassification
+    averageHeartRate: number
+    samplingFrequency: number
+    device: string
+    algorithmVersion: number
+    voltageMeasurements: number[][]
+    symptomStatus: string[]
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {
@@ -580,14 +583,14 @@ declare module 'react-native-health' {
     LabResultRecord = 'LabResultRecord',
     MedicationRecord = 'MedicationRecord',
     ProcedureRecord = 'ProcedureRecord',
-    VitalSignRecord = 'VitalSignRecord'
+    VitalSignRecord = 'VitalSignRecord',
   }
 
   export interface HealthClinicalRecord extends BaseValue {
-    sourceName: string,
-    sourceId: string,
-    displayName: string,
-    fhirData: any,
+    sourceName: string
+    sourceId: string
+    displayName: string
+    fhirData: any
   }
 
   /* Health Constants */
@@ -762,7 +765,48 @@ declare module 'react-native-health' {
     WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
-    WorkoutRoute = 'WorkoutRoute'
+    WorkoutRoute = 'WorkoutRoute',
+
+    // Symptoms
+    AbdominalCramps = 'AbdominalCramps',
+    Bloating = 'Bloating',
+    Constipation = 'Constipation',
+    Diarrhea = 'Diarrhea',
+    Heartburn = 'Heartburn',
+    Nausea = 'Nausea',
+    Vomiting = 'Vomiting',
+    AppetiteChanges = 'AppetiteChanges',
+    Chills = 'Chills',
+    Dizziness = 'Dizziness',
+    Fainting = 'Fainting',
+    Fatigue = 'Fatigue',
+    Fever = 'Fever',
+    GeneralizedBodyAche = 'GeneralizedBodyAche',
+    HotFlashes = 'HotFlashes',
+    ChestTightnessOrPain = 'ChestTightnessOrPain',
+    Coughing = 'Coughing',
+    RapidPoundingOrFlutteringHeartbeat = 'RapidPoundingOrFlutteringHeartbeat',
+    ShortnessOfBreath = 'ShortnessOfBreath',
+    SkippedHeartbeat = 'SkippedHeartbeat',
+    Wheezing = 'Wheezing',
+    LowerBackPain = 'LowerBackPain',
+    Headache = 'Headache',
+    MemoryLapse = 'MemoryLapse',
+    MoodChanges = 'MoodChanges',
+    LossOfSmell = 'LossOfSmell',
+    LossOfTaste = 'LossOfTaste',
+    RunnyNose = 'RunnyNose',
+    SoreThroat = 'SoreThroat',
+    SinusCongestion = 'SinusCongestion',
+    BreastPain = 'BreastPain',
+    PelvicPain = 'PelvicPain',
+    VaginalDryness = 'VaginalDryness',
+    Acne = 'Acne',
+    DrySkin = 'DrySkin',
+    HairLoss = 'HairLoss',
+    NightSweats = 'NightSweats',
+    SleepChanges = 'SleepChanges',
+    BladderIncontinence = 'BladderIncontinence',
   }
 
   export enum HealthUnit {
