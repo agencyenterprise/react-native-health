@@ -357,11 +357,6 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
-    getWorkout(
-      options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
-    ): void
-
     getWorkoutRouteSamples(
       options: { id: string },
       callback: (err: string, results: WorkoutRouteQueryResults) => void,
