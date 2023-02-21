@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mobileapps23/react-native-healthkit.git"
+    "url": "git+ssh://git@github.com/mobileapps23/react-native-healthkit.git"
   },
   "keywords": [
     "Apple",
