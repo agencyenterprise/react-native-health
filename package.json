@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/agencyenterprise/react-native-healthkit.git"
+    "url": "git+https://github.com/mobileapps23/react-native-healthkit.git"
   },
   "keywords": [
     "Apple",
@@ -18,7 +18,7 @@
     "ios"
   ],
   "bugs": {
-    "url": "https://github.com/agencyenterprise/react-native-healthkit/issues"
+    "url": "https://github.com/mobileapps23/react-native-healthkit/issues"
   },
   "license": "MIT",
   "devDependencies": {
