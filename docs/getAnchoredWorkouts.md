@@ -16,7 +16,7 @@ Query to get all workouts of any given type by a given anchor (a physical memory
 let options = {
   startDate?: (new Date(2016,4,27)).toISOString(), // 
   endDate?: (new Date()).toISOString(),
-  queryAnchor?: 'base64encodedstring',
+  anchor?: 'base64encodedstring',
   type: 'Workout', // one of: ['Walking', 'StairClimbing', 'Running', 'Cycling', 'Workout']
 };
 ```
