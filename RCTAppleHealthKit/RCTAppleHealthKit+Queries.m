@@ -348,7 +348,7 @@
                                                    @"activityName" : type,
                                                    @"calories" : @(energy),
                                                    @"tracked" : @(isTracked),
-                                                   @"metadata" : [sample metadata],
+                                                   @"metadata" : [sample metadata] ? [sample metadata] : [NSNull null],
                                                    @"sourceName" : [[[sample sourceRevision] source] name],
                                                    @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
                                                    @"device": device,
@@ -614,6 +614,21 @@
                       case HKCategoryValueSleepAnalysisAsleep:
                         valueString = @"ASLEEP";
                       break;
+
+                      // watchOS 9 and iOS 16 introduce Core, Deep, REM, and Awake phases of sleep.
+                      case HKCategoryValueSleepAnalysisAsleepCore:
+                        valueString = @"CORE";
+                      break;
+                      case HKCategoryValueSleepAnalysisAsleepDeep:
+                        valueString = @"DEEP";
+                      break;
+                      case HKCategoryValueSleepAnalysisAsleepREM:
+                        valueString = @"REM";
+                      break;
+                      case HKCategoryValueSleepAnalysisAwake:
+                        valueString = @"AWAKE";
+                      break;
+
                      default:
                         valueString = @"UNKNOWN";
                      break;
@@ -741,6 +756,12 @@
                                                                     NSDate *startDate = result.startDate;
                                                                     NSDate *endDate = result.endDate;
                                                                     double value = [sum doubleValueForUnit:unit];
+                                                                    if (startDate == nil || endDate == nil) {
+                                                                        error = [[NSError alloc] initWithDomain:@"AppleHealthKit"
+                                                                                                           code:0
+                                                                                                           userInfo:@{@"Error reason": @"Could not fetch statistics: Not authorized"}
+                                                                        ];
+                                                                    }
                                                                     completionHandler(value, startDate, endDate, error);
                                                               }
                                                           }];
@@ -1041,11 +1062,12 @@
             return;
         }
 
-        [self sendEventWithName:successEvent body:@{}];
+        NSLog(@"Emitting event: %@", successEvent);
+        [self emitEventWithName:successEvent andPayload:@{}];
 
         completionHandler();
 
-        NSLog(@"[HealthKit] New sample from Apple HealthKit processed - %@", type);
+        NSLog(@"[HealthKit] New sample from Apple HealthKit processed (dep) - %@ %@", type, successEvent);
     }];
 
 
@@ -1062,7 +1084,7 @@
 
         [self.healthStore executeQuery:query];
 
-        [self sendEventWithName:successEvent body:@{}];
+        [self emitEventWithName:successEvent andPayload:@{}];
     }];
 }
 
@@ -1095,16 +1117,19 @@
 
             NSLog(@"[HealthKit] An error happened when receiving a new sample - %@", error.localizedDescription);
             if(self.hasListeners) {
-                [self sendEventWithName:failureEvent body:@{}];
+                [self emitEventWithName:failureEvent andPayload:@{}];
             }
             return;
         }
+
         if(self.hasListeners) {
-            [self sendEventWithName:successEvent body:@{}];
+            [self emitEventWithName:successEvent andPayload:@{}];
+        } else {
+          NSLog(@"There is no listeners for %@", successEvent);
         }
         completionHandler();
 
-        NSLog(@"[HealthKit] New sample from Apple HealthKit processed - %@", type);
+        NSLog(@"[HealthKit] New sample from Apple HealthKit processed - %@ %@", type, successEvent);
     }];
 
 
@@ -1117,15 +1142,16 @@
         if (error) {
             NSLog(@"[HealthKit] An error happened when setting up background observer - %@", error.localizedDescription);
             if(self.hasListeners) {
-                [self sendEventWithName:failureEvent body:@{}];
+                [self emitEventWithName:failureEvent andPayload:@{}];
             }
             return;
         }
-
+        NSLog(@"[HealthKit] Background delivery enabled for %@", type);
         [self.healthStore executeQuery:query];
-        if(self.hasListeners) {
-            [self sendEventWithName:successEvent body:@{}];
-        }
+          if(self.hasListeners) {
+              NSLog(@"[HealthKit] Background observer set up for %@", type);
+              [self emitEventWithName:successEvent andPayload:@{}];
+          }
         }];
 }
 

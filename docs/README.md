@@ -62,13 +62,14 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [saveFood](saveFood.md)
 - [saveWater](saveWater.md)
 - [getWater](getWater.md)
+- [getWaterSamples](getWaterSamples.md)
 - [getTotalFatSamples](getTotalFatSamples.md)
 
 ### Fitness Methods
 
 - [getDailyStepCountSamples](getDailyStepCountSamples.md)
 - [getStepCount](getStepCount.md)
-- [getSamples](docs/getSamples.md)
+- [getSamples](getSamples.md)
 - [getDailyDistanceWalkingRunningSamples](getDailyDistanceWalkingRunningSamples.md)
 - [getDistanceWalkingRunning](getDistanceWalkingRunning.md)
 - [getDailyDistanceSwimmingSamples](getDailyDistanceSwimmingSamples.md)
@@ -116,6 +117,9 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getOxygenSaturationSamples](getOxygenSaturationSamples.md)
 - [getWalkingHeartRateAverage](getWalkingHeartRateAverage.md)
 - [saveBmi](saveBmi.md)
+- [getPeakFlowSamples](getPeakFlowSamples.md)
+- [getLatestPeakFlow](getLatestPeakFlow.md)
+- [savePeakFlow](savePeakFlow.md)
 
 #### Workout Methods
 

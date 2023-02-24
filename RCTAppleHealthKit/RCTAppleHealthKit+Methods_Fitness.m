@@ -35,7 +35,7 @@
                                     includeManuallyAdded:includeManuallyAdded
                                     day:date
                              completion:^(double value, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!value && value != 0) {
+        if ((!value && value != 0) || error != nil) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -218,7 +218,7 @@
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
 
     [self fetchSumOfSamplesOnDayForType:quantityType unit:unit includeManuallyAdded:includeManuallyAdded day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!distance && distance != 0) {
+        if ((!distance && distance != 0) || error != nil) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -277,7 +277,7 @@
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceSwimming];
 
     [self fetchSumOfSamplesOnDayForType:quantityType unit:unit includeManuallyAdded:includeManuallyAdded day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!distance && distance != 0) {
+        if ((!distance && distance != 0) || error != nil) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -334,7 +334,7 @@
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
 
     [self fetchSumOfSamplesOnDayForType:quantityType unit:unit includeManuallyAdded:includeManuallyAdded day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!distance && distance != 0) {
+        if ((!distance && distance != 0) || error != nil) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -391,7 +391,7 @@
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
 
     [self fetchSumOfSamplesOnDayForType:quantityType unit:unit includeManuallyAdded:includeManuallyAdded day:date completion:^(double count, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!count && count != 0) {
+        if ((!count && count != 0) || error != nil) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }

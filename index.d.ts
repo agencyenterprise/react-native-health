@@ -87,6 +87,21 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
+    getLatestPeakFlow(
+      options: HealthUnitOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
+    getPeakFlowSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    savePeakFlow(
+      options: HealthValueOptions,
+      callback: (error: string, result: HealthValue) => void,
+    ): void
+
     saveLeanBodyMass(
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
@@ -217,6 +232,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getWaterSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
     getHeartRateSamples(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
@@ -329,7 +349,7 @@ declare module 'react-native-health' {
 
     getMindfulSession(
       options: HealthInputOptions,
-      callback: (err: string, results: HealthValue) => void,
+      callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
     saveMindfulSession(
@@ -735,6 +755,7 @@ declare module 'react-native-health' {
     LeanBodyMass = 'LeanBodyMass',
     MindfulSession = 'MindfulSession',
     NikeFuel = 'NikeFuel',
+    PeakFlow = 'PeakFlow',
     RespiratoryRate = 'RespiratoryRate',
     SleepAnalysis = 'SleepAnalysis',
     StepCount = 'StepCount',
@@ -770,6 +791,7 @@ declare module 'react-native-health' {
     mile = 'mile',
     minute = 'minute',
     mmhg = 'mmhg',
+    literPerMinute = 'literPerMinute',
     mmolPerL = 'mmolPerL',
     percent = 'percent',
     pound = 'pound',

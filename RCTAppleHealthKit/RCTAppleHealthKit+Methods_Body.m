@@ -328,6 +328,81 @@
     }];
 }
 
+- (void)body_getLatestPeakFlow:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *peakFlowType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierPeakExpiratoryFlowRate];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[[HKUnit literUnit] unitDividedByUnit:[HKUnit minuteUnit]]];
+
+    [self fetchMostRecentQuantitySampleOfType:peakFlowType
+                                    predicate:nil
+                                   completion:^(HKQuantity *mostRecentQuantity, NSDate *startDate, NSDate *endDate, NSError *error) {
+        if (error) {
+            NSLog(@"error getting latest peak flow: %@", error);
+            callback(@[RCTMakeError(@"error getting latest peak flow", error, nil)]);
+        }
+        else {
+            // Determine the peak flow rate in the required unit.
+            double peakFlow = [mostRecentQuantity doubleValueForUnit:unit];
+
+            NSDictionary *response = @{
+                    @"value" : @(peakFlow),
+                    @"startDate" : [RCTAppleHealthKit buildISO8601StringFromDate:startDate],
+                    @"endDate" : [RCTAppleHealthKit buildISO8601StringFromDate:endDate],
+            };
+
+            callback(@[[NSNull null], response]);
+        }
+    }];
+}
+
+- (void)body_getPeakFlowSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *peakFlowType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierPeakExpiratoryFlowRate];
+
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[[HKUnit literUnit] unitDividedByUnit:[HKUnit minuteUnit]]];
+
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchQuantitySamplesOfType:peakFlowType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+        if(results){
+          callback(@[[NSNull null], results]);
+        } else {
+          callback(@[RCTJSErrorFromNSError(error)]);
+        }
+    }];
+}
+
+- (void)body_savePeakFlow:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    double peakFlow = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+    HKUnit *peakFlowUnit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[[HKUnit literUnit] unitDividedByUnit:[HKUnit minuteUnit]]];
+
+    HKQuantity *peakFlowQuantity = [HKQuantity quantityWithUnit:peakFlowUnit doubleValue:peakFlow];
+    HKQuantityType *peakFlowType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierPeakExpiratoryFlowRate];
+    HKQuantitySample *peakFlowSample = [HKQuantitySample quantitySampleWithType:peakFlowType quantity:peakFlowQuantity startDate:sampleDate endDate:sampleDate];
+
+    [self.healthStore saveObject:peakFlowSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            callback(@[RCTJSErrorFromNSError(error)]);
+            return;
+        }
+        callback(@[[NSNull null], @(peakFlow)]);
+    }];
+}
 
 - (void)body_getLatestBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
