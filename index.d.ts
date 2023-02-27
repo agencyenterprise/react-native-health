@@ -1,5 +1,3 @@
-import { HealthInputOptions } from 'react-native-health'
-
 declare module 'react-native-health' {
   export interface HealthKitPermissions {
     permissions: {
@@ -467,7 +465,7 @@ declare module 'react-native-health' {
   export interface RecordMetadata {
     HKBloodGlucoseMealTime?: BloodGlucoseMealTime
     HKWasUserEntered?: boolean
-    [key: string]: string | number | boolean
+    [key: string]: string | number | boolean | undefined
   }
 
   export interface HealthValue extends BaseValue {
