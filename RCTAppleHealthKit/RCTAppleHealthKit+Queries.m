@@ -1101,18 +1101,16 @@
                     bridge:(RCTBridge *)bridge
                     hasListeners:(bool)hasListeners
 {
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-
     HKObserverQuery* query = [
         [HKObserverQuery alloc] initWithSampleType:sampleType
                                          predicate:nil
                                      updateHandler:^(HKObserverQuery* query,
                                                      HKObserverQueryCompletionHandler completionHandler,
                                                      NSError * _Nullable error) {
-        NSLog(@"[HealthKit] New sample received from Apple HealthKit - %@:%@", bundleIdentifier, type);
+        NSLog(@"[HealthKit] New sample received from Apple HealthKit - %@", type);
 
-        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:%@:new", bundleIdentifier, type];
-        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:%@:failure", bundleIdentifier, type];
+        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:new", type];
+        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:failure", type];
 
         if (error) {
             completionHandler();
@@ -1138,8 +1136,8 @@
     [self.healthStore enableBackgroundDeliveryForType:sampleType
                                             frequency:HKUpdateFrequencyImmediate
                                        withCompletion:^(BOOL success, NSError * _Nullable error) {
-        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:%@:setup:success", bundleIdentifier, type];
-        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:%@:setup:failure", bundleIdentifier, type];
+        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:setup:success", type];
+        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:setup:failure", type];
 
         if (error) {
             NSLog(@"[HealthKit] An error happened when setting up background observer - %@", error.localizedDescription);

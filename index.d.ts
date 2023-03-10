@@ -23,10 +23,6 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
-    registerHKitObservers(
-      callback: (error: Object, results: boolean) => void,
-    ): void
-
     isAvailable(callback: (error: Object, results: boolean) => void): void
 
     getBiologicalSex(
