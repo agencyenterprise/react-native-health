@@ -320,6 +320,12 @@ for some tips on getting started.
 
 - [Apple Healthkit Documentation](https://developer.apple.com/documentation/healthkit)
 
+## Android Alternative
+
+If your app needs an Android + Health Connect integration, your princess is in another castle. You can use the package [React Native Health Connect](https://github.com/matinzd/react-native-health-connect) maintained by one of the community's dev.
+
+In case of questions or if you just want to congratz the author, you can reach out to him on our [Discord Server](https://github.com/agencyenterprise/react-native-health#discord).
+
 ## Acknowledgement
 
 > _This package is a fork of [rn-apple-healthkit](https://github.com/terrillo/rn-apple-healthkit)_
