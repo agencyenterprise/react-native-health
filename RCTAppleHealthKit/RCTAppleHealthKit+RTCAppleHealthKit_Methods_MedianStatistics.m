@@ -20,7 +20,7 @@
 
 - (void)statistics_getMedianStatistic:(NSArray *)input callback:(RCTResponseSenderBlock)callback {
 
-    NSLog(@"Have input:", input.firstObject, input);
+    NSLog(@"Have input: first element is - %@", input.firstObject);
 
 
     //fake callback
