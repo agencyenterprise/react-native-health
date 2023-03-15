@@ -24,6 +24,7 @@
 #import "RCTAppleHealthKit+Methods_Summary.h"
 #import "RCTAppleHealthKit+Methods_ClinicalRecords.h"
 #import "RTCAppleHealthKit+Methods_Statistics.h"
+#import "RCTAppleHealthKit+RTCAppleHealthKit_Methods_MedianStatistics.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
@@ -592,6 +593,12 @@ RCT_EXPORT_METHOD(getStatisticRestingHeartRate:(NSDictionary *)input callback:(R
 {
     [self _initializeHealthStore];
     [self statistics_getStatisticRestingHeartRate:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getMedianStatistic:(NSArray *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getMedianStatistic:input callback:callback];
 }
 
 - (HKHealthStore *)_initializeHealthStore {
