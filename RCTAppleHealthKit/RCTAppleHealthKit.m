@@ -335,6 +335,11 @@ RCT_EXPORT_METHOD(getProteinSamples:(NSDictionary *)input callback:(RCTResponseS
    [self dietary_getProteinSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getFiberSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getFiberSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getTotalFatSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
    [self dietary_getTotalFatSamples:input callback:callback];
