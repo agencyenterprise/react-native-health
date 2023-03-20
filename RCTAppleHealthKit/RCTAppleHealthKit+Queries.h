@@ -120,5 +120,10 @@
 						   ascending:(BOOL)asc
 							   limit:(NSUInteger)lim
 						  completion:(void (^)(NSArray *, NSError *))completion;
+- (void)fetchBatchOfSamples:(HKSampleType *)type
+                    predicate:(NSPredicate *)predicate
+                       anchor:(HKQueryAnchor *)anchor
+                        limit:(NSUInteger)lim
+                   completion:(void (^)(NSDictionary *, NSError *))completion;
 
 @end
