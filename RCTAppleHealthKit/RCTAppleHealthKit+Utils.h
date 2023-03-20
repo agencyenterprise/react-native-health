@@ -47,5 +47,9 @@ extern NSString * const kMetadataKey;
 + (NSString *) md5HashString:(NSString *) input;
 + (NSString *) stringFromObject:(NSObject *)obj;
 + (NSString *) formattingStringHash:(NSString *)input;
++ (NSNumber *) calculateMedian:(NSArray *)input;
++ (NSInteger) daysFromSeconds:(NSDate *)startDate endDate: (NSDate *)endDate;
++ (HKSample *) firstByDateFromSamples:(NSArray<__kindof HKSample *>*)input;
++ (HKSample *) lastByDateFromSamples:(NSArray<__kindof HKSample *>*)input;
 
 @end

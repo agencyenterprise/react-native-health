@@ -658,4 +658,61 @@ NSString * const kMetadataKey = @"metadata";
     return result.uppercaseString;
 }
 
++ (NSNumber *)calculateMedian:(NSArray *)input {
+    if (input.count == 0) {
+        return nil;
+    }
+
+    NSArray *sorted = [input sortedArrayUsingSelector:@selector(compare:)];
+
+    if ((sorted.count % 2) == 0) {
+        NSInteger middleLeftIndex = (sorted.count / 2);
+        NSInteger middleRightIndex = (sorted.count / 2) - 1;
+
+        NSNumber *median = @(([sorted[middleLeftIndex] integerValue] + [sorted[middleRightIndex] integerValue]) / 2);
+        return median;
+    } else {
+        NSNumber *median = sorted[(sorted.count - 1) / 2];
+        return median;
+    }
+}
+
++ (NSInteger)daysFromSeconds:(NSDate *)startDate endDate: (NSDate *)endDate {
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+
+    NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *components = [gregorian components:unitFlags
+          fromDate:startDate
+            toDate:endDate
+           options:0];
+    NSInteger days = fabs([components day]);
+    return days;
+}
+
++ (HKSample *)firstByDateFromSamples:(NSArray<__kindof HKSample *>*)input {
+
+    NSSortDescriptor *dateDescriptor = [NSSortDescriptor
+                                     sortDescriptorWithKey:@"startDate"
+                                                 ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+    NSArray *sorted = [input
+         sortedArrayUsingDescriptors:sortDescriptors];
+
+    return sorted.firstObject;
+}
+
++ (HKSample *)lastByDateFromSamples:(NSArray<__kindof HKSample *>*)input {
+
+    NSSortDescriptor *dateDescriptor = [NSSortDescriptor
+                                     sortDescriptorWithKey:@"endDate"
+                                                 ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+    NSArray *sorted = [input
+         sortedArrayUsingDescriptors:sortDescriptors];
+
+    return sorted.lastObject;
+}
+
+
 @end
