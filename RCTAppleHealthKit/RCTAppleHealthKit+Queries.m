@@ -1182,14 +1182,27 @@
 
     // create and assign the block
     handlerBlock = ^(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error) {
-        if (completion) {
-            NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
-            NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
-            completion(@{
-                @"anchor": anchorString,
-                @"data": sampleObjects,
-            }, error);
-        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            if (error) {
+                if (completion) {
+                    completion(nil, error);
+                }
+                return;
+            }
+
+            if (completion) {
+
+                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
+                NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
+
+                completion(@{
+                    @"anchor": anchorString,
+                    @"data": sampleObjects,
+                }, error);
+            }
+        });
     };
     HKAnchoredObjectQuery *query = [[HKAnchoredObjectQuery alloc] initWithType:type
                                                                      predicate:predicate
