@@ -42,9 +42,14 @@ Example output:
 ]
 ```
 
-Permissions for input data types should be requested before calling the method, otherwise method will return no data for unresolved data types.
-Median statistics available for any data type, which is possible to request permissions for (see Permissions), and also for Activity types (see Activities). It means, that could be requested both type 'Workout' for common workout data and 'Running' or any other Activity type.
-Median statistic not available for HKCharacteristicType according to HealthKit documentation .
+Permissions for input data types should be requested before calling the method, otherwise method will return no data for unresolved data types.   
+
+
+Median statistics available for any data type, which is possible to request permissions for (see Permissions), and also for Activity types (see Activities). It means, that could be requested both type 'Workout' for common workout data and 'Running' or any other Activity type.   
+
+
+Median statistic not available for HKCharacteristicType according to HealthKit documentation.   
+
 
 Median counted for intervals between entries from 00:00:00 UTC on 1 January 1970 till current Date and returned in days and seconds.
 
