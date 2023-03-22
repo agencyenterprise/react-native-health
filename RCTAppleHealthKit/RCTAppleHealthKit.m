@@ -24,7 +24,7 @@
 #import "RCTAppleHealthKit+Methods_Summary.h"
 #import "RCTAppleHealthKit+Methods_ClinicalRecords.h"
 #import "RTCAppleHealthKit+Methods_Statistics.h"
-#import "RCTAppleHealthKit+RTCAppleHealthKit_Methods_MedianStatistics.h"
+#import "RCTAppleHealthKit+Methods_MedianStatistics.h"
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
