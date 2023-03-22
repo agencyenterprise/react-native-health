@@ -77,7 +77,7 @@
 
                             NSMutableArray<__kindof HKSample *> *data = results[@"data"];
 
-                            if ([sample isKindOfClass:[HKWorkoutType class]]) {
+                            if (([sample isKindOfClass:[HKWorkoutType class]]) && (![@"Workout" isEqual:sampleName])) {
                                 NSMutableArray<__kindof HKSample *> *dataByActivityType = [NSMutableArray new];
 
                                 for(HKWorkout *sampleElement in data) {
