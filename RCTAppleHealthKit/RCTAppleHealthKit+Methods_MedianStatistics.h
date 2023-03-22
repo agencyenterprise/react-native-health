@@ -1,5 +1,5 @@
 //
-//  RCTAppleHealthKit+RTCAppleHealthKit_Methods_MedianStatistics.h
+//  RCTAppleHealthKit+Methods_MedianStatistics.h
 //  RCTAppleHealthKit
 //
 //  Created by Anastasia Mishur on 14.03.23.
@@ -8,7 +8,7 @@
 
 #import "RCTAppleHealthKit.h"
 
-@interface RCTAppleHealthKit (RTCAppleHealthKit_Methods_MedianStatistics)
+@interface RCTAppleHealthKit (Methods_MedianStatistics)
 
 - (void)statistics_getMedianStatistic:(NSArray *)input callback:(RCTResponseSenderBlock)callback;
 
