@@ -11,6 +11,7 @@
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
 NSString * const kMetadataKey = @"metadata";
+NSString * const kTypesKey = @"types";
 
 @implementation RCTAppleHealthKit (Utils)
 
@@ -412,6 +413,14 @@ NSString * const kMetadataKey = @"metadata";
         return defaultValue;
     }
     return metadata;
+}
+
++ (NSArray *)typesFromOptions:(NSDictionary *)options {
+    NSArray *types = [options objectForKey:kTypesKey];
+    if(types == nil){
+        return [NSArray new];
+    }
+    return types;
 }
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array {

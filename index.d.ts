@@ -469,6 +469,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
+    getMedianStatistic(
+      options: HealthMedianStatisticsInputOptions,
+      callback: (err: string, results: Array<HealthStatisticsMedianValue>) => void,
+    ): void
+
     Constants: Constants
   }
 
@@ -493,6 +498,15 @@ declare module 'react-native-health' {
 
   export interface HealthValue extends BaseValue {
     value: number
+  }
+
+  export interface HealthStatisticsMedianValue {
+    parameterName: string,
+    firstEntry: string,
+    medianSeconds: number,
+    lastEntry: string,
+    medianDays: number,
+    entryCount: number
   }
 
   export interface SleepValue extends BaseValue {
@@ -566,6 +580,11 @@ declare module 'react-native-health' {
     startDate?: string
     endDate?: string
   }
+
+  export interface HealthMedianStatisticsInputOptions {
+    types: (string[])[]
+  }
+
   export interface HKWorkoutQueriedSampleType {
     activityId: number
     activityName: string

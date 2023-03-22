@@ -17,7 +17,12 @@
 
 // MARK: - Public
 
-- (void)statistics_getMedianStatistic:(NSArray *)input callback:(RCTResponseSenderBlock)callback {
+- (void)statistics_getMedianStatistic:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback {
+    NSArray<__kindof NSString *> *types = [RCTAppleHealthKit typesFromOptions:input];
+    if (types.count == 0) {
+        callback(@[RCTMakeError(@"No data types provided", nil, nil)]);
+        return;
+    }
 
     NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:0];
     NSDate *endDate = [NSDate date];
@@ -26,8 +31,14 @@
 
     // prepare object from input values
     NSMutableDictionary *validSamples = [NSMutableDictionary new];
-    for(NSString *sampleName in input) {
+    for(NSString *sampleName in types) {
         HKSampleType *sampleValue =(HKSampleType *)[self getObjectFromText:sampleName];
+
+        if ([sampleValue isKindOfClass:[HKCharacteristicType class]]) {
+            NSLog(@"RNHealth: Could not load data for HKCharacteristicType: %@", sampleName);
+            continue;
+        }
+
         if (sampleValue != nil) {
             validSamples[sampleName] = sampleValue;
         }

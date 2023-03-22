@@ -595,7 +595,7 @@ RCT_EXPORT_METHOD(getStatisticRestingHeartRate:(NSDictionary *)input callback:(R
     [self statistics_getStatisticRestingHeartRate:input callback:callback];
 }
 
-RCT_EXPORT_METHOD(getMedianStatistic:(NSArray *)input callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getMedianStatistic:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
     [self statistics_getMedianStatistic:input callback:callback];
