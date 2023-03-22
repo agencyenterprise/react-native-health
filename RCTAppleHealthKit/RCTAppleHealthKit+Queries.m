@@ -1186,6 +1186,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
 
             if (error) {
+                NSLog(@"RNHealth: An error occured for %@: %@", type.description, error.description);
                 if (completion) {
                     completion(nil, error);
                 }
