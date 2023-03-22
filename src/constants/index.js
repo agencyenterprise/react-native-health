@@ -1,4 +1,5 @@
 import { Activities } from './Activities'
+import { MedianStatisticsDataTypes } from './MedianStatisticsDataTypes'
 import { Observers } from './Observers'
 import { Permissions } from './Permissions'
 import { GenericStatisticsAggregators, StepsStatisticsAggregators } from './StatisticsAggregators';
@@ -8,6 +9,7 @@ import { Units } from './Units'
 export {
   Activities,
   GenericStatisticsAggregators,
+  MedianStatisticsDataTypes,
   Observers,
   Permissions,
   StatisticsIntervals,
