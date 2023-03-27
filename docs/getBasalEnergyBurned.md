@@ -1,7 +1,7 @@
 # getBasalEnergyBurned
 
-A quantity sample type that measures the amount of `resting energy` burned for within a period of time.
-These samples together with active energy burned for the same time period represent the `total energy` burned for that period (usually seen as Total Kilocalories in workout on Apple Watch).
+A quantity sample type that measures the amount of `resting energy` burned within a period of time.
+These samples together with `active energy` burned for the same time period represent the `total energy` burned for that period (usually seen as Total Kilocalories in a workout on Apple Watch).
 
 Example input options:
 

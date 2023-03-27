@@ -1,6 +1,6 @@
 # getActiveEnergyBurned
 
-A quantity sample type that measures the amount of `active energy` the user has burned within a period of time.
+A quantity sample type that measures the amount of `active energy` the user has burned within a period of time. This represents only the Active Kilocalories from the Total Kilocalories for that time period.
 
 Example input options:
 
