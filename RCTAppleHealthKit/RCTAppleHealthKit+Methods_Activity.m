@@ -11,67 +11,67 @@
 
 @implementation RCTAppleHealthKit (Methods_Activity)
 
-- (void)activity_getTotalEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
-{
-    HKQuantityType *activeEnergyType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
-    HKQuantityType *restingEnergyType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBasalEnergyBurned];
+// - (void)activity_getTotalEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+// {
+//     HKQuantityType *activeEnergyType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
+//     HKQuantityType *restingEnergyType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBasalEnergyBurned];
 
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit kilocalorieUnit]];
-    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
-    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
-    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
-    NSUInteger period = [RCTAppleHealthKit uintFromOptions:input key:@"period" withDefault:60];
-    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
+//     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit kilocalorieUnit]];
+//     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+//     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+//     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+//     NSUInteger period = [RCTAppleHealthKit uintFromOptions:input key:@"period" withDefault:60];
+//     BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
 
-    if(startDate == nil){
-        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
-        return;
-    }
+//     if(startDate == nil){
+//         callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+//         return;
+//     }
 
-    [self fetchCumulativeSumStatisticsCollection:activeEnergyType
-                                            unit:unit
-                                          period:period
-                                       startDate:startDate
-                                         endDate:endDate
-                                       ascending:ascending
-                                           limit:HKObjectQueryNoLimit
-                            includeManuallyAdded:includeManuallyAdded
-                                      completion:^(NSArray *activeEnergyResults, NSError *error) {
-                                          if(error){
-                                              NSLog(@"error getting active energy burned samples: %@", error);
-                                              callback(@[RCTMakeError(@"error getting active energy burned samples:", error, nil)]);
-                                              return;
-                                          } else {
-                                              [self fetchCumulativeSumStatisticsCollection:restingEnergyType
-                                                                                      unit:unit
-                                                                                    period:period
-                                                                                 startDate:startDate
-                                                                                   endDate:endDate
-                                                                                 ascending:ascending
-                                                                                     limit:HKObjectQueryNoLimit
-                                                                      includeManuallyAdded:includeManuallyAdded
-                                                                                completion:^(NSArray *restingEnergyResults, NSError *error) {
-                                                                                    if(error){
-                                                                                        NSLog(@"error getting resting energy burned samples: %@", error);
-                                                                                        callback(@[RCTMakeError(@"error getting resting energy burned samples:", error, nil)]);
-                                                                                        return;
-                                                                                    } else {
-                                                                                        // Calculate the total energy burned by summing up the active energy and resting energy
-                                                                                        double totalEnergyBurned = 0.0;
-                                                                                        for (HKStatistics *activeEnergy in activeEnergyResults) {
-                                                                                            HKQuantity *activeEnergyQuantity = activeEnergy.sumQuantity;
-                                                                                            HKQuantity *restingEnergyQuantity = restingEnergyResults[activeEnergyResults.indexOfObject:activeEnergy].sumQuantity;
-                                                                                            double activeEnergyValue = [activeEnergyQuantity doubleValueForUnit:unit];
-                                                                                            double restingEnergyValue = [restingEnergyQuantity doubleValueForUnit:unit];
-                                                                                            totalEnergyBurned += activeEnergyValue + restingEnergyValue;
-                                                                                        }
-                                                                                        callback(@[[NSNull null], @(totalEnergyBurned)]);
-                                                                                        return;
-                                                                                    }
-                                                                                }];
-                                          }
-                                      }];
-}
+//     [self fetchCumulativeSumStatisticsCollection:activeEnergyType
+//                                             unit:unit
+//                                           period:period
+//                                        startDate:startDate
+//                                          endDate:endDate
+//                                        ascending:ascending
+//                                            limit:HKObjectQueryNoLimit
+//                             includeManuallyAdded:includeManuallyAdded
+//                                       completion:^(NSArray *activeEnergyResults, NSError *error) {
+//                                           if(error){
+//                                               NSLog(@"error getting active energy burned samples: %@", error);
+//                                               callback(@[RCTMakeError(@"error getting active energy burned samples:", error, nil)]);
+//                                               return;
+//                                           } else {
+//                                               [self fetchCumulativeSumStatisticsCollection:restingEnergyType
+//                                                                                       unit:unit
+//                                                                                     period:period
+//                                                                                  startDate:startDate
+//                                                                                    endDate:endDate
+//                                                                                  ascending:ascending
+//                                                                                      limit:HKObjectQueryNoLimit
+//                                                                       includeManuallyAdded:includeManuallyAdded
+//                                                                                 completion:^(NSArray *restingEnergyResults, NSError *error) {
+//                                                                                     if(error){
+//                                                                                         NSLog(@"error getting resting energy burned samples: %@", error);
+//                                                                                         callback(@[RCTMakeError(@"error getting resting energy burned samples:", error, nil)]);
+//                                                                                         return;
+//                                                                                     } else {
+//                                                                                         // Calculate the total energy burned by summing up the active energy and resting energy
+//                                                                                         double totalEnergyBurned = 0.0;
+//                                                                                         for (HKStatistics *activeEnergy in activeEnergyResults) {
+//                                                                                             HKQuantity *activeEnergyQuantity = activeEnergy.sumQuantity;
+//                                                                                             HKQuantity *restingEnergyQuantity = restingEnergyResults[activeEnergyResults.indexOfObject:activeEnergy].sumQuantity;
+//                                                                                             double activeEnergyValue = [activeEnergyQuantity doubleValueForUnit:unit];
+//                                                                                             double restingEnergyValue = [restingEnergyQuantity doubleValueForUnit:unit];
+//                                                                                             totalEnergyBurned += activeEnergyValue + restingEnergyValue;
+//                                                                                         }
+//                                                                                         callback(@[[NSNull null], @(totalEnergyBurned)]);
+//                                                                                         return;
+//                                                                                     }
+//                                                                                 }];
+//                                           }
+//                                       }];
+// }
 
 
 - (void)activity_getActiveEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback

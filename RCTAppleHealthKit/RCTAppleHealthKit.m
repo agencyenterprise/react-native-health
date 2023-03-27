@@ -388,11 +388,11 @@ RCT_EXPORT_METHOD(getActiveEnergyBurned:(NSDictionary *)input callback:(RCTRespo
    [self activity_getActiveEnergyBurned:input callback:callback];
 }
 
-RCT_EXPORT_METHOD(getTotalEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
-{
-   [self _initializeHealthStore];
-   [self activity_getTotalEnergyBurned:input callback:callback];
-}
+// RCT_EXPORT_METHOD(getTotalEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+// {
+//    [self _initializeHealthStore];
+//    [self activity_getTotalEnergyBurned:input callback:callback];
+// }
 
 RCT_EXPORT_METHOD(getBasalEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
