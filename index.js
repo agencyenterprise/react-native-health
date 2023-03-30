@@ -1,7 +1,6 @@
 import {
   Activities,
   GenericStatisticsAggregators,
-  MedianStatisticsDataTypes,
   Observers,
   Permissions,
   StatisticsIntervals,
@@ -15,7 +14,6 @@ export const HealthKit = Object.assign({}, AppleHealthKit, {
   Constants: {
     Activities,
     GenericStatisticsAggregators,
-    MedianStatisticsDataTypes,
     Observers,
     Permissions,
     StatisticsIntervals,
