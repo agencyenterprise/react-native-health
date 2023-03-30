@@ -181,8 +181,8 @@
                 response[@"firstEntry"] = resultStartDateString ? resultStartDateString : @"";
                 response[@"lastEntry"] = resultEndDateString ? resultEndDateString : @"";
                 response[@"entryCount"] = @(resultArray.count);
-                response[@"medianSeconds"] = medianIntervalInSeconds ? medianIntervalInSeconds : @"",
-                response[@"medianDays"] = medianIntervalInDays ? medianIntervalInDays : @"";
+                response[@"medianSeconds"] = medianIntervalInSeconds ? medianIntervalInSeconds : [NSNull null];
+                response[@"medianDays"] = medianIntervalInDays ? medianIntervalInDays : [NSNull null];
 
                 [output addObject:response];
             }
