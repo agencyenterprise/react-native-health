@@ -19,7 +19,7 @@
 - (void)statistics_getMedianStatistic:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback {
     NSArray<__kindof NSString *> *types = [RCTAppleHealthKit typesFromOptions:input];
     if (types.count == 0) {
-        callback(@[RCTMakeError(@"No data types provided", nil, nil)]);
+        callback(@[RCTMakeError(@"RNHealth: No data types provided", nil, nil)]);
         return;
     }
 
@@ -40,6 +40,9 @@
 
         if (sampleValue != nil) {
             validSamples[sampleName] = sampleValue;
+        } else {
+            NSLog(@"RNHealth: Could not load data for type: %@", sampleName);
+            continue;
         }
     }
 
@@ -87,12 +90,13 @@
 
                             NSMutableArray<__kindof HKSample *> *data = results[@"data"];
 
-                            if (([sample isKindOfClass:[HKWorkoutType class]]) && (![@"Workout" isEqual:sampleName])) {
+                            if (([sample isKindOfClass:[HKWorkoutType class]]) && (![@"workout" isEqual:sampleName])) {
                                 NSMutableArray<__kindof HKSample *> *dataByActivityType = [NSMutableArray new];
 
                                 for(HKWorkout *sampleElement in data) {
                                     NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sampleElement workoutActivityType]];
-                                    if ([type isEqualToString:sampleName]) {
+                                    
+                                    if ([type caseInsensitiveCompare:sampleName] == NSOrderedSame) {
                                         [dataByActivityType addObject:sampleElement];
                                     }
                                 }
