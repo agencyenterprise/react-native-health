@@ -860,7 +860,7 @@ Median counted for intervals between entries from 00:00:00 UTC on 1 January 1970
    </td>
    <td>
    </td>
-   <td>
+   <td>workout
    </td>
   </tr>
   <tr>
@@ -1093,14 +1093,5 @@ Median counted for intervals between entries from 00:00:00 UTC on 1 January 1970
    <td>
    </td>
   </tr>
-    <tr>
-   <td>workout
-   </td>
-   <td>
-   </td>
-   <td>
-   </td>
-   <td>
-   </td>
-  </tr>
+    <tr>   
 </table>
