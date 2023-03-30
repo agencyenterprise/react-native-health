@@ -1198,10 +1198,11 @@
                 NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
                 NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
 
-                completion(@{
-                    @"anchor": anchorString,
-                    @"data": sampleObjects,
-                }, error);
+                NSMutableDictionary *response = [NSMutableDictionary dictionary];
+                response[@"anchor"] = anchorString ? anchorString : @"";
+                response[@"data"] = sampleObjects;
+
+                completion(response, error);
             }
         });
     };

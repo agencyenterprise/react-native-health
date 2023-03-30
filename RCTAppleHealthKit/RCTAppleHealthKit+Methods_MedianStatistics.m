@@ -90,6 +90,12 @@
 
                             NSMutableArray<__kindof HKSample *> *data = results[@"data"];
 
+                            if (data == nil) {
+                                hasResults = NO;
+                                NSLog(@"RNHealth getMedianStatistic: An error occured");
+                                dispatch_semaphore_signal(semaphore);
+                            }
+
                             if (([sample isKindOfClass:[HKWorkoutType class]]) && (![@"workout" isEqual:sampleName])) {
                                 NSMutableArray<__kindof HKSample *> *dataByActivityType = [NSMutableArray new];
 
@@ -170,14 +176,14 @@
                 NSString *resultStartDateString = [RCTAppleHealthKit buildISO8601StringFromDate:firstSample.startDate];
                 NSString *resultEndDateString = [RCTAppleHealthKit buildISO8601StringFromDate:lastSample.endDate];
 
-                NSDictionary *response = @{
-                    @"parameterName" : sampleName,
-                    @"firstEntry" : resultStartDateString,
-                    @"lastEntry" : resultEndDateString,
-                    @"entryCount" : @(resultArray.count),
-                    @"medianSeconds" : medianIntervalInSeconds,
-                    @"medianDays" : medianIntervalInDays,
-                };
+                NSMutableDictionary *response = [NSMutableDictionary dictionary];
+                response[@"parameterName"] = sampleName ? sampleName : @"";
+                response[@"firstEntry"] = resultStartDateString ? resultStartDateString : @"";
+                response[@"lastEntry"] = resultEndDateString ? resultEndDateString : @"";
+                response[@"entryCount"] = @(resultArray.count);
+                response[@"medianSeconds"] = medianIntervalInSeconds ? medianIntervalInSeconds : @"",
+                response[@"medianDays"] = medianIntervalInDays ? medianIntervalInDays : @"";
+
                 [output addObject:response];
             }
 
