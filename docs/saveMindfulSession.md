@@ -16,7 +16,7 @@ Call the method:
 
 ```javascript
 AppleHealthKit.saveMindfulSession(
-  (options: HealthInputOptions),
+  (options: MindfulSessionOptions),
   (err: Object, results: number) => {
     if (err)
       return {
