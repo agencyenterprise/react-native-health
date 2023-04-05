@@ -222,7 +222,7 @@ NSString * const kMetadataKey = @"metadata";
     return [HKObjectType workoutType];
 }
 
-+ (HKSampleType *)clinicalTypeFromName:(NSString *)type {
++ (nullable HKSampleType *)clinicalTypeFromName:(NSString *)type {
     if (@available(iOS 12.0, *)) {
         if ([type isEqual:@"AllergyRecord"]){
             return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierAllergyRecord];
