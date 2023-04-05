@@ -119,37 +119,43 @@
 
 - (void)activity_getAppleStandTime:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    HKQuantityType *exerciseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleStandTime];
-    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit secondUnit]];
-    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
-    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
-    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
-    NSUInteger period = [RCTAppleHealthKit uintFromOptions:input key:@"period" withDefault:60];
-    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
+    if (@available(iOS 13.0, *)) {
+        HKQuantityType *exerciseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleStandTime];
+        HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit secondUnit]];
+        BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+        NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+        NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+        NSUInteger period = [RCTAppleHealthKit uintFromOptions:input key:@"period" withDefault:60];
+        BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
 
-    if(startDate == nil){
-        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        if(startDate == nil){
+            callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+            return;
+        }
+
+        [self fetchCumulativeSumStatisticsCollection:exerciseType
+                                                unit:unit
+                                              period:period
+                                           startDate:startDate
+                                             endDate:endDate
+                                           ascending:ascending
+                                               limit:HKObjectQueryNoLimit
+                                includeManuallyAdded:includeManuallyAdded
+                                          completion:^(NSArray *results, NSError *error) {
+            if(results){
+                callback(@[[NSNull null], results]);
+                return;
+            } else {
+                NSLog(@"error getting stand time: %@", error);
+                callback(@[RCTMakeError(@"error getting stand time:", error, nil)]);
+                return;
+            }
+        }];
+    } else {
+        callback(@[RCTMakeError(@"iOS version should be 13.0 or higher for calling 'activity_getAppleStandTime' method", nil, nil)]);
         return;
     }
-
-    [self fetchCumulativeSumStatisticsCollection:exerciseType
-                                            unit:unit
-                                          period:period
-                                       startDate:startDate
-                                         endDate:endDate
-                                       ascending:ascending
-                                           limit:HKObjectQueryNoLimit
-                            includeManuallyAdded:includeManuallyAdded
-                                      completion:^(NSArray *results, NSError *error) {
-                                          if(results){
-                                              callback(@[[NSNull null], results]);
-                                              return;
-                                          } else {
-                                              NSLog(@"error getting stand time: %@", error);
-                                              callback(@[RCTMakeError(@"error getting stand time:", error, nil)]);
-                                              return;
-                                          }
-                                      }];
 }
 
 @end
+
