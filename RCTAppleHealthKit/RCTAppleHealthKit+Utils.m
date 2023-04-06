@@ -222,7 +222,7 @@ NSString * const kMetadataKey = @"metadata";
     return [HKObjectType workoutType];
 }
 
-+ (HKSampleType *)clinicalTypeFromName:(NSString *)type {
++ (nullable HKSampleType *)clinicalTypeFromName:(NSString *)type {
     if (@available(iOS 12.0, *)) {
         if ([type isEqual:@"AllergyRecord"]){
             return [HKObjectType clinicalTypeForIdentifier:HKClinicalTypeIdentifierAllergyRecord];
@@ -484,8 +484,6 @@ NSString * const kMetadataKey = @"metadata";
             return @"Cycling";
         case HKWorkoutActivityTypeDance:
             return @"Dance";
-        case HKWorkoutActivityTypeDanceInspiredTraining:
-            return @"DanceInspiredTraining";
         case HKWorkoutActivityTypeDiscSports:
             return @"DiscSports";
         case HKWorkoutActivityTypeElliptical:
@@ -518,8 +516,6 @@ NSString * const kMetadataKey = @"metadata";
             return @"MartialArts";
         case HKWorkoutActivityTypeMindAndBody:
             return @"MindAndBody";
-        case HKWorkoutActivityTypeMixedMetabolicCardioTraining:
-            return @"MixedMetabolicCardioTraining";
         case HKWorkoutActivityTypePaddleSports:
             return @"PaddleSports";
         case HKWorkoutActivityTypePlay:

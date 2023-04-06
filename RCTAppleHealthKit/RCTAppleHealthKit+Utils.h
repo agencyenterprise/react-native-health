@@ -30,7 +30,7 @@ extern NSString * const kMetadataKey;
 + (NSDate *)endDateFromOptionsDefaultNow:(NSDictionary *)options;
 + (RCTStatisticRequest *)statisticRequestFromOptions:(NSDictionary *)options quantity: (HKQuantityTypeIdentifier) quantity defaultUnit: (HKUnit*) defaultUnit;
 + (HKSampleType *)quantityTypeFromName:(NSString *)type;
-+ (HKSampleType *)clinicalTypeFromName:(NSString *)type;
++ (nullable HKSampleType *)clinicalTypeFromName:(NSString *)type;
 + (HKQueryAnchor *)hkAnchorFromOptions:(NSDictionary *)options;
 + (HKUnit *)hkUnitFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKUnit *)defaultValue;
 + (NSUInteger)uintFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(NSUInteger)defaultValue;
