@@ -47,7 +47,7 @@
     }
 
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    queue.maxConcurrentOperationCount = 5;
+    queue.maxConcurrentOperationCount = 10;
 
     NSOperation *doneOperation = [[NSOperation alloc] init];
     [doneOperation setCompletionBlock:^{
@@ -61,7 +61,7 @@
 
             HKSampleType *sample = validSamples[sampleName];
 
-            int limit = 100;
+            int limit = 5000;
             __block HKQueryAnchor *anchor = nil;
             __block NSMutableArray<__kindof HKSample *> *resultArray = [NSMutableArray new];
             __block NSMutableArray<__kindof HKSample *> *samplesFirstByDate = [NSMutableArray new];
