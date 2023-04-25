@@ -1171,4 +1171,48 @@
 	[self.healthStore executeQuery:query];
 }
 
+- (void)fetchBatchOfSamples:(HKSampleType *)type
+                  predicate:(NSPredicate *)predicate
+                     anchor:(HKQueryAnchor *)anchor
+                      limit:(NSUInteger)lim
+                 completion:(void (^)(NSDictionary *, NSError *))completion {
+
+    // declare the block
+    void (^handlerBlock)(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error);
+
+    // create and assign the block
+    handlerBlock = ^(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error) {
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            if (error) {
+                NSLog(@"RNHealth: An error occured for %@: %@", type.description, error.description);
+                if (completion) {
+                    completion(nil, error);
+                }
+                return;
+            }
+
+            if (completion) {
+
+                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
+                NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
+
+                NSMutableDictionary *response = [NSMutableDictionary dictionary];
+                response[@"anchor"] = anchorString ? anchorString : @"";
+                response[@"data"] = sampleObjects;
+
+                completion(response, error);
+            }
+        });
+    };
+    HKAnchoredObjectQuery *query = [[HKAnchoredObjectQuery alloc] initWithType:type
+                                                                     predicate:predicate
+                                                                        anchor:anchor
+                                                                         limit:lim
+                                                                resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+}
+
 @end

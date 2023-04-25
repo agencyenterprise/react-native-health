@@ -267,6 +267,7 @@ they are splitted in the following categories
 #### Statistics (Aggregated) Methods
 
 - [Statistics (Aggregated) methods](docs/statistics.md)
+- [getMedianStatistic](getMedianStatistic.md)
 
 ## Additional Information
 

@@ -120,3 +120,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 
 - [getAnchoredWorkouts](getAnchoredWorkouts.md)
 - [saveWorkout](saveWorkout.md)
+
+#### Statistics Methods
+
+- [getMedianStatistic](getMedianStatistic.md)
