@@ -30,7 +30,8 @@
 
 @implementation RCTAppleHealthKit
 
-bool hasListeners;
+static bool hasListeners;
+static bool isLegacyBackgroundImplementation;
 
 RCT_EXPORT_MODULE();
 
@@ -327,17 +328,17 @@ RCT_EXPORT_METHOD(getDailyFlightsClimbedSamples:(NSDictionary *)input callback:(
 
 RCT_EXPORT_METHOD(getEnergyConsumedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
-   [self dietary_getEnergyConsumedSamples:input callback:callback];
+    [self dietary_getEnergyConsumedSamples:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getProteinSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
-   [self dietary_getProteinSamples:input callback:callback];
+    [self dietary_getProteinSamples:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getTotalFatSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
-   [self dietary_getTotalFatSamples:input callback:callback];
+    [self dietary_getTotalFatSamples:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -384,8 +385,8 @@ RCT_EXPORT_METHOD(getWalkingHeartRateAverage:(NSDictionary *)input callback:(RCT
 
 RCT_EXPORT_METHOD(getActiveEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
-   [self _initializeHealthStore];
-   [self activity_getActiveEnergyBurned:input callback:callback];
+    [self _initializeHealthStore];
+    [self activity_getActiveEnergyBurned:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getBasalEnergyBurned:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -575,21 +576,21 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 }
 
 - (HKHealthStore *)_initializeHealthStore {
-  if(![self healthStore]) {
-    self.healthStore = [[HKHealthStore alloc] init];
-  }
-  return [self healthStore];
+    if(![self healthStore]) {
+        self.healthStore = [[HKHealthStore alloc] init];
+    }
+    return [self healthStore];
 }
 
 
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback
 {
     BOOL isAvailable = NO;
-
+    
     if ([HKHealthStore isHealthDataAvailable]) {
         isAvailable = YES;
     }
-
+    
     callback(@[[NSNull null], @(isAvailable)]);
 }
 
@@ -597,11 +598,11 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 - (void)initializeHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     [self _initializeHealthStore];
-
+    
     if ([HKHealthStore isHealthDataAvailable]) {
         NSSet *writeDataTypes;
         NSSet *readDataTypes;
-
+        
         // get permissions from input object provided by JS options argument
         NSDictionary* permissions =[input objectForKey:@"permissions"];
         if(permissions != nil){
@@ -609,7 +610,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             NSArray* writePermsArray = [permissions objectForKey:@"write"];
             NSSet* readPerms = [self getReadPermsFromOptions:readPermsArray];
             NSSet* writePerms = [self getWritePermsFromOptions:writePermsArray];
-
+            
             if(readPerms != nil) {
                 readDataTypes = readPerms;
             }
@@ -620,17 +621,17 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             callback(@[RCTMakeError(@"permissions must be provided in the initialization options", nil, nil)]);
             return;
         }
-
+        
         // make sure at least 1 read or write permission is provided
         if(!writeDataTypes && !readDataTypes){
             callback(@[RCTMakeError(@"at least 1 read or write permission must be set in options.permissions", nil, nil)]);
             return;
         }
-
+        
         [self.healthStore requestAuthorizationToShareTypes:writeDataTypes readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
             if (!success) {
                 NSString *errMsg = [NSString stringWithFormat:@"Error with HealthKit authorization: %@", error];
-                 NSLog(@"%@", errMsg);
+                NSLog(@"%@", errMsg);
                 callback(@[RCTMakeError(errMsg, nil, nil)]);
                 return;
             } else {
@@ -645,6 +646,17 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 }
 
 - (NSArray<NSString *> *)supportedEvents {
+    if (!isLegacyBackgroundImplementation) {
+        return @[
+            @"healthKit:new",
+            @"healthKit:failure",
+            @"healthKit:enabled",
+            @"healthKit:setup:success",
+            @"healthKit:setup:failure",
+            @"change:steps"
+        ];
+    }
+    
     NSArray *types = @[
         @"ActiveEnergyBurned",
         @"BasalEnergyBurned",
@@ -674,7 +686,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
     NSArray *templates = @[@"healthKit:%@:new", @"healthKit:%@:failure", @"healthKit:%@:enabled", @"healthKit:%@:sample", @"healthKit:%@:setup:success", @"healthKit:%@:setup:failure"];
     
     NSMutableArray *supportedEvents = [[NSMutableArray alloc] init];
-
+    
     for(NSString * type in types) {
         for(NSString * template in templates) {
             NSString *successEvent = [NSString stringWithFormat:template, type];
@@ -682,29 +694,29 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         }
     }
     [supportedEvents addObject: @"change:steps"];
-  return supportedEvents;
+    return supportedEvents;
 }
 
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSDictionary *info = @{
-            @"name" : @"react-native-apple-healthkit",
-            @"description" : @"A React Native bridge module for interacting with Apple HealthKit data",
-            @"className" : @"RCTAppleHealthKit",
-            @"author": @"Greg Wilson",
+        @"name" : @"react-native-apple-healthkit",
+        @"description" : @"A React Native bridge module for interacting with Apple HealthKit data",
+        @"className" : @"RCTAppleHealthKit",
+        @"author": @"Greg Wilson",
     };
     callback(@[[NSNull null], info]);
 }
 
 - (void)getAuthorizationStatus:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-  
+    
     [self _initializeHealthStore];
     if ([HKHealthStore isHealthDataAvailable]) {
-
+        
         NSArray* readPermsArray;
         NSArray* writePermsArray;
-
+        
         NSDictionary* permissions =[input objectForKey:@"permissions"];
         if(permissions != nil && [permissions objectForKey:@"read"] != nil && [permissions objectForKey:@"write"] != nil){
             NSArray* readPermsNamesArray = [permissions objectForKey:@"read"];
@@ -715,8 +727,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             callback(@[RCTMakeError(@"permissions must be included in permissions object with read and write options", nil, nil)]);
             return;
         }
-
-
+        
+        
         NSMutableArray * read = [NSMutableArray arrayWithCapacity: 1];
         for(HKObjectType * perm in readPermsArray) {
             [read  addObject:[NSNumber numberWithInt:[self.healthStore authorizationStatusForType: perm]]];
@@ -726,37 +738,55 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
             [write  addObject:[NSNumber numberWithInt:[self.healthStore authorizationStatusForType: perm]]];
         }
         callback(@[[NSNull null], @{
-                       @"permissions":
-                           @{
-                               @"read": read,
-                               @"write": write
-                               }
-                       }]);
+            @"permissions":
+                @{
+                    @"read": read,
+                    @"write": write
+                }
+        }]);
     } else {
         callback(@[RCTMakeError(@"HealthKit data is not available", nil, nil)]);
     }
 }
 
 /*!
-    Initialize background delivery for the specified types. This allows for HealthKit to notify the app when a new
-    sample of data is added to it
-
-    This method must be called at the application:didFinishLaunchingWithOptions: method, in AppDelegate.m
+ Initialize background delivery for the specified types. This allows for HealthKit to notify the app when a new
+ sample of data is added to it. This function is to help with backwards compatibility and simulate an optional parameter of isLegacyBackgroundImplementation
+ 
+ This method must be called at the application:didFinishLaunchingWithOptions: method, in AppDelegate.m
  */
-  - (void)initializeBackgroundObservers:(RCTBridge *)bridge
-{
+- (void)initializeBackgroundObservers:(RCTBridge *)bridge {
+    [self initializeBackgroundObservers:bridge isLegacyBackgroundImplementation:YES];
+}
+
+/*!
+ Initialize background delivery for the specified types. This allows for HealthKit to notify the app when a new
+ sample of data is added to it
+ 
+ This method must be called at the application:didFinishLaunchingWithOptions: method, in AppDelegate.m
+ */
+- (void)initializeBackgroundObservers:(RCTBridge *)bridge isLegacyBackgroundImplementation:(BOOL)isLegacy {
+    self.isLegacyBackgroundImplementation = isLegacy;
     [self _initializeHealthStore];
-
+    
     self.bridge = bridge;
-
+    
     if ([HKHealthStore isHealthDataAvailable]) {
         NSArray *fitnessObservers = @[
             @"ActiveEnergyBurned",
             @"BasalEnergyBurned",
+            @"BodyMass",
+            @"BodyFatPercentage",
+            @"BodyTemperature",
+            @"BloodGlucose",
+            @"BloodPressureDiastolic",
+            @"BloodPressureSystolic",
             @"Cycling",
             @"HeartRate",
             @"HeartRateVariabilitySDNN",
+            @"OxygenSaturation",
             @"RestingHeartRate",
+            @"RespiratoryRate",
             @"Running",
             @"StairClimbing",
             @"StepCount",
@@ -797,29 +827,30 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
 // Will be called when this module's first listener is added.
 -(void)startObserving {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        for (NSString *notificationName in [self supportedEvents]) {
-            [center addObserver:self
+    for (NSString *notificationName in [self supportedEvents]) {
+        [center addObserver:self
                    selector:@selector(emitEventInternal:)
                        name:notificationName
                      object:nil];
-        }
+    }
     self.hasListeners = YES;
 }
 
 - (void)emitEventInternal:(NSNotification *)notification {
-  if (self.hasListeners) {
-    self.callableJSModules = [RCTAppleHealthKit sharedJsModule];
-    [self.callableJSModules setBridge:self.bridge];
-    [self sendEventWithName:notification.name
-                   body:notification.userInfo];
-  }
+    if (self.hasListeners) {
+        self.callableJSModules = [RCTAppleHealthKit sharedJsModule];
+        [self.callableJSModules setBridge:self.bridge];
+        [self sendEventWithName:notification.name
+                           body:notification.userInfo];
+    }
 }
 
-- (void)emitEventWithName:(NSString *)name andPayload:(NSDictionary *)payload {
+- (void)emitEventWithName:(NSString *)name body:(NSDictionary *)body {
     [[NSNotificationCenter defaultCenter] postNotificationName:name
-                                                    object:self
-                                                  userInfo:payload];
+                                                        object:self
+                                                      userInfo:body];
 }
+
 
 // Will be called when this module's last listener is removed, or on dealloc.
 -(void)stopObserving {
