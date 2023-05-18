@@ -10,6 +10,7 @@
 #import "RCTTypes.h"
 
 extern NSString * const kMetadataKey;
+extern NSString * const kTypesKey;
 
 @interface RCTAppleHealthKit (Utils)
 
@@ -41,11 +42,16 @@ extern NSString * const kMetadataKey;
 + (HKWorkoutActivityType)hkWorkoutActivityTypeFromOptions: (NSDictionary *)options key: (NSString *)key withDefault: (HKWorkoutActivityType)defaultValue;
 + (HKQuantity *)hkQuantityFromOptions:(NSDictionary *)options valueKey: (NSString *)valueKey unitKey: (NSString *)unitKey;
 + (NSDictionary *)metadataFromOptions:(NSDictionary *)options withDefault:(NSDictionary *)defaultValue;
++ (NSArray *)typesFromOptions:(NSDictionary *)options;
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
 + (NSString *) stringForHKWorkoutActivityType:(int) enumValue;
 + (NSString *) md5HashString:(NSString *) input;
 + (NSString *) stringFromObject:(NSObject *)obj;
 + (NSString *) formattingStringHash:(NSString *)input;
++ (NSNumber *) calculateMedian:(NSArray *)input;
++ (NSInteger) daysFromSeconds:(NSDate *)startDate endDate: (NSDate *)endDate;
++ (HKSample *) firstByDateFromSamples:(NSArray<__kindof HKSample *>*)input;
++ (HKSample *) lastByDateFromSamples:(NSArray<__kindof HKSample *>*)input;
 
 @end

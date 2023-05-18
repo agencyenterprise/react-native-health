@@ -13,6 +13,7 @@
 - (NSDictionary *)readPermsDict;
 - (NSDictionary *)writePermsDict;
 - (NSSet *)getReadPermsFromOptions:(NSArray *)options;
+- (nullable HKObjectType *)getReadPermFromText:(nonnull NSString*)key;
 - (NSSet *)getWritePermsFromOptions:(NSArray *)options;
 - (HKObjectType *)getWritePermFromString:(NSString *)string;
 - (NSString *)getAuthorizationStatusString:(HKAuthorizationStatus)status;

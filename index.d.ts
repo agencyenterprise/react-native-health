@@ -469,6 +469,14 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
+    getMedianStatistic(
+      options: HealthMedianStatisticsInputOptions,
+      callback: (
+        err: string,
+        results: Array<HealthStatisticsMedianValue>,
+      ) => void,
+    ): void
+
     Constants: Constants
   }
 
@@ -495,6 +503,15 @@ declare module 'react-native-health' {
     value: number
   }
 
+  export interface HealthStatisticsMedianValue {
+    parameterName: string
+    firstEntry: string
+    medianSeconds: number
+    lastEntry: string
+    medianDays: number
+    entryCount: number
+  }
+
   export interface SleepValue extends BaseValue {
     value: 'INBED' | 'ASLEEP' | 'CORE' | 'DEEP' | 'REM' | 'AWAKE' | 'UNKNOWN'
     sourceName: string
@@ -507,10 +524,10 @@ declare module 'react-native-health' {
   }
 
   export interface HeartbeatSeriesSampleValue extends BaseValue {
-    heartbeatSeries: ({
+    heartbeatSeries: {
       timeSinceSeriesStart: number
       precededByGap: boolean
-    })[]
+    }[]
   }
 
   export interface HealthUnitOptions {
@@ -544,16 +561,21 @@ declare module 'react-native-health' {
     CUMULATIVE_SUM = 3,
   }
 
-  export type HealthStatisticsCommonAggregatorType = GenericAggregatorsType | AverageAggregatorsType;
+  export type HealthStatisticsCommonAggregatorType =
+    | GenericAggregatorsType
+    | AverageAggregatorsType
 
-  export type HealthStatisticsStepsAggregatorType = GenericAggregatorsType | CumulativeAggregatorsType;
+  export type HealthStatisticsStepsAggregatorType =
+    | GenericAggregatorsType
+    | CumulativeAggregatorsType
 
   export enum HealthStatisticsIntervalType {
     MONTH = 0,
     DAY = 1,
   }
 
-  export interface HealthStatisticsCommonInputOptions extends HealthUnitOptions {
+  export interface HealthStatisticsCommonInputOptions
+    extends HealthUnitOptions {
     aggregator: HealthStatisticsCommonAggregatorType
     interval?: HealthStatisticsIntervalType
     startDate?: string
@@ -566,6 +588,116 @@ declare module 'react-native-health' {
     startDate?: string
     endDate?: string
   }
+
+  export type StatisticKey =
+    | 'stepCount'
+    | 'distanceWalkingRunning'
+    | 'basalEnergyBurned'
+    | 'activeEnergyBurned'
+    | 'heartRate'
+    | 'height'
+    | 'bodyMassIndex'
+    | 'basalBodyTemperature'
+    | 'restingHeartRate'
+    | 'oxygenSaturation'
+    | 'bodyTemperature'
+    | 'bloodPressureDiastolic'
+    | 'bloodPressureSystolic'
+    | 'bloodGlucose'
+    | 'runningGroundContactTime'
+    | 'runningPower'
+    | 'runningSpeed'
+    | 'runningStrideLength'
+    | 'runningVerticalOscillation'
+    | 'distanceCycling'
+    | 'pushCount'
+    | 'distanceWheelchair'
+    | 'swimmingStrokeCount'
+    | 'distanceSwimming'
+    | 'distanceDownhillSnowSports'
+    | 'flightsClimbed'
+    | 'nikeFuel'
+    | 'appleExerciseTime'
+    | 'appleMoveTime'
+    | 'appleStandTime'
+    | 'vo2Max'
+    | 'bodyMass'
+    | 'leanBodyMass'
+    | 'bodyFatPercentage'
+    | 'waistCircumference'
+    | 'appleSleepingWristTemperature'
+    | 'environmentalAudioExposure'
+    | 'headphoneAudioExposure'
+    | 'walkingHeartRateAverage'
+    | 'heartRateVariabilitySDNN'
+    | 'heartRateRecoveryOneMinute'
+    | 'atrialFibrillationBurden'
+    | 'respiratoryRate'
+    | 'electrodermalActivity'
+    | 'forcedExpiratoryVolume1'
+    | 'forcedVitalCapacity'
+    | 'inhalerUsage'
+    | 'insulinDelivery'
+    | 'numberOfTimesFallen'
+    | 'peakExpiratoryFlowRate'
+    | 'peripheralPerfusionIndex'
+    | 'dietaryBiotin'
+    | 'dietaryCaffeine'
+    | 'dietaryCalcium'
+    | 'dietaryCarbohydrates'
+    | 'dietaryChloride'
+    | 'dietaryCholesterol'
+    | 'dietaryChromium'
+    | 'dietaryCopper'
+    | 'dietaryEnergyConsumed'
+    | 'dietaryFatMonounsaturated'
+    | 'dietaryFatPolyunsaturated'
+    | 'dietaryFatSaturated'
+    | 'dietaryFatTotal'
+    | 'dietaryFiber'
+    | 'dietaryFolate'
+    | 'dietaryIodine'
+    | 'dietaryIron'
+    | 'dietaryMagnesium'
+    | 'dietaryManganese'
+    | 'dietaryMolybdenum'
+    | 'dietaryNiacin'
+    | 'dietaryPantothenicAcid'
+    | 'dietaryPhosphorus'
+    | 'dietaryPotassium'
+    | 'dietaryProtein'
+    | 'dietaryRiboflavin'
+    | 'dietarySelenium'
+    | 'dietarySodium'
+    | 'dietarySugar'
+    | 'dietaryThiamin'
+    | 'dietaryVitaminA'
+    | 'dietaryVitaminB12'
+    | 'dietaryVitaminB6'
+    | 'dietaryVitaminC'
+    | 'dietaryVitaminD'
+    | 'dietaryVitaminE'
+    | 'dietaryVitaminK'
+    | 'dietaryWater'
+    | 'dietaryZinc'
+    | 'bloodAlcoholContent'
+    | 'numberOfAlcoholicBeverages'
+    | 'appleWalkingSteadiness'
+    | 'sixMinuteWalkTestDistance'
+    | 'walkingSpeed'
+    | 'walkingStepLength'
+    | 'walkingAsymmetryPercentage'
+    | 'walkingDoubleSupportPercentage'
+    | 'stairAscentSpeed'
+    | 'stairDescentSpeed'
+    | 'uvExposure'
+    | 'underwaterDepth'
+    | 'waterTemperature'
+
+  export interface HealthMedianStatisticsInputOptions {
+    types: ((StatisticKey)[] | readonly StatisticKey[]);
+  }
+
   export interface HKWorkoutQueriedSampleType {
     activityId: number
     activityName: string
@@ -582,12 +714,12 @@ declare module 'react-native-health' {
   }
 
   export interface ElectrocardiogramSampleValue extends BaseValue {
-    classification: ElectrocardiogramClassification,
-    averageHeartRate: number,
-    samplingFrequency: number,
-    device: string,
-    algorithmVersion: number,
-    voltageMeasurements: (number[])[]
+    classification: ElectrocardiogramClassification
+    averageHeartRate: number
+    samplingFrequency: number
+    device: string
+    algorithmVersion: number
+    voltageMeasurements: number[][]
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {
@@ -635,10 +767,10 @@ declare module 'react-native-health' {
   }
 
   export interface HealthClinicalRecord extends BaseValue {
-    sourceName: string,
-    sourceId: string,
-    displayName: string,
-    fhirData: any,
+    sourceName: string
+    sourceId: string
+    displayName: string
+    fhirData: any
   }
 
   /* Health Constants */
