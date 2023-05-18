@@ -1,10 +1,3 @@
-//
-//  RCTAppleHealthKit+TypesForMedianStatistic.m
-//  RNAppleHealthKit
-//
-//  Created by Anastasia Mishur on 22.03.23.
-//
-
 #import "RCTAppleHealthKit+TypesForMedianStatistic.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
