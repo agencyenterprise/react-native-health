@@ -543,7 +543,7 @@
              void (^maybeFinish)(void);
              maybeFinish =  ^() {
                  // check to see if we've processed all of the returned samples, and return if so
-                 if (samplesProcessed == results.count && symptomsProcessed == symptomsIdentfierCount) {
+                 if (samplesProcessed == results.count) {
                      callback(@[[NSNull null], data]);
                  }
              };
