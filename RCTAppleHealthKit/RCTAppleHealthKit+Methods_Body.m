@@ -404,6 +404,25 @@
     }];
 }
 
+- (void)body_saveForcedVitalCapacity:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    double forcedVitalCapacity = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+    HKUnit *forcedVitalCapacityUnit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit literUnit]];
+
+    HKQuantity *forcedVitalCapacityQuantity = [HKQuantity quantityWithUnit:forcedVitalCapacityUnit doubleValue:forcedVitalCapacity];
+    HKQuantityType *forcedVitalCapacityType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierForcedVitalCapacity];
+    HKQuantitySample *forcedVitalCapacitySample = [HKQuantitySample quantitySampleWithType:forcedVitalCapacityType quantity:forcedVitalCapacityQuantity startDate:sampleDate endDate:sampleDate];
+
+    [self.healthStore saveObject:forcedVitalCapacitySample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            callback(@[RCTJSErrorFromNSError(error)]);
+            return;
+        }
+        callback(@[[NSNull null], @(forcedVitalCapacity)]);
+    }];
+}
+
 - (void)body_getLatestBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *bodyFatPercentType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];

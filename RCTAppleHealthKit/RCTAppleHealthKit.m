@@ -169,6 +169,12 @@ RCT_EXPORT_METHOD(savePeakFlow:(NSDictionary *)input callback:(RCTResponseSender
     [self body_savePeakFlow:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(saveForcedVitalCapacity:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self body_saveForcedVitalCapacity:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getLatestBmi:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];

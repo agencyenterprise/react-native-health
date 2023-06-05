@@ -21,6 +21,7 @@ The following units are supported by the library
   minute
   mmhg
   mmolPerL
+  liter
   percent
   pound
   second

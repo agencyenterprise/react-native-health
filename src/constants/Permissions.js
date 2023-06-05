@@ -83,6 +83,7 @@ export const Permissions = {
   MindfulSession: 'MindfulSession',
   NikeFuel: 'NikeFuel',
   PeakFlow: 'PeakFlow',
+  ForcedVitalCapacity: 'ForcedVitalCapacity',
   RespiratoryRate: 'RespiratoryRate',
   SleepAnalysis: 'SleepAnalysis',
   StepCount: 'StepCount',

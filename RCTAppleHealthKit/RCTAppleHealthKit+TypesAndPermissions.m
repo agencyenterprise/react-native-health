@@ -241,6 +241,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
     } else if ([@"PeakFlow" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierPeakExpiratoryFlowRate];
+    } else if ([@"ForcedVitalCapacity" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierForcedVitalCapacity];
     } else if ([@"WaistCircumference" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
     } else if ([@"Weight" isEqualToString:key]) {

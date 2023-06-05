@@ -120,6 +120,7 @@ There is a gitbook version for the documentation on this [link](https://vinicius
 - [getPeakFlowSamples](getPeakFlowSamples.md)
 - [getLatestPeakFlow](getLatestPeakFlow.md)
 - [savePeakFlow](savePeakFlow.md)
+- [saveForcedVitalCapacity](saveForcedVitalCapacity.md)
 
 #### Workout Methods
 

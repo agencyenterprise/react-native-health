@@ -100,6 +100,11 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
+    saveForcedVitalCapacity(
+      options: HealthValueOptions,
+      callback: (error: string, result: HealthValue) => void,
+    ): void
+
     saveLeanBodyMass(
       options: HealthValueOptions,
       callback: (error: string, result: HealthValue) => void,
@@ -751,6 +756,7 @@ declare module 'react-native-health' {
     MindfulSession = 'MindfulSession',
     NikeFuel = 'NikeFuel',
     PeakFlow = 'PeakFlow',
+    ForcedVitalCapacity = 'ForcedVitalCapacity',
     RespiratoryRate = 'RespiratoryRate',
     SleepAnalysis = 'SleepAnalysis',
     StepCount = 'StepCount',
@@ -782,6 +788,7 @@ declare module 'react-native-health' {
     minute = 'minute',
     mmhg = 'mmhg',
     literPerMinute = 'literPerMinute',
+    liter = 'liter',
     mmolPerL = 'mmolPerL',
     percent = 'percent',
     pound = 'pound',
