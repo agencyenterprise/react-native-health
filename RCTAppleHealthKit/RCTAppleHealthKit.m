@@ -472,6 +472,12 @@ RCT_EXPORT_METHOD(getCarbohydratesSamples:(NSDictionary *)input callback:(RCTRes
     [self results_getCarbohydratesSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getInsulinDeliverySamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_getInsulinDeliverySamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveCarbohydratesSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];

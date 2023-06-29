@@ -437,6 +437,12 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthActivitySummary>) => void,
     ): void
 
+    getInsulinDeliverySamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+
     Constants: Constants
   }
 
@@ -708,6 +714,7 @@ declare module 'react-native-health' {
     Folate = 'Folate',
     HeadphoneAudioExposure = 'HeadphoneAudioExposure',
     ImmunizationRecord = 'ImmunizationRecord',
+    InsulinDelivery = 'InsulinDelivery',
     Iodine = 'Iodine',
     Iron = 'Iron',
     LabResultRecord = 'LabResultRecord',
@@ -843,6 +850,11 @@ declare module 'react-native-health' {
   export enum BloodGlucoseMealTime {
     Preprandial = 1,
     Postprandial = 2,
+  }
+
+  export enum InsulinDeliveryReason {
+    Basal = 1,
+    Bolus = 2,
   }
 
   const appleHealthKit: AppleHealthKit
