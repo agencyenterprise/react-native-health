@@ -226,6 +226,21 @@
     }];
 }
 
+- (void)results_deleteInsulinDeliverySample:(NSString *)oid callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *insulinDeliveryType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
+    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:oid];
+    NSPredicate *uuidPredicate = [HKQuery predicateForObjectWithUUID:uuid];
+    [self.healthStore deleteObjectsOfType:insulinDeliveryType predicate:uuidPredicate withCompletion:^(BOOL success, NSUInteger deletedObjectCount, NSError * _Nullable error) {
+        if (!success) {
+            NSLog(@"An error occured while deleting the insulin delivery sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while deleting the insulin delivery sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(deletedObjectCount)]);
+    }];
+}
+
 - (void)results_registerObservers:(RCTBridge *)bridge hasListeners:(bool)hasListeners
 {
     if (@available(iOS 11.0, *)) {

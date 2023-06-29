@@ -447,6 +447,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    deleteInsulinDeliverySample(
+      id: string,
+      callback: (error: string, result: HealthValue) => void,
+    ): void
+
 
     Constants: Constants
   }
