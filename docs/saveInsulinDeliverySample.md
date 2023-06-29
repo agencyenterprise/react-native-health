@@ -1,4 +1,4 @@
-# saveBloodGlucoseSample
+# saveInsulinDeliverySample
 
 Save a insulin delivery value to HealthKit.
 
