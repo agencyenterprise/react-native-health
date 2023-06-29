@@ -478,6 +478,12 @@ RCT_EXPORT_METHOD(getInsulinDeliverySamples:(NSDictionary *)input callback:(RCTR
     [self results_getInsulinDeliverySamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(saveInsulinDeliverySample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_saveInsulinDeliverySample:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveCarbohydratesSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];

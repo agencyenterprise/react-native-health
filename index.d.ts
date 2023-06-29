@@ -442,6 +442,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
+    saveInsulinDeliverySample(
+      options: HealthValueOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
 
     Constants: Constants
   }
@@ -470,6 +475,7 @@ declare module 'react-native-health' {
 
   export interface RecordMetadata {
     HKBloodGlucoseMealTime?: BloodGlucoseMealTime
+    HKInsulinDeliveryReason?: InsulinDeliveryReason
     HKWasUserEntered?: boolean
     [key: string]: string | number | boolean | undefined
   }

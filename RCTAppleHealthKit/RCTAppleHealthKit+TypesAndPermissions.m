@@ -357,6 +357,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryWater];
     } else if ([@"BloodGlucose" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
+    } else if ([@"InsulinDelivery" isEqualToString:key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
     }
 
     // Sleep

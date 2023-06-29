@@ -111,6 +111,34 @@
     }];
 }
 
+- (void)results_saveInsulinDeliverySample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *insulinDeliveryType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
+
+    HKUnit *unit = [HKUnit internationalUnit];
+
+    double value = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:startDate];
+    NSDictionary *metadata = [RCTAppleHealthKit metadataFromOptions:input withDefault:nil];
+
+    HKQuantity *quantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
+    HKQuantitySample *sample = [HKQuantitySample quantitySampleWithType:insulinDeliveryType
+                                                                      quantity:quantity
+                                                                     startDate:startDate
+                                                                       endDate:endDate
+                                                                      metadata:metadata];
+
+    [self.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured while saving the insulin sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while saving the insulin sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], [sample.UUID UUIDString]]);
+    }];
+}
+
 - (void)results_saveBloodGlucoseSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *bloodGlucoseType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
