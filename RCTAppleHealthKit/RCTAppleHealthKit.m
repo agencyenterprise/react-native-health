@@ -472,6 +472,24 @@ RCT_EXPORT_METHOD(getCarbohydratesSamples:(NSDictionary *)input callback:(RCTRes
     [self results_getCarbohydratesSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getInsulinDeliverySamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_getInsulinDeliverySamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveInsulinDeliverySample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_saveInsulinDeliverySample:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(deleteInsulinDeliverySample:(NSString *)oid callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_deleteInsulinDeliverySample:oid callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveCarbohydratesSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
@@ -668,7 +686,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         @"MedicationRecord",
         @"ProcedureRecord",
         @"VitalSignRecord",
-        @"SleepAnalysis"
+        @"SleepAnalysis",
+        @"InsulinDelivery"
     ];
     
     NSArray *templates = @[@"healthKit:%@:new", @"healthKit:%@:failure", @"healthKit:%@:enabled", @"healthKit:%@:sample", @"healthKit:%@:setup:success", @"healthKit:%@:setup:failure"];
@@ -786,6 +805,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         for(NSString * type in clinicalObservers) {
             [self clinical_registerObserver:type bridge:bridge hasListeners:hasListeners];
         }
+        
+        [self results_registerObservers:bridge hasListeners:hasListeners];
 
         NSLog(@"[HealthKit] Background observers added to the app");
         [self startObserving];
