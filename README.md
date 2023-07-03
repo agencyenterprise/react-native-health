@@ -206,6 +206,10 @@ All the documentation is under the [docs](/docs) folder. They are split into the
 - [saveWater](/docs/saveWater.md)
 - [getWater](/docs/getWater.md)
 - [getWaterSamples](/docs/getWaterSamples.md)
+- [getFiberSamples](/docs/getFiberSamples.md)
+- [getInsulinDeliverySamples](/docs/getInsulinDeliverySamples.md)
+- [saveInsulinDeliverySamples](/docs/saveInsulinDeliverySample.md)
+- [deleteInsulinDeliverySamples](/docs/deleteInsulinDeliverySample.md)
 
 ### Fitness Methods
 
