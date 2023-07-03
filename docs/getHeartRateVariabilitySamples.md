@@ -34,7 +34,10 @@ Example output:
     "id": "5013eca7-4aee-45af-83c1-dbe3696b2e51", // The universally unique identifier (UUID) for this HealthKit object.
     "value": 0.4223,
     "startDate": "2016-03-12T13:22:00.000-0400",
-    "endDate": "2016-03-12T13:22:00.000-0400"
+    "endDate": "2016-03-12T13:22:00.000-0400",
+    "metadata": {
+      "HKWasUserEntered": false
+    }
   }
 ]
 ```

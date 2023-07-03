@@ -15,6 +15,7 @@
 - (void)body_saveWeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
 - (void)body_getLatestBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)body_getBodyMassIndexSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)body_saveBodyMassIndex:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
 - (void)body_getLatestHeight:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
@@ -24,6 +25,10 @@
 - (void)body_getLatestWaistCircumference:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)body_getWaistCircumferenceSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)body_saveWaistCircumference:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+
+- (void)body_getLatestPeakFlow:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)body_getPeakFlowSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
+- (void)body_savePeakFlow:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 
 - (void)body_getLatestBodyFatPercentage:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)body_getBodyFatPercentageSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;

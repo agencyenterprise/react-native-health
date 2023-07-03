@@ -9,6 +9,8 @@
 #import "RCTAppleHealthKit+Utils.h"
 #import "RCTAppleHealthKit+TypesAndPermissions.h"
 
+NSString * const kMetadataKey = @"metadata";
+
 @implementation RCTAppleHealthKit (Utils)
 
 #pragma mark - Utilities
@@ -291,6 +293,9 @@
     if ([unitString isEqualToString:@"mmolPerL"]) {
          theUnit = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
     }
+    if ([unitString isEqualToString:@"literPerMinute"]) {
+         theUnit = [[HKUnit literUnit] unitDividedByUnit:[HKUnit minuteUnit]];
+    }
     if ([unitString isEqualToString:@"mgPerdL"]) {
          theUnit = [HKUnit unitFromString:@"mg/dL"];
     }
@@ -362,6 +367,13 @@
     return [num boolValue];
 }
 
++ (NSDictionary *)metadataFromOptions:(NSDictionary *)options withDefault:(NSDictionary *)defaultValue {
+    NSDictionary *metadata = [options objectForKey:kMetadataKey];
+    if(metadata == nil){
+        return defaultValue;
+    }
+    return metadata;
+}
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array {
     if ([array count] <= 1)

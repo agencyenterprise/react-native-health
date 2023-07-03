@@ -28,6 +28,8 @@
         return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex];
     } else if ([@"BloodType" isEqualToString: key]) {
         return [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
+    } else if ([@"PeakFlow" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierPeakExpiratoryFlowRate];
     } else if ([@"WaistCircumference" isEqualToString: key] && systemVersion >= 11.0) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
     }
@@ -156,6 +158,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryWater];
     } else if ([@"BloodGlucose" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
+    } else if ([@"InsulinDelivery" isEqualToString:key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
     }
 
     // Vital Signs Identifiers
@@ -197,6 +201,8 @@
         return [HKObjectType workoutType];
     } else if ([@"Workout" isEqualToString: key]) {
         return [HKObjectType workoutType];
+    }else if ([@"WorkoutRoute" isEqualToString:key]){
+        return [HKSeriesType workoutRouteType];
     }
 
     // Lab and tests
@@ -235,6 +241,8 @@
     // Body Measurements
     if ([@"Height" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    } else if ([@"PeakFlow" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierPeakExpiratoryFlowRate];
     } else if ([@"WaistCircumference" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierWaistCircumference];
     } else if ([@"Weight" isEqualToString:key]) {
@@ -349,6 +357,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryWater];
     } else if ([@"BloodGlucose" isEqualToString:key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
+    } else if ([@"InsulinDelivery" isEqualToString:key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
     }
 
     // Sleep
@@ -364,6 +374,11 @@
     // Workout
     if ([@"Workout" isEqualToString:key]) {
         return [HKObjectType workoutType];
+    }
+    
+    // Workout Route
+    if ([@"WorkoutRoute" isEqualToString:key]) {
+        return [HKSeriesType workoutRouteType];
     }
 
     // Lab and tests

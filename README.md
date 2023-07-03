@@ -2,7 +2,15 @@
 
 # React Native Health
 
-A React Native package to interact with Apple HealthKit for iOS.
+A React Native package to interact with Apple HealthKit for iOS. Maintained with ❤️ by [AE Studio](https://ae.studio).
+
+This package allows access to health & fitness data exposed by Apple Healthkit. You can see the methods available [here](https://github.com/agencyenterprise/react-native-health#documentation).
+
+If you are looking for a more robust solution providing normalized data, insights and recommendations based on user's biometric data, data from multiple sources (Fitbit, Oura), or a hosted solution, please check out the [Point SDK](https://www.areyouonpoint.co/) developed by our frens.
+
+# Discord
+
+<a href="https://discord.gg/d24g5XDePr"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg" alt="React Native Health official Discord"></a>
 
 ## Getting Started
 
@@ -96,7 +104,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
 For background capabilities, Apple allows developers to setup long running observer
 queries for the health types needed.
 
-To setup that in your app, in XCode open your `ios/AppDelegate.m` file and add the
+To set that up in your app, in XCode open your `ios/AppDelegate.m` file and add the
 following statements:
 
 ```objective-c
@@ -133,10 +141,9 @@ client. For more information, see [background observers](/docs/background.md).
 
 ## Documentation
 
-There is a gitbook version for the documentation on this [link](https://docs.react-native-health.com/).
+There is a gitbook version for the documentation [here](https://docs.react-native-health.com/).
 
-All the documentation is under the [docs](/docs) folder. Additionally,
-they are splitted in the following categories
+All the documentation is under the [docs](/docs) folder. They are split into the following categories:
 
 ### Constants
 
@@ -193,10 +200,12 @@ they are splitted in the following categories
 
 - [getEnergyConsumedSamples](/docs/getEnergyConsumedSamples.md)
 - [getProteinSamples](/docs/getProteinSamples.md)
+- [getFiberSamples](/docs/getFiberSamples.md)
 - [getTotalFatSamples](/docs/getTotalFatSamples.md)
 - [saveFood](/docs/saveFood.md)
 - [saveWater](/docs/saveWater.md)
 - [getWater](/docs/getWater.md)
+- [getWaterSamples](/docs/getWaterSamples.md)
 
 ### Fitness Methods
 
@@ -212,6 +221,7 @@ they are splitted in the following categories
 - [getDailyFlightsClimbedSamples](/docs/getDailyFlightsClimbedSamples.md)
 - [getFlightsClimbed](/docs/getFlightsClimbed.md)
 - [saveSteps](/docs/saveSteps.md)
+- [saveWalkingRunningDistance](/docs/saveWalkingRunningDistance.md)
 
 ### Hearing Methods
 
@@ -225,11 +235,13 @@ they are splitted in the following categories
 - [getLatestBloodAlcoholContent](/docs/getLatestBloodAlcoholContent.md)
 - [saveBloodAlcoholContent](/docs/saveBloodAlcoholContent.md)
 - [saveBloodGlucoseSample](/docs/saveBloodGlucoseSample.md)
+- [deleteBloodGlucoseSample](/docs/deleteBloodGlucoseSample.md)
 
 ### Nutrition
 
 - [getCarbohydratesSamples](/docs/getCarbohydratesSamples.md)
 - [saveCarbohydratesSample](/docs/saveCarbohydratesSample.md)
+- [deleteCarbohydratesSample](/docs/deleteCarbohydratesSample.md)
 
 ### Mindfulness Methods
 
@@ -252,6 +264,7 @@ they are splitted in the following categories
 - [getRestingHeartRateSamples](/docs/getRestingHeartRateSamples.md)
 - [getVo2MaxSamples](/docs/getVo2MaxSamples.md)
 - [getLatestBmi](/docs/getLatestBmi.md)
+- [getBmiSamples](/docs/getBmiSamples.md)
 - [getRespiratoryRateSamples](/docs/getRespiratoryRateSamples.md)
 - [getWalkingHeartRateAverage](/docs/getWalkingHeartRateAverage.md)
 - [saveBmi](/docs/saveBmi.md)
@@ -261,6 +274,7 @@ they are splitted in the following categories
 - [getSamples](docs/getSamples.md)
 - [getAnchoredWorkouts](/docs/getAnchoredWorkouts.md)
 - [saveWorkout](/docs/saveWorkout.md)
+- [getWorkoutRouteSamples](/docs/getWorkoutRouteSamples.md)
 
 ## Additional Information
 
@@ -277,7 +291,7 @@ specific permission or add the permission to the options object when
 initializing the library.
 
 If extra read or write permissions are added to the options object, the
-app will request for user's permission to them when the library is
+app will request the user's permission when the library is
 initialized again.
 
 ### Manual Installation
@@ -298,7 +312,7 @@ initialized again.
 
 ## Contributing
 
-We appreciate any additional request and/or contribution to `react-native-health`.
+We appreciate any requests and contributions to `react-native-health`.
 The [issues](https://github.com/agencyenterprise/react-native-health/issues) tracker
 is used to keep a list of features and bugs to be worked on. Please see our
 [contributing documentation](https://github.com/agencyenterprise/react-native-health/blob/master/CONTRIBUTING.md)
@@ -308,8 +322,18 @@ for some tips on getting started.
 
 - [Apple Healthkit Documentation](https://developer.apple.com/documentation/healthkit)
 
+## Android Alternative
+
+If your app needs an Android + Health Connect integration, your princess is in another castle. You can use the package [React Native Health Connect](https://github.com/matinzd/react-native-health-connect) maintained by one of the community's dev.
+
+In case of questions or if you just want to congratz the author, you can reach out to him on our [Discord Server](https://github.com/agencyenterprise/react-native-health#discord).
+
 ## Acknowledgement
 
 > _This package is a fork of [rn-apple-healthkit](https://github.com/terrillo/rn-apple-healthkit)_
 
 > _This package also inherits additional features from [Nutrisense](https://www.nutrisense.io/) fork_
+
+## Plz I Still Need Halp
+
+This package is maintained with ❤️ by [AE Studio](https://ae.studio). We will do our best to respond to requests and support for this package so please get in touch! If you require more extensive help or have other design, data science or development needs - we are a full service product development agency and can build pretty much anything so hit us up!

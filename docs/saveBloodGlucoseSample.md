@@ -12,6 +12,11 @@ let input = {
     startDate: '2016-07-08T12:00:00.000-0400', // Optional, defaults to now
     endDate: '2016-07-08T12:00:00.000-0400', // Optional, defaults to startDate
     unit: 'mmolPerL', // Optional, defaults to mmolPerL
+    metadata: {
+      HKWasUserEntered: true,
+      HKBloodGlucoseMealTime: 1, // Preprandial = 1, Postprandial = 2
+      anyOtherKey: 'some data', // supports string, number, boolean
+    }
 }
 ```
 
@@ -22,7 +27,7 @@ Example usage:
 ```javascript
 AppleHealthKit.saveBloodGlucoseSample(
   input,
-  (err: Object, result: number) => {
+  (err: Object, result: string) => {
     if (err) {
       return
     }
@@ -32,8 +37,8 @@ AppleHealthKit.saveBloodGlucoseSample(
 )
 ```
 
-Example output:
+Example output (record's UUID):
 
 ```json
-6.1
+"ba13089a-a311-4ffe-9352-f5c568936f16"
 ```

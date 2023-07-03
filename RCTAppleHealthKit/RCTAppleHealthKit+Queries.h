@@ -7,8 +7,23 @@
 //
 
 #import "RCTAppleHealthKit.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface RCTAppleHealthKit (Queries)
+@property(readonly, nonatomic) CLLocationCoordinate2D coordinate;
+
+- (void)fetchWorkoutById:(HKSampleType *)quantityType
+                              unit:(HKUnit *)unit
+                         predicate:(NSPredicate *)predicate
+                         ascending:(BOOL)asc
+                             limit:(NSUInteger)lim
+                        completion:(void (^)(NSArray *, NSError *))completion;
+
+- (void)fetchWorkoutRoute:(HKSampleType *)type
+                    predicate:(NSPredicate *)predicate
+                       anchor:(HKQueryAnchor *)anchor
+                        limit:(NSUInteger)lim
+                   completion:(void (^)(NSDictionary *, NSError *))completion;
 
 - (void)fetchMostRecentQuantitySampleOfType:(HKQuantityType *)quantityType
                                   predicate:(NSPredicate *)predicate
@@ -83,6 +98,7 @@
 
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
                                    limit:(NSUInteger)lim
+                                   ascending:(BOOL)asc
                                    completion:(void (^)(NSArray *, NSError *))completion;
 
 - (void)fetchWorkoutForPredicate:(NSPredicate *)predicate

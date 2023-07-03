@@ -8,6 +8,8 @@
 
 #import "RCTAppleHealthKit.h"
 
+extern NSString * const kMetadataKey;
+
 @interface RCTAppleHealthKit (Utils)
 
 + (NSDate *)parseISO8601DateFromString:(NSString *)date;
@@ -34,6 +36,7 @@
 + (bool)boolFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(bool)defaultValue;
 + (HKWorkoutActivityType)hkWorkoutActivityTypeFromOptions: (NSDictionary *)options key: (NSString *)key withDefault: (HKWorkoutActivityType)defaultValue;
 + (HKQuantity *)hkQuantityFromOptions:(NSDictionary *)options valueKey: (NSString *)valueKey unitKey: (NSString *)unitKey;
++ (NSDictionary *)metadataFromOptions:(NSDictionary *)options withDefault:(NSDictionary *)defaultValue;
 
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
 + (NSString*) stringForHKWorkoutActivityType:(int) enumValue;

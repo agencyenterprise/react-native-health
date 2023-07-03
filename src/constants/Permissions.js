@@ -40,6 +40,7 @@ export const Permissions = {
   Folate: 'Folate',
   HeadphoneAudioExposure: 'HeadphoneAudioExposure',
   ImmunizationRecord: 'ImmunizationRecord',
+  InsulinDelivery: 'InsulinDelivery',
   Iodine: 'Iodine',
   Iron: 'Iron',
   LabResultRecord: 'LabResultRecord',
@@ -82,6 +83,7 @@ export const Permissions = {
   LeanBodyMass: 'LeanBodyMass',
   MindfulSession: 'MindfulSession',
   NikeFuel: 'NikeFuel',
+  PeakFlow: 'PeakFlow',
   RespiratoryRate: 'RespiratoryRate',
   SleepAnalysis: 'SleepAnalysis',
   StepCount: 'StepCount',
@@ -90,5 +92,6 @@ export const Permissions = {
   WaistCircumference: 'WaistCircumference',
   WalkingHeartRateAverage: 'WalkingHeartRateAverage',
   Weight: 'Weight',
-  Workout: 'Workout'
+  Workout: 'Workout',
+  WorkoutRoute: 'WorkoutRoute'
 }
