@@ -14,7 +14,7 @@ declare module 'react-native-health' {
   }
 
   export interface HKErrorResponse {
-    message?: string;
+    message?: string
   }
 
   export interface AppleHealthKit {
@@ -206,6 +206,11 @@ declare module 'react-native-health' {
     ): void
 
     getProteinSamples(
+      options: HealthInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getFiberSamples(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
@@ -495,10 +500,10 @@ declare module 'react-native-health' {
   }
 
   export interface HeartbeatSeriesSampleValue extends BaseValue {
-    heartbeatSeries: ({
+    heartbeatSeries: {
       timeSinceSeriesStart: number
       precededByGap: boolean
-    })[]
+    }[]
   }
 
   export interface HealthUnitOptions {
@@ -543,15 +548,13 @@ declare module 'react-native-health' {
     end: string
   }
 
-
-
   export interface ElectrocardiogramSampleValue extends BaseValue {
-    classification: ElectrocardiogramClassification,
-    averageHeartRate: number,
-    samplingFrequency: number,
-    device: string,
-    algorithmVersion: number,
-    voltageMeasurements: (number[])[]
+    classification: ElectrocardiogramClassification
+    averageHeartRate: number
+    samplingFrequency: number
+    device: string
+    algorithmVersion: number
+    voltageMeasurements: number[][]
   }
 
   export interface HealthValueOptions extends HealthUnitOptions {
@@ -595,14 +598,14 @@ declare module 'react-native-health' {
     LabResultRecord = 'LabResultRecord',
     MedicationRecord = 'MedicationRecord',
     ProcedureRecord = 'ProcedureRecord',
-    VitalSignRecord = 'VitalSignRecord'
+    VitalSignRecord = 'VitalSignRecord',
   }
 
   export interface HealthClinicalRecord extends BaseValue {
-    sourceName: string,
-    sourceId: string,
-    displayName: string,
-    fhirData: any,
+    sourceName: string
+    sourceId: string
+    displayName: string
+    fhirData: any
   }
 
   /* Health Constants */
@@ -778,7 +781,7 @@ declare module 'react-native-health' {
     WalkingHeartRateAverage = 'WalkingHeartRateAverage',
     Weight = 'Weight',
     Workout = 'Workout',
-    WorkoutRoute = 'WorkoutRoute'
+    WorkoutRoute = 'WorkoutRoute',
   }
 
   export enum HealthUnit {
