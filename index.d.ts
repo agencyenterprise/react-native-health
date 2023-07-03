@@ -538,6 +538,24 @@ declare module 'react-native-health' {
     locations: LocationValue[]
   }
 
+  export enum EventType {
+    Pause = 'pause',
+    Resume = 'resume',
+    MotionPaused = 'motion paused',
+    MotionResumed = 'motion resumed',
+    PausedOrResumeRequest = 'pause or resume request',
+    Lap = 'lap',
+    Segment = 'segment',
+    Marker = 'marker'
+  }
+
+  export type HKWorkoutEventType = {
+    endDate: string
+    startDate: string
+    eventTypeInt: number
+    eventType: EventType
+  }
+
   export interface HKWorkoutQueriedSampleType {
     activityId: number
     activityName: string
@@ -551,6 +569,8 @@ declare module 'react-native-health' {
     distance: number
     start: string
     end: string
+    duration: number
+    workoutEvents: HKWorkoutEventType[]
   }
 
   export interface ElectrocardiogramSampleValue extends BaseValue {
