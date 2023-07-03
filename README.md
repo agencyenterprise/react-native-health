@@ -256,6 +256,7 @@ All the documentation is under the [docs](/docs) folder. They are split into the
 
 - [getBloodPressureSamples](/docs/getBloodPressureSamples.md)
 - [getElectrocardiogramSamples](/docs/getElectrocardiogramSamples.md)
+- [saveHeartRateSample](/docs/saveHeartRateSample.md)
 - [getHeartRateSamples](/docs/getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples.md)
 - [getHeartbeatSeriesSamples](/docs/getHeartbeatSeriesSamples.md)
