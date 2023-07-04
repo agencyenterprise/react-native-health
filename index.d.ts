@@ -722,6 +722,7 @@ declare module 'react-native-health' {
     AllergyRecord = 'AllergyRecord',
     AppleExerciseTime = 'AppleExerciseTime',
     AppleStandTime = 'AppleStandTime',
+    AppleStandHour = 'AppleStandHour',
     BasalEnergyBurned = 'BasalEnergyBurned',
     BiologicalSex = 'BiologicalSex',
     BloodType = 'BloodType',

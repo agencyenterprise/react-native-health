@@ -75,6 +75,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierNikeFuel];
     } else if ([@"AppleStandTime" isEqualToString: key]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleStandTime];
+    } else if ([@"AppleStandHour" isEqualToString: key]) {
+        return [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierAppleStandHour];
     } else if ([@"AppleExerciseTime" isEqualToString: key] && systemVersion >= 9.3) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleExerciseTime];
     }
