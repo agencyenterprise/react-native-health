@@ -93,6 +93,7 @@ export const Permissions = {
   Weight: 'Weight',
   Workout: 'Workout',
   WorkoutRoute: 'WorkoutRoute',
+  SixMinuteWalkTestDistance: 'SixMinuteWalkTestDistance',
 
   // Symptoms
   AbdominalCramps: 'AbdominalCramps',

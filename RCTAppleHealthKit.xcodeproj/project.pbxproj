@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18613CA52A537E5000822B4E /* RCTAppleHealthKit+Methods_Mobility.m in Sources */ = {isa = PBXBuildFile; fileRef = 18613CA42A537E5000822B4E /* RCTAppleHealthKit+Methods_Mobility.m */; };
 		358330DF20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 358330DE20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m */; };
 		3774C8911D2092F20000B3F3 /* RCTAppleHealthKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3774C8901D2092F20000B3F3 /* RCTAppleHealthKit.h */; };
 		3774C8931D2092F20000B3F3 /* RCTAppleHealthKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3774C8921D2092F20000B3F3 /* RCTAppleHealthKit.m */; };
@@ -40,6 +41,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18613CA42A537E5000822B4E /* RCTAppleHealthKit+Methods_Mobility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Mobility.m"; sourceTree = "<group>"; };
+		18613CA62A537E6100822B4E /* RCTAppleHealthKit+Methods_Mobility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Mobility.h"; sourceTree = "<group>"; };
 		27B60163269770030034AB4E /* RCTAppleHealthKit+Methods_Summary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Summary.h"; sourceTree = "<group>"; };
 		27B60164269770850034AB4E /* RCTAppleHealthKit+Methods_Summary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTAppleHealthKit+Methods_Summary.m"; sourceTree = "<group>"; };
 		358330DD20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTAppleHealthKit+Methods_Workout.h"; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 				27B60164269770850034AB4E /* RCTAppleHealthKit+Methods_Summary.m */,
 				8C79D95E268E07DB00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.h */,
 				8C79D95F268E081A00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.m */,
+				18613CA62A537E6100822B4E /* RCTAppleHealthKit+Methods_Mobility.h */,
+				18613CA42A537E5000822B4E /* RCTAppleHealthKit+Methods_Mobility.m */,
 			);
 			path = RCTAppleHealthKit;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 				61232F931E303758000A5026 /* RCTAppleHealthKit+Methods_Mindfulness.m in Sources */,
 				64E0E73F1D37947B00EAB905 /* RCTAppleHealthKit+Methods_Results.m in Sources */,
 				358330DF20931B8A000F0B94 /* RCTAppleHealthKit+Methods_Workout.m in Sources */,
+				18613CA52A537E5000822B4E /* RCTAppleHealthKit+Methods_Mobility.m in Sources */,
 				64C42D4A1D351A8800A0A8F7 /* RCTAppleHealthKit+Methods_Vitals.m in Sources */,
 				8C79D960268E081A00DBDC40 /* RCTAppleHealthKit+Methods_ClinicalRecords.m in Sources */,
 				3774C8931D2092F20000B3F3 /* RCTAppleHealthKit.m in Sources */,

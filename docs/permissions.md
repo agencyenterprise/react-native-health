@@ -104,6 +104,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   RespiratoryRate
   SleepAnalysis
   StepCount
+  SixMinuteWalkTestDistance
   Steps
   VitalSignRecord
   Vo2Max
@@ -154,6 +155,7 @@ The available Healthkit identifiers are supported
 | SleepAnalysis          | [HKCategoryTypeIdentifierSleepAnalysis](https://developer.apple.com/reference/Healthkit/hkcategorytypeidentifiersleepanalysis?language=objc)                        | ✓    |       |
 | StepCount              | [HKQuantityTypeIdentifierStepCount](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierstepcount?language=objc)                                | ✓    | ✓     |
 | Steps                  | [HKQuantityTypeIdentifierSteps](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifiersteps?language=objc)                                        | ✓    | ✓     |
+| SixMinuteWalkTestDistance  | [HKQuantityTypeIdentifierSixMinuteWalkTestDistance](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifiersixminutewalktestdistance?language=objc)                                | ✓    | ✓     |
 | VitalSignRecord        | [HKClinicalTypeIdentifierVitalSignRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifiervitalsignrecord?language=objc) | ✓    |       |
 | Weight                 | [HKQuantityTypeIdentifierBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodymass?language=objc)                                  | ✓    | ✓     |
 | BodyFatPercentage      | [HKQuantityTypeIdentifierBodyFatPercentage](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodyfatpercentage?language=objc)                | ✓    | ✓     |

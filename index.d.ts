@@ -145,6 +145,11 @@ declare module 'react-native-health' {
       callback: (err: string, results: HealthValue) => void,
     ): void
 
+    getSixMinuteWalkTestDistance(
+      options: HealthUnitOptions,
+      callback: (err: string, results: HealthValue) => void,
+    ): void
+
     getSamples(
       options: HealthInputOptions,
       callback: (err: string, results: Array<HealthValue>) => void,
@@ -755,6 +760,7 @@ declare module 'react-native-health' {
     RespiratoryRate = 'RespiratoryRate',
     SleepAnalysis = 'SleepAnalysis',
     StepCount = 'StepCount',
+    SixMinuteWalkTestDistance = 'SixMinuteWalkTestDistance',
     Steps = 'Steps',
     Vo2Max = 'Vo2Max',
     WaistCircumference = 'WaistCircumference',
