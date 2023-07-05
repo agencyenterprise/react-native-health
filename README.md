@@ -222,6 +222,10 @@ All the documentation is under the [docs](/docs) folder. They are split into the
 - [saveSteps](/docs/saveSteps.md)
 - [saveWalkingRunningDistance](/docs/saveWalkingRunningDistance.md)
 
+### Mobility Methods
+
+- [getSixMinuteWalkTestDistance](/docs/getSixMinuteWalkTestDistance.md)
+
 ### Hearing Methods
 
 - [getEnvironmentalAudioExposure](/docs/getEnvironmentalAudioExposure.md)

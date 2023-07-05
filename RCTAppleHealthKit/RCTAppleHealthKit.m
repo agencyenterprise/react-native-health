@@ -18,6 +18,7 @@
 #import "RCTAppleHealthKit+Methods_Results.h"
 #import "RCTAppleHealthKit+Methods_Sleep.h"
 #import "RCTAppleHealthKit+Methods_Mindfulness.h"
+#import "RCTAppleHealthKit+Methods_Mobility.h"
 #import "RCTAppleHealthKit+Methods_Workout.h"
 #import "RCTAppleHealthKit+Methods_LabTests.h"
 #import "RCTAppleHealthKit+Methods_Hearing.h"
@@ -472,6 +473,12 @@ RCT_EXPORT_METHOD(getCarbohydratesSamples:(NSDictionary *)input callback:(RCTRes
     [self results_getCarbohydratesSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getSixMinuteWalkTestDistance:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self mobility_getSixMinuteWalkTestDistance:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveCarbohydratesSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
@@ -656,6 +663,7 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         @"Running",
         @"StairClimbing",
         @"StepCount",
+        @"SixMinuteWalkTestDistance",
         @"Swimming",
         @"Vo2Max",
         @"Walking",

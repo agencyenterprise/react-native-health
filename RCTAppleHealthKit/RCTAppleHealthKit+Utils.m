@@ -160,9 +160,13 @@ NSString * const kMetadataKey = @"metadata";
     } else if ([type isEqual:@"Electrocardiogram"]) {
         return [HKObjectType electrocardiogramType];
     } else if ([type isEqual:@"HeartRateVariabilitySDNN"]){
-        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRateVariabilitySDNN];
+        if (@available(iOS 11.0, *)) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRateVariabilitySDNN];
+        }
     } else if ([type isEqual:@"RestingHeartRate"]){
-        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
+        if (@available(iOS 11.0, *)) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
+        }
     } else if ([type isEqual:@"Running"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
     } else if ([type isEqual:@"StairClimbing"]) {
@@ -172,11 +176,17 @@ NSString * const kMetadataKey = @"metadata";
     } else if ([type isEqual:@"Swimming"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceSwimming];
     } else if ([type isEqual:@"Vo2Max"]){
-        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierVO2Max];
+        if (@available(iOS 11.0, *)) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierVO2Max];
+        }
     } else if ([type isEqual:@"Walking"]) {
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     } else if ([type isEqual:@"Workout"]) {
         return [HKObjectType workoutType];
+    } else if ([type isEqual:@"SixMinuteWalkTestDistance"]) {
+        if (@available(iOS 14.0, *)) {
+            return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierSixMinuteWalkTestDistance];
+        }
     }
 
     return [HKObjectType workoutType];
