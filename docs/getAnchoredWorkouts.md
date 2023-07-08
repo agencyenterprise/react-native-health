@@ -16,7 +16,7 @@ Query to get all workouts of any given type by a given anchor (a physical memory
 let options = {
   startDate?: (new Date(2016,4,27)).toISOString(), // 
   endDate?: (new Date()).toISOString(),
-  queryAnchor?: 'base64encodedstring',
+  anchor?: 'base64encodedstring',
   type: 'Workout', // one of: ['Walking', 'StairClimbing', 'Running', 'Cycling', 'Workout']
 };
 ```
@@ -59,5 +59,12 @@ The resulting workouts in the array will look as the following:
   distance: Number, // [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]]
   start: String, // [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
   end: String, // [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+  duration: Number, // NSTimeInterval (seconds)
+  workoutEvents: {
+    endDate: String, // [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+    startDate: String, // [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate]
+    eventTypeInt: Number,
+    eventType: String, // EventType enum
+  }[]
 }
 ```

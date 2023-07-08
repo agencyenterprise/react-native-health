@@ -12,6 +12,33 @@
 
 @implementation RCTAppleHealthKit (Methods_Vitals)
 
+- (void)vitals_saveHeartRateSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    NSDate *timeHeartRateSampleWasTaken = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    double heartRateValue = [RCTAppleHealthKit doubleFromOptions:input key:@"value" withDefault:-99];
+    if(heartRateValue == -99){
+        callback(@[RCTMakeError(@"heartRateValue is required in options", nil, nil)]);
+        return;
+    }
+    
+    HKUnit *count = [HKUnit countUnit];
+    HKUnit *minute = [HKUnit minuteUnit];
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[count unitDividedByUnit:minute]];
+    
+    HKQuantitySample* heartRate = [HKQuantitySample quantitySampleWithType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate]
+                                                                quantity:[HKQuantity quantityWithUnit:unit doubleValue:heartRateValue]
+                                                                startDate:timeHeartRateSampleWasTaken
+                                                                endDate:timeHeartRateSampleWasTaken];
+
+    [self.healthStore saveObject:heartRate withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured saving the heart rate sample: %@", error);
+            callback(@[RCTMakeError(@"An error occured saving the heart rate sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @true]);
+    }];
+}
 
 - (void)vitals_getHeartRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
