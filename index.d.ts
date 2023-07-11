@@ -807,6 +807,11 @@ declare module 'react-native-health' {
     Weight = 'Weight',
     Workout = 'Workout',
     WorkoutRoute = 'WorkoutRoute',
+    RunningSpeed = 'RunningSpeed',
+    RunningPower = 'RunningPower',
+    RunningStrideLength = 'RunningStrideLength',
+    RunningVerticalOscillation = 'RunningVerticalOscillation',
+    RunningGroundContactTime = 'RunningGroundContactTime',
   }
 
   export enum HealthUnit {
