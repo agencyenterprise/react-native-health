@@ -7,9 +7,7 @@ public protocol HealthKitType {
 
 let hkQuantityTypePrefix = "HKQuantityTypeIdentifier"
 
-public protocol QuantityType: HealthKitType {}
-
-public enum DiscreteQuantityType: String, QuantityType {
+public enum QuantityType: String, HealthKitType {
     public var type: HKSampleType {
         return HKQuantityType.init(.init(rawValue: hkQuantityTypePrefix + self.rawValue))
     }
@@ -60,13 +58,8 @@ public enum DiscreteQuantityType: String, QuantityType {
     @available(iOS 16.0, *) case RunningVerticalOscillation
     @available(iOS 16.0, *) case UnderwaterDepth // Length
     @available(iOS 16.0, *) case WaterTemperature // Temperature
-}
-
-public enum CumulativeQuantityType: String, QuantityType {
-    public var type: HKSampleType {
-        return HKQuantityType.init(.init(rawValue: hkQuantityTypePrefix + self.rawValue))
-    }
-    case HeartRate
+    
+    // Cumulative
     case ActiveEnergyBurned
     case AppleExerciseTime
     case BasalEnergyBurned

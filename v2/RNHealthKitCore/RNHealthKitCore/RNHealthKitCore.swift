@@ -11,33 +11,41 @@ public class RNHealthKitCore {
         )
     }
 
-    public func getCumulativeQuantitySamples(
-        _ type: CumulativeQuantityType,
-        _ queryParameters: CumulativeQuantityQuery
+    public func getQuantitySamplesAggregation(
+        _ type: QuantityType,
+        _ queryParameters: AggregationdQuantityQuery
     ) async throws -> [QuantitySample] {
         return try await withCheckedThrowingContinuation { continuation in
             let sampleType = type.type as! HKQuantityType
             let query = HKStatisticsCollectionQuery(
                 quantityType: sampleType,
                 quantitySamplePredicate: queryParameters.predicate,
-                options: .mostRecent,
+                options: queryParameters.aggregationOption.toHKType,
                 anchorDate: queryParameters.anchorDate,
                 intervalComponents: queryParameters.interval
             )
+
             query.initialResultsHandler = { _, results, error in
                 switchAndContinue(continuation: continuation, value: results, error: error) { collection in
-                    return Self.enumerateStatistics(collection: collection, queryParameters.startDate, queryParameters.endDate, queryParameters.unit)
+                    return Self.enumerateStatistics(
+                        collection: collection,
+                        queryParameters
+                    )
                 }
             }
             healthStore.execute(query)
         }
     }
     
-    static func enumerateStatistics(collection: HKStatisticsCollection, _ startDate: Date, _ endDate: Date, _ unit: HKUnit) -> [QuantitySample] {
+    static func enumerateStatistics(
+        collection: HKStatisticsCollection,
+        _ queryParameters: AggregationdQuantityQuery
+    ) -> [QuantitySample] {
         var samples: [QuantitySample] = []
-        collection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
-            statistics.sumQuantity().map {
-                samples.append(.init($0, unit, statistics.startDate, statistics.endDate))
+        let enumerationFunction = queryParameters.aggregationOption.enumeration
+        collection.enumerateStatistics(from: queryParameters.startDate, to: queryParameters.endDate) { statistics, stop in
+            enumerationFunction(statistics).map {
+                samples.append(.init($0, queryParameters.unit, statistics.startDate, statistics.endDate))
             }
         }
         return samples
