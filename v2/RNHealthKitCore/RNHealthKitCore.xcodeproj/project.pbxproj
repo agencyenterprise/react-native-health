@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E5AEBB12A5EA8EA00F74829 /* Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AEBB02A5EA8EA00F74829 /* Samples.swift */; };
+		7E5AEBB32A5EAF2800F74829 /* QuantityQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */; };
 		7E9A84CC2A5312D7004622E5 /* RNHealthKitCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84CB2A5312D7004622E5 /* RNHealthKitCore.swift */; };
 		7E9A84F32A5449C2004622E5 /* HealthKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F22A5449C2004622E5 /* HealthKitTypes.swift */; };
 		7E9A84F52A544A1A004622E5 /* HealthKitOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F42A544A1A004622E5 /* HealthKitOperations.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		7E5AEBB02A5EA8EA00F74829 /* Samples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Samples.swift; sourceTree = "<group>"; };
+		7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityQueries.swift; sourceTree = "<group>"; };
 		7E9A84C82A5312D7004622E5 /* libRNHealthKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNHealthKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9A84CB2A5312D7004622E5 /* RNHealthKitCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNHealthKitCore.swift; sourceTree = "<group>"; };
 		7E9A84F22A5449C2004622E5 /* HealthKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitTypes.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				7E9A84F42A544A1A004622E5 /* HealthKitOperations.swift */,
 				7E9A84F62A548A39004622E5 /* Utils.swift */,
 				7E5AEBB02A5EA8EA00F74829 /* Samples.swift */,
+				7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */,
 			);
 			path = RNHealthKitCore;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 				7E9A84F52A544A1A004622E5 /* HealthKitOperations.swift in Sources */,
 				7E9A84F32A5449C2004622E5 /* HealthKitTypes.swift in Sources */,
 				7E9A84CC2A5312D7004622E5 /* RNHealthKitCore.swift in Sources */,
+				7E5AEBB32A5EAF2800F74829 /* QuantityQueries.swift in Sources */,
 				7E5AEBB12A5EA8EA00F74829 /* Samples.swift in Sources */,
 				7E9A84F72A548A39004622E5 /* Utils.swift in Sources */,
 			);

@@ -26,7 +26,7 @@ public struct QuantityQuery {
     }
 }
 
-public struct AggregationdQuantityQuery {
+public struct AggregationQuantityQuery {
     let startDate: Date
     let endDate: Date
     let interval: DateComponents
