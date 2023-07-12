@@ -11,8 +11,9 @@ public struct QuantityQuery {
     var predicate: NSPredicate {
         var predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [.strictStartDate])
         if let isUserEntered = isUserEntered {
-            let value = isUserEntered ? "YES": "NO"
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[.init(format: "metadata.%K == \(value)", HKMetadataKeyWasUserEntered), predicate])
+            let operatorType: NSComparisonPredicate.Operator = isUserEntered ? .equalTo : .notEqualTo
+            let predicateAvoidManuallyLoggedData = HKQuery.predicateForObjects(withMetadataKey: HKMetadataKeyWasUserEntered, operatorType: operatorType, value: true)
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[predicateAvoidManuallyLoggedData, predicate])
         }
         return predicate
     }
@@ -38,8 +39,9 @@ public struct AggregationQuantityQuery {
     var predicate: NSPredicate {
         var predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [.strictStartDate])
         if let isUserEntered = isUserEntered {
-            let value = isUserEntered ? "YES": "NO"
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[.init(format: "metadata.%K == \(value)", HKMetadataKeyWasUserEntered), predicate])
+            let operatorType: NSComparisonPredicate.Operator = isUserEntered ? .equalTo : .notEqualTo
+            let predicateAvoidManuallyLoggedData = HKQuery.predicateForObjects(withMetadataKey: HKMetadataKeyWasUserEntered, operatorType: operatorType, value: true)
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[predicateAvoidManuallyLoggedData, predicate])
         }
         return predicate
     }
