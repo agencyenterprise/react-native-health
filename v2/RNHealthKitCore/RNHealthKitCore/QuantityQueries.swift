@@ -66,10 +66,12 @@ public extension RNHealthKitCore {
         }
     }
 
-    func saveQuantitySamples(type: QuantityType, value: Double, unit: HKUnit, startDate: Date, endDate: Date) async throws {
-        let type = type.type as! HKQuantityType
-        let quantity = HKQuantity(unit: unit, doubleValue: value)
-        let sample = HKQuantitySample(type: type, quantity: quantity, start: startDate, end: endDate, metadata: nil)
-        try await self.healthStore.save(sample)
+    func saveQuantitySample(_ sample: QuantitySampleInsert) async throws {
+        let type = sample.type.type as! HKQuantityType
+        let unit = HKUnit(from: sample.unit)
+        let quantity = HKQuantity(unit: unit, doubleValue: sample.value)
+        try await self.healthStore.save(
+            HKQuantitySample(type: type, quantity: quantity, start: sample.startDate, end: sample.endDate, metadata: sample.metadata)
+        )
     }
 }

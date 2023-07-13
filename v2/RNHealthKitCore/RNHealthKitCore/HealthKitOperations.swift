@@ -65,6 +65,24 @@ public struct AggregationQuantityQuery {
     }
 }
 
+public struct QuantitySampleInsert {
+    let type: QuantityType
+    let value: Double
+    let unit: String
+    let startDate: Date
+    let endDate: Date
+    let metadata: [String: Any]?
+    
+    public init(type: QuantityType, value: Double, unit: String, startDate: Date, endDate: Date, metadata: [String: Any]? = nil) {
+        self.type = type
+        self.value = value
+        self.unit = unit
+        self.startDate = startDate
+        self.endDate = endDate
+        self.metadata = metadata
+    }
+}
+
 public enum AggregationOptions: String {
     case discreteAverage
     case discreteMin
