@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "expo-bare-example",
+    "slug": "expo-bare-example",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "react-native-health"
+    ]
+  }
+}
