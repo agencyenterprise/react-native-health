@@ -17,6 +17,7 @@ following:
 - `BloodPressureDiastolic`
 - `BloodPressureSystolic`
 - `Cycling`
+- `InsulinDelivery`
 - `HeartRate`
 - `HeartRateVariabilitySDNN`
 - `OxygenSaturation`

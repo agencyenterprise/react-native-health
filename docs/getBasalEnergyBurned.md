@@ -1,6 +1,7 @@
 # getBasalEnergyBurned
 
-A quantity sample type that measures the amount of energy burned.
+A quantity sample type that measures the amount of `resting energy` burned within a period of time.
+These samples together with `active energy` burned for the same time period represent the `total energy` burned for that period (usually seen as Total Kilocalories in a workout on Apple Watch).
 
 Example input options:
 
@@ -8,6 +9,8 @@ Example input options:
 let options = {
   startDate: new Date(2018, 10, 1).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
+  ascending: true, // optional
+  includeManuallyAdded: true, // optional
 }
 ```
 

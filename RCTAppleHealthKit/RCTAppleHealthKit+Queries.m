@@ -515,7 +515,9 @@
                         double energy =  [[sample totalEnergyBurned] doubleValueForUnit:[HKUnit kilocalorieUnit]];
                         double distance = [[sample totalDistance] doubleValueForUnit:[HKUnit mileUnit]];
                         NSString *type = [RCTAppleHealthKit stringForHKWorkoutActivityType:[sample workoutActivityType]];
-                        
+                        NSArray *workoutEvents = [RCTAppleHealthKit formatWorkoutEvents:[sample workoutEvents]];
+                        NSTimeInterval duration = [sample duration];
+
                         NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                         NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
                         
@@ -535,20 +537,22 @@
                         }
                         
                         NSDictionary *elem = @{
-                            @"activityId" : [NSNumber numberWithInt:[sample workoutActivityType]],
-                            @"id" : [[sample UUID] UUIDString],
-                            @"activityName" : type,
-                            @"calories" : @(energy),
-                            @"tracked" : @(isTracked),
-                            @"metadata" : [sample metadata],
-                            @"sourceName" : [[[sample sourceRevision] source] name],
-                            @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
-                            @"device": device,
-                            @"distance" : @(distance),
-                            @"start" : startDateString,
-                            @"end" : endDateString
-                        };
-                        
+                                               @"activityId" : [NSNumber numberWithInt:[sample workoutActivityType]],
+                                               @"id" : [[sample UUID] UUIDString],
+                                               @"activityName" : type,
+                                               @"calories" : @(energy),
+                                               @"tracked" : @(isTracked),
+                                               @"metadata" : [sample metadata],
+                                               @"sourceName" : [[[sample sourceRevision] source] name],
+                                               @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                                               @"device": device,
+                                               @"distance" : @(distance),
+                                               @"start" : startDateString,
+                                               @"end" : endDateString,
+                                               @"duration": @(duration),
+                                               @"workoutEvents": workoutEvents
+                                               };
+
                         [data addObject:elem];
                     } @catch (NSException *exception) {
                         NSLog(@"RNHealth: An error occured while trying to add workout sample from: %@ ", [[[sample sourceRevision] source] bundleIdentifier]);
