@@ -629,4 +629,120 @@ NSString * const kMetadataKey = @"metadata";
     }
 }
 
+
++(NSString*) getSimpleNameForHKIdentifierType:(HKQuantityTypeIdentifier)type {
+    if(type == HKQuantityTypeIdentifierDietaryBiotin) {
+           return @"biotin";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryCaffeine) {
+       return @"caffeine";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryCalcium) {
+       return @"calcium";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryCarbohydrates) {
+       return @"carbohydrates";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryChloride) {
+       return @"cloride";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryCholesterol) {
+       return @"cholesterol";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryCopper) {
+       return @"copper";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryEnergyConsumed) {
+       return @"energy";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryFatMonounsaturated) {
+       return @"fatMonounsaturated";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryFatPolyunsaturated) {
+       return @"fatPolyunsaturated";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryFatSaturated) {
+       return @"fatSaturated";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryFatTotal) {
+       return @"fatTotal";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryFiber) {
+       return @"fiber";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryFolate) {
+       return @"folate";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryIodine) {
+       return @"iodine";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryIron) {
+       return @"iron";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryMagnesium) {
+       return @"magnesium";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryManganese) {
+       return @"manganese";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryMolybdenum) {
+       return @"molybdenum";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryNiacin) {
+       return @"niacin";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryPantothenicAcid) {
+       return @"pantothenicAcid";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryPhosphorus) {
+       return @"phosphorus";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryPotassium) {
+       return @"potassium";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryProtein) {
+       return @"protein";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryRiboflavin) {
+       return @"riboflavin";
+    }
+    if(type == HKQuantityTypeIdentifierDietarySelenium) {
+       return @"selenium";
+    }
+    if(type == HKQuantityTypeIdentifierDietarySodium) {
+       return @"sodium";
+    }
+    if(type == HKQuantityTypeIdentifierDietarySugar) {
+       return @"sugar";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryThiamin) {
+       return @"thiamin";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryVitaminA) {
+       return @"vitaminA";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryVitaminB12) {
+       return @"vitaminB12";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryVitaminB6) {
+       return @"vitaminB6";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryVitaminC) {
+       return @"vitaminC";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryVitaminD) {
+       return @"vitaminD";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryVitaminE) {
+       return @"vitaminE";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryVitaminK) {
+       return @"vitaminK";
+    }
+    if(type == HKQuantityTypeIdentifierDietaryZinc) {
+       return @"zinc";
+    }
+    return @"Unkown";
+}
+
 @end

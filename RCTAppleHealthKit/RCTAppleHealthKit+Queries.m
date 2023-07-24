@@ -1213,4 +1213,113 @@
 
 }
 
+- (void)deleteHealthKitObject:(NSString *)objectId
+                        type:(HKSampleType *)type
+                        predicate:(NSPredicate *)predicate
+                        completion:(void (^)(BOOL success, NSError *))completion {
+
+    // declare the block
+    void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
+    void (^deleteBlock)(BOOL success, NSError *error);
+    
+    // create and assign the block
+    deleteBlock = ^(BOOL success, NSError *error) {
+        if (completion) {
+            completion(success, error);
+        }
+    };
+    handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if (!results) {
+            if (completion) {
+                completion(false, nil);
+            }
+            return;
+        }
+        HKSample* found = [[results filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(HKSample* object, NSDictionary *bindings) {
+            return [[[object UUID] UUIDString] isEqualToString:objectId];
+        }]] firstObject];
+        if(!found) {
+            if (completion) {
+                completion(false, nil);
+            }
+            return;
+        }
+        [self.healthStore deleteObject:found withCompletion:deleteBlock];
+    };
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType: type
+                                                           predicate:predicate
+                                                               limit:HKObjectQueryNoLimit
+                                                     sortDescriptors:@[]
+                                                      resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+}
+
+- (void)fetchFoodSamples:(HKCorrelationType *)correlationType
+                         predicate:(NSPredicate *)predicate
+                        completion:(void (^)(NSArray *, NSError *))completion {
+
+    // declare the block
+    void (^handlerBlock)(HKCorrelationQuery *query, NSArray *results, NSError *error);
+    // create and assign the block
+    handlerBlock = ^(HKCorrelationQuery *query, NSArray *results, NSError *error) {
+        if (!results) {
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+
+        if (completion) {
+            NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
+
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+                for (HKCorrelation *result in results) {
+
+                    NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:result.startDate];
+                    NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:result.endDate];
+                    
+                    NSMutableDictionary *value = [[NSMutableDictionary alloc] init];
+                    NSSet *objects = [result objects];
+                    if (objects) {
+                        for(HKQuantitySample* obj in objects) {
+                            NSString* nutrient = [RCTAppleHealthKit getSimpleNameForHKIdentifierType: [[obj quantityType] identifier]];
+                            double val = 0;
+                            if([[obj quantityType] identifier] == HKQuantityTypeIdentifierDietaryEnergyConsumed){
+                                val= [[obj quantity] doubleValueForUnit:[HKUnit kilocalorieUnit]];
+                            }else{
+                                val = [[obj quantity] doubleValueForUnit:[HKUnit gramUnit]];
+                            }
+                            [value setValue:[NSNumber numberWithDouble: val] forKey:nutrient];
+                        }
+                    }
+                    
+
+                    NSMutableDictionary *elem = [NSMutableDictionary dictionaryWithDictionary:@{
+                            @"nutrients" : value,
+                            @"id" : [[result UUID] UUIDString],
+                            @"sourceName" : [[[result sourceRevision] source] name],
+                            @"sourceId" : [[[result sourceRevision] source] bundleIdentifier],
+                            @"startDate" : startDateString,
+                            @"endDate" : endDateString,
+                    }];
+
+                    NSDictionary *metadata = [result metadata];
+                    if (metadata) {
+                        [elem setValue:metadata forKey:kMetadataKey];
+                    }
+
+                    [data addObject:elem];
+                }
+
+                completion(data, error);
+            });
+        }
+    };
+
+    HKCorrelationQuery *query = [[HKCorrelationQuery alloc] initWithType:correlationType predicate:predicate samplePredicates:nil completion:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+}
 @end

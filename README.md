@@ -203,6 +203,8 @@ All the documentation is under the [docs](/docs) folder. They are split into the
 - [getFiberSamples](/docs/getFiberSamples.md)
 - [getTotalFatSamples](/docs/getTotalFatSamples.md)
 - [saveFood](/docs/saveFood.md)
+- [getFood](/docs/getFood.md)
+- [deleteFood](/docs/deleteFood.md)
 - [saveWater](/docs/saveWater.md)
 - [getWater](/docs/getWater.md)
 - [getWaterSamples](/docs/getWaterSamples.md)
