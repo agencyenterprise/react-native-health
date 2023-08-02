@@ -534,6 +534,7 @@
 
              __block NSUInteger samplesProcessed = 0;
              __block NSUInteger symptomsProcessed = 0;
+             __block BOOL hasCompletedSymptoms = FALSE;
              
              NSMutableArray *data = [NSMutableArray arrayWithCapacity:1];
              NSUInteger symptomsIdentfierCount = [[self symptomsIdentiers] count];
@@ -543,7 +544,7 @@
              void (^maybeFinish)(void);
              maybeFinish =  ^() {
                  // check to see if we've processed all of the returned samples, and return if so
-                 if (samplesProcessed == results.count) {
+                 if (samplesProcessed == results.count && hasCompletedSymptoms == TRUE) {
                      callback(@[[NSNull null], data]);
                  }
              };
@@ -632,6 +633,7 @@
                              
                              if (symptomsProcessed == symptomsIdentfierCount) {
                                  [mutableElem setObject:symptoms forKey:@"symptomStatus"];
+                                 hasCompletedSymptoms = TRUE;
                                  maybeFinish();
                              }
                          };
@@ -642,6 +644,7 @@
                      }
                  } else {
                          symptomsProcessed = symptomsIdentfierCount;
+                         hasCompletedSymptoms = TRUE;
                          maybeFinish();
                  }
              }
@@ -660,6 +663,4 @@
  }
 
 @end
-
-
 
