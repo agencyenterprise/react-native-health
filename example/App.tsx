@@ -6,14 +6,27 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
 } from 'react-native';
 
 import RNHealthKitWrapper, { HealthType } from 'react-native-health';
 
 RNHealthKitWrapper.initHealthKit(
-  [HealthType.HeartRate],
+  Object.values(HealthType),
   [HealthType.HeartRate],
 );
+
+async function runQuery() {
+  const result = await RNHealthKitWrapper.getQuantitySamples(
+    HealthType.HeartRate,
+    {
+      "startDate": new Date(2023, 7, 1).toISOString(),
+      "endDate": new Date().toISOString(),
+      "unit": 'count/min',
+    }
+  )
+  console.log(result)
+}
 
 export default function App() {
   const [authStatus, setAuthStatus] = useState<any>({});
@@ -42,6 +55,12 @@ export default function App() {
               <Text style={styles.sectionDescription}>
                 {JSON.stringify(authStatus, null, 2)}
               </Text>
+              <Button
+                title="Run Query"
+                onPress={() => {
+                  runQuery();
+                }}
+              />
             </View>
           </View>
         </ScrollView>
