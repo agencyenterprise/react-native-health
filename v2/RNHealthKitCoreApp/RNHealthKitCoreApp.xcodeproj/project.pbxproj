@@ -11,7 +11,7 @@
 		7E9A84E12A5352F3004622E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84E02A5352F3004622E5 /* ContentView.swift */; };
 		7E9A84E32A5352F4004622E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E9A84E22A5352F4004622E5 /* Assets.xcassets */; };
 		7E9A84E62A5352F4004622E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E9A84E52A5352F4004622E5 /* Preview Assets.xcassets */; };
-		7E9A84EE2A5357B5004622E5 /* libRNHealthKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A84ED2A5357B5004622E5 /* libRNHealthKitCore.a */; };
+		7EE599FA2A6FE15600DBB97B /* libHealthKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE599F92A6FE15600DBB97B /* libHealthKitCore.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,14 +22,15 @@
 		7E9A84E52A5352F4004622E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7E9A84ED2A5357B5004622E5 /* libRNHealthKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNHealthKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9A84EF2A5357FE004622E5 /* RNHealthKitCoreApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RNHealthKitCoreApp.entitlements; sourceTree = "<group>"; };
+		7EE599F92A6FE15600DBB97B /* libHealthKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libHealthKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7E9A84D82A5352F3004622E5 /* Frameworks */ = {
+		7EE599F82A6FE14F00DBB97B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9A84EE2A5357B5004622E5 /* libRNHealthKitCore.a in Frameworks */,
+				7EE599FA2A6FE15600DBB97B /* libHealthKitCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +77,7 @@
 		7E9A84EC2A5357B5004622E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7EE599F92A6FE15600DBB97B /* libHealthKitCore.a */,
 				7E9A84ED2A5357B5004622E5 /* libRNHealthKitCore.a */,
 			);
 			name = Frameworks;
@@ -89,7 +91,8 @@
 			buildConfigurationList = 7E9A84E92A5352F4004622E5 /* Build configuration list for PBXNativeTarget "RNHealthKitCoreApp" */;
 			buildPhases = (
 				7E9A84D72A5352F3004622E5 /* Sources */,
-				7E9A84D82A5352F3004622E5 /* Frameworks */,
+				7EE599F82A6FE14F00DBB97B /* Frameworks */,
+				7EE599F72A6FE14300DBB97B /* ShellScript */,
 				7E9A84D92A5352F3004622E5 /* Resources */,
 			);
 			buildRules = (
@@ -145,6 +148,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7EE599F72A6FE14300DBB97B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7E9A84D72A5352F3004622E5 /* Sources */ = {

@@ -5,6 +5,6 @@
       location = "group:RNHealthKitCoreApp/RNHealthKitCoreApp.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:RNHealthKitCore/RNHealthKitCore.xcodeproj">
+      location = "group:/Users/gustavogava/aestudio/rn-healthkit/react-native-health/v2/RNHealthKitCore/HealthKitCore.xcodeproj">
    </FileRef>
 </Workspace>

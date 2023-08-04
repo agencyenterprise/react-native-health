@@ -24,12 +24,17 @@ A React Native package to interact with Apple HealthKit
   s.homepage         = 'https://github.com/agencyenterprise/react-native-health'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Agency Enterprise' => '' }
-  s.source           = { :git => 'https://github.com/agencyenterprise/react-native-healthkit.git', :tag => s.version.to_s }
+  s.source           = { 
+    :git => 'https://github.com/agencyenterprise/react-native-healthkit.git',
+    :tag => s.version.to_s, 
+    :submodules => true  
+  }
 
-  s.ios.deployment_target = '9.0'
-  s.swift_version = '4.2'
+  s.ios.deployment_target = '13.0'
+  s.swift_version = '5.5'
 
-  s.source_files = 'RCTAppleHealthKit/**/*'
+  s.source_files = ['v2/RNHealthKitCore/ReactNativeBridge/**/*', 'v2/RNHealthKitCore/HealthKitCore/**/*.swift']
+  s.requires_arc  = true
 
   s.frameworks = ['HealthKit']
   s.dependency 'React'

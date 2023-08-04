@@ -3,6 +3,7 @@
   "version": "1.15.0",
   "description": "A React Native package to interact with Apple HealthKit",
   "main": "index.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/agencyenterprise/react-native-healthkit.git"
@@ -22,7 +23,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "react-native": ">=0.67.3"
+    "react-native": ">=0.67.3",
+    "typescript": "^5.1.6"
   },
   "peerDependencies": {
     "react-native": ">=0.67.3"
