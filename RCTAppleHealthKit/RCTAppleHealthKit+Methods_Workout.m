@@ -12,6 +12,84 @@
 
 @implementation RCTAppleHealthKit (Methods_Workout)
 
+
+- (void)workout_getRoute:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+
+    NSString *uid = [RCTAppleHealthKit stringFromOptions:input key:@"id" withDefault:@""];
+    
+    NSUUID *uuid;
+    
+    @try {
+        uuid = [[NSUUID alloc] initWithUUIDString:uid];
+    } @catch (NSException *exception) {
+        callback(@[RCTMakeError(@"Error converting id to uuid", nil, nil)]);
+        return;
+    }
+    
+    if(!uuid){
+        callback(@[RCTMakeError(@"An id is required", nil, nil)]);
+        return;
+    }
+
+    NSPredicate *predicate = [HKQuery predicateForObjectWithUUID:uuid];
+
+    HKSampleType *samplesType = [HKSampleType workoutType];
+
+    void (^completion)(NSArray *results, NSError *error);
+
+    completion = ^(NSArray *results, NSError *error) {
+        if (results){
+            
+            //only one workout should return from the query
+            for (HKWorkout *sample in results) {
+                // do something with object
+                HKSampleType *type = [HKSeriesType workoutRouteType];
+
+                NSPredicate *pre = [HKQuery predicateForObjectsFromWorkout:sample];
+                
+                void (^routeCompletion)(NSDictionary *results, NSError *error);
+
+                routeCompletion = ^(NSDictionary *results, NSError *error) {
+                    if (results){
+                        callback(@[[NSNull null], results]);
+                        
+                        return;
+                    } else {
+                        NSLog(@"error getting samples: %@", error);
+                        callback(@[RCTMakeError(@"error getting samples. Activity possibly does not have a route.", error, nil)]);
+                        return;
+                    }
+                };
+                
+                
+                [self fetchWorkoutRoute:type
+                                  predicate:pre
+                                     anchor:nil
+                                      limit:HKObjectQueryNoLimit
+                                 completion:routeCompletion];
+                
+                break;
+            }
+            
+        } else {
+            NSLog(@"error getting samples: %@", error);
+            callback(@[RCTMakeError(@"error getting samples:", error, nil)]);
+
+            return;
+        }
+    };
+
+
+    [self fetchWorkoutById:samplesType
+                        unit:[HKUnit countUnit]
+                   predicate:predicate
+                   ascending:false
+                       limit:HKObjectQueryNoLimit
+                  completion:completion];
+}
+
+
 - (void)workout_getAnchoredQuery:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];

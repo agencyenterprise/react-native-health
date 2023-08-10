@@ -11,6 +11,7 @@ following:
 - `ActiveEnergyBurned`
 - `BasalEnergyBurned`
 - `Cycling`
+- `InsulinDelivery`
 - `HeartRate`
 - `HeartRateVariabilitySDNN`
 - `RestingHeartRate`
@@ -29,6 +30,7 @@ step in the README, you can skip this one.
 
 To setup that in your project, in XCode open your `ios/AppDelegate.m` file and add the
 following statements:
+
 
 ```objective-c
 #import "AppDelegate.h"
@@ -88,17 +90,17 @@ up observers for workouts, the events would have the following names:
 ### Example
 
 ```typescript
-import { NativeAppEventEmitter } from 'react-native'
+import React, { useEffect } from 'react';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 
-const callback = (): void => {
-  /* Execute any data query */
-}
-
-/* Register native listener that will be triggered when successfuly enabled */
-NativeAppEventEmitter.addListener('healthKit:HeartRate:setup:success', callback)
-
-/* Register native listener that will be triggered on each update */
-NativeAppEventEmitter.addListener('healthKit:HeartRate:new', callback)
+useEffect(() => {
+    new NativeEventEmitter(NativeModules.AppleHealthKit).addListener(
+      'healthKit:HeartRate:new',
+      async () => {
+        console.log('--> observer triggered');
+      },
+    );
+  });
 ```
 
 When a new sample appears, in order to get the information you need to call

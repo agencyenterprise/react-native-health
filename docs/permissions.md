@@ -110,6 +110,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   WalkingHeartRateAverage
   Weight
   Workout
+  PeakFlow
 ```
 
 ## Supported Apple Permissions
@@ -157,3 +158,4 @@ The available Healthkit identifiers are supported
 | Weight                 | [HKQuantityTypeIdentifierBodyMass](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodymass?language=objc)                                  | ✓    | ✓     |
 | BodyFatPercentage      | [HKQuantityTypeIdentifierBodyFatPercentage](https://developer.apple.com/reference/Healthkit/hkquantitytypeidentifierbodyfatpercentage?language=objc)                | ✓    | ✓     |
 | WalkingHeartRateAverage | [HKQuantityTypeIdentifierWalkingHeartRateAverage](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierwalkingheartrateaverage?language=objc)                | ✓    |      |
+| PeakFlow | [HKQuantityTypeIdentifierPeakExpiratoryFlowRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifierpeakexpiratoryflowrate?=objc)                | ✓    | ✓    |

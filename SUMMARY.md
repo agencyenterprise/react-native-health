@@ -56,6 +56,7 @@
 * [saveFood](/docs/saveFood.md)
 * [saveWater](/docs/saveWater.md)
 * [getWater](/docs/getWater.md)
+* [getWaterSamples](/docs/getWaterSamples.md)
 
 ## Fitness Methods
 
@@ -71,6 +72,7 @@
 * [getDailyFlightsClimbedSamples](/docs/getDailyFlightsClimbedSamples.md)
 * [getFlightsClimbed](/docs/getFlightsClimbed.md)
 * [saveSteps](/docs/saveSteps.md)
+- [saveWalkingRunningDistance](/docs/saveWalkingRunningDistance.md)
 
 ## Hearing Methods
 

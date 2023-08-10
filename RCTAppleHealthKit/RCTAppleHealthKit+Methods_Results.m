@@ -46,6 +46,40 @@
     }];
 }
 
+- (void)results_getInsulinDeliverySamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *insulinDeliveryType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
+
+    HKUnit *unit = [HKUnit internationalUnit];
+
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    if(startDate == nil){
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+
+    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchQuantitySamplesOfType:insulinDeliveryType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                          completion:^(NSArray *results, NSError *error) {
+        if(results){
+            callback(@[[NSNull null], results]);
+            return;
+        } else {
+            NSLog(@"An error occured while retrieving the glucose sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while retrieving the glucose sample", error, nil)]);
+            return;
+        }
+    }];
+}
+
 - (void)results_getCarbohydratesSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *carbohydratesType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryCarbohydrates];
@@ -74,6 +108,34 @@
             callback(@[RCTMakeError(@"An error occured while retrieving the carbohydates sample", error, nil)]);
             return;
         }
+    }];
+}
+
+- (void)results_saveInsulinDeliverySample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *insulinDeliveryType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
+
+    HKUnit *unit = [HKUnit internationalUnit];
+
+    double value = [RCTAppleHealthKit doubleValueFromOptions:input];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:startDate];
+    NSDictionary *metadata = [RCTAppleHealthKit metadataFromOptions:input withDefault:nil];
+
+    HKQuantity *quantity = [HKQuantity quantityWithUnit:unit doubleValue:value];
+    HKQuantitySample *sample = [HKQuantitySample quantitySampleWithType:insulinDeliveryType
+                                                                      quantity:quantity
+                                                                     startDate:startDate
+                                                                       endDate:endDate
+                                                                      metadata:metadata];
+
+    [self.healthStore saveObject:sample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"An error occured while saving the insulin sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while saving the insulin sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], [sample.UUID UUIDString]]);
     }];
 }
 
@@ -162,6 +224,29 @@
         }
         callback(@[[NSNull null], @(deletedObjectCount)]);
     }];
+}
+
+- (void)results_deleteInsulinDeliverySample:(NSString *)oid callback:(RCTResponseSenderBlock)callback
+{
+    HKQuantityType *insulinDeliveryType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
+    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:oid];
+    NSPredicate *uuidPredicate = [HKQuery predicateForObjectWithUUID:uuid];
+    [self.healthStore deleteObjectsOfType:insulinDeliveryType predicate:uuidPredicate withCompletion:^(BOOL success, NSUInteger deletedObjectCount, NSError * _Nullable error) {
+        if (!success) {
+            NSLog(@"An error occured while deleting the insulin delivery sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while deleting the insulin delivery sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(deletedObjectCount)]);
+    }];
+}
+
+- (void)results_registerObservers:(RCTBridge *)bridge hasListeners:(bool)hasListeners
+{
+    if (@available(iOS 11.0, *)) {
+        HKSampleType* insulinType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
+        [self setObserverForType:insulinType type:@"InsulinDelivery" bridge:bridge hasListeners:hasListeners];
+    }
 }
 
 @end
