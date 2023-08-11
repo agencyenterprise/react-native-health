@@ -59,7 +59,7 @@ class RNHealthKitWrapper: NSObject {
                     let optionStr = (query["option"] as? String),
                     let option: AggregationOptions = .init(rawValue: optionStr)
                 else {
-                        reject("getQuantitySamplesAggregation", "Invalid parameters, check the unit and type.", nil)
+                        reject("getQuantitySamplesAggregation", "Invalid parameters.", nil)
                         return
                 }
                 let parameters = AggregationQuantityQuery(
@@ -74,6 +74,36 @@ class RNHealthKitWrapper: NSObject {
                 resolve(String(data: json, encoding: .utf8))
             } catch {
                 reject("getQuantitySamplesAggregation", error.localizedDescription, error)
+                return
+            }
+        }
+    }
+    
+    @objc
+    func saveQuantitySample(_ type: String, sample: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+        Task {
+            do {
+                guard
+                    let sampleType: QuantityType = .init(rawValue: type),
+                    let value = sample["value"] as? Double,
+                    let unit = (sample["unit"] as? String)?.hkUnit,
+                    let startDate = (sample["startDate"] as? String)?.fromIsoStringToDate(),
+                    let endDate = (sample["endDate"] as? String)?.fromIsoStringToDate()
+                else {
+                    reject("saveQuantitySample", "Invalid parameters.", nil)
+                    return
+                }
+                try await core?.saveQuantitySample(
+                    .init(
+                        type: sampleType,
+                        value: value,
+                        unit: unit,
+                        startDate: startDate,
+                        endDate: endDate
+                    )
+                )
+            } catch {
+                reject("saveQuantitySample", error.localizedDescription, error)
                 return
             }
         }

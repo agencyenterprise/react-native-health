@@ -68,12 +68,12 @@ public struct AggregationQuantityQuery {
 public struct QuantitySampleInsert {
     let type: QuantityType
     let value: Double
-    let unit: String
+    let unit: HKUnit
     let startDate: Date
     let endDate: Date
     let metadata: [String: Any]?
     
-    public init(type: QuantityType, value: Double, unit: String, startDate: Date, endDate: Date, metadata: [String: Any]? = nil) {
+    public init(type: QuantityType, value: Double, unit: HKUnit, startDate: Date, endDate: Date, metadata: [String: Any]? = nil) {
         self.type = type
         self.value = value
         self.unit = unit

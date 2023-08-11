@@ -41,6 +41,19 @@ async function runAggregationQuery() {
   console.log(result)
 }
 
+async function saveQuantitySample() {
+  const result = await RNHealthKitWrapper.saveQuantitySample(
+    HealthType.HeartRate,
+    {
+      "startDate": new Date().toISOString(),
+      "endDate": new Date().toISOString(),
+      "value": 82,
+      "unit": 'count/min',
+    }
+  )
+  console.log(result)
+}
+
 export default function App() {
   const [authStatus, setAuthStatus] = useState<any>({});
 
@@ -75,6 +88,12 @@ export default function App() {
                 title="Run Aggregation Query"
                 onPress={() => {
                   runAggregationQuery();
+                }}
+              />
+              <Button
+                title="Save Quantity Sample"
+                onPress={() => {
+                  saveQuantitySample();
                 }}
               />
             </View>

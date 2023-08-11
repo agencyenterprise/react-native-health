@@ -68,7 +68,7 @@ public extension HealthKitCore {
 
     func saveQuantitySample(_ sample: QuantitySampleInsert) async throws {
         let type = sample.type.type as! HKQuantityType
-        let unit = HKUnit(from: sample.unit)
+        let unit = sample.unit
         let quantity = HKQuantity(unit: unit, doubleValue: sample.value)
         try await self.healthStore.save(
             HKQuantitySample(type: type, quantity: quantity, start: sample.startDate, end: sample.endDate, metadata: sample.metadata)
