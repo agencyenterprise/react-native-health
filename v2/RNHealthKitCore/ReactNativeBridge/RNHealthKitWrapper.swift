@@ -28,7 +28,7 @@ class RNHealthKitWrapper: NSObject {
                     let unit = (query["unit"] as? String)?.hkUnit,
                     let sampleType: QuantityType = .init(rawValue: type)
                 else {
-                        reject("initHealthKit", "Invalid parameters, check the unit and type.", nil)
+                        reject("getQuantitySamples", "Invalid parameters, check the unit and type.", nil)
                         return
                 }
                 let parameters = QuantityQuery(
@@ -46,24 +46,36 @@ class RNHealthKitWrapper: NSObject {
             }
         }
     }
-}
-
-extension Date {
-    func toIsoString() -> String? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        return formatter.string(from: self)
-    }
-}
-
-extension String {
-    func fromIsoStringToDate() -> Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        return formatter.date(from: self)!
-    }
-
-    var hkUnit: HKUnit {
-        HKUnit(from: self)
+    
+    @objc
+    func getQuantitySamplesAggregation(_ type: String, query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+        Task {
+            do {
+                guard
+                    let unit = (query["unit"] as? String)?.hkUnit,
+                    let sampleType: QuantityType = .init(rawValue: type),
+                    let startDate = (query["startDate"] as? String)?.fromIsoStringToDate(),
+                    let endDate = (query["endDate"] as? String)?.fromIsoStringToDate(),
+                    let optionStr = (query["option"] as? String),
+                    let option: AggregationOptions = .init(rawValue: optionStr)
+                else {
+                        reject("getQuantitySamplesAggregation", "Invalid parameters, check the unit and type.", nil)
+                        return
+                }
+                let parameters = AggregationQuantityQuery(
+                    startDate: startDate,
+                    endDate: endDate,
+                    unit: unit,
+                    aggregationOption: option,
+                    isUserEntered: query["isUserEntered"] as? Bool
+                )
+                let result = try await core?.getQuantitySamplesAggregation(sampleType, parameters)
+                let json = try JSONEncoder().encode(result)
+                resolve(String(data: json, encoding: .utf8))
+            } catch {
+                reject("getQuantitySamplesAggregation", error.localizedDescription, error)
+                return
+            }
+        }
     }
 }

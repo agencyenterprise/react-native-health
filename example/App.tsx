@@ -28,6 +28,19 @@ async function runQuery() {
   console.log(result)
 }
 
+async function runAggregationQuery() {
+  const result = await RNHealthKitWrapper.getQuantitySamplesAggregation(
+    HealthType.ActiveEnergyBurned,
+    {
+      "startDate": new Date(2023, 7, 1).toISOString(),
+      "endDate": new Date().toISOString(),
+      "unit": 'kcal',
+      "option": 'cumulativeSum'
+    }
+  )
+  console.log(result)
+}
+
 export default function App() {
   const [authStatus, setAuthStatus] = useState<any>({});
 
@@ -52,13 +65,16 @@ export default function App() {
               <Text style={styles.sectionTitle}>
                 React Native Health Example
               </Text>
-              <Text style={styles.sectionDescription}>
-                {JSON.stringify(authStatus, null, 2)}
-              </Text>
               <Button
                 title="Run Query"
                 onPress={() => {
                   runQuery();
+                }}
+              />
+              <Button
+                title="Run Aggregation Query"
+                onPress={() => {
+                  runAggregationQuery();
                 }}
               />
             </View>
