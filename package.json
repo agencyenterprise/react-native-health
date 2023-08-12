@@ -2,7 +2,7 @@
   "name": "react-native-health",
   "version": "1.15.0",
   "description": "A React Native package to interact with Apple HealthKit",
-  "main": "index.js",
+  "main": "index.ts",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
