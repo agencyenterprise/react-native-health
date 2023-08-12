@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,53 +9,52 @@ import {
   Button,
 } from 'react-native';
 
-import RNHealthKitWrapper, { HealthType } from 'react-native-health';
+import RNHealthKitWrapper, {HealthType} from 'react-native-health';
 
-RNHealthKitWrapper.initHealthKit(
-  Object.values(HealthType),
-  [HealthType.HeartRate],
-);
+RNHealthKitWrapper.initHealthKit(Object.values(HealthType), [
+  HealthType.HeartRate,
+]);
 
 async function runQuery() {
   const result = await RNHealthKitWrapper.getQuantitySamples(
     HealthType.HeartRate,
     {
-      "startDate": new Date(2023, 7, 1).toISOString(),
-      "endDate": new Date().toISOString(),
-      "unit": 'count/min',
-    }
-  )
-  console.log(result)
+      startDate: new Date(2023, 7, 1).toISOString(),
+      endDate: new Date().toISOString(),
+      unit: 'count/min',
+    },
+  );
+  console.log(result);
 }
 
 async function runAggregationQuery() {
   const result = await RNHealthKitWrapper.getQuantitySamplesAggregation(
     HealthType.ActiveEnergyBurned,
     {
-      "startDate": new Date(2023, 7, 1).toISOString(),
-      "endDate": new Date().toISOString(),
-      "unit": 'kcal',
-      "option": 'cumulativeSum'
-    }
-  )
-  console.log(result)
+      startDate: new Date(2023, 7, 1).toISOString(),
+      endDate: new Date().toISOString(),
+      unit: 'kcal',
+      option: 'cumulativeSum',
+    },
+  );
+  console.log(result);
 }
 
 async function saveQuantitySample() {
   const result = await RNHealthKitWrapper.saveQuantitySample(
     HealthType.HeartRate,
     {
-      "startDate": new Date().toISOString(),
-      "endDate": new Date().toISOString(),
-      "value": 82,
-      "unit": 'count/min',
-    }
-  )
-  console.log(result)
+      startDate: new Date().toISOString(),
+      endDate: new Date().toISOString(),
+      value: 82,
+      unit: 'count/min',
+    },
+  );
+  console.log(result);
 }
 
 export default function App() {
-  const [authStatus, setAuthStatus] = useState<any>({});
+  // const [authStatus, setAuthStatus] = useState<any>({});
 
   useEffect(() => {
     // new NativeEventEmitter(NativeModules.AppleHealthKit).addListener(
