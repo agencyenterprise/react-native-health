@@ -119,3 +119,84 @@ export enum HealthType {
 
   HeadphoneAudioExposure = 'HeadphoneAudioExposure',
 }
+
+export enum HealthUnit {
+  Grams = 'g',
+  Kilograms = 'kg',
+  Milligrams = 'mg',
+  Micrograms = 'mcg',
+
+  Meter = 'm',
+  Milimeter = 'mm',
+  Centimeter = 'cm',
+  Decimeter = 'dm',
+  Kilometer = 'km',
+
+  Liter = 'l',
+  Mililiter = 'ml',
+  Centiliter = 'cl',
+  Deciliter = 'dl',
+
+  Pascal = 'Pa',
+  Hectopascal = 'hPa',
+  Kilopascal = 'kPa',
+  Megapascal = 'MPa',
+
+  Seconds = 's',
+  Milliseconds = 'ms',
+
+  Joules = 'J',
+  Kilojoules = 'kJ',
+
+  Kelvin = 'K',
+
+  Siemens = 'S',
+  Millisiemens = 'mS',
+  Microsiemens = 'mcS',
+
+  Ounces = 'oz',
+  Pounds = 'lb',
+  Stones = 'st',
+  Inches = 'in',
+  Feet = 'ft',
+  Yards = 'yd',
+  Miles = 'mi',
+  MillimitersOfMercury = 'mmHg',
+  InchesOfMercury = 'inHg',
+  CentimetersOfWater = 'cmAq',
+  Atmospheres = 'atm',
+  FluidOuncesUS = 'fl_oz_us',
+  FluidOuncesImperial = 'fl_oz_imp',
+  CupsUS = 'cup_us',
+  CupsImperial = 'cup_imp',
+  PintsUS = 'pt_us',
+  PintsImperial = 'pt_imp',
+  Minutes = 'min',
+  Hours = 'hr',
+  Days = 'd',
+  Hertz = 'Hz',
+  SmallCalories = 'cal',
+  LargeCalories = 'Cal',
+  Kilocalories = 'kcal',
+  DecibelAWeightedSoundPressureLevel = 'dBASPL',
+  DecibelHearingLevel = 'dBHL',
+  Percent = '%',
+  Count = 'count',
+  DegreesCelsius = 'degC',
+  DegreesFahrenheit = 'degF',
+  InternationalUnits = 'IU',
+
+  BeatsPerMinute = 'count/min',
+  MilligramsPerDeciliter = 'mg/dL',
+  MillimetersPerKilogramPerMinute = 'ml/(kg*min)',
+  LitersPerMinute = 'l/min',
+}
+
+export enum AggregationOption {
+  DiscreteAverage = 'discreteAverage',
+  DiscreteMin = 'discreteMin',
+  DiscreteMax = 'discreteMax',
+  CumulativeSum = 'cumulativeSum',
+  MostRecent = 'mostRecent',
+  Duration = 'duration',
+}

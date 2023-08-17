@@ -9,7 +9,7 @@ import {
   Button,
 } from 'react-native';
 
-import RNHealthKitWrapper, {HealthType} from 'react-native-health';
+import RNHealthKitWrapper, { HealthType, HealthUnit, AggregationOption } from 'react-native-health';
 
 RNHealthKitWrapper.initHealthKit(Object.values(HealthType), [
   HealthType.HeartRate,
@@ -21,7 +21,7 @@ async function runQuery() {
     {
       startDate: new Date(2023, 7, 1).toISOString(),
       endDate: new Date().toISOString(),
-      unit: 'count/min',
+      unit: HealthUnit.BeatsPerMinute,
     },
   );
   console.log(result);
@@ -33,8 +33,8 @@ async function runAggregationQuery() {
     {
       startDate: new Date(2023, 7, 1).toISOString(),
       endDate: new Date().toISOString(),
-      unit: 'kcal',
-      option: 'cumulativeSum',
+      unit: HealthUnit.Kilocalories,
+      option: AggregationOption.CumulativeSum,
     },
   );
   console.log(result);
@@ -47,7 +47,7 @@ async function saveQuantitySample() {
       startDate: new Date().toISOString(),
       endDate: new Date().toISOString(),
       value: 82,
-      unit: 'count/min',
+      unit: HealthUnit.BeatsPerMinute,
     },
   );
   console.log(result);
