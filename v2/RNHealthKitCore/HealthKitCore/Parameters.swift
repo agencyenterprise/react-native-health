@@ -43,6 +43,7 @@ public struct AggregationQuantityQuery {
             let predicateAvoidManuallyLoggedData = HKQuery.predicateForObjects(withMetadataKey: HKMetadataKeyWasUserEntered, operatorType: operatorType, value: true)
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[predicateAvoidManuallyLoggedData, predicate])
         }
+        
         return predicate
     }
     
@@ -122,6 +123,29 @@ public enum AggregationOptions: String {
             return .mostRecent
         case .duration:
             return .duration
+        }
+    }
+}
+
+public enum AggregationInterval: String {
+    case hour
+    case day
+    case week
+    case month
+    case year
+    
+    var dateComponents: DateComponents {
+        switch self {
+        case .hour:
+            return DateComponents(hour: 1)
+        case .day:
+            return DateComponents(day: 1)
+        case .week:
+            return DateComponents(day: 7)
+        case .month:
+            return DateComponents(month: 1)
+        case .year:
+            return DateComponents(year: 1)
         }
     }
 }

@@ -1,7 +1,73 @@
 import { NativeModules } from 'react-native'
 const { RNHealthKitWrapper } = NativeModules
 
-export default RNHealthKitWrapper
+interface RNHealthKit {
+  initHealthKit(
+    read: HealthType[],
+    write: HealthType[],
+  ): Promise<boolean>;
+
+  getQuantitySamples(
+    query: QuantitySamplesQuery
+  ): Promise<QuantitySample[]>;
+
+  saveQuantitySample(
+    type: HealthType,
+    sample: QuantitySample
+  ): Promise<boolean>;
+
+  getQuantitySamplesAggregation(
+    query: QuantitySamplesAggregationQuery
+  ): Promise<QuantitySamplesAggregation[]>;
+}
+
+export interface QuantitySamplesQuery {
+  tyoe: HealthType;
+  startDate?: string;
+  endDate?: string;
+  isUserEntered?: boolean;
+  unit: HealthUnit | string;
+  limit?: number;
+}
+
+export interface QuantitySample {
+  startDate: string;
+  endDate: string;
+  value: number;
+}
+
+export interface QuantitySamplesAggregationQuery {
+  type: HealthType;
+  startDate: string;
+  endDate: string;
+  interval?: Interval;
+  anchorDate?: string;
+  unit: HealthUnit | string;
+  aggregationOption: AggregationOption;
+}
+
+export interface QuantitySamplesAggregation {
+  startDate: string;
+  endDate: string;
+  value: number;
+}
+
+export enum Interval {
+  Hour = 'hour',
+  Day = 'day',
+  Week = 'week',
+  Month = 'month',
+  Year = 'year',
+}
+
+export enum AggregationOption {
+  DiscreteAverage = 'discreteAverage',
+  DiscreteMin = 'discreteMin',
+  DiscreteMax = 'discreteMax',
+  CumulativeSum = 'cumulativeSum',
+  MostRecent = 'mostRecent',
+  Duration = 'duration',
+}
 
 export enum HealthType {
   BasalBodyTemperature = 'BasalBodyTemperature',
@@ -192,11 +258,4 @@ export enum HealthUnit {
   LitersPerMinute = 'l/min',
 }
 
-export enum AggregationOption {
-  DiscreteAverage = 'discreteAverage',
-  DiscreteMin = 'discreteMin',
-  DiscreteMax = 'discreteMax',
-  CumulativeSum = 'cumulativeSum',
-  MostRecent = 'mostRecent',
-  Duration = 'duration',
-}
+export default RNHealthKitWrapper as RNHealthKit

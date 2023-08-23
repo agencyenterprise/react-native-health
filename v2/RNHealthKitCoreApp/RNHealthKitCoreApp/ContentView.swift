@@ -35,21 +35,20 @@ struct ContentView: View {
             )
             */
             
-            /*
             print(
                 try! await core.getQuantitySamplesAggregation(
-                    .HeadphoneAudioExposure,
+                    .ActiveEnergyBurned,
                     AggregationQuantityQuery(
-                        startDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -6, to: .now)!,
+                        startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
                         endDate: .now,
-                        interval: .init(month: 6),
-                        unit: .second(),
-                        aggregationOption: .duration,
+                        interval: .init(month: 1),
+                        anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
+                        unit: .kilocalorie(),
+                        aggregationOption: .cumulativeSum,
                         isUserEntered: nil
                     )
                 )
             )
-             */
              
             
             /*
@@ -64,17 +63,6 @@ struct ContentView: View {
                 )
             )
              */
-            
-            let samples = try! await core.getQuantitySamples(
-                .HeadphoneAudioExposure, .init(
-                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -1, to: .now)!,
-                    endDate: .now, isUserEntered: nil, unit: .decibelAWeightedSoundPressureLevel())
-                )
-            var total: Double = 0
-            for sample in samples {
-                total += Double(sample.endDate.timeIntervalSince(sample.startDate))
-            }
-            print("Total: \(total)")
         }
     }
 }

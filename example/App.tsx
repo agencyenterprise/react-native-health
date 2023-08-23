@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,16 +9,16 @@ import {
   Button,
 } from 'react-native';
 
-import RNHealthKitWrapper, { HealthType, HealthUnit, AggregationOption } from 'react-native-health';
+import RNHealthKit, { HealthType, HealthUnit, AggregationOption, Interval } from 'react-native-health';
 
-RNHealthKitWrapper.initHealthKit(Object.values(HealthType), [
+RNHealthKit.initHealthKit(Object.values(HealthType), [
   HealthType.HeartRate,
 ]);
 
 async function runQuery() {
-  const result = await RNHealthKitWrapper.getQuantitySamples(
-    HealthType.HeartRate,
+  const result = await RNHealthKit.getQuantitySamples(
     {
+      type: HealthType.HeartRate,
       startDate: new Date(2023, 7, 1).toISOString(),
       endDate: new Date().toISOString(),
       unit: HealthUnit.BeatsPerMinute,
@@ -28,11 +28,13 @@ async function runQuery() {
 }
 
 async function runAggregationQuery() {
-  const result = await RNHealthKitWrapper.getQuantitySamplesAggregation(
-    HealthType.ActiveEnergyBurned,
+  const result = await RNHealthKit.getQuantitySamplesAggregation(
     {
-      startDate: new Date(2023, 7, 1).toISOString(),
-      endDate: new Date().toISOString(),
+      type: HealthType.ActiveEnergyBurned,
+      startDate: new Date(2022, 0, 1).toISOString(),
+      endDate: new Date(2024, 0, 1).toISOString(),
+      interval: Interval.Year,
+      anchorDate: new Date(2023, 0, 1).toISOString(),
       unit: HealthUnit.Kilocalories,
       option: AggregationOption.CumulativeSum,
     },
@@ -41,7 +43,7 @@ async function runAggregationQuery() {
 }
 
 async function saveQuantitySample() {
-  const result = await RNHealthKitWrapper.saveQuantitySample(
+  const result = await RNHealthKit.saveQuantitySample(
     HealthType.HeartRate,
     {
       startDate: new Date().toISOString(),

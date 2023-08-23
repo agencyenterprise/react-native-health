@@ -21,11 +21,12 @@ class RNHealthKitWrapper: NSObject {
     }
 
     @objc
-    func getQuantitySamples(_ type: String, query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    func getQuantitySamples(_ query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
             do {
                 guard
                     let unit = (query["unit"] as? String)?.hkUnit,
+                    let type = query["type"] as? String,
                     let sampleType: QuantityType = .init(rawValue: type)
                 else {
                         reject("getQuantitySamples", "Invalid parameters, check the unit and type.", nil)
@@ -48,11 +49,12 @@ class RNHealthKitWrapper: NSObject {
     }
     
     @objc
-    func getQuantitySamplesAggregation(_ type: String, query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    func getQuantitySamplesAggregation(_ query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
             do {
                 guard
                     let unit = (query["unit"] as? String)?.hkUnit,
+                    let type = query["type"] as? String,
                     let sampleType: QuantityType = .init(rawValue: type),
                     let startDate = (query["startDate"] as? String)?.fromIsoStringToDate(),
                     let endDate = (query["endDate"] as? String)?.fromIsoStringToDate(),
@@ -62,9 +64,16 @@ class RNHealthKitWrapper: NSObject {
                         reject("getQuantitySamplesAggregation", "Invalid parameters.", nil)
                         return
                 }
+
+                let intervalStr = query["interval"] as? String ?? ""
+                let interval = AggregationInterval(rawValue: intervalStr) ?? .day
+                let anchorDate = (query["anchorDate"] as? String)?.fromIsoStringToDate() ?? Calendar(identifier: .gregorian).startOfDay(for: Date())
+
                 let parameters = AggregationQuantityQuery(
                     startDate: startDate,
                     endDate: endDate,
+                    interval: interval.dateComponents,
+                    anchorDate: anchorDate,
                     unit: unit,
                     aggregationOption: option,
                     isUserEntered: query["isUserEntered"] as? Bool
