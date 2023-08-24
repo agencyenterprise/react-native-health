@@ -16,9 +16,9 @@ interface RNHealthKit {
     sample: QuantitySample
   ): Promise<boolean>;
 
-  getQuantitySamplesAggregation(
-    query: QuantitySamplesAggregationQuery
-  ): Promise<QuantitySamplesAggregation[]>;
+  getQuantitySamplesStatistics(
+    query: QuantitySamplesStatisticsQuery
+  ): Promise<QuantitySamplesStatistics[]>;
 }
 
 export interface QuantitySamplesQuery {
@@ -38,17 +38,17 @@ export interface QuantitySample {
   metadata?: Object;
 }
 
-export interface QuantitySamplesAggregationQuery {
+export interface QuantitySamplesStatisticsQuery {
   type: HealthType;
   startDate: string;
   endDate: string;
   interval?: Interval;
   anchorDate?: string;
   unit: HealthUnit | string;
-  aggregationOption: AggregationOption;
+  StatisticsOption: StatisticsOption;
 }
 
-export interface QuantitySamplesAggregation {
+export interface QuantitySamplesStatistics {
   startDate: string;
   endDate: string;
   value: number;
@@ -62,7 +62,7 @@ export enum Interval {
   Year = 'year',
 }
 
-export enum AggregationOption {
+export enum StatisticsOption {
   DiscreteAverage = 'discreteAverage',
   DiscreteMin = 'discreteMin',
   DiscreteMax = 'discreteMax',

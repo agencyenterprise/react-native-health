@@ -2,16 +2,16 @@ import Foundation
 import HealthKit
 
 public extension HealthKitCore {
-    func getQuantitySamplesAggregation(
+    func getQuantitySamplesStatistics(
         _ type: QuantityType,
-        _ queryParameters: AggregationQuantityQuery
+        _ queryParameters: StatisticsQuantityQuery
     ) async throws -> [QuantitySample] {
         return try await withCheckedThrowingContinuation { continuation in
             let sampleType = type.type as! HKQuantityType
             let query = HKStatisticsCollectionQuery(
                 quantityType: sampleType,
                 quantitySamplePredicate: queryParameters.predicate,
-                options: queryParameters.aggregationOption.toHKType,
+                options: queryParameters.StatisticsOption.toHKType,
                 anchorDate: queryParameters.anchorDate,
                 intervalComponents: queryParameters.interval
             )
@@ -30,10 +30,10 @@ public extension HealthKitCore {
 
     static func enumerateStatistics(
         collection: HKStatisticsCollection,
-        _ queryParameters: AggregationQuantityQuery
+        _ queryParameters: StatisticsQuantityQuery
     ) -> [QuantitySample] {
         var samples: [QuantitySample] = []
-        let enumerationFunction = queryParameters.aggregationOption.enumeration
+        let enumerationFunction = queryParameters.StatisticsOption.enumeration
         collection.enumerateStatistics(from: queryParameters.startDate, to: queryParameters.endDate) { statistics, stop in
             enumerationFunction(statistics).map {
                 samples.append(.init($0, queryParameters.unit, statistics.startDate, statistics.endDate))

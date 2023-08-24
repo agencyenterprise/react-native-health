@@ -20,48 +20,39 @@ struct ContentView: View {
                 ],
                 write: [QuantityType.HeartRate])
             
-            /*
             print(
-                try! await core.getQuantitySamplesAggregation(
-                    .ActiveEnergyBurned,
-                    AggregationQuantityQuery(
-                        startDate: Calendar(identifier: .gregorian).date(byAdding: .day, value: -1, to: .now)!,
-                        endDate: .now,
-                        interval: .init(hour: 1),
-                        unit: .kilocalorie(),
-                        aggregationOption: .cumulativeSum
-                    )
-                )
+                try! await core.getQuantitySamples(.HeartRate, .init(startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!, endDate: Date(), unit: .count().unitDivided(by: .minute())))
             )
-            */
             
-            print(
-                try! await core.getQuantitySamplesAggregation(
-                    .ActiveEnergyBurned,
-                    AggregationQuantityQuery(
-                        startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
-                        endDate: .now,
-                        interval: .init(month: 1),
-                        anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
-                        unit: .kilocalorie(),
-                        aggregationOption: .cumulativeSum,
-                        isUserEntered: nil
-                    )
-                )
-            )
-             
             
             /*
-            try! await core.saveQuantitySample(
-                .init(
-                    type: .HeartRate,
-                    value: 69,
-                    unit: "count/min",
-                    startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
-                    endDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
-                    metadata: ["HKMetadataKeyHeartRateMotionContext": 1]
-                )
-            )
+             print(
+             try! await core.getQuantitySamplesStatistics(
+             .ActiveEnergyBurned,
+             StatisticsQuantityQuery(
+             startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
+             endDate: .now,
+             interval: .init(month: 1),
+             anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
+             unit: .kilocalorie(),
+             StatisticsOption: .cumulativeSum,
+             isUserEntered: nil
+             )
+             )
+             )
+             */
+            
+            /*
+             try! await core.saveQuantitySample(
+             .init(
+             type: .HeartRate,
+             value: 69,
+             unit: "count/min",
+             startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
+             endDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
+             metadata: ["HKMetadataKeyHeartRateMotionContext": 1]
+             )
+             )
              */
         }
     }

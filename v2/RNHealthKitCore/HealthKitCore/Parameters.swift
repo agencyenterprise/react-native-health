@@ -27,13 +27,13 @@ public struct QuantityQuery {
     }
 }
 
-public struct AggregationQuantityQuery {
+public struct StatisticsQuantityQuery {
     let startDate: Date
     let endDate: Date
     let interval: DateComponents
     let anchorDate: Date
     let unit: HKUnit
-    let aggregationOption: AggregationOptions
+    let StatisticsOption: StatisticsOptions
     let isUserEntered: Bool?
 
     var predicate: NSPredicate {
@@ -53,7 +53,7 @@ public struct AggregationQuantityQuery {
         interval: DateComponents = .init(day: 1),
         anchorDate: Date = Calendar(identifier: .gregorian).startOfDay(for: Date()),
         unit: HKUnit,
-        aggregationOption: AggregationOptions,
+        StatisticsOption: StatisticsOptions,
         isUserEntered: Bool? = nil
     ) {
         self.startDate = startDate
@@ -61,7 +61,7 @@ public struct AggregationQuantityQuery {
         self.interval = interval
         self.anchorDate = anchorDate
         self.unit = unit
-        self.aggregationOption = aggregationOption
+        self.StatisticsOption = StatisticsOption
         self.isUserEntered = isUserEntered
     }
 }
@@ -84,7 +84,7 @@ public struct QuantitySampleInsert {
     }
 }
 
-public enum AggregationOptions: String {
+public enum StatisticsOptions: String {
     case discreteAverage
     case discreteMin
     case discreteMax
@@ -127,7 +127,7 @@ public enum AggregationOptions: String {
     }
 }
 
-public enum AggregationInterval: String {
+public enum StatisticsInterval: String {
     case hour
     case day
     case week

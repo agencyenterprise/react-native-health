@@ -9,7 +9,7 @@ import {
   Button,
 } from 'react-native';
 
-import RNHealthKit, { HealthType, HealthUnit, AggregationOption, Interval } from 'react-native-health';
+import RNHealthKit, { HealthType, HealthUnit, StatisticsOption, Interval } from 'react-native-health';
 
 RNHealthKit.initHealthKit(Object.values(HealthType), [
   HealthType.HeartRate,
@@ -27,8 +27,8 @@ async function runQuery() {
   console.log(result);
 }
 
-async function runAggregationQuery() {
-  const result = await RNHealthKit.getQuantitySamplesAggregation(
+async function runStatisticsQuery() {
+  const result = await RNHealthKit.getQuantitySamplesStatistics(
     {
       type: HealthType.ActiveEnergyBurned,
       startDate: new Date(2022, 0, 1).toISOString(),
@@ -36,7 +36,7 @@ async function runAggregationQuery() {
       interval: Interval.Year,
       anchorDate: new Date(2023, 0, 1).toISOString(),
       unit: HealthUnit.Kilocalories,
-      option: AggregationOption.CumulativeSum,
+      option: StatisticsOption.CumulativeSum,
     },
   );
   console.log(result);
@@ -89,9 +89,9 @@ export default function App() {
                 }}
               />
               <Button
-                title="Run Aggregation Query"
+                title="Run Statistics Query"
                 onPress={() => {
-                  runAggregationQuery();
+                  runStatisticsQuery();
                 }}
               />
               <Button

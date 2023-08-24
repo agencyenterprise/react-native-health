@@ -49,7 +49,7 @@ class RNHealthKitWrapper: NSObject {
     }
     
     @objc
-    func getQuantitySamplesAggregation(_ query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    func getQuantitySamplesStatistics(_ query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
             do {
                 guard
@@ -59,30 +59,30 @@ class RNHealthKitWrapper: NSObject {
                     let startDate = (query["startDate"] as? String)?.fromIsoStringToDate(),
                     let endDate = (query["endDate"] as? String)?.fromIsoStringToDate(),
                     let optionStr = (query["option"] as? String),
-                    let option: AggregationOptions = .init(rawValue: optionStr)
+                    let option: StatisticsOptions = .init(rawValue: optionStr)
                 else {
-                        reject("getQuantitySamplesAggregation", "Invalid parameters.", nil)
+                        reject("getQuantitySamplesStatistics", "Invalid parameters.", nil)
                         return
                 }
 
                 let intervalStr = query["interval"] as? String ?? ""
-                let interval = AggregationInterval(rawValue: intervalStr) ?? .day
+                let interval = StatisticsInterval(rawValue: intervalStr) ?? .day
                 let anchorDate = (query["anchorDate"] as? String)?.fromIsoStringToDate() ?? Calendar(identifier: .gregorian).startOfDay(for: Date())
 
-                let parameters = AggregationQuantityQuery(
+                let parameters = StatisticsQuantityQuery(
                     startDate: startDate,
                     endDate: endDate,
                     interval: interval.dateComponents,
                     anchorDate: anchorDate,
                     unit: unit,
-                    aggregationOption: option,
+                    StatisticsOption: option,
                     isUserEntered: query["isUserEntered"] as? Bool
                 )
-                let result = try await core?.getQuantitySamplesAggregation(sampleType, parameters)
+                let result = try await core?.getQuantitySamplesStatistics(sampleType, parameters)
                 let json = try JSONEncoder().encode(result)
                 resolve(String(data: json, encoding: .utf8))
             } catch {
-                reject("getQuantitySamplesAggregation", error.localizedDescription, error)
+                reject("getQuantitySamplesStatistics", error.localizedDescription, error)
                 return
             }
         }
