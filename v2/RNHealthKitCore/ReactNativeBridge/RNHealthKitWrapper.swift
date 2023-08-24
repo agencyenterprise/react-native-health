@@ -108,7 +108,8 @@ class RNHealthKitWrapper: NSObject {
                         value: value,
                         unit: unit,
                         startDate: startDate,
-                        endDate: endDate
+                        endDate: endDate,
+                        metadata: sample["metadata"] as? [String: Any]
                     )
                 )
             } catch {

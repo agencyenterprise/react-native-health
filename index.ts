@@ -22,7 +22,7 @@ interface RNHealthKit {
 }
 
 export interface QuantitySamplesQuery {
-  tyoe: HealthType;
+  type: HealthType;
   startDate?: string;
   endDate?: string;
   isUserEntered?: boolean;
@@ -34,6 +34,8 @@ export interface QuantitySample {
   startDate: string;
   endDate: string;
   value: number;
+  unit?: HealthUnit | string;
+  metadata?: Object;
 }
 
 export interface QuantitySamplesAggregationQuery {

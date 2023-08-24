@@ -50,6 +50,9 @@ async function saveQuantitySample() {
       endDate: new Date().toISOString(),
       value: 82,
       unit: HealthUnit.BeatsPerMinute,
+      metadata: {
+        "TestingMetadata": "TestingValue"
+      },
     },
   );
   console.log(result);
