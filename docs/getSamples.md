@@ -2,6 +2,33 @@
 
 Query to get all activities of given type with extended information about it.
 
+Sample types:
+
+| Options Types             | Permissions Required  |
+| ------------------------- | --------------------- |
+| `'Walking'`               | AppleHealthKit.Constants.Permissions.StepCount, AppleHealthKit.Constants.Permissions.DistanceWalkingRunning | 
+| `'StairClimbing'`         | AppleHealthKit.Constants.Permissions.FlightsClimbed |
+| `'Running'`               | AppleHealthKit.Constants.Permissions.DistanceWalkingRunning |
+| `'Cycling'`               | AppleHealthKit.Constants.Permissions.StepCount |
+| `'Workout'`               | AppleHealthKit.Constants.Permissions.Workout |
+
+Permissions added to permissions request depend on the type of samples. Make sure the correct permissions are added for the sample type(s) desired. 
+
+For example: Walking Samples
+
+```javascript
+const PERMS = AppleHealthKit.Constants.Permissions;
+
+const permissions = {
+  permissions: {
+    read: [
+      PERMS.DistanceWalkingRunning,
+      PERMS.StepCount, 
+    ],
+  },
+};
+```
+
 Example input options:
 
 ```javascript
