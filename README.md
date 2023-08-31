@@ -4,14 +4,6 @@
 
 A React Native package to interact with Apple HealthKit for iOS. Maintained with ❤️ by [AE Studio](https://ae.studio).
 
-This package allows access to health & fitness data exposed by Apple Healthkit. You can see the methods available [here](https://github.com/agencyenterprise/react-native-health#documentation).
-
-If you are looking for a more robust solution providing normalized data, insights and recommendations based on user's biometric data, data from multiple sources (Fitbit, Oura), or a hosted solution, please check out the [Point SDK](https://www.areyouonpoint.co/) developed by our frens.
-
-# Discord
-
-<a href="https://discord.gg/d24g5XDePr"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg" alt="React Native Health official Discord"></a>
-
 ## Getting Started
 
 > 🚨 Expo: This package is not available in the [Expo Go](https://expo.io/client) app. Learn how you can use it with [custom dev clients](/docs/Expo.md).
