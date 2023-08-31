@@ -1134,6 +1134,7 @@ declare module 'react-native-health' {
     mile = 'mile',
     minute = 'minute',
     mmhg = 'mmhg',
+    literPerMinute = 'literPerMinute',
     mmolPerL = 'mmolPerL',
     percent = 'percent',
     pound = 'pound',
