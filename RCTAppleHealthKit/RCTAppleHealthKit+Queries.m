@@ -13,6 +13,8 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
 
+#define kCountPerMinUnitStr @"count/min"
+
 @implementation RCTAppleHealthKit (Queries)
 
 - (void)fetchWorkoutById:(HKSampleType *)type
@@ -366,7 +368,17 @@
                     for (HKQuantitySample *sample in results) {
                         @try {
                             HKQuantity *quantity = sample.quantity;
-                            double value = [quantity doubleValueForUnit:unit];
+                            double value = 0;
+                            @try {
+                                value = [quantity doubleValueForUnit:unit];
+                            } @catch (NSException *exception) {
+                                if (unit != [HKUnit countUnit]) {
+                                    @throw exception;
+                                }
+                                // Retry only needed for count/min units, e.g. HeartRate
+                                NSLog(@"Trying to extract quantity again in case the unit is count/min");
+                                value = [quantity doubleValueForUnit:[ HKUnit unitFromString: kCountPerMinUnitStr ]];
+                            }
 
                             NSString * valueType = @"quantity";
                             if (unit == [HKUnit mileUnit]) {
