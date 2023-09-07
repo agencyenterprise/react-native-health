@@ -2,50 +2,20 @@ import Foundation
 import HealthKit
 
 
-public struct QuantityQuery {
-    let startDate: Date?
-    let endDate: Date?
-    let isUserEntered: Bool?
-    let limit: Int
+public class QuantityQuery: QueryParameters {
     let unit: HKUnit
-    var predicate: NSPredicate {
-        var predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [.strictStartDate])
-        if let isUserEntered = isUserEntered {
-            let operatorType: NSComparisonPredicate.Operator = isUserEntered ? .equalTo : .notEqualTo
-            let predicateAvoidManuallyLoggedData = HKQuery.predicateForObjects(withMetadataKey: HKMetadataKeyWasUserEntered, operatorType: operatorType, value: true)
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[predicateAvoidManuallyLoggedData, predicate])
-        }
-        return predicate
-    }
     
-    public init(startDate: Date?, endDate: Date?, isUserEntered: Bool? = nil, limit: Int = HKObjectQueryNoLimit, unit: HKUnit) {
-        self.startDate = startDate
-        self.endDate = endDate
-        self.isUserEntered = isUserEntered
-        self.limit = limit
+    public init(startDate: Date?, endDate: Date?, ids: [String]?, isUserEntered: Bool? = nil, limit: Int = HKObjectQueryNoLimit, unit: HKUnit) {
         self.unit = unit
+        super.init(startDate: startDate, endDate: endDate, isUserEntered: isUserEntered, limit: limit, ids: ids)
     }
 }
 
-public struct StatisticsQuantityQuery {
-    let startDate: Date
-    let endDate: Date
+public class StatisticsQuantityQuery: QueryParameters {
     let interval: DateComponents
     let anchorDate: Date
     let unit: HKUnit
-    let StatisticsOption: StatisticsOptions
-    let isUserEntered: Bool?
-
-    var predicate: NSPredicate {
-        var predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [.strictStartDate])
-        if let isUserEntered = isUserEntered {
-            let operatorType: NSComparisonPredicate.Operator = isUserEntered ? .equalTo : .notEqualTo
-            let predicateAvoidManuallyLoggedData = HKQuery.predicateForObjects(withMetadataKey: HKMetadataKeyWasUserEntered, operatorType: operatorType, value: true)
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[predicateAvoidManuallyLoggedData, predicate])
-        }
-        
-        return predicate
-    }
+    let statisticsOption: StatisticsOptions
     
     public init(
         startDate: Date,
@@ -53,16 +23,14 @@ public struct StatisticsQuantityQuery {
         interval: DateComponents = .init(day: 1),
         anchorDate: Date = Calendar(identifier: .gregorian).startOfDay(for: Date()),
         unit: HKUnit,
-        StatisticsOption: StatisticsOptions,
+        statisticsOption: StatisticsOptions,
         isUserEntered: Bool? = nil
     ) {
-        self.startDate = startDate
-        self.endDate = endDate
         self.interval = interval
         self.anchorDate = anchorDate
         self.unit = unit
-        self.StatisticsOption = StatisticsOption
-        self.isUserEntered = isUserEntered
+        self.statisticsOption = statisticsOption
+        super.init(startDate: startDate, endDate: endDate, isUserEntered: isUserEntered, limit: HKObjectQueryNoLimit, ids: nil)
     }
 }
 

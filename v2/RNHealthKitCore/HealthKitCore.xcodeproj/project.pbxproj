@@ -10,6 +10,7 @@
 		7E4BFFE62A9FC0ED00FB1383 /* WorkoutQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4BFFE52A9FC0ED00FB1383 /* WorkoutQueries.swift */; };
 		7E4BFFE82AAA421200FB1383 /* WorkoutQueryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4BFFE72AAA421200FB1383 /* WorkoutQueryParameters.swift */; };
 		7E4BFFEA2AAA423100FB1383 /* WorkoutSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4BFFE92AAA423100FB1383 /* WorkoutSample.swift */; };
+		7E4BFFEE2AAA6D6D00FB1383 /* QueryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4BFFED2AAA6D6D00FB1383 /* QueryParameters.swift */; };
 		7E5AEBB12A5EA8EA00F74829 /* QuantitySample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AEBB02A5EA8EA00F74829 /* QuantitySample.swift */; };
 		7E5AEBB32A5EAF2800F74829 /* QuantityQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */; };
 		7E9A84CC2A5312D7004622E5 /* HealthKitCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84CB2A5312D7004622E5 /* HealthKitCore.swift */; };
@@ -34,6 +35,7 @@
 		7E4BFFE52A9FC0ED00FB1383 /* WorkoutQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutQueries.swift; sourceTree = "<group>"; };
 		7E4BFFE72AAA421200FB1383 /* WorkoutQueryParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutQueryParameters.swift; sourceTree = "<group>"; };
 		7E4BFFE92AAA423100FB1383 /* WorkoutSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSample.swift; sourceTree = "<group>"; };
+		7E4BFFED2AAA6D6D00FB1383 /* QueryParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParameters.swift; sourceTree = "<group>"; };
 		7E5AEBB02A5EA8EA00F74829 /* QuantitySample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitySample.swift; sourceTree = "<group>"; };
 		7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityQueries.swift; sourceTree = "<group>"; };
 		7E9A84C82A5312D7004622E5 /* libHealthKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHealthKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +104,7 @@
 				7E9A84CB2A5312D7004622E5 /* HealthKitCore.swift */,
 				7E9A84F22A5449C2004622E5 /* HealthKitTypes.swift */,
 				7E9A84F62A548A39004622E5 /* Utils.swift */,
+				7E4BFFED2AAA6D6D00FB1383 /* QueryParameters.swift */,
 			);
 			path = HealthKitCore;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				7E9A84F32A5449C2004622E5 /* HealthKitTypes.swift in Sources */,
 				7E9A84CC2A5312D7004622E5 /* HealthKitCore.swift in Sources */,
 				7E5AEBB32A5EAF2800F74829 /* QuantityQueries.swift in Sources */,
+				7E4BFFEE2AAA6D6D00FB1383 /* QueryParameters.swift in Sources */,
 				7E4BFFEA2AAA423100FB1383 /* WorkoutSample.swift in Sources */,
 				7E4BFFE82AAA421200FB1383 /* WorkoutQueryParameters.swift in Sources */,
 				7E5AEBB12A5EA8EA00F74829 /* QuantitySample.swift in Sources */,

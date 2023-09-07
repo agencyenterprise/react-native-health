@@ -11,7 +11,7 @@ public extension HealthKitCore {
             let query = HKStatisticsCollectionQuery(
                 quantityType: sampleType,
                 quantitySamplePredicate: queryParameters.predicate,
-                options: queryParameters.StatisticsOption.toHKType,
+                options: queryParameters.statisticsOption.toHKType,
                 anchorDate: queryParameters.anchorDate,
                 intervalComponents: queryParameters.interval
             )
@@ -33,8 +33,8 @@ public extension HealthKitCore {
         _ queryParameters: StatisticsQuantityQuery
     ) -> [QuantitySample] {
         var samples: [QuantitySample] = []
-        let enumerationFunction = queryParameters.StatisticsOption.enumeration
-        collection.enumerateStatistics(from: queryParameters.startDate, to: queryParameters.endDate) { statistics, stop in
+        let enumerationFunction = queryParameters.statisticsOption.enumeration
+        collection.enumerateStatistics(from: queryParameters.startDate!, to: queryParameters.endDate!) { statistics, stop in
             enumerationFunction(statistics).map {
                 samples.append(.init($0, queryParameters.unit, statistics.startDate, statistics.endDate))
             }
