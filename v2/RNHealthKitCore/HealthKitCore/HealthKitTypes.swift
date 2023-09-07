@@ -133,3 +133,11 @@ public enum QuantityType: String, HealthKitType {
     @available(iOS 13.0, *)
     case HeadphoneAudioExposure // Pressure,                    DiscreteEquivalentContinuousLevel
 }
+
+public enum WorkoutType: String, HealthKitType {
+    public var type: HKSampleType {
+        return .workoutType()
+    }
+     
+    case workout
+}

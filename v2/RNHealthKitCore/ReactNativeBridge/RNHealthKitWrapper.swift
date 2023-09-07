@@ -9,8 +9,8 @@ class RNHealthKitWrapper: NSObject {
     func initHealthKit(_ read: Array<String>, write: Array<String>, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
             do {
-                let readTypes: Array<QuantityType> = read.compactMap { .init(rawValue: $0) }
-                let writeTypes: Array<QuantityType> = write.compactMap { .init(rawValue: $0) }
+                let readTypes: Array<any HealthKitType> = read.compactMap { QuantityType(rawValue: $0) }
+                let writeTypes: Array<any HealthKitType> = write.compactMap { QuantityType(rawValue: $0) }
                 
                 core = try await HealthKitCore.init(read: readTypes, write: writeTypes)
                 resolve(true)

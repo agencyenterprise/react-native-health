@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E5AEBB12A5EA8EA00F74829 /* Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AEBB02A5EA8EA00F74829 /* Samples.swift */; };
+		7E4BFFE62A9FC0ED00FB1383 /* WorkoutQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4BFFE52A9FC0ED00FB1383 /* WorkoutQueries.swift */; };
+		7E4BFFE82AAA421200FB1383 /* WorkoutQueryParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4BFFE72AAA421200FB1383 /* WorkoutQueryParameters.swift */; };
+		7E4BFFEA2AAA423100FB1383 /* WorkoutSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4BFFE92AAA423100FB1383 /* WorkoutSample.swift */; };
+		7E5AEBB12A5EA8EA00F74829 /* QuantitySample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AEBB02A5EA8EA00F74829 /* QuantitySample.swift */; };
 		7E5AEBB32A5EAF2800F74829 /* QuantityQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */; };
 		7E9A84CC2A5312D7004622E5 /* HealthKitCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84CB2A5312D7004622E5 /* HealthKitCore.swift */; };
 		7E9A84F32A5449C2004622E5 /* HealthKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F22A5449C2004622E5 /* HealthKitTypes.swift */; };
-		7E9A84F52A544A1A004622E5 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F42A544A1A004622E5 /* Parameters.swift */; };
+		7E9A84F52A544A1A004622E5 /* QuantityQueriesParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F42A544A1A004622E5 /* QuantityQueriesParameters.swift */; };
 		7E9A84F72A548A39004622E5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F62A548A39004622E5 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,12 +31,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7E5AEBB02A5EA8EA00F74829 /* Samples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Samples.swift; sourceTree = "<group>"; };
+		7E4BFFE52A9FC0ED00FB1383 /* WorkoutQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutQueries.swift; sourceTree = "<group>"; };
+		7E4BFFE72AAA421200FB1383 /* WorkoutQueryParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutQueryParameters.swift; sourceTree = "<group>"; };
+		7E4BFFE92AAA423100FB1383 /* WorkoutSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSample.swift; sourceTree = "<group>"; };
+		7E5AEBB02A5EA8EA00F74829 /* QuantitySample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitySample.swift; sourceTree = "<group>"; };
 		7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityQueries.swift; sourceTree = "<group>"; };
 		7E9A84C82A5312D7004622E5 /* libHealthKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHealthKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9A84CB2A5312D7004622E5 /* HealthKitCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitCore.swift; sourceTree = "<group>"; };
 		7E9A84F22A5449C2004622E5 /* HealthKitTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitTypes.swift; sourceTree = "<group>"; };
-		7E9A84F42A544A1A004622E5 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		7E9A84F42A544A1A004622E5 /* QuantityQueriesParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityQueriesParameters.swift; sourceTree = "<group>"; };
 		7E9A84F62A548A39004622E5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		7EB70C882A61AB64003EE217 /* RNHealthKitWrapper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNHealthKitWrapper-Bridging-Header.h"; sourceTree = "<group>"; };
 		7EB70C892A61ABAF003EE217 /* RNHealthKitWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNHealthKitWrapper.m; sourceTree = "<group>"; };
@@ -51,6 +57,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E4BFFE32A9FC02600FB1383 /* Quantity */ = {
+			isa = PBXGroup;
+			children = (
+				7E5AEBB02A5EA8EA00F74829 /* QuantitySample.swift */,
+				7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */,
+				7E9A84F42A544A1A004622E5 /* QuantityQueriesParameters.swift */,
+			);
+			path = Quantity;
+			sourceTree = "<group>";
+		};
+		7E4BFFE42A9FC0D500FB1383 /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				7E4BFFE52A9FC0ED00FB1383 /* WorkoutQueries.swift */,
+				7E4BFFE72AAA421200FB1383 /* WorkoutQueryParameters.swift */,
+				7E4BFFE92AAA423100FB1383 /* WorkoutSample.swift */,
+			);
+			path = Workout;
+			sourceTree = "<group>";
+		};
 		7E9A84BF2A5312D7004622E5 = {
 			isa = PBXGroup;
 			children = (
@@ -71,12 +97,11 @@
 		7E9A84CA2A5312D7004622E5 /* HealthKitCore */ = {
 			isa = PBXGroup;
 			children = (
+				7E4BFFE42A9FC0D500FB1383 /* Workout */,
+				7E4BFFE32A9FC02600FB1383 /* Quantity */,
 				7E9A84CB2A5312D7004622E5 /* HealthKitCore.swift */,
 				7E9A84F22A5449C2004622E5 /* HealthKitTypes.swift */,
-				7E9A84F42A544A1A004622E5 /* Parameters.swift */,
 				7E9A84F62A548A39004622E5 /* Utils.swift */,
-				7E5AEBB02A5EA8EA00F74829 /* Samples.swift */,
-				7E5AEBB22A5EAF2800F74829 /* QuantityQueries.swift */,
 			);
 			path = HealthKitCore;
 			sourceTree = "<group>";
@@ -149,11 +174,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9A84F52A544A1A004622E5 /* Parameters.swift in Sources */,
+				7E9A84F52A544A1A004622E5 /* QuantityQueriesParameters.swift in Sources */,
 				7E9A84F32A5449C2004622E5 /* HealthKitTypes.swift in Sources */,
 				7E9A84CC2A5312D7004622E5 /* HealthKitCore.swift in Sources */,
 				7E5AEBB32A5EAF2800F74829 /* QuantityQueries.swift in Sources */,
-				7E5AEBB12A5EA8EA00F74829 /* Samples.swift in Sources */,
+				7E4BFFEA2AAA423100FB1383 /* WorkoutSample.swift in Sources */,
+				7E4BFFE82AAA421200FB1383 /* WorkoutQueryParameters.swift in Sources */,
+				7E5AEBB12A5EA8EA00F74829 /* QuantitySample.swift in Sources */,
+				7E4BFFE62A9FC0ED00FB1383 /* WorkoutQueries.swift in Sources */,
 				7E9A84F72A548A39004622E5 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
