@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-public struct WorkoutSample {
+public struct WorkoutSample: Encodable {
     public let id: String
     public let startDate: String
     public let endDate: String

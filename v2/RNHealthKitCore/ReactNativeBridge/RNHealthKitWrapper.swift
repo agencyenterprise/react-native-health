@@ -9,8 +9,8 @@ class RNHealthKitWrapper: NSObject {
     func initHealthKit(_ read: Array<String>, write: Array<String>, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
             do {
-                let readTypes: Array<any HealthKitType> = read.compactMap { QuantityType(rawValue: $0) }
-                let writeTypes: Array<any HealthKitType> = write.compactMap { QuantityType(rawValue: $0) }
+                let readTypes: Array<any HealthKitType> = read.compactMap { QuantityType(rawValue: $0) ?? WorkoutType(rawValue: $0) }
+                let writeTypes: Array<any HealthKitType> = write.compactMap { QuantityType(rawValue: $0) ?? WorkoutType(rawValue: $0) }
                 
                 core = try await HealthKitCore.init(read: readTypes, write: writeTypes)
                 resolve(true)
@@ -35,6 +35,7 @@ class RNHealthKitWrapper: NSObject {
                 let parameters = QuantityQuery(
                     startDate: (query["startDate"] as? String)?.fromIsoStringToDate(),
                     endDate: (query["endDate"] as? String)?.fromIsoStringToDate(),
+                    ids: query["ids"] as? [String],
                     isUserEntered: query["isUserEntered"] as? Bool,
                     limit: query["limit"] as? Int ?? HKObjectQueryNoLimit,
                     unit: unit
@@ -75,7 +76,7 @@ class RNHealthKitWrapper: NSObject {
                     interval: interval.dateComponents,
                     anchorDate: anchorDate,
                     unit: unit,
-                    StatisticsOption: option,
+                    statisticsOption: option,
                     isUserEntered: query["isUserEntered"] as? Bool
                 )
                 let result = try await core?.getQuantitySamplesStatistics(sampleType, parameters)
@@ -115,6 +116,27 @@ class RNHealthKitWrapper: NSObject {
             } catch {
                 reject("saveQuantitySample", error.localizedDescription, error)
                 return
+            }
+        }
+    }
+
+    @objc
+    func getWorkouts(_ query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+        Task {
+            do {
+                let parameters = WorkoutQueryParameters(
+                    startDate: (query["startDate"] as? String)?.fromIsoStringToDate(),
+                    endDate: (query["endDate"] as? String)?.fromIsoStringToDate(),
+                    activityTypes: query["activityTypes"] as? [UInt],
+                    ids: query["ids"] as? [String],
+                    isUserEntered: query["isUserEntered"] as? Bool,
+                    limit: query["limit"] as? Int ?? HKObjectQueryNoLimit
+                )
+                let result = try await core?.getCompletedWorkouts(queryParameters: parameters)
+                let json = try JSONEncoder().encode(result)
+                resolve(String(data: json, encoding: .utf8))
+            } catch {
+                reject("getWorkoutSamples", error.localizedDescription, error)
             }
         }
     }

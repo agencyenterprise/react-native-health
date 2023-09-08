@@ -19,6 +19,27 @@ interface RNHealthKit {
   getQuantitySamplesStatistics(
     query: QuantitySamplesStatisticsQuery
   ): Promise<QuantitySamplesStatistics[]>;
+
+  getWorkouts(
+    query: WorkoutQuery
+  ): Promise<Workout[]>;
+}
+
+export interface WorkoutQuery {
+  startDate?: string;
+  endDate?: string;
+  activityTypes?: number[];
+  ids?: string[];
+  limit?: number;
+  isUserEntered?: boolean;
+}
+
+export interface Workout {
+  id: string;
+  startDate: string;
+  endDate: string;
+  activityType: HealthActivityType;
+  duration: number;
 }
 
 export interface QuantitySamplesQuery {
@@ -28,6 +49,7 @@ export interface QuantitySamplesQuery {
   isUserEntered?: boolean;
   unit: HealthUnit | string;
   limit?: number;
+  ids?: string[];
 }
 
 export interface QuantitySample {
@@ -45,7 +67,7 @@ export interface QuantitySamplesStatisticsQuery {
   interval?: Interval;
   anchorDate?: string;
   unit: HealthUnit | string;
-  StatisticsOption: StatisticsOption;
+  option: StatisticsOption;
 }
 
 export interface QuantitySamplesStatistics {
@@ -186,6 +208,13 @@ export enum HealthType {
   EnvironmentalAudioExposure = 'EnvironmentalAudioExposure',
 
   HeadphoneAudioExposure = 'HeadphoneAudioExposure',
+
+
+
+
+
+  // Workout
+  Workout = 'workout',
 }
 
 export enum HealthUnit {
@@ -258,6 +287,92 @@ export enum HealthUnit {
   MilligramsPerDeciliter = 'mg/dL',
   MillimetersPerKilogramPerMinute = 'ml/(kg*min)',
   LitersPerMinute = 'l/min',
+}
+
+export enum WorkoutActivityType {
+  AmericanFootball = 1,
+  Archery = 2,
+  AustralianFootball = 3,
+  Badminton = 4,
+  Baseball = 5,
+  Basketball = 6,
+  Bowling = 7,
+  Boxing = 8, // See also HKWorkoutActivityTypeKickboxing.,
+  Climbing = 9,
+  Cricket = 10,
+  CrossTraining = 11, // Any mix of cardio and/or strength training. See also HKWorkoutActivityTypeCoreTraining and HKWorkoutActivityTypeFlexibility.,
+  Curling = 12,
+  Cycling = 13,
+  Dance = 14,
+  DanceInspiredTraining = 15, // This enum remains available to access older data.,
+  Elliptical = 16,
+  EquestrianSports = 17, // Polo, Horse Racing, Horse Riding, etc.,
+  Fencing = 18,
+  Fishing = 19,
+  FunctionalStrengthTraining = 20, // Primarily free weights and/or body weight and/or accessories,
+  Golf = 21,
+  Gymnastics = 22,
+  Handball = 23,
+  Hiking = 24,
+  Hockey = 25, // Ice Hockey, Field Hockey, etc.,
+  Hunting = 26,
+  Lacrosse = 27,
+  MartialArts = 28,
+  MindAndBody = 29, // Qigong, meditation, etc.,
+  MixedMetabolicCardioTraining = 30, // This enum remains available to access older data.,
+  PaddleSports = 31, // Canoeing, Kayaking, Outrigger, Stand Up Paddle Board, etc.,
+  Play = 32, // Dodge Ball, Hopscotch, Tetherball, Jungle Gym, etc.,
+  PreparationAndRecovery = 33, // Foam rolling, stretching, etc.,
+  Racquetball = 34,
+  Rowing = 35,
+  Rugby = 36,
+  Running = 37,
+  Sailing = 38,
+  SkatingSports = 39, // Ice Skating, Speed Skating, Inline Skating, Skateboarding, etc.,
+  SnowSports = 40, // Sledding, Snowmobiling, Building a Snowman, etc. See also HKWorkoutActivityTypeCrossCountrySkiing, HKWorkoutActivityTypeSnowboarding, and HKWorkoutActivityTypeDownhillSkiing.,
+  Soccer = 41,
+  Softball = 42,
+  Squash = 43,
+  StairClimbing = 44, // See also HKWorkoutActivityTypeStairs and HKWorkoutActivityTypeStepTraining.,
+  SurfingSports = 45, // Traditional Surfing, Kite Surfing, Wind Surfing, etc.,
+  Swimming = 46,
+  TableTennis = 47,
+  Tennis = 48,
+  TrackAndField = 49, // Shot Put, Javelin, Pole Vaulting, etc.,
+  TraditionalStrengthTraining = 50, // Primarily machines and/or free weights,
+  Volleyball = 51,
+  Walking = 52,
+  WaterFitness = 53,
+  WaterPolo = 54,
+  WaterSports = 55, // Water Skiing, Wake Boarding, etc.,
+  Wrestling = 56,
+  Yoga = 57,
+  Barre = 58,
+  CoreTraining = 59,
+  CrossCountrySkiing = 60,
+  DownhillSkiing = 61,
+  Flexibility = 62,
+  HighIntensityIntervalTraining = 63,
+  JumpRope = 64,
+  Kickboxing = 65,
+  Pilates = 66,
+  Snowboarding = 67,
+  Stairs = 68,
+  StepTraining = 69,
+  WheelchairWalkPace = 70,
+  WheelchairRunPace = 71,
+  TaiChi = 72,
+  MixedCardio = 73,
+  HandCycling = 74,
+  DiscSports = 75,
+  FitnessGaming = 76,
+  CardioDance = 77,
+  SocialDance = 78,    // Dances done in social settings like swing, salsa and folk dances from different world regions.
+  Pickleball = 79,
+  Cooldown = 80,    // Low intensity stretching and mobility exercises following a more vigorous workout type
+  SwimBikeRun = 81,
+  Transition = 82,
+  Other = 3000,
 }
 
 export default RNHealthKitWrapper as RNHealthKit

@@ -9,13 +9,14 @@ import {
   Button,
 } from 'react-native';
 
-import RNHealthKit, { HealthType, HealthUnit, StatisticsOption, Interval } from 'react-native-health';
+import RNHealthKit, { HealthType, HealthUnit, StatisticsOption, Interval, WorkoutActivityType } from 'react-native-health';
 
-RNHealthKit.initHealthKit(Object.values(HealthType), [
-  HealthType.HeartRate,
-]);
+RNHealthKit.initHealthKit(
+  [HealthType.HeartRate, HealthType.Workout],
+  [HealthType.HeartRate]
+);
 
-async function runQuery() {
+async function runQuantityQuery() {
   const result = await RNHealthKit.getQuantitySamples(
     {
       type: HealthType.HeartRate,
@@ -58,6 +59,17 @@ async function saveQuantitySample() {
   console.log(result);
 }
 
+async function runWorkoutQuery() {
+  const result = await RNHealthKit.getWorkouts(
+    {
+      startDate: new Date(2023, 7, 1).toISOString(),
+      endDate: new Date().toISOString(),
+      activityTypes: [WorkoutActivityType.Pickleball]
+    },
+  );
+  console.log(result);
+}
+
 export default function App() {
   // const [authStatus, setAuthStatus] = useState<any>({});
 
@@ -83,9 +95,9 @@ export default function App() {
                 React Native Health Example
               </Text>
               <Button
-                title="Run Query"
+                title="Run Quantity Query"
                 onPress={() => {
-                  runQuery();
+                  runQuantityQuery();
                 }}
               />
               <Button
@@ -98,6 +110,12 @@ export default function App() {
                 title="Save Quantity Sample"
                 onPress={() => {
                   saveQuantitySample();
+                }}
+              />
+              <Button
+                title="Get Workout Samples"
+                onPress={() => {
+                  runWorkoutQuery();
                 }}
               />
             </View>
