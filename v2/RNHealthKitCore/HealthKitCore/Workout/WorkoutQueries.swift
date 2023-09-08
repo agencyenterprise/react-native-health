@@ -20,5 +20,25 @@ public extension HealthKitCore {
             healthStore.execute(query)
         }
     }
+    
+    func saveCompletedWorkout(
+        activityType: HKWorkoutActivityType,
+        startDate: Date,
+        endDate: Date,
+        totalEnergyBurned: Double?,
+        totalDistance: Double?
+    ) async throws {
+        let workout = HKWorkout(
+            activityType: activityType,
+            start: startDate,
+            end: endDate,
+            workoutEvents: nil, // TODO: Add events
+            totalEnergyBurned: (totalEnergyBurned != nil) ? HKQuantity(unit: .kilocalorie(), doubleValue: totalEnergyBurned!) : nil,
+            totalDistance: (totalDistance != nil) ? HKQuantity(unit: .meterUnit(with: .kilo), doubleValue: totalDistance!) : nil,
+            device: nil, // TODO: add device info
+            metadata: nil // TODO: Add metadata info
+        )
+        try await healthStore.save(workout)
+    }
 }
 

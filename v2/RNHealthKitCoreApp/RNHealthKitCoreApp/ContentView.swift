@@ -16,31 +16,48 @@ struct ContentView: View {
                 read: [
                     QuantityType.ActiveEnergyBurned,
                     QuantityType.HeartRate,
-                    QuantityType.HeadphoneAudioExposure
+                    QuantityType.HeadphoneAudioExposure,
+                    WorkoutType.workout,
                 ],
-                write: [QuantityType.HeartRate])
-            
-            print(
-                try! await core.getQuantitySamples(.HeartRate, .init(startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!, endDate: Date(), unit: .count().unitDivided(by: .minute())))
+                write: [QuantityType.HeartRate]
             )
             
+            //print(
+            //    try! await core.getQuantitySamples(.HeartRate, .init(startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!, endDate: Date(), unit: .count().unitDivided(by: .minute())))
+            //)
             
             /*
-             print(
-             try! await core.getQuantitySamplesStatistics(
-             .ActiveEnergyBurned,
-             StatisticsQuantityQuery(
-             startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
-             endDate: .now,
-             interval: .init(month: 1),
-             anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
-             unit: .kilocalorie(),
-             StatisticsOption: .cumulativeSum,
-             isUserEntered: nil
-             )
-             )
-             )
-             */
+            print(
+            try! await core.getCompletedWorkouts(
+                queryParameters: .init(
+                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
+                    endDate: nil,
+                    activityTypes: [37],
+                    ids: nil,
+                    isUserEntered: nil
+                )
+            ))
+            */
+            
+            
+            
+            
+            
+         print(
+            try! await core.getQuantitySamplesStatistics(
+                .ActiveEnergyBurned,
+                StatisticsQuantityQuery(
+                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
+                    endDate: .now,
+                    interval: .init(month: 1),
+                    anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
+                    unit: .kilocalorie(),
+                    statisticsOption: .cumulativeSum,
+                    isUserEntered: nil
+                )
+            )
+         )
+             
             
             /*
              try! await core.saveQuantitySample(

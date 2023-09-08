@@ -23,6 +23,16 @@ interface RNHealthKit {
   getWorkouts(
     query: WorkoutQuery
   ): Promise<Workout[]>;
+
+  saveWorkout(
+    workout: {
+      activityType: WorkoutActivityType;
+      startDate: string;
+      endDate: string;
+      totalEnergyBurned?: number;
+      totalDistance?: number;
+    }
+  ): Promise<boolean>;
 }
 
 export interface WorkoutQuery {
@@ -38,7 +48,7 @@ export interface Workout {
   id: string;
   startDate: string;
   endDate: string;
-  activityType: HealthActivityType;
+  activityType: WorkoutActivityType;
   duration: number;
 }
 

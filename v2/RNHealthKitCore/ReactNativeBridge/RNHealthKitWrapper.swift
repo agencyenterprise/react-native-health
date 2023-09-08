@@ -113,6 +113,7 @@ class RNHealthKitWrapper: NSObject {
                         metadata: sample["metadata"] as? [String: Any]
                     )
                 )
+                resolve(true)
             } catch {
                 reject("saveQuantitySample", error.localizedDescription, error)
                 return
@@ -137,6 +138,33 @@ class RNHealthKitWrapper: NSObject {
                 resolve(String(data: json, encoding: .utf8))
             } catch {
                 reject("getWorkoutSamples", error.localizedDescription, error)
+            }
+        }
+    }
+    
+    @objc
+    func saveWorkout(_ workout: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+        Task {
+            do {
+                guard
+                    let activityValue = workout["activityType"] as? UInt,
+                    let activityType = HKWorkoutActivityType(rawValue: activityValue),
+                    let startDate = (workout["startDate"] as? String)?.fromIsoStringToDate(),
+                    let endDate = (workout["endDate"] as? String)?.fromIsoStringToDate()
+                else {
+                    reject("saveWorkout", "Invalid parameters.", nil)
+                    return
+                }
+                try await core?.saveCompletedWorkout(
+                    activityType: activityType,
+                    startDate: startDate,
+                    endDate: endDate,
+                    totalEnergyBurned: workout["totalEnergyBurned"] as? Double,
+                    totalDistance: workout["totalDistance"] as? Double
+                )
+                resolve(true)
+            } catch {
+                reject("saveWorkout", error.localizedDescription, error)
             }
         }
     }

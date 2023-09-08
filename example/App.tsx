@@ -13,7 +13,7 @@ import RNHealthKit, { HealthType, HealthUnit, StatisticsOption, Interval, Workou
 
 RNHealthKit.initHealthKit(
   [HealthType.HeartRate, HealthType.Workout],
-  [HealthType.HeartRate]
+  [HealthType.HeartRate, HealthType.Workout],
 );
 
 async function runQuantityQuery() {
@@ -70,6 +70,17 @@ async function runWorkoutQuery() {
   console.log(result);
 }
 
+async function saveWorkout() {
+  const result = await RNHealthKit.saveWorkout(
+    {
+      activityType: WorkoutActivityType.Pickleball,
+      startDate: new Date(2023, 8, 8, 4).toISOString(),
+      endDate: new Date(2023, 8, 8, 5).toISOString(),
+    },
+  );
+  console.log(result);
+}
+
 export default function App() {
   // const [authStatus, setAuthStatus] = useState<any>({});
 
@@ -116,6 +127,12 @@ export default function App() {
                 title="Get Workout Samples"
                 onPress={() => {
                   runWorkoutQuery();
+                }}
+              />
+              <Button
+                title="Save Workout"
+                onPress={() => {
+                  saveWorkout();
                 }}
               />
             </View>
