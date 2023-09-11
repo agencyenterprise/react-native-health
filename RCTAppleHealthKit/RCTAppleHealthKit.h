@@ -19,6 +19,7 @@
 
 @property (nonatomic) HKHealthStore *healthStore;
 @property (nonatomic, assign) BOOL hasListeners;
+@property (nonatomic, assign) BOOL isLegacyBackgroundImplementation;
 
 - (HKHealthStore *)_initializeHealthStore;
 - (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback;
@@ -26,6 +27,7 @@
 - (void)getModuleInfo:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)getAuthorizationStatus:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback;
 - (void)initializeBackgroundObservers:(RCTBridge *)bridge;
-- (void)emitEventWithName:(NSString *)name andPayload:(NSDictionary *)payload;
+- (void)initializeBackgroundObservers:(RCTBridge *)bridge isLegacyBackgroundImplementation:(BOOL)isLegacy;
+- (void)emitEventWithName:(NSString *)name body:(NSString *)body;
 
 @end

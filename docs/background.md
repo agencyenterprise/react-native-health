@@ -10,11 +10,19 @@ following:
 
 - `ActiveEnergyBurned`
 - `BasalEnergyBurned`
+- `BodyMass`
+- `BodyFatPercentage`
+- `BodyTemperature`
+- `BloodGlucose`
+- `BloodPressureDiastolic`
+- `BloodPressureSystolic`
 - `Cycling`
 - `InsulinDelivery`
 - `HeartRate`
 - `HeartRateVariabilitySDNN`
+- `OxygenSaturation`
 - `RestingHeartRate`
+- `RespiratoryRate`
 - `Running`
 - `StairClimbing`
 - `StepCount`
@@ -22,6 +30,8 @@ following:
 - `Vo2Max`
 - `Walking`
 - `Workout`
+- `MindfulSession`
+- `SleepAnalysis`
 
 ### Initialization
 
@@ -30,7 +40,6 @@ step in the README, you can skip this one.
 
 To setup that in your project, in XCode open your `ios/AppDelegate.m` file and add the
 following statements:
-
 
 ```objective-c
 #import "AppDelegate.h"
@@ -53,7 +62,7 @@ following statements:
   ...
 
   /* Add Background initializer for HealthKit  */
-  [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge];
+  [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge isLegacyBackgroundImplementation:NO];
 
   ...
 
@@ -64,7 +73,42 @@ following statements:
 After that, your app is ready to start listening for data updates using the
 React Native client.
 
-### Handling the updates
+### Handling the updates (Recommended Implementation - NOT Legacy)
+
+This is how to listen for updates when `isLegacyBackgroundImplementation:NO`
+
+This library send events to your app through the React Native bridge. To
+intercept those, you should use the `NativeAppEventEmitter`.
+
+They follow events are triggered by the library
+
+| Event                     | When is triggered?                                                              |
+| ------------------------- | ------------------------------------------------------------------------------- |
+| `healthKit:setup:success` | When the background observer for that type is successfuly setup                 |
+| `healthKit:setup:failure` | When the background observer for that type is not successfuly setup             |
+| `healthKit:new`           | When the background observer received a new data sample for that type           |
+| `healthKit:failure`       | When the background observer received a new data sample, but an error was found |
+
+Note that these listeners are reuseable and measurement type will be passed as the only parameter of the `NativeAppEventEmitter`
+
+### Recommended Implementation Example
+
+```typescript
+import React, { useEffect } from 'react'
+import { NativeEventEmitter, NativeModules } from 'react-native'
+
+useEffect(() => {
+  new NativeEventEmitter(NativeModules.AppleHealthKit).addListener(
+    'healthKit:new',
+    async (type) => {
+      console.log('--> observer triggered', type)
+    },
+  )
+})
+```
+
+
+### Handling the updates (LEGACY IMPLEMENTATION)
 
 This library send events to your app through the React Native bridge. To
 intercept those, you should use the `NativeAppEventEmitter`.
@@ -87,21 +131,22 @@ up observers for workouts, the events would have the following names:
 - `healthKit:Workout:new`
 - `healthKit:Workout:failure`
 
-### Example
+### Legacy Example
 
 ```typescript
-import React, { useEffect } from 'react';
-import { NativeEventEmitter, NativeModules } from 'react-native';
+import React, { useEffect } from 'react'
+import { NativeEventEmitter, NativeModules } from 'react-native'
 
 useEffect(() => {
-    new NativeEventEmitter(NativeModules.AppleHealthKit).addListener(
-      'healthKit:HeartRate:new',
-      async () => {
-        console.log('--> observer triggered');
-      },
-    );
-  });
+  new NativeEventEmitter(NativeModules.AppleHealthKit).addListener(
+    'healthKit:HeartRate:new',
+    async () => {
+      console.log('--> observer triggered')
+    },
+  )
+})
 ```
+
 
 When a new sample appears, in order to get the information you need to call
 the [getSamples](./getSamples.md) or the [getClinicalRecords](./getClinicalRecords.md) method from your callback function.

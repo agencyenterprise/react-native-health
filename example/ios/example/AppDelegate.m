@@ -45,7 +45,7 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-  // [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge]; // <-- Uncomment this line to use background observers
+  // [[RCTAppleHealthKit new] initializeBackgroundObservers:bridge isLegacyBackgroundImplementation:NO]; // <-- Uncomment this line to use background observers
   
   return YES;
 }
