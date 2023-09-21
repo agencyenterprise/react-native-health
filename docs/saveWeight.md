@@ -9,6 +9,8 @@ Example input options:
 ```javascript
 let options = {
   value: 200,
+  unit: AppleHealthKit.Constants.Units.gram,  // optional; default pounds
+  startDate: new Date(2021, 0, 0).toISOString() // optional; default now
 }
 ```
 

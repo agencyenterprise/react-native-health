@@ -44,6 +44,7 @@ extern NSString * const kTypesKey;
 + (NSDictionary *)metadataFromOptions:(NSDictionary *)options withDefault:(NSDictionary *)defaultValue;
 + (NSArray *)typesFromOptions:(NSDictionary *)options;
 
++ (NSArray *)formatWorkoutEvents:(NSArray *)workoutEvents;
 + (NSMutableArray *)reverseNSMutableArray:(NSMutableArray *)array;
 + (NSString *) stringForHKWorkoutActivityType:(int) enumValue;
 + (NSString *) md5HashString:(NSString *) input;

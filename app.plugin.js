@@ -2,10 +2,11 @@ const { withEntitlementsPlist, withInfoPlist } = require('@expo/config-plugins')
 
 const HEALTH_SHARE = 'Allow $(PRODUCT_NAME) to check health info'
 const HEALTH_UPDATE = 'Allow $(PRODUCT_NAME) to update health info'
+const HEALTH_CLINIC_SHARE = 'Allow $(PRODUCT_NAME) to check health clinical info'
 
 const withHealthKit = (
   config,
-  { healthSharePermission, healthUpdatePermission, isClinicalDataEnabled } = {},
+  { healthSharePermission, healthUpdatePermission, isClinicalDataEnabled, healthClinicalDescription } = {},
 ) => {
   // Add permissions
   config = withInfoPlist(config, (config) => {
@@ -17,6 +18,12 @@ const withHealthKit = (
       healthUpdatePermission ||
       config.modResults.NSHealthUpdateUsageDescription ||
       HEALTH_UPDATE
+    isClinicalDataEnabled ?
+      config.modResults.NSHealthClinicalHealthRecordsShareUsageDescription =
+        healthClinicalDescription ||
+        config.modResults.NSHealthClinicalHealthRecordsShareUsageDescription ||
+        HEALTH_CLINIC_SHARE :
+      null
 
     return config
   })
