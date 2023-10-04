@@ -826,6 +826,20 @@ declare module 'react-native-health' {
     | 'nightSweats'
     | 'sleepChanges'
     | 'bladderIncontinence'
+    | 'menstrualFlow'
+    | 'intermenstrualBleeding'
+    | 'infrequentMenstrualCycles'
+    | 'irregularMenstrualCycles'
+    | 'persistentIntermenstrualBleeding'
+    | 'prolongedMenstrualPeriods'
+    | 'cervicalMucusQuality'
+    | 'ovulationTestResult'
+    | 'progesteroneTestResult'
+    | 'sexualActivity'
+    | 'contraceptive'
+    | 'pregnancy'
+    | 'pregnancyTestResult'
+    | 'lactation'
 
   export interface HealthMedianStatisticsInputOptions {
     types: ((StatisticKey)[] | readonly StatisticKey[]);
