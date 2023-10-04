@@ -787,6 +787,45 @@ declare module 'react-native-health' {
     | 'uvExposure'
     | 'underwaterDepth'
     | 'waterTemperature'
+    | 'abdominalCramps'
+    | 'bloating'
+    | 'constipation'
+    | 'diarrhea'
+    | 'heartburn'
+    | 'nausea'
+    | 'vomiting'
+    | 'appetiteChanges'
+    | 'chills'
+    | 'dizziness'
+    | 'fainting'
+    | 'fatigue'
+    | 'fever'
+    | 'generalizedBodyAche'
+    | 'hotFlashes'
+    | 'chestTightnessOrPain'
+    | 'coughing'
+    | 'rapidPoundingOrFlutteringHeartbeat'
+    | 'shortnessOfBreath'
+    | 'skippedHeartbeat'
+    | 'wheezing'
+    | 'lowerBackPain'
+    | 'headache'
+    | 'memoryLapse'
+    | 'moodChanges'
+    | 'lossOfSmell'
+    | 'lossOfTaste'
+    | 'runnyNose'
+    | 'soreThroat'
+    | 'sinusCongestion'
+    | 'breastPain'
+    | 'pelvicPain'
+    | 'vaginalDryness'
+    | 'acne'
+    | 'drySkin'
+    | 'hairLoss'
+    | 'nightSweats'
+    | 'sleepChanges'
+    | 'bladderIncontinence'
 
   export interface HealthMedianStatisticsInputOptions {
     types: ((StatisticKey)[] | readonly StatisticKey[]);
@@ -1114,6 +1153,11 @@ declare module 'react-native-health' {
     NightSweats = 'NightSweats',
     SleepChanges = 'SleepChanges',
     BladderIncontinence = 'BladderIncontinence',
+
+    InfrequentMenstrualCycles = 'InfrequentMenstrualCycles',
+    IrregularMenstrualCycles = 'IrregularMenstrualCycles',
+    PersistentIntermenstrualBleeding = 'PersistentIntermenstrualBleeding',
+    ProlongedMenstrualPeriods = 'ProlongedMenstrualPeriods',
   }
 
   export enum HealthUnit {
