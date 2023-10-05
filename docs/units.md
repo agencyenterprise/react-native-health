@@ -14,6 +14,7 @@ The following units are supported by the library
   hour
   inch
   joule
+  literPerMinute
   meter
   mgPerdL
   mile

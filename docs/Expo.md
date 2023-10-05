@@ -1,8 +1,8 @@
 # Expo installation
 
-> This package cannot be used in the "Expo Go" app because [it requires custom native code](https://docs.expo.io/workflow/customizing/).
+> This package cannot be used in the "Expo Go" app because [it requires custom native code](https://docs.expo.dev/workflow/customizing/).
 
-First install the package with yarn, npm, or [`expo install`](https://docs.expo.io/workflow/expo-cli/#expo-install).
+First install the package with yarn, npm, or [`npx expo install`](https://docs.expo.dev/more/expo-cli/#installation).
 
 ```sh
 expo install react-native-health
@@ -18,7 +18,7 @@ After installing this npm package, add the [config plugin](https://docs.expo.io/
 }
 ```
 
-Next, rebuild your app as described in the ["Adding custom native code"](https://docs.expo.io/workflow/customizing/) guide.
+Next, rebuild your app as described in the ["Adding custom native code"](https://docs.expo.dev/workflow/customizing/) guide.
 
 ## API
 
@@ -27,6 +27,7 @@ The plugin provides props for extra customization. Every time you change the pro
 - `healthSharePermission` (_string_): Sets the iOS `NSHealthShareUsageDescription` permission message to the `Info.plist`. Defaults to `Allow $(PRODUCT_NAME) to check health info`.
 - `healthUpdatePermission` (_string_): Sets the iOS `NSHealthUpdateUsageDescription` permission message to the `Info.plist`. Defaults to `Allow $(PRODUCT_NAME) to update health info`.
 - `isClinicalDataEnabled` (_boolean_): Adds `health-records` to the `com.apple.developer.healthkit.access` entitlement in the iOS project. Defaults to false.
+- `healthClinicalDescription` (_string_): Sets the iOS `NSHealthClinicalHealthRecordsShareUsageDescription` permission message to the `Info.plist`. Defaults to `Allow $(PRODUCT_NAME) to check health info`.
 
 `app.config.js`
 
@@ -39,7 +40,8 @@ The plugin provides props for extra customization. Every time you change the pro
         {
           "isClinicalDataEnabled": true,
           "healthSharePermission": "Custom health share permission",
-          "healthUpdatePermission": "Custom health update permission"
+          "healthUpdatePermission": "Custom health update permission",
+          "healthClinicalDescription": "Custom health share permission for clinical data"
         }
       ]
     ]

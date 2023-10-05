@@ -1,6 +1,6 @@
 # getActiveEnergyBurned
 
-A quantity sample type that measures the amount of active energy the user has burned.
+A quantity sample type that measures the amount of `active energy` the user has burned within a period of time. This represents only the Active Kilocalories from the Total Kilocalories for that time period.
 
 Example input options:
 
@@ -8,6 +8,8 @@ Example input options:
 let options = {
   startDate: new Date(2021, 0, 0).toISOString(), // required
   endDate: new Date().toISOString(), // optional; default now
+  ascending: true, // optional
+  includeManuallyAdded: true, // optional
 }
 ```
 

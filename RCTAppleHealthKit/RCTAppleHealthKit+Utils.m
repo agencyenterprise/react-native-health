@@ -17,6 +17,55 @@ NSString * const kTypesKey = @"types";
 
 #pragma mark - Utilities
 
++ (NSArray *)formatWorkoutEvents:(NSArray *)workoutEvents
+{
+    NSMutableArray *formattedWorkEvents = [[NSMutableArray alloc] init];
+    
+    for (id workoutEvent in workoutEvents) {
+        NSNumber *eventType = [workoutEvent valueForKey:@"type"];
+        NSString *eventDescription = @"";
+        
+        switch([eventType intValue]) {
+            case (int)HKWorkoutEventTypePause:
+                eventDescription = @"pause";
+                break;
+            case (int)HKWorkoutEventTypeResume:
+                eventDescription = @"resume";
+                break;
+            case (int)HKWorkoutEventTypeMotionPaused:
+                eventDescription = @"motion paused";
+                break;
+            case (int)HKWorkoutEventTypeMotionResumed:
+                eventDescription = @"motion resumed";
+                break;
+            case (int)HKWorkoutEventTypePauseOrResumeRequest:
+                eventDescription = @"pause or resume request";
+                break;
+            case (int)HKWorkoutEventTypeLap:
+                eventDescription = @"lap";
+                break;
+            case (int)HKWorkoutEventTypeSegment:
+                eventDescription = @"segment";
+                break;
+            case (int)HKWorkoutEventTypeMarker:
+                eventDescription = @"marker";
+            default:
+                eventDescription = @"";
+        }
+        
+        
+        NSObject *formattedEvent = @{
+            @"eventTypeInt":eventType,
+            @"eventType": eventDescription,
+            @"startDate": [RCTAppleHealthKit buildISO8601StringFromDate:[[workoutEvent dateInterval] startDate]],
+            @"endDate": [RCTAppleHealthKit buildISO8601StringFromDate:[[workoutEvent dateInterval] endDate]]
+        };
+        [formattedWorkEvents addObject: formattedEvent];
+    }
+    
+    return formattedWorkEvents;
+}
+
 + (NSDate *)parseISO8601DateFromString:(NSString *)date
 {
     @try {
@@ -335,6 +384,9 @@ NSString * const kTypesKey = @"types";
     }
     if ([unitString isEqualToString:@"mmolPerL"]) {
         theUnit = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
+    }
+    if ([unitString isEqualToString:@"literPerMinute"]) {
+         theUnit = [[HKUnit literUnit] unitDividedByUnit:[HKUnit minuteUnit]];
     }
     if ([unitString isEqualToString:@"mgPerdL"]) {
         theUnit = [HKUnit unitFromString:@"mg/dL"];

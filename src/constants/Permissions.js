@@ -109,6 +109,7 @@ export const Permissions = {
   LowHeartRateEvent: 'LowHeartRateEvent',
   MindfulSession: 'MindfulSession',
   NikeFuel: 'NikeFuel',
+PeakFlow: 'PeakFlow',
   RespiratoryRate: 'RespiratoryRate',
   SleepAnalysis: 'SleepAnalysis',
   StepCount: 'StepCount',
@@ -119,6 +120,12 @@ export const Permissions = {
   WalkingHeartRateAverage: 'WalkingHeartRateAverage',
   Weight: 'Weight',
   Workout: 'Workout',
+WorkoutRoute: 'WorkoutRoute',
+  RunningSpeed: 'RunningSpeed',
+  RunningPower: 'RunningPower',
+  RunningStrideLength: 'RunningStrideLength',
+  RunningVerticalOscillation: 'RunningVerticalOscillation',
+  RunningGroundContactTime: 'RunningGroundContactTime',
 
   // Symptoms
   AbdominalCramps: 'AbdominalCramps',
