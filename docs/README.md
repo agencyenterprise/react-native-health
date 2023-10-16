@@ -96,6 +96,7 @@
 
 - [getMindfulSession](docs/getMindfulSession.md)
 - [saveMindfulSession](saveMindfulSession.md)
+- [deleteAllMindfulSessions](deleteAllMindfulSessions.md)
 
 ### Sleep Methods
 

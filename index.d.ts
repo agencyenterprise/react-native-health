@@ -365,6 +365,10 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
+    deleteAllMindfulSessions(
+      callback: (error: string, result: number) => void,
+    ): void
+
     getWorkoutRouteSamples(
       options: { id: string },
       callback: (err: string, results: WorkoutRouteQueryResults) => void,
@@ -462,7 +466,6 @@ declare module 'react-native-health' {
       callback: (error: string, result: HealthValue) => void,
     ): void
 
-
     Constants: Constants
   }
 
@@ -546,7 +549,7 @@ declare module 'react-native-health' {
     PausedOrResumeRequest = 'pause or resume request',
     Lap = 'lap',
     Segment = 'segment',
-    Marker = 'marker'
+    Marker = 'marker',
   }
 
   export type HKWorkoutEventType = {
