@@ -21,7 +21,7 @@ public class QuantityQuery: QueryParameters {
     }
 }
 
-/// A class for querying statistics of quantity-based health data using HealthKit.
+/// Queries statistics of quantity-based health data using HealthKit.
 public class StatisticsQuantityQuery: QueryParameters {
     /// The time interval for statistics calculations.
     let interval: DateComponents
@@ -59,7 +59,7 @@ public class StatisticsQuantityQuery: QueryParameters {
     }
 }
 
-/// A struct representing data to insert as a quantity-based health data sample into HealthKit.
+/// Represents data to insert as a quantity-based health data sample into HealthKit.
 public struct QuantitySampleInsert {
     /// The type of quantity data to insert.
     let type: QuantityType
