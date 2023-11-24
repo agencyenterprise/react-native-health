@@ -35,13 +35,15 @@ public extension HealthKitCore {
     ///   - endDate: The end date and time of the workout.
     ///   - totalEnergyBurned: The total energy burned during the workout (in kilocalories).
     ///   - totalDistance: The total distance covered during the workout (in kilometers).
+    ///   TODO: - Add metadata
     /// - Throws: An error if the workout data cannot be saved to HealthKit.
     func saveCompletedWorkout(
         activityType: HKWorkoutActivityType,
         startDate: Date,
         endDate: Date,
         totalEnergyBurned: Double?,
-        totalDistance: Double?
+        totalDistance: Double?,
+        metadata: [String: Any]?
     ) async throws {
         let workout = HKWorkout(
             activityType: activityType,
@@ -51,7 +53,7 @@ public extension HealthKitCore {
             totalEnergyBurned: (totalEnergyBurned != nil) ? HKQuantity(unit: .kilocalorie(), doubleValue: totalEnergyBurned!) : nil,
             totalDistance: (totalDistance != nil) ? HKQuantity(unit: .meterUnit(with: .kilo), doubleValue: totalDistance!) : nil,
             device: nil, // TODO: add device info
-            metadata: nil // TODO: Add metadata info
+            metadata: metadata
         )
         try await healthStore.save(workout)
     }

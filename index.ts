@@ -31,6 +31,7 @@ interface RNHealthKit {
       endDate: string;
       totalEnergyBurned?: number;
       totalDistance?: number;
+      metadata?: Object;
     }
   ): Promise<boolean>;
 }
@@ -218,10 +219,6 @@ export enum HealthType {
   EnvironmentalAudioExposure = 'EnvironmentalAudioExposure',
 
   HeadphoneAudioExposure = 'HeadphoneAudioExposure',
-
-
-
-
 
   // Workout
   Workout = 'workout',

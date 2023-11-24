@@ -17,6 +17,7 @@
 		7E9A84F32A5449C2004622E5 /* HealthKitTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F22A5449C2004622E5 /* HealthKitTypes.swift */; };
 		7E9A84F52A544A1A004622E5 /* QuantityQueriesParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F42A544A1A004622E5 /* QuantityQueriesParameters.swift */; };
 		7E9A84F72A548A39004622E5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84F62A548A39004622E5 /* Utils.swift */; };
+		D31BF2482B10FC7C00005EE7 /* WorkoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31BF2472B10FC7C00005EE7 /* WorkoutHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +47,7 @@
 		7EB70C882A61AB64003EE217 /* RNHealthKitWrapper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNHealthKitWrapper-Bridging-Header.h"; sourceTree = "<group>"; };
 		7EB70C892A61ABAF003EE217 /* RNHealthKitWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNHealthKitWrapper.m; sourceTree = "<group>"; };
 		7EE4AA502A669CA200CC9EEF /* RNHealthKitWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNHealthKitWrapper.swift; sourceTree = "<group>"; };
+		D31BF2472B10FC7C00005EE7 /* WorkoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,9 +74,10 @@
 		7E4BFFE42A9FC0D500FB1383 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
+				7E4BFFE92AAA423100FB1383 /* WorkoutSample.swift */,
 				7E4BFFE52A9FC0ED00FB1383 /* WorkoutQueries.swift */,
 				7E4BFFE72AAA421200FB1383 /* WorkoutQueryParameters.swift */,
-				7E4BFFE92AAA423100FB1383 /* WorkoutSample.swift */,
+				D31BF2472B10FC7C00005EE7 /* WorkoutHelper.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				7E9A84F52A544A1A004622E5 /* QuantityQueriesParameters.swift in Sources */,
 				7E9A84F32A5449C2004622E5 /* HealthKitTypes.swift in Sources */,
 				7E9A84CC2A5312D7004622E5 /* HealthKitCore.swift in Sources */,
+				D31BF2482B10FC7C00005EE7 /* WorkoutHelper.swift in Sources */,
 				7E5AEBB32A5EAF2800F74829 /* QuantityQueries.swift in Sources */,
 				7E4BFFEE2AAA6D6D00FB1383 /* QueryParameters.swift in Sources */,
 				7E4BFFEA2AAA423100FB1383 /* WorkoutSample.swift in Sources */,

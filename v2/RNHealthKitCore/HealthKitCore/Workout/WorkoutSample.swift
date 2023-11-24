@@ -17,6 +17,9 @@ public struct WorkoutSample: Encodable {
 
     /// The activity type of the workout as a raw unsigned integer value.
     public let activityType: UInt
+    
+    /// Additional metadata associated with the workout sample.
+    public let metadata: [String: String]?
 
     // TODO: Add activities | var workoutActivities: [HKWorkoutActivity]
     // TODO: Add workout events | var workoutEvents: [HKWorkoutEvent]?
@@ -31,5 +34,6 @@ public struct WorkoutSample: Encodable {
         self.endDate = workout.endDate.toIsoString() ?? ""
         self.duration = workout.duration
         self.activityType = workout.workoutActivityType.rawValue
+        self.metadata = workout.metadata?.mapValues(String.init(describing:)) ?? [:]
     }
 }

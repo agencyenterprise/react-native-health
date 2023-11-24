@@ -14,51 +14,59 @@ struct ContentView: View {
         .task {
             let core = try! await HealthKitCore(
                 read: [
-                    QuantityType.ActiveEnergyBurned,
-                    QuantityType.HeartRate,
-                    QuantityType.HeadphoneAudioExposure,
                     WorkoutType.workout,
                 ],
-                write: [QuantityType.HeartRate]
+                write: [WorkoutType.workout]
             )
-            
+
             //print(
             //    try! await core.getQuantitySamples(.HeartRate, .init(startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!, endDate: Date(), unit: .count().unitDivided(by: .minute())))
             //)
-            
+
             /*
-            print(
-            try! await core.getCompletedWorkouts(
-                queryParameters: .init(
-                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
-                    endDate: nil,
-                    activityTypes: [37],
-                    ids: nil,
-                    isUserEntered: nil
-                )
-            ))
-            */
+             print(
+             try! await core.getCompletedWorkouts(
+             queryParameters: .init(
+             startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
+             endDate: nil,
+             activityTypes: [37],
+             ids: nil,
+             isUserEntered: nil
+             )
+             ))
+             */
+
+//            print(try! await core.saveCompletedWorkout(
+//                activityType: .americanFootball,
+//                startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -2, to: .now)!,
+//                endDate: Date(),
+//                totalEnergyBurned: 120,
+//                totalDistance: 2000,
+//                metadata: ["HKMetadataKeyIndoorWorkout": true]
+//            ))
             
             
-            
-            
-            
-         print(
-            try! await core.getQuantitySamplesStatistics(
-                .ActiveEnergyBurned,
-                StatisticsQuantityQuery(
-                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
-                    endDate: .now,
-                    interval: .init(month: 1),
-                    anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
-                    unit: .kilocalorie(),
-                    statisticsOption: .cumulativeSum,
-                    isUserEntered: nil
-                )
-            )
-         )
-             
-            
+            await getMetadata(core: core)
+
+//            print(try! await core.getCompletedWorkouts(queryParameters: .init()))
+
+
+            //         print(
+            //            try! await core.getQuantitySamplesStatistics(
+            //                .ActiveEnergyBurned,
+            //                StatisticsQuantityQuery(
+            //                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
+            //                    endDate: .now,
+            //                    interval: .init(month: 1),
+            //                    anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
+            //                    unit: .kilocalorie(),
+            //                    statisticsOption: .cumulativeSum,
+            //                    isUserEntered: nil
+            //                )
+            //            )
+            //         )
+
+
             /*
              try! await core.saveQuantitySample(
              .init(
@@ -72,6 +80,31 @@ struct ContentView: View {
              )
              */
         }
+    }
+
+    func getMetadata(core: HealthKitCore) async {
+        let unit = HKUnit(from: "min")
+        let quantity = HKQuantity(unit: unit, doubleValue: 30)
+        print("HEY THERE: \(quantity)")
+        let rawMetadata: [String: Any] = [
+            "HKMetadataKeyIndoorWorkout": true,
+            "HKMetadataKeyFitnessMachineDuration": ["unit": "min", "doubleValue": 30],
+            "HKMetadataKeyWaterSalinity": 0 // Assuming 0 represents freshWater
+            // Add other metadata fields as needed
+        ]
+
+        let processedMetadata = try? WorkoutHelper.processWorkoutMetadata(rawMetadata)
+        
+        print("ProcessedMetadata: \(processedMetadata)")
+
+        print(try! await core.saveCompletedWorkout(
+            activityType: .americanFootball,
+            startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -2, to: .now)!,
+            endDate: Date(),
+            totalEnergyBurned: 120,
+            totalDistance: 2000,
+            metadata: processedMetadata
+        ))
     }
 }
 
