@@ -31,7 +31,7 @@ interface RNHealthKit {
       endDate: string;
       totalEnergyBurned?: number;
       totalDistance?: number;
-      metadata?: Object;
+      metadata?: WorkoutMetadata;
     }
   ): Promise<boolean>;
 }
@@ -381,5 +381,68 @@ export enum WorkoutActivityType {
   Transition = 82,
   Other = 3000,
 }
+
+export enum WorkoutMetadataKey {
+  ActivityType = "HKActivityType",
+  AppleFitnessPlusSession = "HKAppleFitnessPlusSession",
+  CoachedWorkout = "HKCoachedWorkout",
+  GroupFitness = "HKGroupFitness",
+  IndoorWorkout = "HKIndoorWorkout",
+  WorkoutBrandName = "HKWorkoutBrandName",
+  CyclingFunctionalThresholdPowerTestType = "HKCyclingFunctionalThresholdPowerTestType",
+  FitnessMachineDuration = "HKFitnessMachineDuration",
+  CrossTrainerDistance = "HKCrossTrainerDistance",
+  IndoorBikeDistance = "HKIndoorBikeDistance",
+  AverageMETs = "HKAverageMETs",
+  PhysicalEffortEstimationType = "HKPhysicalEffortEstimationType",
+  AlpineSlopeGrade = "HKAlpineSlopeGrade",
+  ElevationAscended = "HKElevationAscended",
+  ElevationDescended = "HKElevationDescended",
+  AverageSpeed = "HKAverageSpeed",
+  MaximumSpeed = "HKMaximumSpeed",
+  SwimmingLocationType = "HKSwimmingLocationType",
+  SwimmingStrokeStyle = "HKSwimmingStrokeStyle",
+  LapLength = "HKLapLength",
+  SWOLFScore = "HKSWOLFScore",
+  WaterSalinity = "HKWaterSalinity",
+}
+
+export type QuantityType = {
+  unit: HealthUnit | string;
+  doubleValue: number;
+}
+
+export enum WaterSalinityType {
+  freshWater = 0,
+  saltWater = 1,
+}
+
+export type WorkoutMetadata = {
+    [WorkoutMetadataKey.ActivityType]?: string; // ?
+    [WorkoutMetadataKey.AppleFitnessPlusSession]?: string; // ?
+    [WorkoutMetadataKey.CoachedWorkout]?: boolean;
+    [WorkoutMetadataKey.GroupFitness]?: boolean;
+    [WorkoutMetadataKey.IndoorWorkout]?: boolean;
+    [WorkoutMetadataKey.WorkoutBrandName]?: string;  
+    [WorkoutMetadataKey.CyclingFunctionalThresholdPowerTestType]?: string; // ?
+    [WorkoutMetadataKey.FitnessMachineDuration]?: QuantityType;
+    [WorkoutMetadataKey.CrossTrainerDistance]?: QuantityType;
+    [WorkoutMetadataKey.IndoorBikeDistance]?: QuantityType;
+    [WorkoutMetadataKey.AverageMETs]?: QuantityType;
+    [WorkoutMetadataKey.PhysicalEffortEstimationType]?: string; // ?
+    [WorkoutMetadataKey.AlpineSlopeGrade]?: QuantityType;
+    [WorkoutMetadataKey.ElevationAscended]?: QuantityType;
+    [WorkoutMetadataKey.ElevationDescended]?: QuantityType;
+    [WorkoutMetadataKey.AverageSpeed]?: QuantityType;
+    [WorkoutMetadataKey.MaximumSpeed]?: QuantityType;
+    [WorkoutMetadataKey.SwimmingLocationType]?: number;
+    [WorkoutMetadataKey.SwimmingStrokeStyle]?: number;
+    [WorkoutMetadataKey.LapLength]?: QuantityType;
+    [WorkoutMetadataKey.SWOLFScore]?: string; // ?
+    [WorkoutMetadataKey.WaterSalinity]?: WaterSalinityType;
+};
+
+// Reference:
+// https://developer.apple.com/documentation/healthkit/hkworkout/workout_metadata_keys
 
 export default RNHealthKitWrapper as RNHealthKit

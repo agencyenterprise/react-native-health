@@ -15,6 +15,7 @@ import RNHealthKit, {
   StatisticsOption,
   Interval,
   WorkoutActivityType,
+  WorkoutMetadataKey,
 } from 'react-native-health';
 
 RNHealthKit.initHealthKit(
@@ -72,6 +73,13 @@ async function saveWorkout() {
     activityType: WorkoutActivityType.Pickleball,
     startDate: new Date(2023, 8, 8, 4).toISOString(),
     endDate: new Date(2023, 8, 8, 5).toISOString(),
+    metadata: {
+      [WorkoutMetadataKey.IndoorWorkout]: false,
+      [WorkoutMetadataKey.FitnessMachineDuration]: {
+        unit: HealthUnit.Minutes,
+        doubleValue: 60,
+      },
+    },
   });
   console.log(result);
 }
