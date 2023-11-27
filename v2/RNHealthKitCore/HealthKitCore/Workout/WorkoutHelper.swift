@@ -23,7 +23,7 @@ public struct WorkoutHelper {
                     let hkQuantity = HKQuantity(unit: HKUnit(from: unit), doubleValue: doubleValue)
                     updatedMetadata[key] = hkQuantity
                 }
-            case "HKMetadataKeyWaterSalinity":
+            case "HKWaterSalinity":
                 if #available(iOS 17.0, *), let salinityValue = value as? Int {
                     updatedMetadata[key] = HKWaterSalinity(rawValue: salinityValue) ?? nil
                 } else {

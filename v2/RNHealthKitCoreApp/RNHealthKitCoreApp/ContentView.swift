@@ -46,7 +46,9 @@ struct ContentView: View {
 //            ))
             
             
-            await getMetadata(core: core)
+//            await saveWorkoutWithMetadata(core: core)
+
+            print(try! await core.getCompletedWorkouts(queryParameters: .init()))
 
 //            print(try! await core.getCompletedWorkouts(queryParameters: .init()))
 
@@ -82,14 +84,14 @@ struct ContentView: View {
         }
     }
 
-    func getMetadata(core: HealthKitCore) async {
+    func saveWorkoutWithMetadata(core: HealthKitCore) async {
         let unit = HKUnit(from: "min")
         let quantity = HKQuantity(unit: unit, doubleValue: 30)
         print("HEY THERE: \(quantity)")
         let rawMetadata: [String: Any] = [
-            "HKMetadataKeyIndoorWorkout": true,
-            "HKMetadataKeyFitnessMachineDuration": ["unit": "min", "doubleValue": 30],
-            "HKMetadataKeyWaterSalinity": 0 // Assuming 0 represents freshWater
+            "HKIndoorWorkout": true,
+            "HKFitnessMachineDuration": ["unit": "min", "doubleValue": 30.0],
+            "HKWaterSalinity": 0 // Assuming 0 represents freshWater
             // Add other metadata fields as needed
         ]
 
