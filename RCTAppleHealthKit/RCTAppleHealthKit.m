@@ -671,6 +671,108 @@ RCT_EXPORT_METHOD(getStatisticRestingHeartRate:(NSDictionary *)input callback:(R
     [self statistics_getStatisticRestingHeartRate:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getStatisticDietaryEnergyConsumed:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryEnergyConsumed:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryProtein:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryProtein:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryFiber:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryFiber:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryTotalFat:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryTotalFat:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryWater:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryWater:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietarySugar:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietarySugar:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryFatSaturated:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryFatSaturated:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryCholesterol:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryCholesterol:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryCarbohydrates:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryCarbohydrates:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryCalcium:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryCalcium:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryIron:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryIron:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryPotassium:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryPotassium:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietarySodium:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietarySodium:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryVitaminA:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryVitaminA:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryVitaminC:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryVitaminC:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticDietaryVitaminD:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticDietaryVitaminD:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getStatisticInsulinDelivery:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self statistics_getStatisticInsulinDelivery:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getMedianStatistic:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];

@@ -524,6 +524,88 @@ declare module 'react-native-health' {
       callback: (err: string, results: Array<HealthValue>) => void,
     ): void
 
+    getStatisticDietaryEnergyConsumed(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryProtein(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryFiber(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryTotalFat(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryWater(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietarySugar(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryFatSaturated(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryCholesterol(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryCarbohydrates(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryCalcium(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryIron(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+    getStatisticDietaryPotassium(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+    getStatisticDietarySodium(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+    getStatisticDietaryVitaminA(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryVitaminC(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticDietaryVitaminD(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
+    getStatisticInsulinDelivery(
+      options: HealthStatisticsDietaryInputOptions,
+      callback: (err: string, results: Array<HealthValue>) => void,
+    ): void
+
     getMedianStatistic(
       options: HealthMedianStatisticsInputOptions,
       callback: (
@@ -668,6 +750,9 @@ declare module 'react-native-health' {
     DAY = 1,
   }
 
+  export type HealthStatisticsDietaryAggregatorType =
+    | CumulativeAggregatorsType
+
   export interface HealthStatisticsCommonInputOptions
     extends HealthUnitOptions {
     aggregator: HealthStatisticsCommonAggregatorType
@@ -681,6 +766,13 @@ declare module 'react-native-health' {
     interval?: HealthStatisticsIntervalType
     startDate?: string
     endDate?: string
+  }
+
+  export interface HealthStatisticsDietaryInputOptions extends HealthUnitOptions {
+    aggregator: HealthStatisticsDietaryAggregatorType
+    interval?: HealthStatisticsIntervalType
+    startDate: string
+    endDate: string
   }
 
   export type StatisticKey =
