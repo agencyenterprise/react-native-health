@@ -4,14 +4,25 @@ import HealthKit
 @objc(RNHealthKitWrapper)
 class RNHealthKitWrapper: NSObject {
     var core: HealthKitCore?
+    
+    /**
+     Initializes the HealthKitCore instance with specified read and write permissions.
 
+     - Parameters:
+       - read: An array of strings representing the read permissions to request.
+       - write: An array of strings representing the write permissions to request.
+       - resolve: A callback function to resolve the promise upon successful initialization.
+       - reject: A callback function to reject the promise if initialization fails.
+
+     Initializes the `HealthKitCore` instance with the requested permissions and resolves the promise with `true` upon successful initialization. If any errors occur during initialization, it rejects the promise with an error message.
+     */
     @objc
-    func initHealthKit(_ read: Array<String>, write: Array<String>, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    func initHealthKit(_ read: [String], write: [String], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
             do {
-                let readTypes: Array<any HealthKitType> = read.compactMap { QuantityType(rawValue: $0) ?? WorkoutType(rawValue: $0) }
-                let writeTypes: Array<any HealthKitType> = write.compactMap { QuantityType(rawValue: $0) ?? WorkoutType(rawValue: $0) }
-                
+                let readTypes: [any HealthKitType] = read.compactMap { QuantityType(rawValue: $0) ?? WorkoutType(rawValue: $0) }
+                let writeTypes: [any HealthKitType] = write.compactMap { QuantityType(rawValue: $0) ?? WorkoutType(rawValue: $0) }
+
                 core = try await HealthKitCore.init(read: readTypes, write: writeTypes)
                 resolve(true)
             } catch {
@@ -19,7 +30,17 @@ class RNHealthKitWrapper: NSObject {
             }
         }
     }
+    
+    /**
+     Retrieves quantity samples from HealthKit based on specified query parameters.
 
+     - Parameters:
+       - query: A dictionary containing query parameters, including sample type, unit, date range, and optional parameters.
+       - resolve: A callback function to resolve the promise with the retrieved data.
+       - reject: A callback function to reject the promise with an error message if the retrieval fails.
+
+     Retrieves quantity samples from HealthKit based on the provided query parameters. It resolves the promise with a JSON string containing the quantity samples upon successful retrieval. If any errors occur during the retrieval process, it rejects the promise with an error message.
+     */
     @objc
     func getQuantitySamples(_ query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
@@ -48,7 +69,17 @@ class RNHealthKitWrapper: NSObject {
             }
         }
     }
-    
+
+    /**
+     Retrieves statistics for quantity samples from HealthKit based on specified query parameters.
+
+     - Parameters:
+       - query: A dictionary containing query parameters, including sample type, unit, date range, statistics option, and optional parameters.
+       - resolve: A callback function to resolve the promise with the retrieved data.
+       - reject: A callback function to reject the promise with an error message if the retrieval fails.
+
+     Retrieves statistics for quantity samples from HealthKit based on the provided query parameters. It resolves the promise with a JSON string containing the quantity sample statistics upon successful retrieval. If any errors occur during the retrieval process, it rejects the promise with an error message.
+     */
     @objc
     func getQuantitySamplesStatistics(_ query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
@@ -88,7 +119,18 @@ class RNHealthKitWrapper: NSObject {
             }
         }
     }
-    
+
+    /**
+     Saves a quantity sample to HealthKit with specified parameters.
+
+     - Parameters:
+       - type: A string representing the sample type to save.
+       - sample: A dictionary containing sample parameters, including value, unit, start and end dates, and optional metadata.
+       - resolve: A callback function to resolve the promise upon successful saving.
+       - reject: A callback function to reject the promise with an error message if saving fails.
+
+     Allows you to save a quantity sample to HealthKit with the specified parameters. It resolves the promise with `true` upon successful saving. If any errors occur during the saving process, it rejects the promise with an error message.
+     */
     @objc
     func saveQuantitySample(_ type: String, sample: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
@@ -120,7 +162,17 @@ class RNHealthKitWrapper: NSObject {
             }
         }
     }
+    
+    /**
+     Retrieves completed workout samples from HealthKit based on specified query parameters.
 
+     - Parameters:
+       - query: A dictionary containing query parameters, including date range, activity types, and optional parameters.
+       - resolve: A callback function to resolve the promise with the retrieved data.
+       - reject: A callback function to reject the promise with an error message if the retrieval fails.
+
+     Retrieves completed workout samples from HealthKit based on the provided query parameters. It resolves the promise with a JSON string containing the completed workout samples upon successful retrieval. If any errors occur during the retrieval process, it rejects the promise with an error message.
+     */
     @objc
     func getWorkouts(_ query: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {
@@ -141,7 +193,18 @@ class RNHealthKitWrapper: NSObject {
             }
         }
     }
-    
+
+    /**
+     Saves a completed workout to HealthKit with specified parameters.
+
+     - Parameters:
+       - workout: A dictionary containing workout parameters, including activity type, start and end dates, total energy burned, and total distance.
+       - resolve: A callback function to resolve the promise upon successful saving.
+       - reject: A callback function to reject the promise with an error message if saving fails.
+
+     Allows you to save a completed workout to HealthKit with the specified parameters. It resolves the promise with `true` upon successful saving. If any errors occur during the saving process, it rejects the promise with an error message.
+     */
+
     @objc
     func saveWorkout(_ workout: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         Task {

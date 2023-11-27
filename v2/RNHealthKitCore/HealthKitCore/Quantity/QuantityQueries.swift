@@ -1,7 +1,16 @@
 import Foundation
 import HealthKit
 
+/// Provides methods for working with HealthKit quantity samples and statistics.
 public extension HealthKitCore {
+
+    /// Asynchronously retrieves quantity samples statistics for a specified `QuantityType` and query parameters.
+    ///
+    /// - Parameters:
+    ///   - type: The `QuantityType` to retrieve statistics for.
+    ///   - queryParameters: The query parameters specifying the time range, statistics options, and other criteria.
+    /// - Returns: An array of `QuantitySample` objects representing the statistics data.
+    /// - Throws: An error if the retrieval or processing of statistics data fails.
     func getQuantitySamplesStatistics(
         _ type: QuantityType,
         _ queryParameters: StatisticsQuantityQuery
@@ -27,7 +36,13 @@ public extension HealthKitCore {
             healthStore.execute(query)
         }
     }
-
+    
+    /// Enumerates statistics data from an `HKStatisticsCollection` and returns an array of `QuantitySample` objects.
+    ///
+    /// - Parameters:
+    ///   - collection: The `HKStatisticsCollection` containing the statistics data.
+    ///   - queryParameters: The query parameters specifying statistics options and time range.
+    /// - Returns: An array of `QuantitySample` objects representing the enumerated statistics data.
     static func enumerateStatistics(
         collection: HKStatisticsCollection,
         _ queryParameters: StatisticsQuantityQuery
@@ -41,7 +56,14 @@ public extension HealthKitCore {
         }
         return samples
     }
-
+    
+    /// Asynchronously retrieves quantity samples for a specified `QuantityType` and query parameters.
+    ///
+    /// - Parameters:
+    ///   - type: The `QuantityType` to retrieve quantity samples for.
+    ///   - queryParameters: The query parameters specifying the time range, sorting, and other criteria.
+    /// - Returns: An array of `QuantitySample` objects representing the retrieved quantity samples.
+    /// - Throws: An error if the retrieval or processing of quantity samples fails.
     func getQuantitySamples(_ type: QuantityType, _ queryParameters: QuantityQuery) async throws -> [QuantitySample] {
         return try await withCheckedThrowingContinuation { continuation in
             let sampleType = type.type as! HKQuantityType
@@ -65,7 +87,11 @@ public extension HealthKitCore {
             healthStore.execute(query)
         }
     }
-
+    
+    /// Asynchronously saves a quantity sample using the specified `QuantitySampleInsert` object.
+    ///
+    /// - Parameter sample: The `QuantitySampleInsert` object containing data for the quantity sample.
+    /// - Throws: An error if the saving of the quantity sample fails.
     func saveQuantitySample(_ sample: QuantitySampleInsert) async throws {
         let type = sample.type.type as! HKQuantityType
         let unit = sample.unit
