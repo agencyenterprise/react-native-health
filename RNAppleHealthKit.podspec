@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
     submodules: true
   }
 
-  s.ios.deployment_target = '13.0'
+  s.ios.deployment_target = '14.0'
   s.swift_version = '5.5'
 
   s.source_files = ['v2/RNHealthKitCore/ReactNativeBridge/**/*', 'v2/RNHealthKitCore/HealthKitCore/**/*.swift']

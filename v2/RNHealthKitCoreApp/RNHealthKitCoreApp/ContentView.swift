@@ -11,76 +11,78 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
-        .task {
-            let core = try! await HealthKitCore(
-                read: [
-                    WorkoutType.workout,
-                ],
-                write: [WorkoutType.workout]
-            )
+        .onAppear {
+            Task {
+                let core = try! await HealthKitCore(
+                    read: [
+                        WorkoutType.workout,
+                    ],
+                    write: [WorkoutType.workout]
+                )
 
-            //print(
-            //    try! await core.getQuantitySamples(.HeartRate, .init(startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!, endDate: Date(), unit: .count().unitDivided(by: .minute())))
-            //)
+                //print(
+                //    try! await core.getQuantitySamples(.HeartRate, .init(startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!, endDate: Date(), unit: .count().unitDivided(by: .minute())))
+                //)
 
-            /*
-             print(
-             try! await core.getCompletedWorkouts(
-             queryParameters: .init(
-             startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
-             endDate: nil,
-             activityTypes: [37],
-             ids: nil,
-             isUserEntered: nil
-             )
-             ))
-             */
+                /*
+                 print(
+                 try! await core.getCompletedWorkouts(
+                 queryParameters: .init(
+                 startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
+                 endDate: nil,
+                 activityTypes: [37],
+                 ids: nil,
+                 isUserEntered: nil
+                 )
+                 ))
+                 */
 
-//            print(try! await core.saveCompletedWorkout(
-//                activityType: .americanFootball,
-//                startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -2, to: .now)!,
-//                endDate: Date(),
-//                totalEnergyBurned: 120,
-//                totalDistance: 2000,
-//                metadata: ["HKMetadataKeyIndoorWorkout": true]
-//            ))
-            
-            
-//            await saveWorkoutWithMetadata(core: core)
-
-            print(try! await core.getCompletedWorkouts(queryParameters: .init()))
-
-//            print(try! await core.getCompletedWorkouts(queryParameters: .init()))
+    //            print(try! await core.saveCompletedWorkout(
+    //                activityType: .americanFootball,
+    //                startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -2, to: .now)!,
+    //                endDate: Date(),
+    //                totalEnergyBurned: 120,
+    //                totalDistance: 2000,
+    //                metadata: ["HKMetadataKeyIndoorWorkout": true]
+    //            ))
 
 
-            //         print(
-            //            try! await core.getQuantitySamplesStatistics(
-            //                .ActiveEnergyBurned,
-            //                StatisticsQuantityQuery(
-            //                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
-            //                    endDate: .now,
-            //                    interval: .init(month: 1),
-            //                    anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
-            //                    unit: .kilocalorie(),
-            //                    statisticsOption: .cumulativeSum,
-            //                    isUserEntered: nil
-            //                )
-            //            )
-            //         )
+    //            await saveWorkoutWithMetadata(core: core)
+
+                print(try! await core.getCompletedWorkouts(queryParameters: .init()))
+
+    //            print(try! await core.getCompletedWorkouts(queryParameters: .init()))
 
 
-            /*
-             try! await core.saveQuantitySample(
-             .init(
-             type: .HeartRate,
-             value: 69,
-             unit: "count/min",
-             startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
-             endDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
-             metadata: ["HKMetadataKeyHeartRateMotionContext": 1]
-             )
-             )
-             */
+                //         print(
+                //            try! await core.getQuantitySamplesStatistics(
+                //                .ActiveEnergyBurned,
+                //                StatisticsQuantityQuery(
+                //                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
+                //                    endDate: .now,
+                //                    interval: .init(month: 1),
+                //                    anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
+                //                    unit: .kilocalorie(),
+                //                    statisticsOption: .cumulativeSum,
+                //                    isUserEntered: nil
+                //                )
+                //            )
+                //         )
+
+
+                /*
+                 try! await core.saveQuantitySample(
+                 .init(
+                 type: .HeartRate,
+                 value: 69,
+                 unit: "count/min",
+                 startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
+                 endDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
+                 metadata: ["HKMetadataKeyHeartRateMotionContext": 1]
+                 )
+                 )
+                 */
+            }
         }
     }
 
