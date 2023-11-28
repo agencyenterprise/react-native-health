@@ -418,18 +418,18 @@ export enum WaterSalinityType {
 }
 
 export type WorkoutMetadata = {
-    [WorkoutMetadataKey.ActivityType]?: string; // ?
-    [WorkoutMetadataKey.AppleFitnessPlusSession]?: string; // ?
+    // [WorkoutMetadataKey.ActivityType]?: string; // ?
+    // [WorkoutMetadataKey.AppleFitnessPlusSession]?: string; // ?
     [WorkoutMetadataKey.CoachedWorkout]?: boolean;
     [WorkoutMetadataKey.GroupFitness]?: boolean;
     [WorkoutMetadataKey.IndoorWorkout]?: boolean;
     [WorkoutMetadataKey.WorkoutBrandName]?: string;  
-    [WorkoutMetadataKey.CyclingFunctionalThresholdPowerTestType]?: string; // ?
+    // [WorkoutMetadataKey.CyclingFunctionalThresholdPowerTestType]?: string; // ?
     [WorkoutMetadataKey.FitnessMachineDuration]?: QuantityType;
     [WorkoutMetadataKey.CrossTrainerDistance]?: QuantityType;
     [WorkoutMetadataKey.IndoorBikeDistance]?: QuantityType;
     [WorkoutMetadataKey.AverageMETs]?: QuantityType;
-    [WorkoutMetadataKey.PhysicalEffortEstimationType]?: string; // ?
+    // [WorkoutMetadataKey.PhysicalEffortEstimationType]?: string; // ?
     [WorkoutMetadataKey.AlpineSlopeGrade]?: QuantityType;
     [WorkoutMetadataKey.ElevationAscended]?: QuantityType;
     [WorkoutMetadataKey.ElevationDescended]?: QuantityType;
@@ -438,7 +438,7 @@ export type WorkoutMetadata = {
     [WorkoutMetadataKey.SwimmingLocationType]?: number;
     [WorkoutMetadataKey.SwimmingStrokeStyle]?: number;
     [WorkoutMetadataKey.LapLength]?: QuantityType;
-    [WorkoutMetadataKey.SWOLFScore]?: string; // ?
+    // [WorkoutMetadataKey.SWOLFScore]?: string; // ?
     [WorkoutMetadataKey.WaterSalinity]?: WaterSalinityType;
 };
 
