@@ -11,8 +11,25 @@
 		7E9A84E12A5352F3004622E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A84E02A5352F3004622E5 /* ContentView.swift */; };
 		7E9A84E32A5352F4004622E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E9A84E22A5352F4004622E5 /* Assets.xcassets */; };
 		7E9A84E62A5352F4004622E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E9A84E52A5352F4004622E5 /* Preview Assets.xcassets */; };
-		7EE599FA2A6FE15600DBB97B /* libHealthKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE599F92A6FE15600DBB97B /* libHealthKitCore.a */; };
+		D398AEF42B0FD52500C37F4F /* libHealthKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D398AEED2B0FD4B700C37F4F /* libHealthKitCore.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D398AEEC2B0FD4B700C37F4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D398AEE82B0FD4B700C37F4F /* HealthKitCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7E9A84C82A5312D7004622E5;
+			remoteInfo = HealthKitCore;
+		};
+		D398AEF92B0FDE8500C37F4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D398AEF52B0FDE8500C37F4F /* HealthKitCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7E9A84C82A5312D7004622E5;
+			remoteInfo = HealthKitCore;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		7E9A84DB2A5352F3004622E5 /* RNHealthKitCoreApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNHealthKitCoreApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -20,9 +37,9 @@
 		7E9A84E02A5352F3004622E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7E9A84E22A5352F4004622E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E9A84E52A5352F4004622E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		7E9A84ED2A5357B5004622E5 /* libRNHealthKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNHealthKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9A84EF2A5357FE004622E5 /* RNHealthKitCoreApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RNHealthKitCoreApp.entitlements; sourceTree = "<group>"; };
-		7EE599F92A6FE15600DBB97B /* libHealthKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libHealthKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D398AEE82B0FD4B700C37F4F /* HealthKitCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HealthKitCore.xcodeproj; path = ../RNHealthKitCore/HealthKitCore.xcodeproj; sourceTree = "<group>"; };
+		D398AEF52B0FDE8500C37F4F /* HealthKitCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HealthKitCore.xcodeproj; path = ../RNHealthKitCore/HealthKitCore.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EE599FA2A6FE15600DBB97B /* libHealthKitCore.a in Frameworks */,
+				D398AEF42B0FD52500C37F4F /* libHealthKitCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +57,7 @@
 		7E9A84D22A5352F3004622E5 = {
 			isa = PBXGroup;
 			children = (
+				D398AEF52B0FDE8500C37F4F /* HealthKitCore.xcodeproj */,
 				7E9A84DD2A5352F3004622E5 /* RNHealthKitCoreApp */,
 				7E9A84DC2A5352F3004622E5 /* Products */,
 				7E9A84EC2A5357B5004622E5 /* Frameworks */,
@@ -77,10 +95,25 @@
 		7E9A84EC2A5357B5004622E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7EE599F92A6FE15600DBB97B /* libHealthKitCore.a */,
-				7E9A84ED2A5357B5004622E5 /* libRNHealthKitCore.a */,
+				D398AEE82B0FD4B700C37F4F /* HealthKitCore.xcodeproj */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D398AEE92B0FD4B700C37F4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D398AEED2B0FD4B700C37F4F /* libHealthKitCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D398AEF62B0FDE8500C37F4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D398AEFA2B0FDE8500C37F4F /* libHealthKitCore.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,12 +163,39 @@
 			mainGroup = 7E9A84D22A5352F3004622E5;
 			productRefGroup = 7E9A84DC2A5352F3004622E5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D398AEF62B0FDE8500C37F4F /* Products */;
+					ProjectRef = D398AEF52B0FDE8500C37F4F /* HealthKitCore.xcodeproj */;
+				},
+				{
+					ProductGroup = D398AEE92B0FD4B700C37F4F /* Products */;
+					ProjectRef = D398AEE82B0FD4B700C37F4F /* HealthKitCore.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7E9A84DA2A5352F3004622E5 /* RNHealthKitCoreApp */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D398AEED2B0FD4B700C37F4F /* libHealthKitCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libHealthKitCore.a;
+			remoteRef = D398AEEC2B0FD4B700C37F4F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D398AEFA2B0FDE8500C37F4F /* libHealthKitCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libHealthKitCore.a;
+			remoteRef = D398AEF92B0FDE8500C37F4F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7E9A84D92A5352F3004622E5 /* Resources */ = {
@@ -232,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -286,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -302,10 +362,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RNHealthKitCoreApp/RNHealthKitCoreApp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RNHealthKitCoreApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Q53777DK4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Use your date to use your data and use your data";
@@ -316,7 +376,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,6 +384,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = healthkitcore.RNHealthKitCoreApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -336,10 +397,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = RNHealthKitCoreApp/RNHealthKitCoreApp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RNHealthKitCoreApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Q53777DK4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Use your date to use your data and use your data";
@@ -350,7 +411,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -358,6 +419,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = healthkitcore.RNHealthKitCoreApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

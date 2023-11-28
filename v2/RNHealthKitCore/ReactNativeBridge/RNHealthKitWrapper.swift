@@ -218,12 +218,19 @@ class RNHealthKitWrapper: NSObject {
                     reject("saveWorkout", "Invalid parameters.", nil)
                     return
                 }
+
+                var processedMetadata: [String: Any]?
+                if let metadata = workout["metadata"] as? [String: Any] {
+                    processedMetadata = try WorkoutHelper.processWorkoutMetadata(metadata)
+                }
+
                 try await core?.saveCompletedWorkout(
                     activityType: activityType,
                     startDate: startDate,
                     endDate: endDate,
                     totalEnergyBurned: workout["totalEnergyBurned"] as? Double,
-                    totalDistance: workout["totalDistance"] as? Double
+                    totalDistance: workout["totalDistance"] as? Double,
+                    metadata: processedMetadata
                 )
                 resolve(true)
             } catch {
@@ -231,4 +238,5 @@ class RNHealthKitWrapper: NSObject {
             }
         }
     }
+
 }

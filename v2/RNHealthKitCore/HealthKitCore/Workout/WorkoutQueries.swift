@@ -35,25 +35,51 @@ public extension HealthKitCore {
     ///   - endDate: The end date and time of the workout.
     ///   - totalEnergyBurned: The total energy burned during the workout (in kilocalories).
     ///   - totalDistance: The total distance covered during the workout (in kilometers).
+    ///   - metadata: Optional metadata for the workout.
     /// - Throws: An error if the workout data cannot be saved to HealthKit.
     func saveCompletedWorkout(
         activityType: HKWorkoutActivityType,
         startDate: Date,
         endDate: Date,
         totalEnergyBurned: Double?,
-        totalDistance: Double?
-    ) async throws {
-        let workout = HKWorkout(
-            activityType: activityType,
-            start: startDate,
-            end: endDate,
-            workoutEvents: nil, // TODO: Add events
-            totalEnergyBurned: (totalEnergyBurned != nil) ? HKQuantity(unit: .kilocalorie(), doubleValue: totalEnergyBurned!) : nil,
-            totalDistance: (totalDistance != nil) ? HKQuantity(unit: .meterUnit(with: .kilo), doubleValue: totalDistance!) : nil,
-            device: nil, // TODO: add device info
-            metadata: nil // TODO: Add metadata info
-        )
-        try await healthStore.save(workout)
+        totalDistance: Double?,
+        metadata: [String: Any]?
+    ) async throws -> HKWorkout? {
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = activityType
+        let workoutBuilder = HKWorkoutBuilder(healthStore: healthStore, configuration: configuration, device: .local())
+
+        try await workoutBuilder.beginCollection(at: startDate)
+
+        var samples: [HKSample] = []
+        if let energyBurned = totalEnergyBurned {
+            let energyQuantity = HKQuantity(unit: .kilocalorie(), doubleValue: energyBurned)
+            let energySample = HKQuantitySample(
+                type: HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
+                quantity: energyQuantity,
+                start: startDate,
+                end: endDate
+            )
+            samples.append(energySample)
+        }
+
+        if let distance = totalDistance {
+            let distanceQuantity = HKQuantity(unit: .meterUnit(with: .kilo), doubleValue: distance)
+            let distanceSample = HKQuantitySample(
+                type: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+                quantity: distanceQuantity,
+                start: startDate,
+                end: endDate
+            )
+            samples.append(distanceSample)
+        }
+
+        if let metadata {
+            try await workoutBuilder.addMetadata(metadata)
+        }
+
+        try await workoutBuilder.endCollection(at: endDate)
+
+        return try await workoutBuilder.finishWorkout()
     }
 }
-

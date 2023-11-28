@@ -11,67 +11,42 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
-        .task {
-            let core = try! await HealthKitCore(
-                read: [
-                    QuantityType.ActiveEnergyBurned,
-                    QuantityType.HeartRate,
-                    QuantityType.HeadphoneAudioExposure,
-                    WorkoutType.workout,
-                ],
-                write: [QuantityType.HeartRate]
-            )
-            
-            //print(
-            //    try! await core.getQuantitySamples(.HeartRate, .init(startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!, endDate: Date(), unit: .count().unitDivided(by: .minute())))
-            //)
-            
-            /*
-            print(
-            try! await core.getCompletedWorkouts(
-                queryParameters: .init(
-                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
-                    endDate: nil,
-                    activityTypes: [37],
-                    ids: nil,
-                    isUserEntered: nil
-                )
-            ))
-            */
-            
-            
-            
-            
-            
-         print(
-            try! await core.getQuantitySamplesStatistics(
-                .ActiveEnergyBurned,
-                StatisticsQuantityQuery(
-                    startDate: Calendar(identifier: .gregorian).date(byAdding: .year, value: -2, to: .now)!,
-                    endDate: .now,
-                    interval: .init(month: 1),
-                    anchorDate: Calendar(identifier: .gregorian).date(byAdding: .month, value: -12, to: .now)!,
-                    unit: .kilocalorie(),
-                    statisticsOption: .cumulativeSum,
-                    isUserEntered: nil
-                )
-            )
-         )
-             
-            
-            /*
-             try! await core.saveQuantitySample(
-             .init(
-             type: .HeartRate,
-             value: 69,
-             unit: "count/min",
-             startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
-             endDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -1, to: .now)!,
-             metadata: ["HKMetadataKeyHeartRateMotionContext": 1]
-             )
-             )
-             */
+        .onAppear {
+            Task {
+                do {
+                    let core = try await HealthKitCore(
+                        read: [WorkoutType.workout],
+                        write: [WorkoutType.workout]
+                    )
+                    if HKHealthStore.isHealthDataAvailable() {
+//                        await saveWorkoutWithMetadata(core: core)
+                        dump(try await core.getCompletedWorkouts(queryParameters: .init()))
+                    }
+                } catch {
+                    print("Error occurred: \(error)")
+                }
+
+            }
         }
+    }
+
+    func saveWorkoutWithMetadata(core: HealthKitCore) async {
+        let unit = HKUnit(from: "min")
+        let rawMetadata: [String: Any] = [
+            "HKIndoorWorkout": true,
+            "HKFitnessMachineDuration": ["unit": "min", "doubleValue": 30.0],
+        ]
+
+        let processedMetadata = try! WorkoutHelper.processWorkoutMetadata(rawMetadata)
+
+        dump(try! await core.saveCompletedWorkout(
+            activityType: .coreTraining,
+            startDate: Calendar(identifier: .gregorian).date(byAdding: .minute, value: -2, to: .now)!,
+            endDate: Date(),
+            totalEnergyBurned: 120,
+            totalDistance: 2000,
+            metadata: processedMetadata
+        ))
     }
 }
 

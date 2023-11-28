@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,7 +9,14 @@ import {
   Button,
 } from 'react-native';
 
-import RNHealthKit, { HealthType, HealthUnit, StatisticsOption, Interval, WorkoutActivityType } from 'react-native-health';
+import RNHealthKit, {
+  HealthType,
+  HealthUnit,
+  StatisticsOption,
+  Interval,
+  WorkoutActivityType,
+  WorkoutMetadataKey,
+} from 'react-native-health';
 
 RNHealthKit.initHealthKit(
   [HealthType.HeartRate, HealthType.Workout],
@@ -17,67 +24,63 @@ RNHealthKit.initHealthKit(
 );
 
 async function runQuantityQuery() {
-  const result = await RNHealthKit.getQuantitySamples(
-    {
-      type: HealthType.HeartRate,
-      startDate: new Date(2023, 7, 1).toISOString(),
-      endDate: new Date().toISOString(),
-      unit: HealthUnit.BeatsPerMinute,
-    },
-  );
+  const result = await RNHealthKit.getQuantitySamples({
+    type: HealthType.HeartRate,
+    startDate: new Date(2023, 7, 1).toISOString(),
+    endDate: new Date().toISOString(),
+    unit: HealthUnit.BeatsPerMinute,
+  });
   console.log(result);
 }
 
 async function runStatisticsQuery() {
-  const result = await RNHealthKit.getQuantitySamplesStatistics(
-    {
-      type: HealthType.ActiveEnergyBurned,
-      startDate: new Date(2022, 0, 1).toISOString(),
-      endDate: new Date(2024, 0, 1).toISOString(),
-      interval: Interval.Year,
-      anchorDate: new Date(2023, 0, 1).toISOString(),
-      unit: HealthUnit.Kilocalories,
-      option: StatisticsOption.CumulativeSum,
-    },
-  );
+  const result = await RNHealthKit.getQuantitySamplesStatistics({
+    type: HealthType.ActiveEnergyBurned,
+    startDate: new Date(2022, 0, 1).toISOString(),
+    endDate: new Date(2024, 0, 1).toISOString(),
+    interval: Interval.Year,
+    anchorDate: new Date(2023, 0, 1).toISOString(),
+    unit: HealthUnit.Kilocalories,
+    option: StatisticsOption.CumulativeSum,
+  });
   console.log(result);
 }
 
 async function saveQuantitySample() {
-  const result = await RNHealthKit.saveQuantitySample(
-    HealthType.HeartRate,
-    {
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
-      value: 82,
-      unit: HealthUnit.BeatsPerMinute,
-      metadata: {
-        "TestingMetadata": "TestingValue"
-      },
+  const result = await RNHealthKit.saveQuantitySample(HealthType.HeartRate, {
+    startDate: new Date().toISOString(),
+    endDate: new Date().toISOString(),
+    value: 82,
+    unit: HealthUnit.BeatsPerMinute,
+    metadata: {
+      TestingMetadata: 'TestingValue',
     },
-  );
+  });
   console.log(result);
 }
 
 async function runWorkoutQuery() {
-  const result = await RNHealthKit.getWorkouts(
-    {
-      startDate: new Date(2023, 7, 1).toISOString(),
-      endDate: new Date().toISOString(),
-      activityTypes: [WorkoutActivityType.Pickleball]
-    },
-  );
+  const result = await RNHealthKit.getWorkouts({
+    startDate: new Date(2023, 7, 1).toISOString(),
+    endDate: new Date().toISOString(),
+    activityTypes: [WorkoutActivityType.Pickleball],
+  });
   console.log(result);
 }
 
 async function saveWorkout() {
-  const result = await RNHealthKit.saveWorkout(
-    {
-      activityType: WorkoutActivityType.Pickleball,
-      startDate: new Date(2023, 8, 8, 4).toISOString(),
-      endDate: new Date(2023, 8, 8, 5).toISOString(),
+  const result = await RNHealthKit.saveWorkout({
+    activityType: WorkoutActivityType.Pickleball,
+    startDate: new Date(2023, 8, 8, 4).toISOString(),
+    endDate: new Date(2023, 8, 8, 5).toISOString(),
+    metadata: {
+      [WorkoutMetadataKey.IndoorWorkout]: false,
+      [WorkoutMetadataKey.FitnessMachineDuration]: {
+        unit: HealthUnit.Minutes,
+        doubleValue: 60,
+      },
     },
-  );
+  });
   console.log(result);
 }
 
