@@ -32,6 +32,7 @@ interface RNHealthKit {
       totalEnergyBurned?: number;
       totalDistance?: number;
       metadata?: WorkoutMetadata;
+      activities?: WorkoutActivity[] | null;
     }
   ): Promise<boolean>;
 }
@@ -377,9 +378,36 @@ export enum WorkoutActivityType {
   SocialDance = 78,    // Dances done in social settings like swing, salsa and folk dances from different world regions.
   Pickleball = 79,
   Cooldown = 80,    // Low intensity stretching and mobility exercises following a more vigorous workout type
-  SwimBikeRun = 81,
-  Transition = 82,
+  SwimBikeRun = 82,
+  Transition = 83,
+  UnderwaterDiving = 84,
   Other = 3000,
+}
+
+export enum WorkoutSessionLocationType {
+  unknown = 1,
+  indoor = 2,
+  outdoor = 3
+}
+
+export enum WorkoutSwimmingLocationType {
+  unknown = 0,
+  pool = 1,
+  openWater = 2
+}
+
+export interface WorkoutConfiguration {
+  workoutActivityType?: WorkoutActivityType | null; 
+  workoutLocationType?: WorkoutSessionLocationType | null;
+  workoutSwimmingLocationType?: WorkoutSwimmingLocationType | null;
+  workoutLapLength?: QuantityType | null; 
+}
+
+export interface WorkoutActivity {
+  workoutConfiguration: WorkoutConfiguration;
+  startDate: Date;
+  endDate?: Date | null;
+  metadata?: { [key: string]: any } | null;
 }
 
 export enum WorkoutMetadataKey {

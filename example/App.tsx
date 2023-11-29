@@ -16,6 +16,8 @@ import RNHealthKit, {
   Interval,
   WorkoutActivityType,
   WorkoutMetadataKey,
+  WorkoutSessionLocationType,
+  WorkoutSwimmingLocationType,
 } from 'react-native-health';
 
 RNHealthKit.initHealthKit(
@@ -63,16 +65,48 @@ async function runWorkoutQuery() {
   const result = await RNHealthKit.getWorkouts({
     startDate: new Date(2023, 7, 1).toISOString(),
     endDate: new Date().toISOString(),
-    activityTypes: [WorkoutActivityType.Pickleball],
+    activityTypes: [WorkoutActivityType.SwimBikeRun],
   });
   console.log(result);
 }
 
 async function saveWorkout() {
+  // Workout configurations
+  const conf1 = {
+    workoutActivityType: WorkoutActivityType.Swimming,
+    workoutLocationType: WorkoutSessionLocationType.Outdoor,
+    workoutSwimmingLocationType: WorkoutSwimmingLocationType.OpenWater,
+  };
+
+  const conf2 = {
+    workoutActivityType: WorkoutActivityType.Running,
+    workoutLocationType: WorkoutSessionLocationType.Outdoor,
+    workoutSwimmingLocationType: WorkoutSwimmingLocationType.Unknown,
+  };
+
+  // Workout activities
+  const activity1 = {
+    workoutConfiguration: conf1,
+    startDate: new Date(2023, 8, 8, 4, 0).toISOString(),
+    endDate: new Date(2023, 8, 8, 4, 6).toISOString(),
+    metadata: null,
+  };
+
+  const activity2 = {
+    workoutConfiguration: conf2,
+    startDate: new Date(2023, 8, 8, 4, 10).toISOString(), // 5 minutes ago
+    endDate: new Date(2023, 8, 8, 4, 15).toISOString(), // 1 minute ago
+    metadata: null,
+  };
+
+  // Array of activities
+  const activities = [activity1, activity2];
+
   const result = await RNHealthKit.saveWorkout({
-    activityType: WorkoutActivityType.Pickleball,
+    activityType: WorkoutActivityType.SwimBikeRun,
     startDate: new Date(2023, 8, 8, 4).toISOString(),
     endDate: new Date(2023, 8, 8, 5).toISOString(),
+    activities: activities,
     metadata: {
       [WorkoutMetadataKey.IndoorWorkout]: false,
       [WorkoutMetadataKey.FitnessMachineDuration]: {
