@@ -18,7 +18,7 @@ public struct WorkoutSample: Encodable {
     /// The activity type of the workout as a raw unsigned integer value.
     public let activityType: UInt
     
-    // Representing additional activities that are part of the workout.
+    // Represents additional activities that are part of the workout.
     public let workoutActivities: [WorkoutActivity]?
 
     /// Additional metadata associated with the workout sample.
