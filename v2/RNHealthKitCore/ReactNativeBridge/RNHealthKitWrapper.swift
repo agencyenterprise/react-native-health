@@ -224,14 +224,33 @@ class RNHealthKitWrapper: NSObject {
                     processedMetadata = try WorkoutHelper.processWorkoutMetadata(metadata)
                 }
 
-                try await core?.saveCompletedWorkout(
-                    activityType: activityType,
-                    startDate: startDate,
-                    endDate: endDate,
-                    totalEnergyBurned: workout["totalEnergyBurned"] as? Double,
-                    totalDistance: workout["totalDistance"] as? Double,
-                    metadata: processedMetadata
-                )
+                let workoutActivities: [WorkoutActivity]
+                if let activities = workout["activities"] {
+                    let activityData = Data(activities)
+                    workoutActivities = try JSONDecoder().decode([WorkoutActivity].self, from: activityData)
+                }
+                
+                if #available(iOS 16.0, *) {
+                    try await core?.saveCompletedWorkout(
+                        activityType: activityType,
+                        startDate: startDate,
+                        endDate: endDate,
+                        totalEnergyBurned: workout["totalEnergyBurned"] as? Double,
+                        totalDistance: workout["totalDistance"] as? Double,
+                        activities: workoutActivities,
+                        metadata: processedMetadata
+                    )
+                } else {
+                    try await core?.saveCompletedWorkout(
+                        activityType: activityType,
+                        startDate: startDate,
+                        endDate: endDate,
+                        totalEnergyBurned: workout["totalEnergyBurned"] as? Double,
+                        totalDistance: workout["totalDistance"] as? Double,
+                        metadata: processedMetadata
+                    )
+                }
+
                 resolve(true)
             } catch {
                 reject("saveWorkout", error.localizedDescription, error)
