@@ -71,7 +71,6 @@ async function runWorkoutQuery() {
 }
 
 async function saveWorkout() {
-  // Workout configurations
   const conf1 = {
     workoutActivityType: WorkoutActivityType.Swimming,
     workoutLocationType: WorkoutSessionLocationType.Outdoor,
@@ -84,7 +83,6 @@ async function saveWorkout() {
     workoutSwimmingLocationType: WorkoutSwimmingLocationType.Unknown,
   };
 
-  // Workout activities
   const activity1 = {
     workoutConfiguration: conf1,
     startDate: new Date(2023, 8, 8, 4, 0).toISOString(),
@@ -94,12 +92,11 @@ async function saveWorkout() {
 
   const activity2 = {
     workoutConfiguration: conf2,
-    startDate: new Date(2023, 8, 8, 4, 10).toISOString(), // 5 minutes ago
-    endDate: new Date(2023, 8, 8, 4, 15).toISOString(), // 1 minute ago
+    startDate: new Date(2023, 8, 8, 4, 10).toISOString(),
+    endDate: new Date(2023, 8, 8, 4, 15).toISOString(),
     metadata: null,
   };
 
-  // Array of activities
   const activities = [activity1, activity2];
 
   const result = await RNHealthKit.saveWorkout({
