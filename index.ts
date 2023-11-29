@@ -385,15 +385,15 @@ export enum WorkoutActivityType {
 }
 
 export enum WorkoutSessionLocationType {
-  unknown = 1,
-  indoor = 2,
-  outdoor = 3
+  Unknown = 1,
+  Indoor = 2,
+  Outdoor = 3
 }
 
 export enum WorkoutSwimmingLocationType {
-  unknown = 0,
-  pool = 1,
-  openWater = 2
+  Unknown = 0,
+  Pool = 1,
+  OpenWater = 2
 }
 
 export interface WorkoutConfiguration {
@@ -441,8 +441,8 @@ export type QuantityType = {
 }
 
 export enum WaterSalinityType {
-  freshWater = 0,
-  saltWater = 1,
+  FreshWater = 0,
+  SaltWater = 1,
 }
 
 export type WorkoutMetadata = {
