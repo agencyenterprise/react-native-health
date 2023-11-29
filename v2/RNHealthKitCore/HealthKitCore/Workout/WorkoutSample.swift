@@ -18,10 +18,12 @@ public struct WorkoutSample: Encodable {
     /// The activity type of the workout as a raw unsigned integer value.
     public let activityType: UInt
     
+    // Representing additional activities that are part of the workout.
+    public let workoutActivities: [WorkoutActivity]?
+
     /// Additional metadata associated with the workout sample.
     public let metadata: [String: String]?
 
-    // TODO: Add activities | var workoutActivities: [HKWorkoutActivity]
     // TODO: Add workout events | var workoutEvents: [HKWorkoutEvent]?
     // TODO: Add statistics public var statistics: [QuantityType : QuantitySample]
 
@@ -34,6 +36,12 @@ public struct WorkoutSample: Encodable {
         self.endDate = workout.endDate.toIsoString() ?? ""
         self.duration = workout.duration
         self.activityType = workout.workoutActivityType.rawValue
+
+        if #available(iOS 16.0, *) {
+            workoutActivities = workout.workoutActivities.compactMap({ WorkoutActivity(activity: $0) })
+        } else {
+            workoutActivities = nil
+        }
         self.metadata = workout.metadata?.mapValues(String.init(describing:)) ?? [:]
     }
 }
