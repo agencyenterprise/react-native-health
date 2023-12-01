@@ -3,12 +3,11 @@ import HealthKitCore
 import HealthKit
 
 struct ContentView: View {
+    @State private var workoutDetails: String = ""
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ScrollView {
+            Text(workoutDetails)
         }
         .padding()
         .onAppear {
@@ -19,8 +18,8 @@ struct ContentView: View {
                         write: [WorkoutType.workout]
                     )
                     if HKHealthStore.isHealthDataAvailable() {
-//                        await saveWorkoutWithMetadata(core: core)
-                        dump(try await core.getCompletedWorkouts(queryParameters: .init()))
+//                        try await saveWorkoutWithMetadata(core: core)
+                        workoutDetails = (try await core.getCompletedWorkouts(queryParameters: .init(startDate: Calendar.current.date(byAdding: .day, value: -15, to: .now)!, endDate: .now))).debugDescription
                     }
                 } catch {
                     print("Error occurred: \(error)")
@@ -65,7 +64,9 @@ struct ContentView: View {
                 totalEnergyBurned: 120,
                 totalDistance: 2000,
                 activities: [activity1, activity2],
-                metadata: nil
+                metadata: [
+                    "Testing": "1235"
+                ]
             ))
         } else {
             print(try await core.saveCompletedWorkout(
