@@ -25,7 +25,7 @@ public struct WorkoutSample: Encodable {
     public let metadata: [String: String]?
 
     /// Represents statistical data associated with the workout.
-    public let statistics: [QuantityType : Statistics]?
+    public let statistics: [Statistics]?
 
     /// Initializes a `WorkoutSample` object based on an `HKWorkout` instance.
     ///
@@ -39,15 +39,11 @@ public struct WorkoutSample: Encodable {
 
         if #available(iOS 16.0, *) {
             self.workoutActivities = workout.workoutActivities.compactMap({ WorkoutActivity(activity: $0) })
-            self.statistics = workout.allStatistics.compactMap { key, value -> (QuantityType, Statistics)? in
-                guard let quantityType = QuantityType.from(key),
-                      let statistics = Statistics(from: value) else {
+            self.statistics = workout.allStatistics.compactMap { key, value -> Statistics? in
+                guard let statistics = Statistics(from: value) else {
                     return nil
                 }
-
-                return (quantityType, statistics)
-            }.reduce(into: [QuantityType: Statistics]()) { dict, tuple in
-                dict[tuple.0] = tuple.1
+                return statistics
             }
         } else {
             self.workoutActivities = nil
