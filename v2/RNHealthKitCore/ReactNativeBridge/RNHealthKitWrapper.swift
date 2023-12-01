@@ -224,12 +224,12 @@ class RNHealthKitWrapper: NSObject {
                     processedMetadata = try WorkoutHelper.processWorkoutMetadata(metadata)
                 }
 
-                let workoutActivities: [WorkoutActivity]
-                if let activities = workout["activities"] {
-                    let activityData = Data(activities)
+                var workoutActivities: [WorkoutActivity]?
+                if let activities = workout["activities"] as? [String: Any] {
+                    let activityData = try JSONSerialization.data(withJSONObject: activities, options: [])
                     workoutActivities = try JSONDecoder().decode([WorkoutActivity].self, from: activityData)
                 }
-                
+
                 if #available(iOS 16.0, *) {
                     try await core?.saveCompletedWorkout(
                         activityType: activityType,
