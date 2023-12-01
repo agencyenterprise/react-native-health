@@ -134,6 +134,22 @@ public enum QuantityType: String, HealthKitType {
     case HeadphoneAudioExposure // Pressure,                    DiscreteEquivalentContinuousLevel
 }
 
+extension QuantityType {
+    /// Initializes a `QuantityType` with an `HKQuantityType`.
+    ///
+    /// - Parameter hkQuantityType: The `HKQuantityType` to convert.
+    /// - Returns: A corresponding `QuantityType` if a match is found, otherwise `nil`.
+    public static func from(_ hkQuantityType: HKQuantityType) -> QuantityType? {
+        let identifier = hkQuantityType.identifier
+        guard identifier.hasPrefix(hkQuantityTypePrefix) else { return nil }
+
+        let rawValue = String(identifier.dropFirst(hkQuantityTypePrefix.count))
+        return QuantityType(rawValue: rawValue)
+    }
+}
+
+extension QuantityType: Codable {}
+
 public enum WorkoutType: String, HealthKitType {
     public var type: HKSampleType {
         return .workoutType()
