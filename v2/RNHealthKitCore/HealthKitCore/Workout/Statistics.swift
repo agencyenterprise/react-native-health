@@ -32,8 +32,8 @@ public struct Statistics: Codable {
     }
 
     private static func parseToQuantity(quantityString: String?) -> Quantity? {
-        guard let quantityParts = quantityString?.description.components(separatedBy: " "),
-              quantityParts.count > 2,
+        guard let quantityParts = quantityString?.components(separatedBy: " "),
+              quantityParts.count == 2,
               let doubleValue = Double(quantityParts[0]) else {
             return nil
         }
