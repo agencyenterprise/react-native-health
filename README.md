@@ -259,6 +259,7 @@ All the documentation is under the [docs](/docs) folder. They are split into the
 
 - [getMindfulSession](docs/getMindfulSession.md)
 - [saveMindfulSession](/docs/saveMindfulSession.md)
+- [deleteAllMindfulSessions](/docs/deleteAllMindfulSessions.md)
 
 ### Sleep Methods
 
