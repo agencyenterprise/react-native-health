@@ -64,29 +64,31 @@ NSString * const kMetadataKey = @"metadata";
     return formattedWorkEvents;
 }
 
-+ (NSDate *)parseISO8601DateFromString:(NSString *)date
-{
-    @try {
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+
++ (NSDateFormatter *)iso8601DateFormatter {
+    static NSDateFormatter *dateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [NSDateFormatter new];
         NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
         dateFormatter.locale = posix;
         dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
-        return [dateFormatter dateFromString:date];
+    });
+    return dateFormatter;
+}
+
++ (NSDate *)parseISO8601DateFromString:(NSString *)date {
+    @try {
+        return [[RCTAppleHealthKit iso8601DateFormatter] dateFromString:date];
     } @catch (NSException *exception) {
         NSLog(@"RNHealth: An error occured while trying parse ISO8601 date from string");
         return nil;
     }
 }
 
-
-+ (NSString *)buildISO8601StringFromDate:(NSDate *)date
-{
++ (NSString *)buildISO8601StringFromDate:(NSDate *)date {
     @try {
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
-        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-        dateFormatter.locale = posix;
-        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ";
-        return [dateFormatter stringFromDate:date];
+        return [[RCTAppleHealthKit iso8601DateFormatter] stringFromDate:date];
     } @catch (NSException *exception) {
         NSLog(@"RNHealth: An error occured while trying parse ISO8601 string from date");
         return nil;
