@@ -16,13 +16,13 @@ Call the method:
 
 ```javascript
 AppleHealthKit.saveMindfulSession(
-  (options: HealthInputOptions),
+  (options: HealthCategoryValueOptions),
   (err: Object, results: number) => {
     if (err)
       return {
         return,
       }
-    // mindfullSession successfully saved
+    // mindfulSession successfully saved
   },
 )
 ```
