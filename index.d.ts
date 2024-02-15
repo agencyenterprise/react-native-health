@@ -361,7 +361,7 @@ declare module 'react-native-health' {
     ): void
 
     saveMindfulSession(
-      options: HealthValueOptions,
+      options: HealthCategoryValueOptions,
       callback: (error: string, result: HealthValue) => void,
     ): void
 
@@ -590,8 +590,13 @@ declare module 'react-native-health' {
   }
 
   export interface HealthActivityOptions
-    extends Omit<Omit<HealthValueOptions, 'unit'>, 'value'> {
+    extends Omit<HealthValueOptions, 'unit' | 'value'> {
     type: HealthActivity
+  }
+
+  export interface HealthCategoryValueOptions {
+    startDate: string;
+    endDate?: string;
   }
 
   export interface HealthObserverOptions {
