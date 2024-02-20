@@ -837,6 +837,13 @@ declare module 'react-native-health' {
     percent = 'percent',
     pound = 'pound',
     second = 'second',
+    liter = 'liter',
+    fluidOunceUS = 'fluidOunceUS',
+    fluidOunceImperial = 'fluidOunceImperial',
+    cupUS = 'cupUS',
+    cupImperial = 'cupImperial',
+    pintUS = 'pintUS',
+    pintImperial = 'pintImperial',
   }
 
   export enum HealthStatusCode {
