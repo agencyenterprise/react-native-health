@@ -567,34 +567,45 @@
 - (void)getWaterSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKQuantityType *dietaryWaterType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryWater];
-    HKUnit *literUnit = [HKUnit literUnit];
+    NSDictionary *unitMapping = @{
+        @"liter": [HKUnit literUnit],
+        @"fluidOunceUS": [HKUnit fluidOunceUSUnit],
+        @"fluidOunceImperial": [HKUnit fluidOunceImperialUnit],
+        @"cupUS": [HKUnit cupUSUnit],
+        @"cupImperial": [HKUnit cupImperialUnit],
+        @"pintUS": [HKUnit pintUSUnit],
+        @"pintImperial": [HKUnit pintImperialUnit],
+    };
+    NSString *unitString = input[@"unit"];
+
+    // Default to literUnit if unitString is nil or not found in the unitMapping dictionary
+    HKUnit *unit = unitMapping[unitString] ?: [HKUnit literUnit];
+
+    
     NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
     BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
     BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
-
-
+    
     if(startDate == nil) {
         callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
         return;
     }
-
-    NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
-
+    
+    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+    
     [self fetchQuantitySamplesOfType:dietaryWaterType
-                                unit:literUnit
+                                unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
                           completion:^(NSArray *results, NSError *error) {
         if(results){
             callback(@[[NSNull null], results]);
-            return;
         } else {
-            NSLog(@"An error occured while retrieving the water sample %@. The error was: ", error);
-            callback(@[RCTMakeError(@"An error occured while retrieving the water sample", error, nil)]);
-            return;
+            NSLog(@"An error occurred while retrieving the water sample %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occurred while retrieving the water sample", error, nil)]);
         }
     }];
 }
