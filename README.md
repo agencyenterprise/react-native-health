@@ -8,8 +8,18 @@ This package allows access to health & fitness data exposed by Apple Healthkit. 
 
 If you are looking for a more robust solution providing normalized data, insights and recommendations based on user's biometric data, data from multiple sources (Fitbit, Oura), or a hosted solution, please check out the [Point SDK](https://www.areyouonpoint.co/) developed by our frens.
 
+# New Version
+
+(August 2023)
+
+We're thrilled to share that we're in the midst of creating a significant update for this library. The upcoming version will be crafted using Swift (bye-bye, Objective-C! 👋) and will showcase a fresh new interface.
+
+We're currently preparing to make it available for opt-in users in the near future, and we're extending a warm invitation for you all to join us in shaping this endeavor.
+
+As we are fully focused in it, we're temporarily holding off on introducing new features. However, we're eagerly welcoming pull requests that address critical bug fixes or tackle dependency issues. Your contributions will not only be highly appreciated but also swiftly integrated and deployed. 💖
 
 # Discord
+
 <a href="https://discord.gg/d24g5XDePr"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg" alt="React Native Health official Discord"></a>
 
 ## Getting Started
@@ -141,8 +151,6 @@ client. For more information, see [background observers](/docs/background.md).
 
 ## Documentation
 
-There is a gitbook version for the documentation [here](https://docs.react-native-health.com/).
-
 All the documentation is under the [docs](/docs) folder. They are split into the following categories:
 
 ### Constants
@@ -200,11 +208,16 @@ All the documentation is under the [docs](/docs) folder. They are split into the
 
 - [getEnergyConsumedSamples](/docs/getEnergyConsumedSamples.md)
 - [getProteinSamples](/docs/getProteinSamples.md)
+- [getFiberSamples](/docs/getFiberSamples.md)
 - [getTotalFatSamples](/docs/getTotalFatSamples.md)
 - [saveFood](/docs/saveFood.md)
 - [saveWater](/docs/saveWater.md)
 - [getWater](/docs/getWater.md)
 - [getWaterSamples](/docs/getWaterSamples.md)
+- [getFiberSamples](/docs/getFiberSamples.md)
+- [getInsulinDeliverySamples](/docs/getInsulinDeliverySamples.md)
+- [saveInsulinDeliverySamples](/docs/saveInsulinDeliverySample.md)
+- [deleteInsulinDeliverySamples](/docs/deleteInsulinDeliverySample.md)
 
 ### Fitness Methods
 
@@ -259,6 +272,7 @@ All the documentation is under the [docs](/docs) folder. They are split into the
 
 - [getBloodPressureSamples](/docs/getBloodPressureSamples.md)
 - [getElectrocardiogramSamples](/docs/getElectrocardiogramSamples.md)
+- [saveHeartRateSample](/docs/saveHeartRateSample.md)
 - [getHeartRateSamples](/docs/getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](/docs/getHeartRateVariabilitySamples.md)
 - [getHeartbeatSeriesSamples](/docs/getHeartbeatSeriesSamples.md)
@@ -323,6 +337,12 @@ for some tips on getting started.
 ## References
 
 - [Apple Healthkit Documentation](https://developer.apple.com/documentation/healthkit)
+
+## Android Alternative
+
+If your app needs an Android + Health Connect integration, your princess is in another castle. You can use the package [React Native Health Connect](https://github.com/matinzd/react-native-health-connect) maintained by one of the community's dev.
+
+In case of questions or if you just want to congratz the author, you can reach out to him on our [Discord Server](https://github.com/agencyenterprise/react-native-health#discord).
 
 ## Acknowledgement
 

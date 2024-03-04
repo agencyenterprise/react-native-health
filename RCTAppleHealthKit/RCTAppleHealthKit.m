@@ -336,6 +336,11 @@ RCT_EXPORT_METHOD(getProteinSamples:(NSDictionary *)input callback:(RCTResponseS
    [self dietary_getProteinSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getFiberSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getFiberSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getTotalFatSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
    [self dietary_getTotalFatSamples:input callback:callback];
@@ -357,6 +362,12 @@ RCT_EXPORT_METHOD(getWater:(NSDictionary *)input callback:(RCTResponseSenderBloc
 {
     [self _initializeHealthStore];
     [self getWater:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveHeartRateSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self vitals_saveHeartRateSample:input callback:callback];
 }
 
 RCT_EXPORT_METHOD(getWaterSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -477,6 +488,24 @@ RCT_EXPORT_METHOD(getSixMinuteWalkTestDistance:(NSDictionary *)input callback:(R
 {
     [self _initializeHealthStore];
     [self mobility_getSixMinuteWalkTestDistance:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getInsulinDeliverySamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_getInsulinDeliverySamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(saveInsulinDeliverySample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_saveInsulinDeliverySample:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(deleteInsulinDeliverySample:(NSString *)oid callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self results_deleteInsulinDeliverySample:oid callback:callback];
 }
 
 RCT_EXPORT_METHOD(saveCarbohydratesSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -677,7 +706,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         @"MedicationRecord",
         @"ProcedureRecord",
         @"VitalSignRecord",
-        @"SleepAnalysis"
+        @"SleepAnalysis",
+        @"InsulinDelivery"
     ];
     
     NSArray *templates = @[@"healthKit:%@:new", @"healthKit:%@:failure", @"healthKit:%@:enabled", @"healthKit:%@:sample", @"healthKit:%@:setup:success", @"healthKit:%@:setup:failure"];
@@ -796,6 +826,8 @@ RCT_EXPORT_METHOD(getClinicalRecords:(NSDictionary *)input callback:(RCTResponse
         for(NSString * type in clinicalObservers) {
             [self clinical_registerObserver:type bridge:bridge hasListeners:hasListeners];
         }
+        
+        [self results_registerObservers:bridge hasListeners:hasListeners];
 
         NSLog(@"[HealthKit] Background observers added to the app");
         [self startObserving];

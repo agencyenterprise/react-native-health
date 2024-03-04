@@ -11,6 +11,7 @@ following:
 - `ActiveEnergyBurned`
 - `BasalEnergyBurned`
 - `Cycling`
+- `InsulinDelivery`
 - `HeartRate`
 - `HeartRateVariabilitySDNN`
 - `RestingHeartRate`

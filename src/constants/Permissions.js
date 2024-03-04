@@ -40,6 +40,7 @@ export const Permissions = {
   Folate: 'Folate',
   HeadphoneAudioExposure: 'HeadphoneAudioExposure',
   ImmunizationRecord: 'ImmunizationRecord',
+  InsulinDelivery: 'InsulinDelivery',
   Iodine: 'Iodine',
   Iron: 'Iron',
   LabResultRecord: 'LabResultRecord',
@@ -135,4 +136,9 @@ export const Permissions = {
   NightSweats: 'NightSweats',
   SleepChanges: 'SleepChanges',
   BladderIncontinence: 'BladderIncontinence',
+  RunningSpeed: 'RunningSpeed',
+  RunningPower: 'RunningPower',
+  RunningStrideLength: 'RunningStrideLength',
+  RunningVerticalOscillation: 'RunningVerticalOscillation',
+  RunningGroundContactTime: 'RunningGroundContactTime',
 }
