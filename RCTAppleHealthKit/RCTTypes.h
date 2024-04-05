@@ -3,6 +3,6 @@
 // Copyright (c) 2021 Greg Wilson. All rights reserved.
 //
 
-#import "Types/RCTInterval.h"
-#import "Types/RCTAggregatorType.h"
-#import "Types/RCTStatisticRequest.h"
+#import "RCTInterval.h"
+#import "RCTAggregatorType.h"
+#import "RCTStatisticRequest.h"

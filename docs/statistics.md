@@ -2,39 +2,84 @@
 
 Query statistic (aggregated) biomarkers.
 
-| Value                                       | Methods                            |
-|---------------------------------------------|------------------------------------|
-| bodyMass (body weight)                      | getStatisticBodyMass               |
-| bloodPressureSystolic (systolic pressure)   | getStatisticBloodPressureSystolic  |
-| bloodPressureDiastolic (diastolic pressure) | getStatisticBloodPressureDiastolic |
-| bloodGlucose (blood glucose)                | getStatisticBloodGlucose           |
-| bodyMassIndex (body mass index)             | getStatisticBodyMassIndex          |
-| height (body height)                        | getStatisticHeight                 |
-| stepCount (number of steps)                 | getStatisticStepCount              |
-| heartRate (pulse)                           | getStatisticHeartRate              |
-| bodyTemperature (body temperature)          | getStatisticBodyTemperature        |
-| oxygenSaturation (oxygen saturation)        | getStatisticOxygenSaturation       |
-| restingHeartRate (resting heart rate)       | getStatisticRestingHeartRate       |
-| Dietary                                     |                                    |
-| energyConsumed (energy value)               | getStatisticDietaryEnergyConsumed  |
-| protein (protein)                           | getStatisticDietaryProtein         |
-| fiber (cellulose)                           | getStatisticDietaryFiber           |
-| totalFat (fats)                             | getStatisticDietaryTotalFat        |
-| water                                       | getStatisticDietaryWater (water)   |
-| sugar                                       | getStatisticDietarySugar (sugar)   |
-| fatSaturated                                | getStatisticDietaryFatSaturated    |
-| cholesterol                                 | getStatisticDietaryCholesterol     |
-| carbohydrates                               | getStatisticDietaryCarbohydrates   |
-| calcium                                     | getStatisticDietaryCalcium         |
-| iron                                        | getStatisticDietaryIron            |
-| potassium                                   | getStatisticDietaryPotassium       |
-| sodium                                      | getStatisticDietarySodium          |
-| vitaminA                                    | getStatisticDietaryVitaminA        |
-| vitaminC                                    | getStatisticDietaryVitaminC        |
-| vitaminD                                    | getStatisticDietarySugar           |
-| Lab and Test Results                        ||
-| insulinDelivery (insulin delivery)          | getStatisticInsulinDelivery        |
-
+| Value                                       | Methods                                   |
+|---------------------------------------------|-------------------------------------------|
+| bodyMass (body weight)                      | getStatisticBodyMass                      |
+| bloodPressureSystolic (systolic pressure)   | getStatisticBloodPressureSystolic         |
+| bloodPressureDiastolic (diastolic pressure) | getStatisticBloodPressureDiastolic        |
+| bloodGlucose (blood glucose)                | getStatisticBloodGlucose                  |
+| bodyMassIndex (body mass index)             | getStatisticBodyMassIndex                 |
+| height (body height)                        | getStatisticHeight                        |
+| stepCount (number of steps)                 | getStatisticStepCount                     |
+| heartRate (pulse)                           | getStatisticHeartRate                     |
+| bodyTemperature (body temperature)          | getStatisticBodyTemperature               |
+| oxygenSaturation (oxygen saturation)        | getStatisticOxygenSaturation              |
+| restingHeartRate (resting heart rate)       | getStatisticRestingHeartRate              |
+| Dietary                                     |                                           |
+| Macronutrients                              |                                           |
+| energyConsumed (energy value)               | getStatisticDietaryEnergyConsumed         |
+| protein (protein)                           | getStatisticDietaryProtein                |
+| fiber (cellulose)                           | getStatisticDietaryFiber                  |
+| totalFat (fats)                             | getStatisticDietaryTotalFat               |
+| sugar                                       | getStatisticDietarySugar (sugar)          |
+| fatSaturated                                | getStatisticDietaryFatSaturated           |
+| fatMonounsaturated                          | getStatisticDietaryFatMonounsaturated     |
+| fatPolyunsaturated                          | getStatisticDietaryFatPolyunsaturated     |
+| cholesterol                                 | getStatisticDietaryCholesterol            |
+| carbohydrates                               | getStatisticDietaryCarbohydrates          |
+| Vitamins                                    |                                           |
+| vitaminA                                    | getStatisticDietaryVitaminA               |
+| vitaminC                                    | getStatisticDietaryVitaminC               |
+| vitaminD                                    | getStatisticDietaryVitaminD               |
+| thiamin                                     | getStatisticDietaryThiamin                |
+| riboflavin                                  | getStatisticDietaryRiboflavin             |
+| niacin                                      | getStatisticDietaryNiacin                 |
+| pantothenicAcid                             | getStatisticDietaryPantothenicAcid        |
+| vitaminB6                                   | getStatisticDietaryVitaminB6              |
+| biotin                                      | getStatisticDietaryBiotin                 |
+| vitaminB12                                  | getStatisticDietaryVitaminB12             |
+| vitaminE                                    | getStatisticDietaryVitaminE               |
+| vitaminK                                    | getStatisticDietaryVitaminK               |
+| folate                                      | getStatisticDietaryFolate                 |
+| calcium                                     | getStatisticDietaryCalcium                |
+| iron                                        | getStatisticDietaryIron                   |
+| potassium                                   | getStatisticDietaryPotassium              |
+| sodium                                      | getStatisticDietarySodium                 |
+| Minerals                                    |                                           |
+| calcium                                     | getStatisticDietaryCalcium                |
+| chloride                                    | getStatisticDietaryChloride               |
+| iron                                        | getStatisticDietaryIron                   |
+| magnesium                                   | getStatisticDietaryMagnesium              |
+| phosphorus                                  | getStatisticDietaryPhosphorus             |
+| potassium                                   | getStatisticDietaryPotassium              |
+| sodium                                      | getStatisticDietarySodium                 |
+| zinc                                        | getStatisticDietaryZinc                   |
+| Hydration                                   |                                           |
+| water                                       | getStatisticDietaryWater                  |
+| Caffeination                                |                                           |
+| caffeine                                    | getStatisticDietaryCaffeine               |
+| Ultratrace Minerals                         |                                           |
+| chromium                                    | getStatisticDietaryChromium               |
+| copper                                      | getStatisticDietaryCopper                 |
+| iodine                                      | getStatisticDietaryIodine                 |
+| manganese                                   | getStatisticDietaryManganese              |
+| molybdenum                                  | getStatisticDietaryMolybdenum             |
+| selenium                                    | getStatisticDietarySelenium               |
+| Lab and Test Results                        |                                           |
+| insulinDelivery (insulin delivery)          | getStatisticInsulinDelivery               |
+| numberOfTimesFallen                         | getStatisticNumberOfTimesFallen           |
+| peakExpiratoryFlowRate                      | getStatisticPeakExpiratoryFlowRate        |
+| peripheralPerfusionIndex                    | getStatisticPeripheralPerfusionIndex      |
+| Activity                                    |                                           |
+| distanceWheelchair                          | getStatisticDistanceWheelchair            |
+| appleExerciseTime                           | getStatisticAppleExerciseTime             |
+| Body Measurments                            |                                           |
+| appleSleepingWristTemperature               | getStatisticAppleSleepingWristTemperature |
+| Vital Signs                                 |                                           |
+| heartRateRecoveryOneMinute                  | getStatisticHeartRateRecoveryOneMinute    |
+| atrialFibrillationBurden                    | getStatisticAtrialFibrillationBurden      |
+| UV Exposure                                 |                                           |
+| uvExposure                                  | getStatisticUvExposure                    |
 
 
 ## Example call
@@ -43,20 +88,9 @@ Query statistic (aggregated) biomarkers.
 let options = {
   aggregator: HealthStatisticsCommonAggregatorType.AVERAGE,
   interval: HealthStatisticsIntervalType.DAY, // optional; default HealthStatisticsIntervalType.MONTH
-  unit: 'pound', // optional;
   startDate: new Date(2021, 0, 0).toISOString(), // optional
   endDate: new Date().toISOString(), // optional; default now
 }
-```
-For dietary and insulinDelivery:
-```typescript
-let options: HealthStatisticsDietaryInputOptions = {
-        aggregator: HealthStatisticsDietaryAggregatorType.CUMULATIVE_SUM,
-        interval: HealthStatisticsIntervalType.DAY, // optional; default HealthStatisticsIntervalType.MONTH
-        unit: 'calorie', // optional
-        startDate: new Date(2021, 0, 0).toISOString(),
-        endDate: new Date().toISOString(),
-      }
 ```
 
 Method call example:
@@ -72,13 +106,13 @@ AppleHealthKit.getStatisticBodyMass(
   },
 )
 ```
-
+For dietary biomarkers (Macronutrients, Vitamins, Minerals, Hydration, Caffeination, Ultratrace Minerals types) could be calculated average or cumulative values.
 
 ## Request payload
 
 |name|type|required|
 |---|---|---|
-|aggregator|HealthStatisticsCommonAggregatorType or HealthStatisticsStepsAggregatorType or HealthStatisticsDietaryAggregatorType|✓|
+|aggregator|HealthStatisticsCommonAggregatorType or HealthStatisticsStepsAggregatorType or CumulativeAggregatorsType|✓|
 |interval|HealthStatisticsIntervalType||
 |unit|string||
 |startDate|string|✓|
@@ -102,9 +136,8 @@ enum CumulativeAggregatorsType {
 
 export type HealthStatisticsCommonAggregatorType = GenericAggregatorsType | AverageAggregatorsType;
 
-export type HealthStatisticsStepsAggregatorType = GenericAggregatorsType | CumulativeAggregatorsType;
+export type HealthStatisticsStepsAggregatorType = GenericAggregatorsType | CumulativeAggregatorsType
 
-export type HealthStatisticsDietaryAggregatorType = CumulativeAggregatorsType
 ```
 
 ## Response
