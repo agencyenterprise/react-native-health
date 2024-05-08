@@ -733,7 +733,7 @@
     }
 
     NSMutableArray *samplesOutput = [NSMutableArray new];
-    HKSampleType *sample =[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryFiber];
+    HKSampleType *sample =[HKQuantityType quantityTypeForIdentifier:quantity];
 
     if ([sample isKindOfClass:[HKCharacteristicType class]]) {
         callback(@[RCTMakeError(@"RNHealth: Could not load data for HKCharacteristicType", nil, nil)]);
