@@ -48,7 +48,7 @@ public struct WorkoutActivity: Codable {
         try container.encode(startDate, forKey: .startDate)
         try container.encodeIfPresent(endDate, forKey: .endDate)
 
-        if let metadata = metadata {
+        if let metadata {
             let jsonData = try JSONSerialization.data(withJSONObject: metadata, options: [])
             try container.encode(jsonData, forKey: .metadata)
         }

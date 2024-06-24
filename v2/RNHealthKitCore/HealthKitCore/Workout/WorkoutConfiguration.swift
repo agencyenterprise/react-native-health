@@ -5,7 +5,7 @@ public struct WorkoutConfiguration: Codable {
     public let workoutActivityType: HKWorkoutActivityType?
     public let workoutLocationType: HKWorkoutSessionLocationType?
     public let workoutSwimmingLocationType: HKWorkoutSwimmingLocationType?
-    public let workoutLapLength: WorkoutQuantity?
+    public let workoutLapLength: Quantity?
 
     private enum CodingKeys: String, CodingKey {
         case workoutActivityType
@@ -18,7 +18,7 @@ public struct WorkoutConfiguration: Codable {
         workoutActivityType: HKWorkoutActivityType? = .other,
         workoutLocationType: HKWorkoutSessionLocationType = .unknown,
         workoutSwimmingLocationType: HKWorkoutSwimmingLocationType? = nil,
-        workoutLapLength: WorkoutQuantity? = nil
+        workoutLapLength: Quantity? = nil
     ) {
         self.workoutActivityType = workoutActivityType
         self.workoutLocationType = workoutLocationType
@@ -39,7 +39,7 @@ public struct WorkoutConfiguration: Codable {
         let workoutActivityTypeRawValue = try container.decodeIfPresent(Int.self, forKey: .workoutActivityType)
         let locationTypeRawValue = try container.decodeIfPresent(Int.self, forKey: .workoutLocationType)
         let swimmingLocationTypeRawValue = try container.decodeIfPresent(Int.self, forKey: .workoutSwimmingLocationType)
-        let lapLength = try container.decodeIfPresent(WorkoutQuantity.self, forKey: .workoutLapLength)
+        let lapLength = try container.decodeIfPresent(Quantity.self, forKey: .workoutLapLength)
 
         if let rawActivityRawValue = workoutActivityTypeRawValue {
             self.workoutActivityType = HKWorkoutActivityType(rawValue: UInt(rawActivityRawValue))

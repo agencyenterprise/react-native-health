@@ -21,6 +21,7 @@
 		D3785B392B16494A00B8C30A /* WorkoutActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3785B382B16494A00B8C30A /* WorkoutActivity.swift */; };
 		D3785B3D2B16558800B8C30A /* Quantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3785B3C2B16558800B8C30A /* Quantity.swift */; };
 		D3785B412B17996E00B8C30A /* WorkoutConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3785B402B17996E00B8C30A /* WorkoutConfiguration.swift */; };
+		D3785B432B18FF3000B8C30A /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3785B422B18FF3000B8C30A /* Statistics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +55,7 @@
 		D3785B382B16494A00B8C30A /* WorkoutActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutActivity.swift; sourceTree = "<group>"; };
 		D3785B3C2B16558800B8C30A /* Quantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quantity.swift; sourceTree = "<group>"; };
 		D3785B402B17996E00B8C30A /* WorkoutConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutConfiguration.swift; sourceTree = "<group>"; };
+		D3785B422B18FF3000B8C30A /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				D31BF2472B10FC7C00005EE7 /* WorkoutHelper.swift */,
 				D3785B382B16494A00B8C30A /* WorkoutActivity.swift */,
 				D3785B3C2B16558800B8C30A /* Quantity.swift */,
+				D3785B422B18FF3000B8C30A /* Statistics.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				7E4BFFE82AAA421200FB1383 /* WorkoutQueryParameters.swift in Sources */,
 				7E5AEBB12A5EA8EA00F74829 /* QuantitySample.swift in Sources */,
 				7E4BFFE62A9FC0ED00FB1383 /* WorkoutQueries.swift in Sources */,
+				D3785B432B18FF3000B8C30A /* Statistics.swift in Sources */,
 				7E9A84F72A548A39004622E5 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

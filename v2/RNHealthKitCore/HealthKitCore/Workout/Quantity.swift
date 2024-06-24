@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-public struct WorkoutQuantity: Codable {
+public struct Quantity: Codable {
     public let unit: HKUnit
     public let doubleValue: Double
 
@@ -31,7 +31,7 @@ public struct WorkoutQuantity: Codable {
 }
 
 extension HKQuantity {
-    public convenience init(quantity: WorkoutQuantity) {
+    public convenience init(quantity: Quantity) {
         self.init(unit: quantity.unit, doubleValue: quantity.doubleValue)
     }
 }

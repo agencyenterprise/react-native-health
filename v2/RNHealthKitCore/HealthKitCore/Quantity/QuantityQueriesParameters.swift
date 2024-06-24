@@ -15,7 +15,14 @@ public class QuantityQuery: QueryParameters {
     ///   - isUserEntered: Specifies whether to include/exclude manually entered data.
     ///   - limit: The maximum number of results to retrieve in a query (default is HKObjectQueryNoLimit).
     ///   - unit: The unit of measurement for the queried health data.
-    public init(startDate: Date?, endDate: Date?, ids: [String]?, isUserEntered: Bool? = nil, limit: Int = HKObjectQueryNoLimit, unit: HKUnit) {
+    public init(
+        startDate: Date?,
+        endDate: Date?,
+        ids: [String]?,
+        isUserEntered: Bool? = nil,
+        limit: Int = HKObjectQueryNoLimit,
+        unit: HKUnit
+    ) {
         self.unit = unit
         super.init(startDate: startDate, endDate: endDate, isUserEntered: isUserEntered, limit: limit, ids: ids)
     }

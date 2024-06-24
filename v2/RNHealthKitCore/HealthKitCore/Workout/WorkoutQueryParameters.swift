@@ -24,7 +24,14 @@ public class WorkoutQueryParameters: QueryParameters {
     ///   - ids: An array of UUIDs to filter data by specific IDs.
     ///   - isUserEntered: Specifies whether to include/exclude manually entered data.
     ///   - limit: The maximum number of results to retrieve in a query.
-    public init(startDate: Date? = nil, endDate: Date? = nil, activityTypes: [UInt]? = nil, ids: [String]? = nil, isUserEntered: Bool? = nil, limit: Int = HKObjectQueryNoLimit) {
+    public init(
+        startDate: Date? = nil,
+        endDate: Date? = nil,
+        activityTypes: [UInt]? = nil,
+        ids: [String]? = nil,
+        isUserEntered: Bool? = nil,
+        limit: Int = HKObjectQueryNoLimit
+    ) {
         self.activityTypes = activityTypes
         super.init(startDate: startDate, endDate: endDate, isUserEntered: isUserEntered, limit: limit, ids: ids)
     }
