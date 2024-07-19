@@ -130,10 +130,17 @@
     NSTimeInterval duration = [RCTAppleHealthKit doubleFromOptions:input key:@"duration" withDefault:(NSTimeInterval)0];
     HKQuantity *totalEnergyBurned = [RCTAppleHealthKit hkQuantityFromOptions:input valueKey:@"energyBurned" unitKey:@"energyBurnedUnit"];
     HKQuantity *totalDistance = [RCTAppleHealthKit hkQuantityFromOptions:input valueKey:@"distance" unitKey:@"distanceUnit"];
-
+    NSString *workoutBrandName = [RCTAppleHealthKit stringFromOptions:input key:@"workoutBrandName" withDefault:nil];
+    
+    NSDictionary *metadata = nil;
+    if (workoutBrandName) {
+        metadata = @{
+            HKMetadataKeyWorkoutBrandName: workoutBrandName
+        };
+    }
 
     HKWorkout *workout = [
-                          HKWorkout workoutWithActivityType:type startDate:startDate endDate:endDate workoutEvents:nil totalEnergyBurned:totalEnergyBurned totalDistance:totalDistance metadata: nil
+                          HKWorkout workoutWithActivityType:type startDate:startDate endDate:endDate workoutEvents:nil totalEnergyBurned:totalEnergyBurned totalDistance:totalDistance metadata: metadata
                           ];
 
     void (^completion)(BOOL success, NSError *error);
