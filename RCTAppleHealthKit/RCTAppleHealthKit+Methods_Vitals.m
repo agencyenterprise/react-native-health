@@ -17,7 +17,7 @@
 }
 
 - (NSString*)classificationFor:(NSString *)ecgClassification {
-    NSDictionary *classificationsDic = [NSDictionary dictionaryWithObjectsAndKeys:@"NotSet", [@(HKElectrocardiogramClassificationNotSet) stringValue], @"AttrialFibrilation", [@(HKElectrocardiogramClassificationAtrialFibrillation) stringValue], @"SinusRhytm", [@(HKElectrocardiogramClassificationSinusRhythm) stringValue], @"InconclusiveLowHeartRate", [@(HKElectrocardiogramClassificationInconclusiveLowHeartRate) stringValue], @"InconclusiveHighHeartRate", [@(HKElectrocardiogramClassificationInconclusiveHighHeartRate) stringValue], @"InconclusivePoorReading", [@(HKElectrocardiogramClassificationInconclusivePoorReading) stringValue], @"InconclusiveOther", [@(HKElectrocardiogramClassificationInconclusiveOther) stringValue], nil];
+    NSDictionary *classificationsDic = [NSDictionary dictionaryWithObjectsAndKeys:@"NotSet", [@(HKElectrocardiogramClassificationNotSet) stringValue], @"AtrialFibrillation", [@(HKElectrocardiogramClassificationAtrialFibrillation) stringValue], @"SinusRhythm", [@(HKElectrocardiogramClassificationSinusRhythm) stringValue], @"InconclusiveLowHeartRate", [@(HKElectrocardiogramClassificationInconclusiveLowHeartRate) stringValue], @"InconclusiveHighHeartRate", [@(HKElectrocardiogramClassificationInconclusiveHighHeartRate) stringValue], @"InconclusivePoorReading", [@(HKElectrocardiogramClassificationInconclusivePoorReading) stringValue], @"InconclusiveOther", [@(HKElectrocardiogramClassificationInconclusiveOther) stringValue], nil];
     
     NSString *classification = [classificationsDic objectForKey:ecgClassification];
     
