@@ -935,7 +935,7 @@
     // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
                                                                            quantitySamplePredicate:predicate
-                                                                                           options:HKStatisticsOptionCumulativeSum
+                                                                                           options:HKStatisticsOptionCumulativeSum | HKStatisticsOptionSeparateBySource
                                                                                         anchorDate:anchorDate
                                                                                 intervalComponents:interval];
 
@@ -961,10 +961,33 @@
                                            NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:startDate];
                                            NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:endDate];
 
+                                           NSMutableArray *metadata = [NSMutableArray arrayWithCapacity:1];
+
+                                           for (HKSource *source in result.sources) {
+
+                                                NSString *bundleIdentifier = source.bundleIdentifier;
+                                                NSString *name = source.name;
+                                                HKQuantity *sourceQuantity = [result sumQuantityForSource:source];
+                                                double quantity = [sourceQuantity doubleValueForUnit:unit];
+
+
+                                                if (quantity != 0) {
+                                                    NSDictionary *sourceItem = @{
+                                                                                @"sourceId" : bundleIdentifier,
+                                                                                @"sourceName" : name,
+                                                                                @"quantity" : @(quantity), 
+                                                                                };
+
+                                                    [metadata addObject:sourceItem];
+                                                }
+                                            }
+                                
+
                                            NSDictionary *elem = @{
                                                    @"value" : @(value),
                                                    @"startDate" : startDateString,
                                                    @"endDate" : endDateString,
+                                                   @"metadata" : metadata,
                                            };
                                            [data addObject:elem];
                                        }
@@ -1214,3 +1237,4 @@
 }
 
 @end
+

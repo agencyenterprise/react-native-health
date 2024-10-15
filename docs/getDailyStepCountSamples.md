@@ -32,7 +32,14 @@ Example output, value is on count unit:
   {
     "endDate": "2021-03-22T17:00:00.000-0300",
     "startDate": "2021-03-22T16:00:00.000-0300",
-    "value": 3978
+    "value": 3978,
+    "metadata": [
+      {
+        "sourceId": "com.apple.Health",
+        "sourceName": "Health",
+        "quantity": 3978
+      }
+    ]
   }
 ]
 ```
