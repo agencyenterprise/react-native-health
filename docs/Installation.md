@@ -25,9 +25,9 @@ react-native link react-native-health
 
 ```
 <key>NSHealthShareUsageDescription</key>
-<string>Read and understand health data.</string>
-<key>NSHealthUpdateUsageDescription</key>
 <string>Share workout data with other apps.</string>
+<key>NSHealthUpdateUsageDescription</key>
+<string>Read and understand health data.</string>
 ```
 
 ### Manual Installation
