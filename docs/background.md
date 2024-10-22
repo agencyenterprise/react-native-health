@@ -1,7 +1,7 @@
 # Background Observers
 
-An observer is responsible by constantly listen to Apple HealthKit updates in the
-background and notify your app in case any new data sample was added. The
+An observer is responsible for constantly listening to Apple HealthKit for updates in the
+background and notifies your app when a new data sample is added. The
 background notification is handled by iOS and the following steps show how to
 detect these changes using the react-native-health library.
 
@@ -26,9 +26,9 @@ following:
 ### Initialization
 
 If you followed the [Background Processing](https://github.com/agencyenterprise/react-native-health#background-processing)
-step in the README, you can skip this one.
+step in the README, you can skip this step.
 
-To setup that in your project, in XCode open your `ios/AppDelegate.m` file and add the
+To setup in your project, in XCode open your `ios/AppDelegate.m` file and add the
 following statements:
 
 
@@ -66,17 +66,17 @@ React Native client.
 
 ### Handling the updates
 
-This library send events to your app through the React Native bridge. To
-intercept those, you should use the `NativeAppEventEmitter`.
+This library sends events to your app through the React Native bridge. To
+intercept them, you should use the `NativeAppEventEmitter`.
 
 They follow events are triggered by the library
 
 | Event                                     | When is triggered?                                                              |
 | ----------------------------------------- | ------------------------------------------------------------------------------- |
-| `healthKit:<OBSERVER_TYPE>:setup:success` | When the background observer for that type is successfuly setup                 |
-| `healthKit:<OBSERVER_TYPE>:setup:failure` | When the background observer for that type is not successfuly setup             |
-| `healthKit:<OBSERVER_TYPE>:new`           | When the background observer received a new data sample for that type           |
-| `healthKit:<OBSERVER_TYPE>:failure`       | When the background observer received a new data sample, but an error was found |
+| `healthKit:<OBSERVER_TYPE>:setup:success` | When the background observer for that type is successfully setup                 |
+| `healthKit:<OBSERVER_TYPE>:setup:failure` | When the background observer for that type is not successfully setup             |
+| `healthKit:<OBSERVER_TYPE>:new`           | When the background observer receives a new data sample for that type           |
+| `healthKit:<OBSERVER_TYPE>:failure`       | When the background observer receives a new data sample, but an error was found |
 
 Note that the `<OBSERVER_TYPE>` token should be replaced with one of
 the available types presented in the first section. As an example, if setting
@@ -107,8 +107,8 @@ When a new sample appears, in order to get the information you need to call
 the [getSamples](./getSamples.md) or the [getClinicalRecords](./getClinicalRecords.md) method from your callback function.
 
 **Note** - Some HealthKit data types have a minimum update frequency of an
-hour. Even setting up an observer, it might take some moment until your
-app is notified by the HealthKit
+hour. Even setting up an observer, it might take some time until your
+app is notified by HealthKit.
 
 ### More Information
 
