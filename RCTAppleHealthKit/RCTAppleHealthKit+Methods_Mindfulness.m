@@ -83,5 +83,38 @@
 
 }
 
+- (void)mindfulness_deleteAllMindfulSessions:(RCTResponseSenderBlock)callback
+{
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:HKSampleSortIdentifierEndDate ascending:false];
+    HKSampleType *mindfulType = [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession];
+
+    // Get all samples from 1970 until now
+    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:0];
+    NSDate *endDate = [NSDate date];
+    NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionNone];
+
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:mindfulType predicate:predicate limit:0 sortDescriptors:@[sortDescriptor] resultsHandler:^(HKSampleQuery * _Nonnull query, NSArray<__kindof HKSample *> * _Nullable results, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"An error occured while deleting the mindful sessions %@. The error was: ", error);
+            callback(@[RCTMakeError(@"An error occured while deleting the glucose sample", error, nil)]);
+            return;
+        }
+        if (results.count == 0) {
+            callback(@[[NSNull null], @0]);
+            return;
+        }
+        [self.healthStore deleteObjects:results withCompletion:^(BOOL success, NSError * _Nullable error) {
+            if (!success) {
+                NSLog(@"An error occured while deleting the mindful sessions %@. The error was: ", error);
+                callback(@[RCTMakeError(@"An error occured while deleting the glucose sample", error, nil)]);
+                return;
+            }
+            callback(@[[NSNull null], @(results.count)]);
+        }];
+    }];
+
+    [self.healthStore executeQuery:query];
+}
+
 
 @end
