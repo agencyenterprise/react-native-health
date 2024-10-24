@@ -14,7 +14,8 @@ let options = {
   energyBurned: 50, // In Energy burned unit,
   energyBurnedUnit: 'calorie', 
   distance: 50, // In Distance unit
-  distanceUnit: 'meter'
+  distanceUnit: 'meter',
+  workoutBrandName: "Afternoon Workout"
 }
 ```
 
