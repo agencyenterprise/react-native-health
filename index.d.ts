@@ -592,6 +592,10 @@ declare module 'react-native-health' {
   export interface HealthActivityOptions
     extends Omit<Omit<HealthValueOptions, 'unit'>, 'value'> {
     type: HealthActivity
+    distance: number
+    distanceUnit: 'meter' | 'cm' | 'inch' | 'mile' | 'foot'
+    energyBurned?: number
+    energyBurnedUnit?: 'joule' | 'calorie'
   }
 
   export interface HealthObserverOptions {
