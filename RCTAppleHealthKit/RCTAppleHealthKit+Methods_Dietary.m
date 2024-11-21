@@ -549,7 +549,7 @@
                                     includeManuallyAdded:includeManuallyAdded
                                     day:date
                              completion:^(double value, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!value && value != 0) {
+        if ((!value && value != 0) || error != nil) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
