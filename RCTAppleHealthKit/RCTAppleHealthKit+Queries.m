@@ -611,6 +611,8 @@
 
                     NSString *valueString;
 
+                    NSObject*metaData = [sample metadata] ? [sample metadata] : @{};
+
                     switch (val) {
                       case HKCategoryValueSleepAnalysisInBed:
                         valueString = @"INBED";
@@ -643,6 +645,7 @@
                             @"value" : valueString,
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,
+                            @"metadata" : metaData,
                             @"sourceName" : [[[sample sourceRevision] source] name],
                             @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
                     };
