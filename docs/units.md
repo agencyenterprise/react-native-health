@@ -25,4 +25,11 @@ The following units are supported by the library
   pound
   second
   mlPerKgMin
+  liter
+  fluidOunceUSnceUS
+  fluidOunceImperialnceImperial
+  cupUS
+  cupImperialrial
+  pintUS
+  pintImperialerial
 ```

@@ -26,4 +26,11 @@ export const Units = {
   pound: 'pound',
   second: 'second',
   mlPerKgMin: 'mlPerKgMin',
+  liter: 'liter',
+  fluidOunceUSnceUS: 'fluidOunceUSnceUS',
+  fluidOunceImperialnceImperial: 'fluidOunceImperialnceImperial',
+  cupUS: 'cupUS',
+  cupImperialrial: 'cupImperialrial',
+  pintUS: 'pintUS',
+  pintImperialerial: 'pintImperialerial',
 }
