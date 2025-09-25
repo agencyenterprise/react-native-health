@@ -50,6 +50,7 @@ AppleHealthKit.initHealthKit(permissions, (error: string) => {
   Cholesterol
   ConditionRecord
   Copper
+  Chromium
   CoverageRecord
   Electrocardiogram
   EnergyConsumed

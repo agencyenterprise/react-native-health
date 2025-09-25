@@ -29,6 +29,7 @@ export const Permissions = {
   Cholesterol: 'Cholesterol',
   ConditionRecord: 'ConditionRecord',
   Copper: 'Copper',
+  Chromium: 'Chromium',
   CoverageRecord: 'CoverageRecord',
   EnergyConsumed: 'EnergyConsumed',
   EnvironmentalAudioExposure: 'EnvironmentalAudioExposure',

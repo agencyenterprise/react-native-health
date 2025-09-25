@@ -345,6 +345,171 @@ RCT_EXPORT_METHOD(getTotalFatSamples:(NSDictionary *)input callback:(RCTResponse
    [self dietary_getTotalFatSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getSugarSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getSugarSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getFatMonounsaturatedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getFatMonounsaturatedSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getFatPolyunsaturatedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getFatPolyunsaturatedSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getFatSaturatedSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getFatSaturatedSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getCholesterolSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getCholesterolSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getThiaminSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getThiaminSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getRiboflavinSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getRiboflavinSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getNiacinSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getNiacinSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getPantothenicAcidSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getPantothenicAcidSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getBiotinSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getBiotinSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getFolateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getFolateSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getVitaminASamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getVitaminASamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getVitaminB6Samples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getVitaminB6Samples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getVitaminB12Samples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getVitaminB12Samples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getVitaminCSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getVitaminCSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getVitaminDSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getVitaminDSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getVitaminESamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getVitaminESamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getVitaminKSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getVitaminKSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getCalciumSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getCalciumSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getChlorideSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getChlorideSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getIronSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getIronSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getMagnesiumSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getMagnesiumSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getPhosphorusSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getPhosphorusSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getPotassiumSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getPotassiumSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getSodiumSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getSodiumSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getZincSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getZincSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getCaffeineSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getCaffeineSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getChromiumSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getChromiumSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getCopperSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getCopperSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getIodineSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getIodineSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getManganeseSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getManganeseSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getMolybdenumSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getMolybdenumSamples:input callback:callback];
+}
+
+RCT_EXPORT_METHOD(getSeleniumSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+   [self dietary_getSeleniumSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(saveFood:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];
