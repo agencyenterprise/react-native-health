@@ -14,7 +14,7 @@
 
 - (void)vitals_saveHeartRateSample:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
-    NSDate *timeHeartRateSampleWasTaken = [RCTAppleHealthKit dateFromOptions:input key:@"date" withDefault:[NSDate date]];
+    NSDate *timeHeartRateSampleWasTaken = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:[NSDate date]];
     double heartRateValue = [RCTAppleHealthKit doubleFromOptions:input key:@"value" withDefault:-99];
     if(heartRateValue == -99){
         callback(@[RCTMakeError(@"heartRateValue is required in options", nil, nil)]);
