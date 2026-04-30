@@ -115,6 +115,7 @@
 * [getBmiSamples](/docs/getBmiSamples.md)
 * [getRespiratoryRateSamples](/docs/getRespiratoryRateSamples.md)
 * [getWalkingHeartRateAverage](/docs/getWalkingHeartRateAverage.md)
+* [getAtrialFibrillationBurdenSamples](/docs/getAtrialFibrillationBurdenSamples.md)
 * [saveBmi](/docs/saveBmi.md)
 
 ## Workout Methods

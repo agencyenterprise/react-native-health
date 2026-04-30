@@ -471,6 +471,12 @@ RCT_EXPORT_METHOD(getElectrocardiogramSamples:(NSDictionary *)input callback:(RC
     [self vitals_getElectrocardiogramSamples:input callback:callback];
 }
 
+RCT_EXPORT_METHOD(getAtrialFibrillationBurdenSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
+{
+    [self _initializeHealthStore];
+    [self vitals_getAtrialFibrillationBurdenSamples:input callback:callback];
+}
+
 RCT_EXPORT_METHOD(getBloodGlucoseSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
 {
     [self _initializeHealthStore];

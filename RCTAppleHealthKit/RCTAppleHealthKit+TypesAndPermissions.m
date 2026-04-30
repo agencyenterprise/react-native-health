@@ -217,6 +217,8 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation];
     } else if ([@"Electrocardiogram" isEqualToString:key] && systemVersion >= 14.0) {
         return HKObjectType.electrocardiogramType;
+    } else if ([@"AtrialFibrillationBurden" isEqualToString:key] && systemVersion >= 16.0) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierAtrialFibrillationBurden];
     }
 
     // Sleep

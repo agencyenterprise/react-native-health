@@ -122,6 +122,7 @@ The available Healthkit identifiers are supported
 | ActiveEnergyBurned     | [HKQuantityTypeIdentifierActiveEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615771-activeenergyburned?language=objc) | ✓    |       |
 | ActivitySummary        | [HKActivitySummaryType](https://developer.apple.com/documentation/healthkit/hkactivitysummarytype?language=objc) | ✓    |       |
 | AllergyRecord          | [HKClinicalTypeIdentifierAllergyRecord](https://developer.apple.com/documentation/healthkit/hkclinicaltypeidentifierallergyrecord?language=objc) | ✓    |       |
+| AtrialFibrillationBurden | [HKQuantityTypeIdentifierAtrialFibrillationBurden](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifieratrialfibrillationburden?language=objc) | ✓    |       |
 | BasalEnergyBurned      | [HKQuantityTypeIdentifierBasalEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/1615512-basalenergyburned?language=objc)   | ✓    |       |
 | BiologicalSex          | [HKCharacteristicTypeIdentifierBiologicalSex](https://developer.apple.com/reference/Healthkit/hkcharacteristictypeidentifierbiologicalsex?language=objc)            | ✓    |       |
 | BloodType    | [HKCharacteristicTypeIdentifierBloodType](https://developer.apple.com/documentation/healthkit/hkcharacteristictypeidentifierbloodtype?language=objc)            | ✓    |     |

@@ -105,6 +105,7 @@
 
 - [getBloodPressureSamples](getBloodPressureSamples.md)
 - [getElectrocardiogramSamples](getElectrocardiogramSamples.md)
+- [getAtrialFibrillationBurdenSamples](getAtrialFibrillationBurdenSamples.md)
 - [getHeartRateSamples](getHeartRateSamples.md)
 - [getHeartRateVariabilitySamples](getHeartRateVariabilitySamples.md)
 - [getHeartbeatSeriesSamples](getHeartbeatSeriesSamples.md)

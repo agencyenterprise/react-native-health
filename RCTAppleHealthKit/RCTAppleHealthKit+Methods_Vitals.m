@@ -642,4 +642,42 @@
      }
  }
 
+- (void)vitals_getAtrialFibrillationBurdenSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+ {
+     if (@available(iOS 16.0, *)) {
+
+         HKQuantityType *atrialFibrillationBurdenType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierAtrialFibrillationBurden];
+
+        HKUnit *unit = [HKUnit percentUnit];
+
+        NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+        BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+        NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+        NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+        if(startDate == nil){
+            callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+            return;
+        }
+        NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+        [self fetchQuantitySamplesOfType:atrialFibrillationBurdenType
+                                    unit:unit
+                            predicate:predicate
+                            ascending:ascending
+                                limit:limit
+                            completion:^(NSArray *results, NSError *error) {
+            if(results){
+                callback(@[[NSNull null], results]);
+                return;
+            } else {
+                NSLog(@"error getting Atrial fibrillation: %@", error);
+                callback(@[RCTMakeError(@"error getting Atrial fibrillation:", error, nil)]);
+                return;
+            }
+        }];
+     } else {
+         callback(@[RCTMakeError(@"Atrial fibrillation is not available for this iOS version", nil, nil)]);
+     }
+ }
+
 @end

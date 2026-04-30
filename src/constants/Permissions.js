@@ -9,6 +9,7 @@ export const Permissions = {
   AllergyRecord: 'AllergyRecord',
   AppleExerciseTime: 'AppleExerciseTime',
   AppleStandTime: 'AppleStandTime',
+  AtrialFibrillationBurden: 'AtrialFibrillationBurden',
   BasalEnergyBurned: 'BasalEnergyBurned',
   BiologicalSex: 'BiologicalSex',
   BloodType: 'BloodType',
