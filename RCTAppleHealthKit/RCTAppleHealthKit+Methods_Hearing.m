@@ -27,11 +27,13 @@
          }
          NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+         BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
          [self fetchQuantitySamplesOfType:environmentalAudioExposureType
                                      unit:unit
                                 predicate:predicate
                                 ascending:ascending
                                     limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                                completion:^(NSArray *results, NSError *error) {
              if(results){
                  callback(@[[NSNull null], results]);
@@ -61,11 +63,13 @@
          }
          NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+         BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
          [self fetchQuantitySamplesOfType:headphoneAudioExposure
                                      unit:unit
                                 predicate:predicate
                                 ascending:ascending
                                     limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                                completion:^(NSArray *results, NSError *error) {
              if(results){
                  callback(@[[NSNull null], results]);

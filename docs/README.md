@@ -12,6 +12,9 @@
 - [isAvailable](isAvailable.md)
 - [initHealthKit](initHealthKit.md)
 - [getAuthStatus](getAuthStatus.md)
+- [getInfo](getInfo.md)
+- [getDeltaSamples](getDeltaSamples.md)
+- [configureBackgroundSync](configureBackgroundSync.md)
 
 ### Background Methods
 
@@ -51,9 +54,16 @@
 - [getBloodType](getBloodType.md)
 - [getDateOfBirth](getDateOfBirth.md)
 
-#### Clinical Records Methods
+### Clinical Records Methods
 
-- [getClinicalRecords](docs/getClinicalRecords.md)
+- [getClinicalRecords](getClinicalRecords.md)
+- [getMedicationRecords](getMedicationRecords.md)
+- [getConditionRecords](getConditionRecords.md)
+- [getAllergyRecords](getAllergyRecords.md)
+- [getImmunizationRecords](getImmunizationRecords.md)
+- [getProcedureRecords](getProcedureRecords.md)
+- [getLabRecords](getLabRecords.md)
+- [getClinicalVitalRecords](getClinicalVitalRecords.md)
 
 ### Dietary Methods
 
@@ -61,12 +71,17 @@
 - [saveWater](saveWater.md)
 - [getWater](getWater.md)
 - [getWaterSamples](getWaterSamples.md)
+- [getEnergyConsumedSamples](getEnergyConsumedSamples.md)
+- [getProteinSamples](getProteinSamples.md)
+- [getFiberSamples](getFiberSamples.md)
 - [getTotalFatSamples](getTotalFatSamples.md)
+- [getCarbohydratesSamples](getCarbohydratesSamples.md)
 
 ### Fitness Methods
 
 - [getDailyStepCountSamples](getDailyStepCountSamples.md)
 - [getStepCount](getStepCount.md)
+- [getStepCountSamples](getStepCountSamples.md)
 - [getSamples](getSamples.md)
 - [getDailyDistanceWalkingRunningSamples](getDailyDistanceWalkingRunningSamples.md)
 - [getDistanceWalkingRunning](getDistanceWalkingRunning.md)
@@ -91,6 +106,12 @@
 - [getLatestBloodAlcoholContent](getLatestBloodAlcoholContent.md)
 - [saveBloodAlcoholContent](saveBloodAlcoholContent.md)
 - [saveBloodGlucoseSample](saveBloodGlucoseSample.md)
+- [deleteBloodGlucoseSample](deleteBloodGlucoseSample.md)
+- [saveCarbohydratesSample](saveCarbohydratesSample.md)
+- [deleteCarbohydratesSample](deleteCarbohydratesSample.md)
+- [getInsulinDeliverySamples](getInsulinDeliverySamples.md)
+- [saveInsulinDeliverySample](saveInsulinDeliverySample.md)
+- [deleteInsulinDeliverySample](deleteInsulinDeliverySample.md)
 
 ### Mindfulness Methods
 
@@ -104,22 +125,26 @@
 #### Vitals Methods
 
 - [getBloodPressureSamples](getBloodPressureSamples.md)
+- [saveBloodPressureSamples](saveBloodPressureSamples.md)
 - [getElectrocardiogramSamples](getElectrocardiogramSamples.md)
 - [getHeartRateSamples](getHeartRateSamples.md)
+- [saveHeartRateSample](saveHeartRateSample.md)
 - [getHeartRateVariabilitySamples](getHeartRateVariabilitySamples.md)
 - [getHeartbeatSeriesSamples](getHeartbeatSeriesSamples.md)
 - [getRestingHeartRateSamples](getRestingHeartRateSamples.md)
 - [getVo2MaxSamples](getVo2MaxSamples.md)
 - [getLatestBmi](getLatestBmi.md)
+- [getBmiSamples](getBmiSamples.md)
+- [saveBmi](saveBmi.md)
 - [getRespiratoryRateSamples](getRespiratoryRateSamples.md)
 - [getOxygenSaturationSamples](getOxygenSaturationSamples.md)
 - [getWalkingHeartRateAverage](getWalkingHeartRateAverage.md)
-- [saveBmi](saveBmi.md)
 - [getPeakFlowSamples](getPeakFlowSamples.md)
 - [getLatestPeakFlow](getLatestPeakFlow.md)
 - [savePeakFlow](savePeakFlow.md)
 
-#### Workout Methods
+### Workout Methods
 
 - [getAnchoredWorkouts](getAnchoredWorkouts.md)
+- [getWorkoutRouteSamples](getWorkoutRouteSamples.md)
 - [saveWorkout](saveWorkout.md)

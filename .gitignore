@@ -45,5 +45,11 @@ buck-out/
 android/app/libs
 android/keystores/debug.keystore
 
+# Git worktrees
+.worktrees/
+
+# Agent planning docs (development only)
+docs/superpowers/
+
 # Gitbook
 .github

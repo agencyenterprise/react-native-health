@@ -29,11 +29,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:bloodGlucoseType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
         if(results){
             callback(@[[NSNull null], results]);
@@ -63,11 +65,13 @@
 
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:insulinDeliveryType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
         if(results){
             callback(@[[NSNull null], results]);
@@ -94,11 +98,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:carbohydratesType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
         if(results){
             callback(@[[NSNull null], results]);
@@ -241,11 +247,11 @@
     }];
 }
 
-- (void)results_registerObservers:(RCTBridge *)bridge hasListeners:(bool)hasListeners
+- (void)results_registerObservers:(RCTBridge *)bridge
 {
     if (@available(iOS 11.0, *)) {
         HKSampleType* insulinType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
-        [self setObserverForType:insulinType type:@"InsulinDelivery" bridge:bridge hasListeners:hasListeners];
+        [self setObserverForType:insulinType type:@"InsulinDelivery" bridge:bridge];
     }
 }
 

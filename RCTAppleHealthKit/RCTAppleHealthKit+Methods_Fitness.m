@@ -92,6 +92,40 @@
 }
 
 
+- (void)fitness_getStepCountSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+    HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
+    NSUInteger limit = [RCTAppleHealthKit uintFromOptions:input key:@"limit" withDefault:HKObjectQueryNoLimit];
+    BOOL ascending = [RCTAppleHealthKit boolFromOptions:input key:@"ascending" withDefault:false];
+    NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
+    NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
+
+    if (startDate == nil) {
+        callback(@[RCTMakeError(@"startDate is required in options", nil, nil)]);
+        return;
+    }
+
+    HKQuantityType *stepCountType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    NSPredicate *predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+
+    [self fetchQuantitySamplesOfType:stepCountType
+                                unit:unit
+                           predicate:predicate
+                           ascending:ascending
+                               limit:limit
+                  includeManuallyAdded:includeManuallyAdded
+                          completion:^(NSArray *results, NSError *error) {
+        if (results) {
+            callback(@[[NSNull null], results]);
+        } else {
+            NSLog(@"error getting step count samples: %@", error);
+            callback(@[RCTMakeError(@"error getting step count samples", error, nil)]);
+        }
+    }];
+}
+
+
 - (void)fitness_getDailyStepSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
     HKUnit *unit = [RCTAppleHealthKit hkUnitFromOptions:input key:@"unit" withDefault:[HKUnit countUnit]];
@@ -461,11 +495,23 @@
  */
 - (void)fitness_registerObserver:(NSString *)type
                           bridge:(RCTBridge *)bridge
-                    hasListeners:(bool)hasListeners
 {
-    HKSampleType *sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
-
-    [self setObserverForType:sampleType type:type bridge:bridge hasListeners:hasListeners];
+    HKSampleType *sampleType;
+    // HKCategoryType observers must be resolved explicitly — quantityTypeFromName only handles
+    // quantity and workout types. Adding a new category type (e.g. HandwashingEvent) without
+    // a branch here will silently skip its observer via the nil-guard below.
+    if ([type isEqualToString:@"SleepAnalysis"]) {
+        sampleType = [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
+    } else if ([type isEqualToString:@"MindfulSession"]) { // HKCategoryType — not resolvable via quantityTypeFromName
+        sampleType = [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierMindfulSession];
+    } else {
+        sampleType = [RCTAppleHealthKit quantityTypeFromName:type];
+    }
+    if (!sampleType) {
+        NSLog(@"[HealthKit] Skipping observer for unknown type: %@", type);
+        return;
+    }
+    [self setObserverForType:sampleType type:type bridge:bridge];
 }
 
 @end

@@ -453,6 +453,13 @@
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
     }
 
+    // Blood Pressure Write Permission
+    if ([@"BloodPressureSystolic" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    } else if ([@"BloodPressureDiastolic" isEqualToString: key]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+    }
+
     return nil;
 }
 

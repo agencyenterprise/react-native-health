@@ -68,3 +68,18 @@ The resulting workouts in the array will look as the following:
   }[]
 }
 ```
+
+## Note on Deleted Workouts
+
+`getAnchoredWorkouts` returns only active (non-deleted) workouts. For complete delta sync including deleted workouts, use `getDeltaSamples` with type `"Workout"`:
+
+```ts
+AppleHealthKit.getDeltaSamples({
+  type: 'Workout',
+  anchor: lastAnchor
+}, (err, result) => {
+  console.log(result.added)     // New/modified workouts
+  console.log(result.deleted)   // Deleted workout IDs
+})
+```
+```

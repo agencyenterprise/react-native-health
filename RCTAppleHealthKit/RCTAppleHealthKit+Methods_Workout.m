@@ -98,8 +98,13 @@
     HKQueryAnchor *anchor = [RCTAppleHealthKit hkAnchorFromOptions:input];
     NSDate *startDate = [RCTAppleHealthKit dateFromOptions:input key:@"startDate" withDefault:nil];
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
-    
-    NSPredicate *predicate = [RCTAppleHealthKit predicateForAnchoredQueries:anchor startDate:startDate endDate:endDate];
+
+    // Do not apply date predicate when anchor is provided — same logic as getDeltaSamples.
+    // Applying a date predicate alongside an anchor silently drops samples between anchor and startDate.
+    NSPredicate *predicate = nil;
+    if (anchor == nil) {
+        predicate = [RCTAppleHealthKit predicateForAnchoredQueries:anchor startDate:startDate endDate:endDate];
+    }
 
     void (^completion)(NSDictionary *results, NSError *error);
 

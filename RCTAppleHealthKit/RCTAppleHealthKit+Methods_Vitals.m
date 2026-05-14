@@ -58,11 +58,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:heartRateType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
                               if(results){
                                   callback(@[[NSNull null], results]);
@@ -94,11 +96,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:restingHeartRateType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
                               if(results){
                                   callback(@[[NSNull null], results]);
@@ -129,11 +133,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:restingHeartRateType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
                               if(results){
                                   callback(@[[NSNull null], results]);
@@ -161,11 +167,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:hrvType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
                               if(results){
                                   callback(@[[NSNull null], results]);
@@ -298,11 +306,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:restingHeartRateType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
                               if(results){
                                   callback(@[[NSNull null], results]);
@@ -329,11 +339,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:bodyTemperatureType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
         if(results){
             callback(@[[NSNull null], results]);
@@ -400,6 +412,37 @@
     }];
 }
 
+- (void)vitals_saveBloodPressureSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
+{
+
+    NSDate *sampleDate = [RCTAppleHealthKit dateFromOptionsDefaultNow:input];
+
+    // Build systolic object
+    double systolic = [RCTAppleHealthKit doubleFromOptions:input key:@"systolic" withDefault:0];
+    HKQuantityType *systolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    HKQuantity *systolicQuantity = [HKQuantity quantityWithUnit:[HKUnit millimeterOfMercuryUnit] doubleValue:systolic];
+    HKQuantitySample *systolicSample = [HKQuantitySample quantitySampleWithType:systolicType quantity:systolicQuantity startDate:sampleDate endDate:sampleDate];
+    
+    // Build diastolic object
+    double diastolic = [RCTAppleHealthKit doubleFromOptions:input key:@"diastolic" withDefault:0];
+    HKQuantityType *diastolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+    HKQuantity *diastolicQuantity = [HKQuantity quantityWithUnit:[HKUnit millimeterOfMercuryUnit] doubleValue:diastolic];
+    HKQuantitySample *diastolicSample = [HKQuantitySample quantitySampleWithType:diastolicType quantity:diastolicQuantity startDate:sampleDate endDate:sampleDate];
+
+    HKCorrelationType *bloodPressureType = [HKObjectType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure];
+    NSSet *bloodObjects = [NSSet setWithObjects:systolicSample, diastolicSample, nil];
+
+    HKCorrelation *bloodPressure = [HKCorrelation correlationWithType:bloodPressureType startDate:sampleDate endDate:sampleDate objects:bloodObjects];
+
+    [self.healthStore saveObject:bloodPressure withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"error saving the blood pressure sample: %@", error);
+            callback(@[RCTMakeError(@"error saving the blood pressure sample", error, nil)]);
+            return;
+        }
+        callback(@[[NSNull null], @(systolic)]);
+    }];
+}
 
 - (void)vitals_getRespiratoryRateSamples:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
@@ -419,11 +462,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:respiratoryRateType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
         if(results){
             callback(@[[NSNull null], results]);
@@ -451,11 +496,13 @@
     NSDate *endDate = [RCTAppleHealthKit dateFromOptions:input key:@"endDate" withDefault:[NSDate date]];
 
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:vo2MaxType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
         if (results) {
             callback(@[[NSNull null], results]);
@@ -487,11 +534,13 @@
     }
     NSPredicate * predicate = [RCTAppleHealthKit predicateForSamplesBetweenDates:startDate endDate:endDate];
 
+    BOOL includeManuallyAdded = [RCTAppleHealthKit boolFromOptions:input key:@"includeManuallyAdded" withDefault:true];
     [self fetchQuantitySamplesOfType:oxygenSaturationType
                                 unit:unit
                            predicate:predicate
                            ascending:ascending
                                limit:limit
+                  includeManuallyAdded:includeManuallyAdded
                           completion:^(NSArray *results, NSError *error) {
         if(results){
             callback(@[[NSNull null], results]);
@@ -580,7 +629,14 @@
                  HKUnit *minute = [HKUnit minuteUnit];
                  HKUnit *bpmUnit = [count unitDividedByUnit:minute];
                  double averageHeartRate = [sample.averageHeartRate doubleValueForUnit:bpmUnit];
-                 
+
+                 HKDevice *dev = sample.device;
+                 NSDictionary *deviceDict = @{
+                     @"name":            dev.model                               ?: [NSNull null],
+                     @"model":           [[sample sourceRevision] productType]   ?: [NSNull null],
+                     @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                     @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                 };
                  NSDictionary *elem = @{
                       @"id" : [[sample UUID] UUIDString],
                       @"sourceName" : [[[sample sourceRevision] source] name],
@@ -590,7 +646,7 @@
                       @"classification": classification,
                       @"averageHeartRate": @(averageHeartRate),
                       @"samplingFrequency": @([sample.samplingFrequency doubleValueForUnit:HKUnit.hertzUnit]),
-                      @"device": [[sample sourceRevision] productType],
+                      @"device": deviceDict,
                       @"algorithmVersion": @([[sample metadata][HKMetadataKeyAppleECGAlgorithmVersion] intValue]),
                       @"voltageMeasurements": @[]
                   };

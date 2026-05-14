@@ -24,11 +24,8 @@
     
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                                        ascending:asc];
-    
-    // declare the block
+
     void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
-    
-    // create and assign the block
     handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
         if (!results) {
             if (completion) {
@@ -72,11 +69,8 @@
                    anchor:(HKQueryAnchor *)anchor
                     limit:(NSUInteger)lim
                completion:(void (^)(NSDictionary *, NSError *))completion {
-    
-    // declare the block
+
     void (^handlerBlock)(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error);
-    
-    // create and assign the block
     handlerBlock = ^(HKAnchoredObjectQuery *query, NSArray<__kindof HKSample *> *sampleObjects, NSArray<HKDeletedObject *> *deletedObjects, HKQueryAnchor *newAnchor, NSError *error) {
         
         if (!sampleObjects || sampleObjects == nil || [sampleObjects count] == 0) {
@@ -134,30 +128,36 @@
                 
                 if(done) {
                     //all batches successfully completed
-                    NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
-                    NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
+                    NSString *anchorString = @"";
+                    if (newAnchor != nil) {
+                        NSError *archiveError = nil;
+                        NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor requiringSecureCoding:YES error:&archiveError];
+                        if (archiveError) {
+                            NSLog(@"RNHealth: Failed to archive route anchor: %@", archiveError);
+                            return;
+                        }
+                        anchorString = [anchorData base64EncodedStringWithOptions:0];
+                    }
                     NSString *start = [RCTAppleHealthKit buildISO8601StringFromDate:routeSample.startDate];
                     NSString *end = [RCTAppleHealthKit buildISO8601StringFromDate:routeSample.endDate];
                     
-                    NSString* device = @"";
-                    if (@available(iOS 11.0, *)) {
-                        device = [[routeSample sourceRevision] productType];
-                    } else {
-                        device = [[routeSample device] name];
-                        if (!device) {
-                            device = @"iPhone";
-                        }
-                    }
-                    
-                    
+                    HKDevice *dev = routeSample.device;
+                    NSDictionary *deviceDict = @{
+                        @"name":            dev.model                                  ?: [NSNull null],
+                        @"model":           [[routeSample sourceRevision] productType] ?: [NSNull null],
+                        @"hardwareVersion": dev.hardwareVersion                        ?: [NSNull null],
+                        @"softwareVersion": dev.softwareVersion                        ?: [NSNull null],
+                    };
+
+
                     NSObject*metaData = [routeSample metadata] ? [routeSample metadata] : @{};
-                    
+
                     NSDictionary *routeElem = @{
                         @"id" : [[routeSample UUID] UUIDString],
                         @"sourceId": [[[routeSample sourceRevision] source] bundleIdentifier],
                         @"sourceName" : [[[routeSample sourceRevision] source] name],
                         @"metadata" : metaData,
-                        @"device": device,
+                        @"device": deviceDict,
                         @"start": start,
                         @"end":end,
                         @"locations": locations
@@ -215,7 +215,6 @@
                       }
 
                       if (completion) {
-                          // If quantity isn't in the database, return nil in the completion block.
                           HKQuantitySample *quantitySample = results.firstObject;
                           HKQuantity *quantity = quantitySample.quantity;
                           NSDate *startDate = quantitySample.startDate;
@@ -232,14 +231,13 @@
                          predicate:(NSPredicate *)predicate
                          ascending:(BOOL)asc
                              limit:(NSUInteger)lim
+                  includeManuallyAdded:(BOOL)includeManuallyAdded
                         completion:(void (^)(NSArray *, NSError *))completion {
 
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                                        ascending:asc];
 
-    // declare the block
     void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
-    // create and assign the block
     handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
         if (!results) {
             if (completion) {
@@ -254,20 +252,34 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
                 for (HKQuantitySample *sample in results) {
+                    if (!includeManuallyAdded && sample.metadata && [sample.metadata[HKMetadataKeyWasUserEntered] boolValue]) {
+                        continue;
+                    }
                     HKQuantity *quantity = sample.quantity;
                     double value = [quantity doubleValueForUnit:unit];
+                    NSString *unitString = [RCTAppleHealthKit normalizeUnitString:[unit unitString]];
 
                     NSString *startDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
                     NSString *endDateString = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
 
                     NSMutableDictionary *elem = [NSMutableDictionary dictionaryWithDictionary:@{
                             @"value" : @(value),
-                            @"id" : [[sample UUID] UUIDString],
-                            @"sourceName" : [[[sample sourceRevision] source] name],
-                            @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
+                            @"unit" : unitString ?: [NSNull null],
+                            @"id" : [[sample UUID] UUIDString] ?: [NSNull null],
+                            @"sourceName" : [[[sample sourceRevision] source] name] ?: [NSNull null],
+                            @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier] ?: [NSNull null],
                             @"startDate" : startDateString,
                             @"endDate" : endDateString,
                     }];
+
+                    HKDevice *dev = sample.device;
+                    NSDictionary *deviceDict = @{
+                        @"name":            dev.model                               ?: [NSNull null],
+                        @"model":           [[sample sourceRevision] productType]   ?: [NSNull null],
+                        @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                        @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                    };
+                    elem[@"device"] = deviceDict;
 
                     NSDictionary *metadata = [sample metadata];
                     if (metadata) {
@@ -332,15 +344,13 @@
                                 isTracked = false;
                             }
 
-                            NSString* device = @"";
-                            if (@available(iOS 11.0, *)) {
-                                device = [[sample sourceRevision] productType];
-                            } else {
-                                device = [[sample device] name];
-                                if (!device) {
-                                    device = @"iPhone";
-                                }
-                            }
+                            HKDevice *dev = sample.device;
+                            NSDictionary *deviceDict = @{
+                                @"name":            dev.model                               ?: [NSNull null],
+                                @"model":           [[sample sourceRevision] productType]   ?: [NSNull null],
+                                @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                                @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                            };
 
                             NSDictionary *elem = @{
                                                    @"activityId" : [NSNumber numberWithInt:[sample workoutActivityType]],
@@ -351,7 +361,7 @@
                                                    @"metadata" : [sample metadata] ? [sample metadata] : [NSNull null],
                                                    @"sourceName" : [[[sample sourceRevision] source] name],
                                                    @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
-                                                   @"device": device,
+                                                   @"device": deviceDict,
                                                    @"distance" : @(distance),
                                                    @"start" : startDateString,
                                                    @"end" : endDateString
@@ -381,22 +391,20 @@
                                 isTracked = false;
                             }
 
-                            NSString* device = @"";
-                            if (@available(iOS 11.0, *)) {
-                                device = [[sample sourceRevision] productType];
-                            } else {
-                                device = [[sample device] name];
-                                if (!device) {
-                                    device = @"iPhone";
-                                }
-                            }
+                            HKDevice *dev = sample.device;
+                            NSDictionary *deviceDict = @{
+                                @"name":            dev.model                               ?: [NSNull null],
+                                @"model":           [[sample sourceRevision] productType]   ?: [NSNull null],
+                                @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                                @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                            };
 
                             NSDictionary *elem = @{
                                                    valueType : @(value),
                                                    @"tracked" : @(isTracked),
                                                    @"sourceName" : [[[sample sourceRevision] source] name],
                                                    @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
-                                                   @"device": device,
+                                                   @"device": deviceDict,
                                                    @"start" : startDateString,
                                                    @"end" : endDateString
                                                    };
@@ -526,15 +534,13 @@
                             isTracked = false;
                         }
 
-                        NSString* device = @"";
-                        if (@available(iOS 11.0, *)) {
-                            device = [[sample sourceRevision] productType];
-                        } else {
-                            device = [[sample device] name];
-                            if (!device) {
-                                device = @"iPhone";
-                            }
-                        }
+                        HKDevice *dev = sample.device;
+                        NSDictionary *deviceDict = @{
+                            @"name":            dev.model                               ?: [NSNull null],
+                            @"model":           [[sample sourceRevision] productType]   ?: [NSNull null],
+                            @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                            @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                        };
 
                         NSDictionary *elem = @{
                                                @"activityId" : [NSNumber numberWithInt:[sample workoutActivityType]],
@@ -545,7 +551,7 @@
                                                @"metadata" : [sample metadata],
                                                @"sourceName" : [[[sample sourceRevision] source] name],
                                                @"sourceId" : [[[sample sourceRevision] source] bundleIdentifier],
-                                               @"device": device,
+                                               @"device": deviceDict,
                                                @"distance" : @(distance),
                                                @"start" : startDateString,
                                                @"end" : endDateString,
@@ -559,8 +565,17 @@
                     }
                 }
 
-                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor];
-                NSString *anchorString = [anchorData base64EncodedStringWithOptions:0];
+                NSString *anchorString = @"";
+                if (newAnchor != nil) {
+                    NSError *archiveError = nil;
+                    NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor requiringSecureCoding:YES error:&archiveError];
+                    if (archiveError) {
+                        NSLog(@"RNHealth: Failed to archive anchor: %@", archiveError);
+                        completion(nil, archiveError);
+                        return;
+                    }
+                    anchorString = [anchorData base64EncodedStringWithOptions:0];
+                }
                 completion(@{
                             @"anchor": anchorString,
                             @"data": data,
@@ -578,6 +593,460 @@
     [self.healthStore executeQuery:query];
 }
 
+- (void)fetchAnchoredSamplesOfType:(HKQuantityType *)quantityType
+                              unit:(HKUnit *)unit
+                         predicate:(NSPredicate *)predicate
+                            anchor:(HKQueryAnchor *)anchor
+                             limit:(NSUInteger)lim
+                includeManuallyAdded:(BOOL)includeManuallyAdded
+                        completion:(void (^)(NSDictionary *, NSError *))completion {
+
+    void (^handlerBlock)(HKAnchoredObjectQuery *query,
+                         NSArray<__kindof HKSample *> *sampleObjects,
+                         NSArray<HKDeletedObject *> *deletedObjects,
+                         HKQueryAnchor *newAnchor,
+                         NSError *error);
+
+    handlerBlock = ^(HKAnchoredObjectQuery *query,
+                     NSArray<__kindof HKSample *> *sampleObjects,
+                     NSArray<HKDeletedObject *> *deletedObjects,
+                     HKQueryAnchor *newAnchor,
+                     NSError *error) {
+
+        if (error) {
+            if (completion) { completion(nil, error); }
+            return;
+        }
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSMutableArray *added   = [NSMutableArray arrayWithCapacity:sampleObjects.count];
+            NSMutableArray *deleted = [NSMutableArray arrayWithCapacity:deletedObjects.count];
+            NSUInteger serializationErrors = 0;
+
+            for (HKQuantitySample *sample in sampleObjects) {
+                // Skip user-entered samples if includeManuallyAdded is false
+                if (!includeManuallyAdded && sample.metadata && [sample.metadata[HKMetadataKeyWasUserEntered] boolValue]) {
+                    continue;
+                }
+                @try {
+                    double value        = [sample.quantity doubleValueForUnit:unit];
+                    NSString *startDate = [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate];
+                    NSString *endDate   = [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate];
+                    NSString *unitString = [RCTAppleHealthKit normalizeUnitString:[unit unitString]];
+                    HKDevice *dev = sample.device;
+                    NSDictionary *deviceDict = @{
+                        @"name":            dev.model                               ?: [NSNull null],
+                        @"model":           [[sample sourceRevision] productType]   ?: [NSNull null],
+                        @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                        @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                    };
+                    [added addObject:@{
+                        @"id":         [[sample UUID] UUIDString],
+                        @"value":      @(value),
+                        @"unit":       unitString,
+                        @"startDate":  startDate,
+                        @"endDate":    endDate,
+                        @"sourceName": [[[sample sourceRevision] source] name] ?: @"",
+                        @"sourceId":   [[[sample sourceRevision] source] bundleIdentifier] ?: @"",
+                        @"device":     deviceDict,
+                        @"metadata":   sample.metadata ?: @{},
+                    }];
+                } @catch (NSException *e) {
+                    NSLog(@"RNHealth: fetchAnchoredSamplesOfType: skipping sample %@ (%@: %@)",
+                          [[sample UUID] UUIDString], e.name, e.reason);
+                    serializationErrors++;
+                }
+            }
+
+            for (HKDeletedObject *obj in deletedObjects) {
+                [deleted addObject:@{ @"id": [[obj UUID] UUIDString] }];
+            }
+
+            NSString *anchorString = @"";
+            if (newAnchor != nil) {
+                NSError *archiveError = nil;
+                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor requiringSecureCoding:YES error:&archiveError];
+                if (archiveError) {
+                    NSLog(@"RNHealth: Failed to archive anchor: %@", archiveError);
+                    if (completion) {
+                        completion(nil, archiveError);
+                    }
+                    return;
+                }
+                anchorString = [anchorData base64EncodedStringWithOptions:0];
+            }
+
+            NSMutableDictionary *result = [@{
+                @"anchor":  anchorString,
+                @"added":   added,
+                @"deleted": deleted,
+            } mutableCopy];
+
+            // Signal partial failure: if samples failed serialization, include error count
+            // so JS side knows the batch was incomplete
+            if (serializationErrors > 0) {
+                result[@"serializationErrors"] = @(serializationErrors);
+            }
+
+            if (completion) {
+                completion(result, nil);
+            }
+        });
+    };
+
+    HKAnchoredObjectQuery *query = [[HKAnchoredObjectQuery alloc]
+        initWithType:quantityType
+           predicate:predicate
+              anchor:anchor
+               limit:lim
+      resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+}
+
+// ─── Anchored category samples (Sleep) ───────────────────────────────────────
+
+- (void)fetchAnchoredCategorySamplesOfType:(HKCategoryType *)categoryType
+                                  predicate:(NSPredicate *)predicate
+                                     anchor:(HKQueryAnchor *)anchor
+                                      limit:(NSUInteger)lim
+                                 completion:(void (^)(NSDictionary *, NSError *))completion {
+
+    void (^handlerBlock)(HKAnchoredObjectQuery *,
+                         NSArray<__kindof HKSample *> *,
+                         NSArray<HKDeletedObject *> *,
+                         HKQueryAnchor *,
+                         NSError *);
+
+    handlerBlock = ^(HKAnchoredObjectQuery *query,
+                     NSArray<__kindof HKSample *> *sampleObjects,
+                     NSArray<HKDeletedObject *> *deletedObjects,
+                     HKQueryAnchor *newAnchor,
+                     NSError *error) {
+        if (error) {
+            if (completion) { completion(nil, error); }
+            return;
+        }
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSMutableArray *added   = [NSMutableArray arrayWithCapacity:sampleObjects.count];
+            NSMutableArray *deleted = [NSMutableArray arrayWithCapacity:deletedObjects.count];
+            NSUInteger serializationErrors = 0;
+
+            for (HKCategorySample *sample in sampleObjects) {
+                @try {
+                    NSString *valueString;
+                    switch (sample.value) {
+                        case HKCategoryValueSleepAnalysisInBed:      valueString = @"INBED";   break;
+                        case HKCategoryValueSleepAnalysisAsleep:     valueString = @"ASLEEP";  break;
+                        case HKCategoryValueSleepAnalysisAsleepCore: valueString = @"CORE";    break;
+                        case HKCategoryValueSleepAnalysisAsleepDeep: valueString = @"DEEP";    break;
+                        case HKCategoryValueSleepAnalysisAsleepREM:  valueString = @"REM";     break;
+                        case HKCategoryValueSleepAnalysisAwake:      valueString = @"AWAKE";   break;
+                        default:                                      valueString = @"UNKNOWN"; break;
+                    }
+                    HKDevice *dev = sample.device;
+                    NSDictionary *deviceDict = @{
+                        @"name":            dev.model                               ?: [NSNull null],
+                        @"model":           [[sample sourceRevision] productType]   ?: [NSNull null],
+                        @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                        @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                    };
+                    [added addObject:@{
+                        @"id":         [[sample UUID] UUIDString],
+                        @"value":      valueString,
+                        @"startDate":  [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
+                        @"endDate":    [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate],
+                        @"sourceName": [[[sample sourceRevision] source] name] ?: @"",
+                        @"sourceId":   [[[sample sourceRevision] source] bundleIdentifier] ?: @"",
+                        @"device":     deviceDict,
+                        @"metadata":   sample.metadata ?: @{},
+                    }];
+                } @catch (NSException *e) {
+                    NSLog(@"RNHealth: fetchAnchoredCategorySamplesOfType: skipping sample %@ (%@: %@)",
+                          [[sample UUID] UUIDString], e.name, e.reason);
+                    serializationErrors++;
+                }
+            }
+
+            for (HKDeletedObject *obj in deletedObjects) {
+                [deleted addObject:@{ @"id": [[obj UUID] UUIDString] }];
+            }
+
+            NSString *anchorString = @"";
+            if (newAnchor != nil) {
+                NSError *archiveError = nil;
+                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor
+                                                            requiringSecureCoding:YES
+                                                                            error:&archiveError];
+                if (archiveError) {
+                    NSLog(@"RNHealth: Failed to archive anchor: %@", archiveError);
+                    if (completion) { completion(nil, archiveError); }
+                    return;
+                }
+                anchorString = [anchorData base64EncodedStringWithOptions:0];
+            }
+
+            NSMutableDictionary *result = [@{
+                @"anchor":  anchorString,
+                @"added":   added,
+                @"deleted": deleted,
+            } mutableCopy];
+            if (serializationErrors > 0) {
+                result[@"serializationErrors"] = @(serializationErrors);
+            }
+            if (completion) {
+                completion(result, nil);
+            }
+        });
+    };
+
+    HKAnchoredObjectQuery *query = [[HKAnchoredObjectQuery alloc]
+        initWithType:categoryType
+           predicate:predicate
+              anchor:anchor
+               limit:lim
+      resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+}
+
+// ─── Anchored correlation samples (BloodPressure) ────────────────────────────
+
+- (void)fetchAnchoredCorrelationSamplesOfType:(HKCorrelationType *)correlationType
+                                     predicate:(NSPredicate *)predicate
+                                        anchor:(HKQueryAnchor *)anchor
+                                         limit:(NSUInteger)lim
+                                    completion:(void (^)(NSDictionary *, NSError *))completion {
+
+    HKQuantityType *systolicType  = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    HKQuantityType *diastolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+    HKUnit *mmHg = [HKUnit millimeterOfMercuryUnit];
+
+    void (^handlerBlock)(HKAnchoredObjectQuery *,
+                         NSArray<__kindof HKSample *> *,
+                         NSArray<HKDeletedObject *> *,
+                         HKQueryAnchor *,
+                         NSError *);
+
+    handlerBlock = ^(HKAnchoredObjectQuery *query,
+                     NSArray<__kindof HKSample *> *sampleObjects,
+                     NSArray<HKDeletedObject *> *deletedObjects,
+                     HKQueryAnchor *newAnchor,
+                     NSError *error) {
+        if (error) {
+            if (completion) { completion(nil, error); }
+            return;
+        }
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSMutableArray *added   = [NSMutableArray arrayWithCapacity:sampleObjects.count];
+            NSMutableArray *deleted = [NSMutableArray arrayWithCapacity:deletedObjects.count];
+            NSUInteger serializationErrors = 0;
+
+            for (HKCorrelation *sample in sampleObjects) {
+                @try {
+                    HKQuantitySample *sys = [sample objectsForType:systolicType].anyObject;
+                    HKQuantitySample *dia = [sample objectsForType:diastolicType].anyObject;
+                    if (!sys || !dia) {
+                        NSLog(@"RNHealth: fetchAnchoredCorrelationSamplesOfType: incomplete BP correlation (missing sys or dia), skipping id=%@", [[sample UUID] UUIDString]);
+                        serializationErrors++;
+                        continue;
+                    }
+
+                    HKDevice *dev = sample.device;
+                    NSDictionary *deviceDict = @{
+                        @"name":            dev.model                               ?: [NSNull null],
+                        @"model":           [[sample sourceRevision] productType]   ?: [NSNull null],
+                        @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                        @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                    };
+                    [added addObject:@{
+                        @"id":                         [[sample UUID] UUIDString],
+                        @"bloodPressureSystolicValue":  @([sys.quantity doubleValueForUnit:mmHg]),
+                        @"bloodPressureDiastolicValue": @([dia.quantity doubleValueForUnit:mmHg]),
+                        @"startDate":  [RCTAppleHealthKit buildISO8601StringFromDate:sample.startDate],
+                        @"endDate":    [RCTAppleHealthKit buildISO8601StringFromDate:sample.endDate],
+                        @"sourceName": [[[sample sourceRevision] source] name] ?: @"",
+                        @"sourceId":   [[[sample sourceRevision] source] bundleIdentifier] ?: @"",
+                        @"device":     deviceDict,
+                        @"metadata":   sample.metadata ?: @{},
+                    }];
+                } @catch (NSException *e) {
+                    NSLog(@"RNHealth: fetchAnchoredCorrelationSamplesOfType: skipping sample %@ (%@: %@)",
+                          [[sample UUID] UUIDString], e.name, e.reason);
+                    serializationErrors++;
+                }
+            }
+
+            for (HKDeletedObject *obj in deletedObjects) {
+                [deleted addObject:@{ @"id": [[obj UUID] UUIDString] }];
+            }
+
+            NSString *anchorString = @"";
+            if (newAnchor != nil) {
+                NSError *archiveError = nil;
+                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor
+                                                            requiringSecureCoding:YES
+                                                                            error:&archiveError];
+                if (archiveError) {
+                    NSLog(@"RNHealth: Failed to archive anchor: %@", archiveError);
+                    if (completion) { completion(nil, archiveError); }
+                    return;
+                }
+                anchorString = [anchorData base64EncodedStringWithOptions:0];
+            }
+
+            NSMutableDictionary *result = [@{
+                @"anchor":  anchorString,
+                @"added":   added,
+                @"deleted": deleted,
+            } mutableCopy];
+            if (serializationErrors > 0) {
+                result[@"serializationErrors"] = @(serializationErrors);
+            }
+            if (completion) {
+                completion(result, nil);
+            }
+        });
+    };
+
+    HKAnchoredObjectQuery *query = [[HKAnchoredObjectQuery alloc]
+        initWithType:correlationType
+           predicate:predicate
+              anchor:anchor
+               limit:lim
+      resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+}
+
+// ─── Anchored clinical samples (FHIR / Cholesterol) ──────────────────────────
+
+- (void)fetchAnchoredClinicalSamplesOfType:(HKClinicalType *)clinicalType
+                                  predicate:(NSPredicate *)predicate
+                                     anchor:(HKQueryAnchor *)anchor
+                                      limit:(NSUInteger)lim
+                                 completion:(void (^)(NSDictionary *, NSError *))completion
+    API_AVAILABLE(ios(12.0)) {
+
+    void (^handlerBlock)(HKAnchoredObjectQuery *,
+                         NSArray<__kindof HKSample *> *,
+                         NSArray<HKDeletedObject *> *,
+                         HKQueryAnchor *,
+                         NSError *);
+
+    handlerBlock = ^(HKAnchoredObjectQuery *query,
+                     NSArray<__kindof HKSample *> *sampleObjects,
+                     NSArray<HKDeletedObject *> *deletedObjects,
+                     HKQueryAnchor *newAnchor,
+                     NSError *error) {
+        if (error) {
+            if (completion) { completion(nil, error); }
+            return;
+        }
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSMutableArray *added   = [NSMutableArray arrayWithCapacity:sampleObjects.count];
+            NSMutableArray *deleted = [NSMutableArray arrayWithCapacity:deletedObjects.count];
+            NSUInteger serializationErrors = 0;
+
+            for (HKClinicalRecord *record in sampleObjects) {
+                @try {
+                    if (!record.FHIRResource) {
+                        NSLog(@"RNHealth: fetchAnchoredClinicalSamplesOfType: record has no FHIR resource, skipping");
+                        serializationErrors++;
+                        continue;
+                    }
+                    NSError *jsonE = nil;
+                    id fhirData = [NSJSONSerialization JSONObjectWithData:record.FHIRResource.data
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&jsonE];
+                    if (!fhirData) {
+                        NSLog(@"RNHealth: fetchAnchoredClinicalSamplesOfType FHIR parse error: %@", jsonE);
+                        serializationErrors++;
+                        continue;
+                    }
+
+                    NSString *fhirRelease = @"DSTU2";
+                    NSString *fhirVersion = @"1.0.2";
+                    if (@available(iOS 14.0, *)) {
+                        HKFHIRVersion *v = record.FHIRResource.FHIRVersion;
+                        fhirRelease = v.FHIRRelease ?: fhirRelease;
+                        fhirVersion = v.stringRepresentation ?: fhirVersion;
+                    }
+
+                    HKDevice *dev = record.device;
+                    NSDictionary *deviceDict = @{
+                        @"name":            dev.model                               ?: [NSNull null],
+                        @"model":           [[record sourceRevision] productType]   ?: [NSNull null],
+                        @"hardwareVersion": dev.hardwareVersion                     ?: [NSNull null],
+                        @"softwareVersion": dev.softwareVersion                     ?: [NSNull null],
+                    };
+
+                    [added addObject:@{
+                        @"id":          [[record UUID] UUIDString],
+                        @"displayName": record.displayName ?: @"",
+                        @"fhirData":    fhirData,
+                        @"fhirRelease": fhirRelease,
+                        @"fhirVersion": fhirVersion,
+                        @"startDate":   [RCTAppleHealthKit buildISO8601StringFromDate:record.startDate],
+                        @"endDate":     [RCTAppleHealthKit buildISO8601StringFromDate:record.endDate],
+                        @"sourceName":  [[[record sourceRevision] source] name] ?: @"",
+                        @"sourceId":    [[[record sourceRevision] source] bundleIdentifier] ?: @"",
+                        @"device":      deviceDict,
+                    }];
+                } @catch (NSException *e) {
+                    NSLog(@"RNHealth: fetchAnchoredClinicalSamplesOfType: skipping record %@ (%@: %@)",
+                          [[record UUID] UUIDString], e.name, e.reason);
+                    serializationErrors++;
+                }
+            }
+
+            for (HKDeletedObject *obj in deletedObjects) {
+                [deleted addObject:@{ @"id": [[obj UUID] UUIDString] }];
+            }
+
+            NSString *anchorString = @"";
+            if (newAnchor != nil) {
+                NSError *archiveError = nil;
+                NSData *anchorData = [NSKeyedArchiver archivedDataWithRootObject:newAnchor
+                                                            requiringSecureCoding:YES
+                                                                            error:&archiveError];
+                if (archiveError) {
+                    NSLog(@"RNHealth: Failed to archive anchor: %@", archiveError);
+                    if (completion) { completion(nil, archiveError); }
+                    return;
+                }
+                anchorString = [anchorData base64EncodedStringWithOptions:0];
+            }
+
+            NSMutableDictionary *result = [@{
+                @"anchor":  anchorString,
+                @"added":   added,
+                @"deleted": deleted,
+            } mutableCopy];
+            if (serializationErrors > 0) {
+                result[@"serializationErrors"] = @(serializationErrors);
+            }
+            if (completion) {
+                completion(result, nil);
+            }
+        });
+    };
+
+    HKAnchoredObjectQuery *query = [[HKAnchoredObjectQuery alloc]
+        initWithType:clinicalType
+           predicate:predicate
+              anchor:anchor
+               limit:lim
+      resultsHandler:handlerBlock];
+
+    [self.healthStore executeQuery:query];
+}
+
+// ─── Sleep (category) ─────────────────────────────────────────────────────────
+
 - (void)fetchSleepCategorySamplesForPredicate:(NSPredicate *)predicate
                                         limit:(NSUInteger)lim
                                     ascending:(BOOL)asc
@@ -587,9 +1056,7 @@
                                                                        ascending:asc];
 
 
-    // declare the block
     void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
-    // create and assign the block
     handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
         if (!results) {
             if (completion) {
@@ -677,9 +1144,7 @@
     NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                                        ascending:asc];
 
-    // declare the block
     void (^handlerBlock)(HKSampleQuery *query, NSArray *results, NSError *error);
-    // create and assign the block
     handlerBlock = ^(HKSampleQuery *query, NSArray *results, NSError *error) {
         if (!results) {
             if (completion) {
@@ -791,14 +1256,12 @@
                               HKMetadataKeyWasUserEntered,
                               HKPredicateKeyPathEndDate, startDate,
                               HKPredicateKeyPathStartDate, endDate];
-    // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
                                                                            quantitySamplePredicate:predicate
                                                                                            options:HKStatisticsOptionCumulativeSum
                                                                                         anchorDate:anchorDate
                                                                                 intervalComponents:interval];
 
-    // Set the results handler
     query.initialResultsHandler = ^(HKStatisticsCollectionQuery *query, HKStatisticsCollection *results, NSError *error) {
         if (error) {
             // Perform proper error handling here
@@ -848,14 +1311,12 @@
                               HKMetadataKeyWasUserEntered,
                               HKPredicateKeyPathEndDate, startDate,
                               HKPredicateKeyPathStartDate, endDate];
-    // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
                                                                            quantitySamplePredicate:predicate
                                                                                            options:HKStatisticsOptionCumulativeSum
                                                                                         anchorDate:anchorDate
                                                                                 intervalComponents:interval];
 
-    // Set the results handler
     query.initialResultsHandler = ^(HKStatisticsCollectionQuery *query, HKStatisticsCollection *results, NSError *error) {
         if (error) {
             // Perform proper error handling here
@@ -932,14 +1393,12 @@
                                   HKPredicateKeyPathEndDate, startDate,
                                   HKPredicateKeyPathStartDate, endDate];
     }
-    // Create the query
     HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:quantityType
                                                                            quantitySamplePredicate:predicate
                                                                                            options:HKStatisticsOptionCumulativeSum | HKStatisticsOptionSeparateBySource
                                                                                         anchorDate:anchorDate
                                                                                 intervalComponents:interval];
 
-    // Set the results handler
     query.initialResultsHandler = ^(HKStatisticsCollectionQuery *query, HKStatisticsCollection *results, NSError *error) {
         if (error) {
             // Perform proper error handling here
@@ -1126,60 +1585,266 @@
 - (void)setObserverForType:(HKSampleType *)sampleType
                       type:(NSString *)type
                     bridge:(RCTBridge *)bridge
-                    hasListeners:(bool)hasListeners
 {
-    HKObserverQuery* query = [
-        [HKObserverQuery alloc] initWithSampleType:sampleType
-                                         predicate:nil
-                                     updateHandler:^(HKObserverQuery* query,
-                                                     HKObserverQueryCompletionHandler completionHandler,
-                                                     NSError * _Nullable error) {
-        NSLog(@"[HealthKit] New sample received from Apple HealthKit - %@", type);
+    NSString *deltaEvent        = [NSString stringWithFormat:@"healthKit:%@:delta",         type];
+    NSString *newEvent          = [NSString stringWithFormat:@"healthKit:%@:new",           type];
+    NSString *failureEvent      = [NSString stringWithFormat:@"healthKit:%@:failure",       type];
+    NSString *anchorKey         = [NSString stringWithFormat:@"RNHealth_DeltaAnchor_%@",    type];
+    NSString *setupSuccessEvent = [NSString stringWithFormat:@"healthKit:%@:setup:success", type];
+    NSString *setupFailureEvent = [NSString stringWithFormat:@"healthKit:%@:setup:failure", type];
 
-        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:new", type];
-        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:failure", type];
+    // --- Observer registration block (async continuation) ---
+    // Defined as a block so it can be called from either the seed completion block
+    // or directly — avoids blocking dispatch_group_wait on the calling thread.
+    void (^registerObserver)(void) = ^{
+        HKObserverQuery *query = [[HKObserverQuery alloc]
+            initWithSampleType:sampleType
+                     predicate:nil
+                 updateHandler:^(HKObserverQuery *query,
+                                 HKObserverQueryCompletionHandler completionHandler,
+                                 NSError * _Nullable error) {
 
-        if (error) {
-            completionHandler();
+            NSLog(@"[HealthKit] Observer fired for %@", type);
 
-            NSLog(@"[HealthKit] An error happened when receiving a new sample - %@", error.localizedDescription);
-            if(self.hasListeners) {
-                [self emitEventWithName:failureEvent andPayload:@{}];
+            if (error) {
+                completionHandler();
+                if (self.hasListeners) {
+                    [self emitEventWithName:failureEvent andPayload:@{}];
+                }
+                return;
             }
-            return;
-        }
 
-        if(self.hasListeners) {
-            [self emitEventWithName:successEvent andPayload:@{}];
-        } else {
-          NSLog(@"There is no listeners for %@", successEvent);
-        }
-        completionHandler();
-
-        NSLog(@"[HealthKit] New sample from Apple HealthKit processed - %@ %@", type, successEvent);
-    }];
-
-
-    [self.healthStore enableBackgroundDeliveryForType:sampleType
-                                            frequency:HKUpdateFrequencyImmediate
-                                       withCompletion:^(BOOL success, NSError * _Nullable error) {
-        NSString *successEvent = [NSString stringWithFormat:@"healthKit:%@:setup:success", type];
-        NSString *failureEvent = [NSString stringWithFormat:@"healthKit:%@:setup:failure", type];
-
-        if (error) {
-            NSLog(@"[HealthKit] An error happened when setting up background observer - %@", error.localizedDescription);
-            if(self.hasListeners) {
-                [self emitEventWithName:failureEvent andPayload:@{}];
+            // Background sync disabled — app must call configureBackgroundSync({ enabled: true }).
+            // Defaults to disabled if the key was never written (opt-in behaviour).
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            if ([defaults objectForKey:@"RNHealth_SyncEnabled"] == nil ||
+                ![defaults boolForKey:@"RNHealth_SyncEnabled"]) {
+                completionHandler();
+                return;
             }
-            return;
-        }
-        NSLog(@"[HealthKit] Background delivery enabled for %@", type);
-        [self.healthStore executeQuery:query];
-          if(self.hasListeners) {
-              NSLog(@"[HealthKit] Background observer set up for %@", type);
-              [self emitEventWithName:successEvent andPayload:@{}];
-          }
+
+            // Workout: bare :new only (full delta via getDeltaSamples)
+            if ([type isEqualToString:@"Workout"]) {
+                if (self.hasListeners) {
+                    [self emitEventWithName:newEvent andPayload:@{}];
+                }
+                completionHandler();
+                return;
+            }
+
+            // MindfulSession: no delta fetcher available, emit :new only
+            if ([type isEqualToString:@"MindfulSession"]) {
+                if (self.hasListeners) {
+                    [self emitEventWithName:newEvent andPayload:@{}];
+                }
+                completionHandler();
+                return;
+            }
+
+            // SleepAnalysis: full delta fetch via fetchAnchoredCategorySamplesOfType
+            if ([type isEqualToString:@"SleepAnalysis"]) {
+                NSTimeInterval syncInterval = [[NSUserDefaults standardUserDefaults]
+                    doubleForKey:@"RNHealth_SyncInterval"];
+                if (syncInterval <= 0) syncInterval = 86400.0;
+
+                NSString *lastFetchKey = [NSString stringWithFormat:@"RNHealth_LastFetch_%@", type];
+                NSDate   *lastFetch    = [[NSUserDefaults standardUserDefaults] objectForKey:lastFetchKey];
+                NSTimeInterval elapsed = lastFetch ? [[NSDate date] timeIntervalSinceDate:lastFetch] : DBL_MAX;
+
+                if (elapsed < syncInterval) {
+                    NSLog(@"[HealthKit] Skipping delta fetch for %@ (%.0fs < %.0fs interval)", type, elapsed, syncInterval);
+                    completionHandler();
+                    return;
+                }
+
+                HKQueryAnchor *storedAnchor = nil;
+                NSString *stored = [[NSUserDefaults standardUserDefaults] stringForKey:anchorKey];
+                if (stored.length) {
+                    NSData *anchorData = [[NSData alloc] initWithBase64EncodedString:stored options:0];
+                    NSError *unarchiveError = nil;
+                    storedAnchor = [NSKeyedUnarchiver unarchivedObjectOfClass:[HKQueryAnchor class]
+                                                                    fromData:anchorData
+                                                                       error:&unarchiveError];
+                    if (unarchiveError) {
+                        NSLog(@"RNHealth: Failed to unarchive sleep anchor: %@", unarchiveError);
+                    }
+                }
+
+                HKCategoryType *sleepType = [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
+                [self fetchAnchoredCategorySamplesOfType:sleepType
+                                               predicate:nil
+                                                  anchor:storedAnchor
+                                                   limit:HKObjectQueryNoLimit
+                                              completion:^(NSDictionary *results, NSError *fetchError) {
+                    completionHandler();
+
+                    if (fetchError || !results) {
+                        NSLog(@"[HealthKit] Sleep delta fetch error: %@", fetchError.localizedDescription);
+                        if (self.hasListeners) {
+                            [self emitEventWithName:failureEvent andPayload:@{}];
+                        }
+                        return;
+                    }
+
+                    NSString *newAnchorString = results[@"anchor"];
+                    if (newAnchorString.length > 0) {
+                        [[NSUserDefaults standardUserDefaults] setObject:newAnchorString forKey:anchorKey];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:lastFetchKey];
+
+                    if (self.hasListeners) {
+                        [self emitEventWithName:deltaEvent andPayload:results];
+                        [self emitEventWithName:newEvent andPayload:@{}];
+                    }
+                }];
+                return;
+            }
+
+            HKQuantityType *quantityType = (HKQuantityType *)[RCTAppleHealthKit quantityTypeFromName:type];
+            if (!quantityType) {
+                if (self.hasListeners) {
+                    [self emitEventWithName:newEvent andPayload:@{}];
+                }
+                completionHandler();
+                return;
+            }
+
+            // Time gate: skip fetch if less than the configured sync interval has elapsed.
+            // Default 86400s (24h) if configureBackgroundSync was never called.
+            NSTimeInterval syncInterval = [[NSUserDefaults standardUserDefaults]
+                doubleForKey:@"RNHealth_SyncInterval"];
+            if (syncInterval <= 0) syncInterval = 86400.0;
+
+            NSString *lastFetchKey = [NSString stringWithFormat:@"RNHealth_LastFetch_%@", type];
+            NSDate   *lastFetch    = [[NSUserDefaults standardUserDefaults] objectForKey:lastFetchKey];
+            NSTimeInterval elapsed = lastFetch ? [[NSDate date] timeIntervalSinceDate:lastFetch]
+                                               : DBL_MAX;
+
+            if (elapsed < syncInterval) {
+                NSLog(@"[HealthKit] Skipping delta fetch for %@ (%.0fs < %.0fs interval)",
+                      type, elapsed, syncInterval);
+                completionHandler(); // must always be called
+                return;
+            }
+
+            // Read stored anchor
+            HKQueryAnchor *storedAnchor = nil;
+            NSString *stored = [[NSUserDefaults standardUserDefaults] stringForKey:anchorKey];
+            if (stored.length) {
+                NSData *anchorData = [[NSData alloc] initWithBase64EncodedString:stored options:0];
+                NSError *unarchiveError = nil;
+                storedAnchor = [NSKeyedUnarchiver unarchivedObjectOfClass:[HKQueryAnchor class] fromData:anchorData error:&unarchiveError];
+                if (unarchiveError) {
+                    NSLog(@"RNHealth: Failed to unarchive anchor: %@", unarchiveError);
+                }
+            }
+
+            HKUnit *unit = [RCTAppleHealthKit defaultHKUnitForType:type];
+
+            [self fetchAnchoredSamplesOfType:quantityType
+                                        unit:unit
+                                   predicate:nil
+                                      anchor:storedAnchor
+                                       limit:HKObjectQueryNoLimit
+                          includeManuallyAdded:YES
+                                  completion:^(NSDictionary *results, NSError *fetchError) {
+
+                // Always call completionHandler — HealthKit stops background delivery if omitted
+                completionHandler();
+
+                if (fetchError || !results) {
+                    NSLog(@"[HealthKit] Delta fetch error for %@: %@", type, fetchError.localizedDescription);
+                    if (self.hasListeners) {
+                        [self emitEventWithName:failureEvent andPayload:@{}];
+                    }
+                    return;
+                }
+
+                // Persist new anchor BEFORE emitting — next delivery starts correctly
+                NSString *newAnchorString = results[@"anchor"];
+                if (newAnchorString.length > 0) {
+                    [[NSUserDefaults standardUserDefaults] setObject:newAnchorString forKey:anchorKey];
+                }
+
+                // Stamp last-fetch time so the time gate works on the next observer fire
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:lastFetchKey];
+
+                if (self.hasListeners) {
+                    [self emitEventWithName:deltaEvent andPayload:results];
+                    // Keep :new for backwards compatibility
+                    [self emitEventWithName:newEvent andPayload:@{}];
+                }
+            }];
         }];
+
+        [self.healthStore enableBackgroundDeliveryForType:sampleType
+                                                frequency:HKUpdateFrequencyImmediate
+                                           withCompletion:^(BOOL success, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"[HealthKit] Background delivery setup error for %@: %@", type, error.localizedDescription);
+                if (self.hasListeners) {
+                    [self emitEventWithName:setupFailureEvent andPayload:@{}];
+                }
+                return;
+            }
+            NSLog(@"[HealthKit] Background delivery enabled for %@", type);
+            [self.healthStore executeQuery:query];
+            if (self.hasListeners) {
+                [self emitEventWithName:setupSuccessEvent andPayload:@{}];
+            }
+        }];
+    };
+
+    // --- Anchor seeding (async, non-blocking) ---
+    // Empty-string check (.length > 0) prevents treating a previously stored empty
+    // anchor as valid — empty string passes != nil but is not a real anchor.
+    BOOL hasStoredAnchor = ([[NSUserDefaults standardUserDefaults] stringForKey:anchorKey].length > 0);
+    if (!hasStoredAnchor && ![type isEqualToString:@"Workout"]) {
+        if ([type isEqualToString:@"SleepAnalysis"]) {
+            HKCategoryType *sleepType = [HKObjectType categoryTypeForIdentifier:HKCategoryTypeIdentifierSleepAnalysis];
+            [self fetchAnchoredCategorySamplesOfType:sleepType
+                                           predicate:nil
+                                              anchor:nil
+                                               limit:0
+                                          completion:^(NSDictionary *results, NSError *error) {
+                if (error) {
+                    NSLog(@"[HealthKit] Anchor seed fetch failed for SleepAnalysis: %@", error.localizedDescription);
+                } else {
+                    NSString *seedAnchor = results[@"anchor"];
+                    if (seedAnchor.length > 0) {
+                        [[NSUserDefaults standardUserDefaults] setObject:seedAnchor forKey:anchorKey];
+                        NSLog(@"[HealthKit] Anchor seeded for SleepAnalysis");
+                    }
+                }
+                registerObserver();
+            }];
+            return;
+        }
+        HKQuantityType *qt = (HKQuantityType *)[RCTAppleHealthKit quantityTypeFromName:type];
+        if (qt && ![qt isEqual:[HKObjectType workoutType]]) {
+            HKUnit *unit = [RCTAppleHealthKit defaultHKUnitForType:type];
+            [self fetchAnchoredSamplesOfType:qt
+                                        unit:unit
+                                   predicate:nil
+                                      anchor:nil
+                                       limit:0
+                          includeManuallyAdded:YES
+                                  completion:^(NSDictionary *results, NSError *error) {
+                if (error) {
+                    NSLog(@"[HealthKit] Anchor seed fetch failed for %@: %@", type, error.localizedDescription);
+                } else {
+                    NSString *seedAnchor = results[@"anchor"];
+                    if (seedAnchor.length > 0) {
+                        [[NSUserDefaults standardUserDefaults] setObject:seedAnchor forKey:anchorKey];
+                        NSLog(@"[HealthKit] Anchor seeded for %@", type);
+                    }
+                }
+                registerObserver();
+            }];
+            return; // Observer registered from completion block above
+        }
+    }
+    registerObserver();
 }
 
 - (void)fetchActivitySummary:(NSDate *)startDate

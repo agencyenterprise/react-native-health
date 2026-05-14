@@ -3,3 +3,6 @@ RCTAppleHealthKit.xcodeproj/xcuserdata
 RCTAppleHealthKit.xcodeproj/project.xcworkspace
 .DS_Store
 example
+CLAUDE.md
+docs/superpowers/
+.claude/

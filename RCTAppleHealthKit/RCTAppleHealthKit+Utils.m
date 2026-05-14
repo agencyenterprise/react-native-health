@@ -193,9 +193,12 @@ NSString * const kMetadataKey = @"metadata";
 }
 
 /*!
-    Convert Human Readable name for a HealthKit activity into a HKObjectType format
+    Convert Human Readable name for a HealthKit data type into a HKObjectType format
 
-    @param type The human readable format
+    @param type The human readable format (e.g., 'HeartRate', 'StepCount', 'Workout')
+    @return HKSampleType for standard quantity types, or nil if type is unsupported or clinical.
+            Note: Clinical types (AllergyRecord, ConditionRecord, etc.) are NOT supported
+            by this method and must be handled via clinicalTypeFromName instead.
  */
 + (HKSampleType *)quantityTypeFromName:(NSString *)type {
     if ([type isEqual:@"ActiveEnergyBurned"]){
@@ -206,7 +209,7 @@ NSString * const kMetadataKey = @"metadata";
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
     } else if ([type isEqual:@"HeartRate"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
-    } else if ([type isEqual:@"HeartRateVariabilitySDNN"]){
+    } else if ([type isEqual:@"HeartRateVariabilitySDNN"] || [type isEqual:@"HeartRateVariability"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRateVariabilitySDNN];
     } else if ([type isEqual:@"RestingHeartRate"]){
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRestingHeartRate];
@@ -224,9 +227,29 @@ NSString * const kMetadataKey = @"metadata";
         return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     } else if ([type isEqual:@"Workout"]) {
         return [HKObjectType workoutType];
+    } else if ([type isEqual:@"DietaryCholesterol"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDietaryCholesterol];
+    } else if ([type isEqual:@"InsulinDelivery"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierInsulinDelivery];
+    } else if ([type isEqual:@"BodyMass"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    } else if ([type isEqual:@"BodyMassIndex"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex];
+    } else if ([type isEqual:@"Height"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    } else if ([type isEqual:@"BodyFatPercentage"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage];
+    } else if ([type isEqual:@"OxygenSaturation"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation];
+    } else if ([type isEqual:@"RespiratoryRate"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierRespiratoryRate];
+    } else if ([type isEqual:@"BodyTemperature"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature];
+    } else if ([type isEqual:@"BloodGlucose"]) {
+        return [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodGlucose];
     }
 
-    return [HKObjectType workoutType];
+    return nil;
 }
 
 + (HKSampleType *)clinicalTypeFromName:(NSString *)type {
@@ -261,7 +284,11 @@ NSString * const kMetadataKey = @"metadata";
     NSString *anchorString = [options objectForKey:@"anchor"];
     if (!anchorString.length) return nil;
     NSData* anchorData = [[NSData alloc] initWithBase64EncodedString:anchorString options:0];
-    HKQueryAnchor *anchor = [NSKeyedUnarchiver unarchiveObjectWithData:anchorData];
+    NSError *unarchiveError = nil;
+    HKQueryAnchor *anchor = [NSKeyedUnarchiver unarchivedObjectOfClass:[HKQueryAnchor class] fromData:anchorData error:&unarchiveError];
+    if (unarchiveError) {
+        NSLog(@"RNHealth: Failed to unarchive anchor: %@", unarchiveError);
+    }
     if(anchor == nil){
         return nil;
     }
@@ -269,90 +296,136 @@ NSString * const kMetadataKey = @"metadata";
 }
 
 
++ (HKUnit *)defaultHKUnitForType:(NSString *)type {
+    if ([@[@"HeartRate", @"RestingHeartRate", @"WalkingHeartRateAverage"] containsObject:type]) {
+        return [HKUnit unitFromString:@"count/min"];
+    }
+    if ([@[@"HeartRateVariabilitySDNN", @"HeartRateVariability"] containsObject:type]) {
+        return [HKUnit secondUnitWithMetricPrefix:HKMetricPrefixMilli];
+    }
+    if ([@[@"ActiveEnergyBurned", @"BasalEnergyBurned"] containsObject:type]) {
+        return [HKUnit kilocalorieUnit];
+    }
+    if ([@[@"Running", @"Cycling", @"Swimming"] containsObject:type]) {
+        return [HKUnit meterUnit];
+    }
+    if ([@[@"Vo2Max"] containsObject:type]) {
+        return [HKUnit unitFromString:@"ml/(kg*min)"];
+    }
+    if ([@[@"StepCount", @"FlightsClimbed", @"PushCount", @"Walking"] containsObject:type]) {
+        return [HKUnit countUnit];
+    }
+    if ([@[@"BodyMass", @"LeanBodyMass"] containsObject:type]) {
+        return [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
+    }
+    if ([@[@"Height"] containsObject:type]) {
+        return [HKUnit meterUnit];
+    }
+    if ([@[@"BodyTemperature", @"BasalBodyTemperature"] containsObject:type]) {
+        return [HKUnit degreeCelsiusUnit];
+    }
+    if ([@[@"BloodGlucose"] containsObject:type]) {
+        return [HKUnit unitFromString:@"mg/dL"];
+    }
+    if ([@[@"BloodPressureSystolic", @"BloodPressureDiastolic"] containsObject:type]) {
+        return [HKUnit millimeterOfMercuryUnit];
+    }
+    if ([@[@"RespiratoryRate"] containsObject:type]) {
+        return [HKUnit unitFromString:@"count/min"];
+    }
+    if ([@[@"OxygenSaturation", @"BodyFatPercentage"] containsObject:type]) {
+        return [HKUnit percentUnit];
+    }
+    // DietaryWater uses literUnit; not included in dietary array below
+    if ([@[@"DietaryWater"] containsObject:type]) {
+        return [HKUnit literUnit];
+    }
+    if ([type isEqual:@"DietaryEnergyConsumed"]) {
+        return [HKUnit kilocalorieUnit];
+    }
+    if ([type isEqual:@"DietaryCholesterol"]) {
+        return [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixMilli];
+    }
+    if ([@[@"DietaryProtein", @"DietaryFatTotal",
+            @"DietaryCarbohydrates", @"DietaryFiber", @"DietarySodium",
+            @"DietaryCalcium", @"DietaryIron", @"DietaryPotassium",
+            @"DietaryVitaminC", @"DietaryVitaminD"] containsObject:type]) {
+        return [HKUnit gramUnit];
+    }
+    if ([type isEqual:@"InsulinDelivery"]) {
+        return [HKUnit internationalUnit];
+    }
+    return [HKUnit countUnit];
+}
+
++ (NSString *)normalizeUnitString:(NSString *)unitString {
+    if ([unitString isEqualToString:@"mL/(kg·min)"] ||
+        [unitString isEqualToString:@"ml/(kg*min)"]) {
+        return @"ml/kg/min";
+    }
+    return unitString;
+}
+
 + (HKUnit *)hkUnitFromOptions:(NSDictionary *)options key:(NSString *)key withDefault:(HKUnit *)defaultValue {
     NSString *unitString = [options objectForKey:key];
     HKUnit *theUnit;
 
     if ([unitString isEqualToString:@"gram"]) {
          theUnit = [HKUnit gramUnit];
-    }
-    if ([unitString isEqualToString:@"kg"]) {
+    } else if ([unitString isEqualToString:@"kg"]) {
          theUnit = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
-    }
-    if ([unitString isEqualToString:@"stone"]) {
+    } else if ([unitString isEqualToString:@"stone"]) {
          theUnit = [HKUnit stoneUnit];
-    }
-    if ([unitString isEqualToString:@"pound"]) {
+    } else if ([unitString isEqualToString:@"pound"]) {
          theUnit = [HKUnit poundUnit];
-    }
-    if ([unitString isEqualToString:@"meter"]) {
+    } else if ([unitString isEqualToString:@"meter"]) {
          theUnit = [HKUnit meterUnit];
-    }
-    if ([unitString isEqualToString:@"cm"]) {
+    } else if ([unitString isEqualToString:@"cm"]) {
          theUnit = [HKUnit meterUnitWithMetricPrefix:HKMetricPrefixCenti];
-    }
-    if ([unitString isEqualToString:@"inch"]) {
+    } else if ([unitString isEqualToString:@"inch"]) {
          theUnit = [HKUnit inchUnit];
-    }
-    if ([unitString isEqualToString:@"mile"]) {
+    } else if ([unitString isEqualToString:@"mile"]) {
          theUnit = [HKUnit mileUnit];
-    }
-    if ([unitString isEqualToString:@"foot"]) {
+    } else if ([unitString isEqualToString:@"foot"]) {
          theUnit = [HKUnit footUnit];
-    }
-    if ([unitString isEqualToString:@"second"]) {
+    } else if ([unitString isEqualToString:@"second"]) {
          theUnit = [HKUnit secondUnit];
-    }
-    if ([unitString isEqualToString:@"minute"]) {
+    } else if ([unitString isEqualToString:@"minute"]) {
          theUnit = [HKUnit minuteUnit];
-    }
-    if ([unitString isEqualToString:@"hour"]) {
+    } else if ([unitString isEqualToString:@"hour"]) {
          theUnit = [HKUnit hourUnit];
-    }
-    if ([unitString isEqualToString:@"day"]) {
+    } else if ([unitString isEqualToString:@"day"]) {
          theUnit = [HKUnit dayUnit];
-    }
-    if ([unitString isEqualToString:@"joule"]) {
+    } else if ([unitString isEqualToString:@"joule"]) {
          theUnit = [HKUnit jouleUnit];
-    }
-    if ([unitString isEqualToString:@"calorie"]) {
+    } else if ([unitString isEqualToString:@"calorie"]) {
          theUnit = [HKUnit calorieUnit];
-    }
-    if ([unitString isEqualToString:@"count"]) {
+    } else if ([unitString isEqualToString:@"count"]) {
          theUnit = [HKUnit countUnit];
-    }
-    if ([unitString isEqualToString:@"percent"]) {
+    } else if ([unitString isEqualToString:@"percent"]) {
          theUnit = [HKUnit percentUnit];
-    }
-    if ([unitString isEqualToString:@"bpm"]) {
+    } else if ([unitString isEqualToString:@"bpm"]) {
          HKUnit *count = [HKUnit countUnit];
          HKUnit *minute = [HKUnit minuteUnit];
-
          theUnit = [count unitDividedByUnit:minute];
-    }
-    if ([unitString isEqualToString:@"fahrenheit"]) {
+    } else if ([unitString isEqualToString:@"fahrenheit"]) {
          theUnit = [HKUnit degreeFahrenheitUnit];
-    }
-    if ([unitString isEqualToString:@"celsius"]) {
+    } else if ([unitString isEqualToString:@"celsius"]) {
          theUnit = [HKUnit degreeCelsiusUnit];
-    }
-    if ([unitString isEqualToString:@"mmhg"]) {
+    } else if ([unitString isEqualToString:@"mmhg"]) {
          theUnit = [HKUnit millimeterOfMercuryUnit];
-    }
-    if ([unitString isEqualToString:@"mmolPerL"]) {
+    } else if ([unitString isEqualToString:@"mmolPerL"]) {
          theUnit = [[HKUnit moleUnitWithMetricPrefix:HKMetricPrefixMilli molarMass:HKUnitMolarMassBloodGlucose] unitDividedByUnit:[HKUnit literUnit]];
-    }
-    if ([unitString isEqualToString:@"literPerMinute"]) {
+    } else if ([unitString isEqualToString:@"literPerMinute"]) {
          theUnit = [[HKUnit literUnit] unitDividedByUnit:[HKUnit minuteUnit]];
-    }
-    if ([unitString isEqualToString:@"mgPerdL"]) {
+    } else if ([unitString isEqualToString:@"mgPerdL"]) {
          theUnit = [HKUnit unitFromString:@"mg/dL"];
-    }
-    if ([unitString isEqualToString:@"mlPerKgMin"]) {
-      HKUnit *ml = [HKUnit literUnitWithMetricPrefix:HKMetricPrefixMilli];
-      HKUnit *kg = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
-      HKUnit *min = [HKUnit minuteUnit];
-      theUnit = [ml unitDividedByUnit:[kg unitMultipliedByUnit:min]];
+    } else if ([unitString isEqualToString:@"ml/kg/min"] || [unitString isEqualToString:@"mlPerKgMin"]) {
+        // "ml/kg/min" is the canonical form; "mlPerKgMin" kept for existing callers
+        HKUnit *ml = [HKUnit literUnitWithMetricPrefix:HKMetricPrefixMilli];
+        HKUnit *kg = [HKUnit gramUnitWithMetricPrefix:HKMetricPrefixKilo];
+        HKUnit *min = [HKUnit minuteUnit];
+        theUnit = [ml unitDividedByUnit:[kg unitMultipliedByUnit:min]];
     }
 
     if(theUnit == nil){
