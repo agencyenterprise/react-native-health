@@ -30,7 +30,7 @@ Example output:
     data: {
       device: String,
       id: String,
-      metadata: String,
+      metadata: Object,
       sourceName: String,
       sourceId: String,
       start: String,
