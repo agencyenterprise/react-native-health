@@ -13,7 +13,7 @@ let options = {
 ```javascript
 AppleHealthKit.getWorkoutRouteSamples(
   options,
-  (err: Object, results: Array<WorkoutRouteQueryResults>) => {
+  (err: Object, results: WorkoutRouteQueryResults) => {
     if (err) {
       return
     }
@@ -30,7 +30,7 @@ Example output:
     data: {
       device: String,
       id: String,
-      metadata: String,
+      metadata: Object,
       sourceName: String,
       sourceId: String,
       start: String,
